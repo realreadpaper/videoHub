@@ -1,0 +1,45 @@
+<meta charset="utf-8"><title>f3s06 修复版 vs 原版对比</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;background:#f7f7f5;color:#222;margin:0;padding:32px;line-height:1.6}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:#777;font-size:13px;margin-bottom:18px}
+.card{background:#fff;border:1px solid #e2e2de;border-radius:10px;padding:16px;margin-bottom:20px}
+.t{font-size:15px;font-weight:600;margin-bottom:10px;color:#333}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cell{padding:8px;background:#fafaf9;border-radius:6px}
+.cell .lb{font-size:12px;color:#777;margin-bottom:6px}
+.cell img{width:100%;border-radius:4px}
+.note{background:#fffbe9;border-left:3px solid #e0b400;padding:10px 14px;font-size:13px;margin:14px 0}
+.ok{color:#1a8a4a;font-weight:600}.bad{color:#c0392b;font-weight:600}
+</style>
+<h1>f3s06 修复版 vs 原版对比</h1>
+<div class='sub'>去除 &lt;d&gt; 标签 + 增强微表情描述后重跑 · 2026-09-18</div>
+<div class='note'><span class='bad'>原版</span>：含 <code>&lt;d&gt;[Chinese] "原来你们要的定心丸..."&lt;/d&gt;</code>，人物 <code>spine straight and unnervingly calm</code>，母亲新娘 <code>frozen in place</code><br><span class='ok'>修复版</span>：去掉 &lt;d&gt; 标签，改为 <code>delivers an icy verdict in Chinese</code>，增加下颌收紧/冷笑一闪而过/母亲眨眼/新娘吞咽颤抖</div>
+<div class='card'><div class='t'>时间 2.0s</div><div class='grid'>
+<div class='cell'><div class='lb'>修复版</div><img src='cmp_v2/f3s06_v2_2.0.jpg'></div>
+<div class='cell'><div class='lb'>原版</div><img src='cmp_v2/f3s06_v1_2.0.jpg'></div>
+</div></div>
+<div class='card'><div class='t'>时间 5.5s</div><div class='grid'>
+<div class='cell'><div class='lb'>修复版</div><img src='cmp_v2/f3s06_v2_5.5.jpg'></div>
+<div class='cell'><div class='lb'>原版</div><img src='cmp_v2/f3s06_v1_5.5.jpg'></div>
+</div></div>
+<div class='card'><div class='t'>时间 7.5s</div><div class='grid'>
+<div class='cell'><div class='lb'>修复版</div><img src='cmp_v2/f3s06_v2_7.5.jpg'></div>
+<div class='cell'><div class='lb'>原版</div><img src='cmp_v2/f3s06_v1_7.5.jpg'></div>
+</div></div>
+<div class='card'><div class='t'>时间 10.0s</div><div class='grid'>
+<div class='cell'><div class='lb'>修复版</div><img src='cmp_v2/f3s06_v2_10.0.jpg'></div>
+<div class='cell'><div class='lb'>原版</div><img src='cmp_v2/f3s06_v1_10.0.jpg'></div>
+</div></div>
+<div class='card'><div class='t'>时间 12.5s</div><div class='grid'>
+<div class='cell'><div class='lb'>修复版</div><img src='cmp_v2/f3s06_v2_12.5.jpg'></div>
+<div class='cell'><div class='lb'>原版</div><img src='cmp_v2/f3s06_v1_12.5.jpg'></div>
+</div></div>
+<div class='card'><div class='t'>结论</div>
+<ul>
+<li><b>屏幕字幕</b>：修复版<b>未出现</b> "原来你们要的定心丸" 底部字幕；原版画面中文件文字清晰可读（道具文字）。</li>
+<li><b>表情/动作</b>：修复版人物有冷笑、手部犹豫/停顿、母亲手部颤抖等动态；原版构图偏重文件特写，人物偏静态。</li>
+<li><b>道具文字</b>：修复版文件上的文字显著更模糊；原版文件文字仍清晰可辨。</li>
+<li><b>构图</b>：两版差异较大——去除 &lt;d&gt; 标签后模型把视觉焦点从"文件+字幕"转向"人物表情"。</li>
+</ul>
+</div>

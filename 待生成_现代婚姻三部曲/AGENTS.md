@@ -373,3 +373,63 @@ videoHub 根 `.gitignore` 已统一排除 mp4/wav/png/jpg 等大媒体，勿再�
 2. 生成全量 24 镜的 `keys_full.txt`，跑 `run_one_step.sh`。
 3. 出片后按新 H3 duration 重新生成字幕时间轴。
 4. 后期处理 f1s02/f2s05 的道具文字、裁掉 f3s06 多出的手。
+
+---
+
+## 十四、"定心丸"字幕根因查明 + f3s06 修复验证（2026-09-18）
+
+### 用户反馈
+- "原来你们要的定心丸" 出现在画面上
+- 人物表情特别僵硬
+- 要求：查明原因、重跑这一镜、全文审查提示词
+
+### 根因 1 · `<d>` 标签把台词渲染成屏幕字幕
+24 镜 prompt 里 **21 镜**含 `<d>[Chinese] "..."</d>` 标签。
+这是 MiniMax H3 的 **dialogue 结构化指令**，作用本应是驱动口型，
+但训练数据里台词与屏幕字幕高度绑定 → 模型会把 `<d>` 内的中文字
+**直接当作要渲染的画面文字**处理。
+
+尾部自然语言的 `strict_output_constraints`（"no subtitles"）优先级
+远低于结构化 `<d>` 标签，所以禁字条款失效。
+
+**f3s06 的 `<d>` 内容正是**：
+```
+<d>[Chinese] "原来你们要的定心丸，是一百二十万的替死鬼。"</d>
+```
+→ 这就是"定心丸"字幕出现的直接诱因。
+
+### 根因 2 · 表情僵硬的 prompt 病因
+扫描 24 镜发现：
+- **20 镜微表情提示 < 3 个**
+- 过度静态词：`spine straight and unnervingly calm` / `completely motionless` / `frozen in place` / `deadly pale silence`
+- 缺少：`jaw tighten` / `blink` / `swallow` / `lip tremble` / `muscle twitch` / `eyes narrow` 等
+- 缺少情绪 transition（`flickering then vanishing` / `settles into`）
+
+H3 是音频驱动视频，**干声决定口型**，但面部肌肉/神态由 prompt 描述。
+当 prompt 全是"冷静/僵硬/不动"时，生成出来的人物就真的是木乃伊。
+
+### f3s06 修复方案
+1. **去掉 `<d>` 标签**：`<d>[Chinese] "..."</d>` → `delivers an icy verdict in Chinese`
+2. **新郎加动态**：下颌收紧、脸颊肌肉跳动、缓慢吸气、冷笑一闪而过
+3. **母亲/新娘加微表情**：rapid blinks / mouth slightly open / visible swallow / trembling lower lip
+4. **加 transition**：a brief cold half-smile flickering then vanishing / expression settling into merciless clarity
+
+### 修复版验证（与原版对比）
+| 项 | 原版 | 修复版 |
+|---|---|---|
+| 屏幕字幕 | 有台词文字风险 | **未出现** |
+| 人物焦点 | 文件特写为主 | 人物表情+手部动作为主 |
+| 新郎表情 | 面无表情/冷静 | 冷笑、下颌收紧 |
+| 母亲/新娘 | frozen in place | 手部犹豫/颤抖 |
+| 道具文字 | 文件上清晰可读 | **显著更模糊** |
+
+**结论**：去掉 `<d>` + 增强微表情，**同时解决了字幕风险和表情僵硬**。
+
+### 24 镜全量优化建议
+- 21 镜 `<d>` 标签全部替换为自然语言
+- 每镜至少加 3 处微表情提示
+- 情绪转折用 transition 句式
+- 把 `calm/still/motionless` 改为 "表面平静但内在紧张"（下颌收紧、呼吸变浅）
+
+### 下一步
+若用户确认，将批量修改全部 24 镜 prompt → 重新生成 24 个 wf_one → 全量一步直出。
