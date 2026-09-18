@@ -1,0 +1,82 @@
+<meta charset="utf-8"><title>一步直出 vs 两阶段精修</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;
+background:#f7f7f5;color:#222;margin:0;padding:32px;line-height:1.6}
+h1{font-size:22px;margin:0 0 4px}
+h2{font-size:17px;margin:30px 0 10px;padding-bottom:6px;border-bottom:2px solid #e2e2de}
+.sub{color:#777;font-size:13px;margin-bottom:20px}
+table{border-collapse:collapse;width:100%;background:#fff;font-size:13px;
+border:1px solid #e2e2de;border-radius:6px;overflow:hidden}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid #eee}
+th{background:#f0f0ec;font-weight:600}
+tr:last-child td{border-bottom:none}
+.ok{color:#1a8a4a;font-weight:600}.bad{color:#c0392b;font-weight:600}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px}
+.card{background:#fff;border:1px solid #e2e2de;border-radius:8px;padding:10px}
+.card .t{font-size:12px;color:#777;margin-bottom:6px;font-weight:600}
+.card img{width:100%;border-radius:4px;display:block}
+.tag{display:inline-block;background:#eef4ff;color:#2b5cd9;font-size:11px;
+padding:2px 7px;border-radius:10px;margin-left:6px}
+.tag.g{background:#eaf6ee;color:#1a8a4a}
+.mono{font-family:"SF Mono",Menlo,monospace;font-size:12px}
+.note{background:#fffbe9;border-left:3px solid #e0b400;padding:10px 14px;
+font-size:13px;margin:14px 0;border-radius:0 4px 4px 0}
+</style>
+<h1>一步直出 768×1344 vs 两阶段精修</h1>
+<div class='sub'>现代婚姻三部曲 · 每片一镜对比 · 2026-09-18 13:20</div>
+<h2>一、体检（一步直出）</h2><table>
+<tr><th>镜</th><th>类型</th><th>期望帧/秒</th><th>实际帧/秒</th><th>分辨率</th><th>音轨</th><th>判定</th></tr>
+<tr><td class='mono'>f1s02</td><td>产品/道具</td><td class='mono'>311 / 12.958s</td><td class='mono'>311 / 12.958s</td><td class='mono'>768×1344</td><td class='mono'>aac,2</td><td><span class='ok'>帧数✓</span> <span class='ok'>时长✓</span> <span class='ok'>分辨率✓</span> <span class='ok'>音轨✓</span></td></tr>
+<tr><td class='mono'>f2s05</td><td>情绪</td><td class='mono'>345 / 14.375s</td><td class='mono'>345 / 14.375s</td><td class='mono'>768×1344</td><td class='mono'>aac,2</td><td><span class='ok'>帧数✓</span> <span class='ok'>时长✓</span> <span class='ok'>分辨率✓</span> <span class='ok'>音轨✓</span></td></tr>
+<tr><td class='mono'>f3s06</td><td>三人对话</td><td class='mono'>362 / 15.083s</td><td class='mono'>362 / 15.083s</td><td class='mono'>768×1344</td><td class='mono'>aac,2</td><td><span class='ok'>帧数✓</span> <span class='ok'>时长✓</span> <span class='ok'>分辨率✓</span> <span class='ok'>音轨✓</span></td></tr>
+</table>
+<h2>二、实测耗时</h2><table><tr><th>镜</th><th>一步直出</th><th>两阶段（历史）</th><th>倍数</th></tr>
+<tr><td class='mono'>f1s02</td><td>651 s (10.8 min)</td><td>140 s</td><td>4.65×</td></tr>
+<tr><td class='mono'>f2s05</td><td>570 s (9.5 min)</td><td>143 s</td><td>3.98×</td></tr>
+<tr><td class='mono'>f3s06</td><td>630 s (10.5 min)</td><td>144 s</td><td>4.36×</td></tr>
+<tr><td><b>均值</b></td><td><b>617 s (10.3 min)</b></td><td><b>≈143 s</b></td><td><b>4.31×</b></td></tr>
+</table>
+<h2>三、逐镜画质对比（左：一步直出 / 右：两阶段精修）</h2>
+<div class='card' style='margin-bottom:18px'><div class='t'>f1s02 · 产品/道具<span class='tag'>相对位置 15% / 45% / 80%</span></div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f1s02_one_0.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f1s02_two_0.jpg' onerror='this.style.display="none"'></div>
+</div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f1s02_one_1.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f1s02_two_1.jpg' onerror='this.style.display="none"'></div>
+</div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f1s02_one_2.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f1s02_two_2.jpg' onerror='this.style.display="none"'></div>
+</div>
+</div>
+<div class='card' style='margin-bottom:18px'><div class='t'>f2s05 · 情绪<span class='tag'>相对位置 15% / 45% / 80%</span></div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f2s05_one_0.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f2s05_two_0.jpg' onerror='this.style.display="none"'></div>
+</div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f2s05_one_1.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f2s05_two_1.jpg' onerror='this.style.display="none"'></div>
+</div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f2s05_one_2.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f2s05_two_2.jpg' onerror='this.style.display="none"'></div>
+</div>
+</div>
+<div class='card' style='margin-bottom:18px'><div class='t'>f3s06 · 三人对话<span class='tag'>相对位置 15% / 45% / 80%</span></div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f3s06_one_0.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f3s06_two_0.jpg' onerror='this.style.display="none"'></div>
+</div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f3s06_one_1.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f3s06_two_1.jpg' onerror='this.style.display="none"'></div>
+</div>
+<div class='grid'>
+<div class='card'><div class='t'>一步直出 768</div><img src='cmp_frames/f3s06_one_2.jpg' onerror='this.style.display="none"'></div>
+<div class='card'><div class='t'>两阶段精修</div><img src='cmp_frames/f3s06_two_2.jpg' onerror='this.style.display="none"'></div>
+</div>
+</div>
+<div class='note'><b>怎么看</b>：重点看面部皮肤纹理、发丝边缘、文字/图案锐度、暗部噪点。一步直出理论上细节更硬、边缘更锐；两阶段因从 384 草稿上采样，容易发糊、涂抹感重。</div>
