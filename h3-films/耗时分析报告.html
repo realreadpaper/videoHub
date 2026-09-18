@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 短剧复刻 · 生成耗时分析报告</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "SF Pro SC", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    background: #FBFAF7; color: #2C2C2A; line-height: 1.75;
+    font-size: 15px; padding: 48px 24px 80px;
+  }
+  .wrap { max-width: 940px; margin: 0 auto; }
+  header { border-bottom: 2px solid #2C2C2A; padding-bottom: 20px; margin-bottom: 36px; }
+  h1 { font-size: 27px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 10px; }
+  .sub { font-size: 14px; color: #77746D; }
+  h2 {
+    font-size: 19px; font-weight: 600; margin: 44px 0 16px;
+    padding-left: 12px; border-left: 4px solid #D85A30;
+  }
+  h3 { font-size: 15px; font-weight: 600; margin: 26px 0 10px; color: #444441; }
+  p { margin-bottom: 14px; }
+  .muted { color: #77746D; font-size: 13.5px; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); gap: 14px; margin: 22px 0 8px; }
+  .card { background: #fff; border: 1px solid #E8E6E1; border-radius: 12px; padding: 18px 20px; }
+  .card .lab { font-size: 12.5px; color: #77746D; margin-bottom: 6px; }
+  .card .val { font-size: 27px; font-weight: 600; letter-spacing: -0.5px; }
+  .card .val small { font-size: 14px; font-weight: 500; color: #77746D; margin-left: 3px; }
+  .card .note { font-size: 12px; color: #9A968E; margin-top: 5px; }
+
+  .hl { background: linear-gradient(transparent 62%, #FAC775 62%); font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 20px; font-size: 14px; }
+  th {
+    text-align: left; font-weight: 600; font-size: 13px; color: #5F5E5A;
+    border-bottom: 1.5px solid #D3D1C7; padding: 9px 12px; white-space: nowrap;
+  }
+  td { border-bottom: 1px solid #EDEBE6; padding: 9px 12px; vertical-align: top; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tr.total td { font-weight: 600; background: #F6F4EF; border-bottom: 1.5px solid #D3D1C7; }
+  .mono { font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 13px; }
+
+  .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 9px; }
+  .bar-name { width: 210px; flex-shrink: 0; font-size: 13.5px; }
+  .bar-track { flex: 1; height: 22px; background: #F1EFE8; border-radius: 5px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 5px; }
+  .bar-val { width: 96px; flex-shrink: 0; text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; color: #5F5E5A; }
+
+  .callout { border-radius: 10px; padding: 16px 20px; margin: 20px 0; font-size: 14px; }
+  .callout.warn { background: #FAEEDA; border-left: 4px solid #BA7517; }
+  .callout.info { background: #E6F1FB; border-left: 4px solid #378ADD; }
+  .callout.good { background: #E1F5EE; border-left: 4px solid #1D9E75; }
+  .callout b { font-weight: 600; }
+
+  ul, ol { margin: 12px 0 18px 22px; }
+  li { margin-bottom: 8px; }
+  .tag {
+    display: inline-block; font-size: 11.5px; padding: 2px 9px; border-radius: 20px;
+    font-weight: 600; vertical-align: middle; margin-left: 6px;
+  }
+  .tag.done { background: #E1F5EE; color: #0F6E56; }
+  .tag.skip { background: #F1EFE8; color: #5F5E5A; }
+  .tag.risk { background: #FCEBEB; color: #A32D2D; }
+
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid #E8E6E1; font-size: 12.5px; color: #9A968E; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>AI 短剧复刻 · 生成耗时分析</h1>
+  <div class="sub">
+    样本：片1「良心面试 · 食堂红烧」· 20 镜 / 5 分 01 秒 / 768×1344 竖版 / 24fps<br>
+    采集时间：2026-09-16 20:53 – 21:56 · 硬件：单卡 RTX 4090 24 GB · 两阶段管线（H3 草稿 → LTX 精修）
+  </div>
+</header>
+
+<h2>一、结论先行</h2>
+
+<div class="cards">
+  <div class="card">
+    <div class="lab">端到端交付</div>
+    <div class="val">63<small>分</small></div>
+    <div class="note">干声起 → 成片到手</div>
+  </div>
+  <div class="card">
+    <div class="lab">其中占 GPU</div>
+    <div class="val">56<small>分</small></div>
+    <div class="note">占总时长 89%</div>
+  </div>
+  <div class="card">
+    <div class="lab">相对成片倍率</div>
+    <div class="val">10.7<small>×</small></div>
+    <div class="note">15 秒成片 = 161 秒 GPU</div>
+  </div>
+  <div class="card">
+    <div class="lab">GPU 小时产能</div>
+    <div class="val">5.4<small>分成片</small></div>
+    <div class="note">约 1.08 条 5 分钟片</div>
+  </div>
+</div>
+
+<div class="callout info">
+  <b>一句话：这不是「慢」，是「贵在 GPU」。</b>
+  全流程 63 分钟里，本地处理只占 7 分钟（11%），其余 56 分钟全部是 GPU 在算。
+  所以想压缩交付时间，唯一有意义的发力点是那 56 分钟的渲染，而不是本地脚本。
+</div>
+
+<h2>二、端到端时间轴拆解</h2>
+
+<table>
+  <thead>
+    <tr><th>阶段</th><th>起 → 止</th><th class="num">耗时</th><th class="num">占比</th><th>说明</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>① 中文干声合成<br><span class="muted">本地 CPU</span></td>
+      <td class="mono">20:53:01 → 20:57:05</td>
+      <td class="num">3 分 54 秒</td><td class="num">6.2%</td>
+      <td>20 镜 / 84 句，Edge TTS + 裁静音 + atempo 排布</td>
+    </tr>
+    <tr>
+      <td>② 投送干声 + 工作流<br><span class="muted">本地 → 远端</span></td>
+      <td class="mono">20:57 → 20:59</td>
+      <td class="num">约 2 分</td><td class="num">3.2%</td>
+      <td>scp 干声与 20 个 audio-lock 工作流</td>
+    </tr>
+    <tr>
+      <td>③ 草稿渲染 Stage1<br><span class="muted">远端 GPU · 384×672</span></td>
+      <td class="mono">20:59 → 21:24</td>
+      <td class="num">25 分 00 秒</td><td class="num">39.7%</td>
+      <td>首镜冷启动 121s + 19 镜热跑 73s</td>
+    </tr>
+    <tr>
+      <td>④ 精修渲染 Stage2<br><span class="muted">远端 GPU · 768×1344</span></td>
+      <td class="mono">21:24 → 21:55</td>
+      <td class="num">31 分 00 秒</td><td class="num">49.2%</td>
+      <td>首镜冷启动 168s + 19 镜热跑 89s</td>
+    </tr>
+    <tr>
+      <td>⑤ 合成 + 回传本地</td>
+      <td class="mono">21:55 → 21:56</td>
+      <td class="num">约 1 分</td><td class="num">1.6%</td>
+      <td>concat 零转码；114 MB 回传实测 12 秒</td>
+    </tr>
+    <tr class="total">
+      <td>合计</td>
+      <td class="mono">20:53:01 → 21:56</td>
+      <td class="num">63 分</td><td class="num">100%</td>
+      <td>GPU 56 分（89%）· 本地 7 分（11%）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>耗时构成（可视化）</h3>
+<div class="bar-row">
+  <div class="bar-name">④ 精修渲染 768×1344</div>
+  <div class="bar-track"><div class="bar-fill" style="width:100%;background:#D85A30;"></div></div>
+  <div class="bar-val">31 分 00 秒</div>
+</div>
+<div class="bar-row">
+  <div class="bar-name">③ 草稿渲染 384×672</div>
+  <div class="bar-track"><div class="bar-fill" style="width:80.6%;background:#F0997B;"></div></div>
+  <div class="bar-val">25 分 00 秒</div>
+</div>
+<div class="bar-row">
+  <div class="bar-name">① 中文干声合成</div>
+  <div class="bar-track"><div class="bar-fill" style="width:12.6%;background:#5DCAA5;"></div></div>
+  <div class="bar-val">3 分 54 秒</div>
+</div>
+<div class="bar-row">
+  <div class="bar-name">② 投送干声 + 工作流</div>
+  <div class="bar-track"><div class="bar-fill" style="width:6.5%;background:#9FE1CB;"></div></div>
+  <div class="bar-val">约 2 分</div>
+</div>
+<div class="bar-row">
+  <div class="bar-name">⑤ 合成 + 回传</div>
+  <div class="bar-track"><div class="bar-fill" style="width:3.2%;background:#D3D1C7;"></div></div>
+  <div class="bar-val">约 1 分</div>
+</div>
+
+<h3>关键路径</h3>
+<p class="mono" style="background:#F6F4EF;padding:14px 18px;border-radius:8px;font-size:13px;">
+TTS 3.9 分 ＋ 投送 2 分 ＋ 草稿 25 分 ＋ 精修 31 分 ＋ 合成回传 1 分 ＝ <b>62.9 分</b> ≈ 实测 63 分
+</p>
+<p class="muted">
+  干声合成虽是第一步，但只有 4 分钟，压它收益极小。<b>真正的瓶颈是「草稿 + 精修」这 56 分钟</b>，占了关键路径的 89%。
+</p>
+
+<h2>三、单镜成本换算</h2>
+
+<p>整片 20 镜，每镜固定产 15.0417 秒成片。分摊到单镜：</p>
+
+<table>
+  <thead>
+    <tr><th>项目</th><th class="num">耗时</th><th class="num">相对成片</th><th>备注</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>成片本身</td><td class="num">15.04 秒</td><td class="num">1.00×</td><td>固定栅格，不可变</td></tr>
+    <tr><td>草稿渲染（热跑）</td><td class="num">72.5 秒</td><td class="num">4.82×</td><td>384×672，结构引导用</td></tr>
+    <tr><td>精修渲染（热跑）</td><td class="num">89.0 秒</td><td class="num">5.92×</td><td>日志实测 88.9 / 89.1 / 89.1</td></tr>
+    <tr class="total"><td>单镜 GPU 合计</td><td class="num">161.5 秒</td><td class="num">10.74×</td><td>每 1 秒成片要烧 10.7 秒 GPU</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <b>冷启动成本不能忽略。</b>
+  每个批次的首镜明显更慢：草稿 121 秒（比热跑慢 67%）、精修 168 秒（慢 89%）。
+  20 镜一批时，冷启动被摊薄到几乎看不见；但如果你拆成「一镜一批」跑，这个开销会反复付——
+  <b>批量化是省钱的第一原则</b>。
+</div>
+
+<h3>理论预测 vs 实测</h3>
+<table>
+  <thead>
+    <tr><th>批次</th><th class="num">排产预测</th><th class="num">实际实测</th><th class="num">偏差</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>草稿 20 镜</td><td class="num">1498 秒 = 24.97 分</td><td class="num">25 分 00 秒</td><td class="num">+3 秒</td></tr>
+    <tr><td>精修 20 镜</td><td class="num">1889 秒 = 31.49 分</td><td class="num">31 分 00 秒</td><td class="num">−29 秒</td></tr>
+    <tr class="total"><td>单片合计</td><td class="num">56.45 分</td><td class="num">56.00 分</td><td class="num">−0.45 分</td></tr>
+  </tbody>
+</table>
+
+<div class="callout good">
+  <b>预测命中率 99% 以上。</b>
+  实测与排产基线偏差不到 1%，说明这套「冷启动 + 热跑」模型是可靠的。
+  以后拿它做交付承诺（几点交片）可以直接信，不用再试跑校准。
+</div>
+
+<h2>四、产能与成本测算</h2>
+
+<table>
+  <thead>
+    <tr><th>口径</th><th class="num">数值</th><th>推算过程</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1 条 5 分钟成片</td><td class="num">56 分 GPU</td><td>实测</td></tr>
+    <tr><td>1 小时 GPU</td><td class="num">5.4 分钟成片</td><td>3600 ÷ 11.16 倍</td></tr>
+    <tr><td>一个通宵（8 小时）</td><td class="num">约 43 分钟成片</td><td>≈ 8.6 条 5 分钟片</td></tr>
+    <tr><td>单片机时成本</td><td class="num">约 ¥1.9</td><td>按 4090 云机 ¥2/小时估</td></tr>
+    <tr class="total"><td>一条 5 分钟成片的边际成本</td><td class="num">约 ¥1.9</td><td>不含人力与重跑损耗</td></tr>
+  </tbody>
+</table>
+
+<p>
+  <span class="hl">单条 5 分钟竖版短剧的算力边际成本约 2 块钱。</span>
+  这是这套管线最有商业含义的数字 —— 内容成本几乎可以被忽略，真正的成本在选题、脚本和分发。
+</p>
+
+<h2>五、耗时都花哪了 · 优化空间</h2>
+
+<table>
+  <thead>
+    <tr><th>手段</th><th class="num">可省</th><th>代价</th><th>状态</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>拆两批跑</b><br><span class="muted">草稿 20 镜 → 精修 20 镜，而非逐镜交替</span></td>
+      <td class="num">39.6 分<br><span class="muted">96.1 → 56.5</span></td>
+      <td>无（纯粹摊薄装载成本）</td>
+      <td><span class="tag done">已采用</span></td>
+    </tr>
+    <tr>
+      <td>降精修分辨率到 640×1152</td>
+      <td class="num">20–25%<br><span class="muted">约 11–14 分</span></td>
+      <td>画质下降，且需重验帧数栅格</td>
+      <td><span class="tag skip">未采用</span></td>
+    </tr>
+    <tr>
+      <td>跳过草稿，直接精修</td>
+      <td class="num">约 25 分<br><span class="muted">省 44%</span></td>
+      <td>LTX 缺结构引导，可能直接崩</td>
+      <td><span class="tag risk">高风险</span></td>
+    </tr>
+    <tr>
+      <td>减少镜数</td>
+      <td class="num">线性</td>
+      <td>H3 单镜固定 15 秒，只能靠删内容</td>
+      <td><span class="tag skip">不适用</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <b>「拆两批」是唯一零代价的优化，也是这套管线最值钱的一条工程决策。</b>
+  逐镜交替跑（草稿→精修→草稿→精修）会把模型装载成本付 20 次，总耗时 96 分钟；
+  拆成两批各跑一遍，装载只付 2 次，直接省出 40 分钟 —— 而且画质一分不损。
+</div>
+
+<h3>值得记下的「白花的钱」</h3>
+<ol>
+  <li>
+    <b>片2 干声的 3.5 分钟网络空转。</b>
+    21:01:05 到 21:04:33 之间，Edge TTS 对第 20 镜报了 <span class="mono">NoAudioReceived</span>，
+    在重试退避里空耗了 208 秒。已通过「重试 + 退避 + 产物校验」修掉，
+    但它是串行阻塞的 —— 后续可改成<b>失败镜挂起、先推进其余镜头</b>，把这 3.5 分钟彻底消掉。
+  </li>
+  <li>
+    <b>前期 TTS 推倒重来过一整轮。</b>
+    最初按「语速太慢」调参（+90%、+150%），全部无效 —— 真因是 Edge TTS 的
+    <span class="mono">rate</span> 参数在 <b>+50% 就封顶</b>，且每句产物首尾垫了 0.4–0.9 秒静音。
+    40 镜里 38 镜超窗。这一轮返工的时间没有留存记录，属沉没成本。
+    <b>教训：参数调不动的时候，先量一遍真实数据，别猜。</b>
+  </li>
+  <li>
+    <b>精修占 49%，但它是质量的核心来源，不该砍。</b>
+    这 31 分钟买的是 768×1344 的可用画质；若要压它，等于拿成片质量换时间。
+  </li>
+</ol>
+
+<h2>六、一句话总结</h2>
+<div class="callout good" style="font-size:15px;">
+  一条 5 分钟竖版 AI 短剧，<b>63 分钟端到端到手、56 分钟占 GPU、算力成本约 2 元、单机一晚上能出 8 条</b>。<br>
+  耗时结构已经压得很干净 —— 本地只占 11%，GPU 那 56 分钟里草稿 25 分 + 精修 31 分都是刚性成本。<br>
+  <span class="hl">下一步要提产，方向不是「把单条做得更快」，而是「把 GPU 填满」：两片串行零等待已经做到了，接下来是排满多片队列。</span>
+</div>
+
+<footer>
+  数据来源：本地 TTS 产物文件时间戳（20 个 <span class="mono">shotNN_dry.wav</span>）、
+  远端渲染日志（<span class="mono">voice_sNN.log</span> / <span class="mono">ref_shotNN.log</span>）、
+  拉回文件的 mtime 与 ffprobe 实测时长。<br>
+  冷热基线引自 <span class="mono">PIPELINE.md</span> 排产模型，已用本片实测复核，偏差 &lt; 1%。<br>
+  生成时间：2026-09-17
+</footer>
+
+</div>
+</body>
+</html>

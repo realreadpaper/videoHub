@@ -1,0 +1,222 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderBypassModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+   "strength_model": 1.0,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "5": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "6": {
+  "class_type": "MiniMaxH3AudioConditioningT8",
+  "inputs": {
+   "prompt": "<Audio 1> carries the original soundtrack of this scene: the actors' real voices, ambience and music. Keep the visual timing, phrasing, lip movement and performance locked to <Audio 1> exactly. Follow the shot description below exactly.\n\nintegrated_multimodal_description:\n<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; <Subject 2> (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm; <Subject 4> (S4), a 30-year-old East Asian woman with shoulder-length dark-brown hair, sharp eyeliner and a cold appraising expression, wearing an immaculate white trouser suit and nude heels, a slim folder pressed against her chest>\n\n<Scene reference — this entire shot takes place in: a bright modern corporate lobby or corridor with pale marble floors, a long reception counter and a wall of frosted glass>\n\nThe supplied <Picture 1> reference fixes what the product is and how its packaging looks; the description below only covers staging, action, camera and timing. Do not re-describe or re-draw the packaging design beyond what <Picture 1> already shows.\n\n[00:00.000 – 00:10.870] Close on S4 at the elevator doors: she turns her head back for one glance down the corridor, her expression complicated, and steps into the cabin as the doors close across her. Then, still in the same continuous take, medium close-up of S1 turned in his wheelchair to face S2. For the first time his face opens: the appraisal is gone and something warmer replaces it. He speaks at an easy volume. The take then continues with reverse on S2: she stands in front of the wheelchair with both hands on the strap of her tote bag, listening intently, lips slightly parted, nodding once. Bright lobby light from the side shapes her face. The take then continues with medium shot in a bright modern corporate lobby or corridor with pale marble floors, a long reception counter and a wall of frosted glass: S1 in his wheelchair speaks up to S2, who stands beside the table in her black blazer. She listens, then nods once with a small determined smile. One single continuous take, no cuts; the shot runs about 10.9 seconds. Gentle handheld feel or slow drift, subtle motion only. cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text overlay, no watermark, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame, especially in the lower half and along the bottom edge; the only lettering allowed is the printing that is physically part of an object's own surface, and it must stay flat, matte, slightly out of focus and exactly as it appears in the supplied reference image - never sharpened, never glowing, never larger, bolder or more legible than the physical print\n\noverall_soundscape:\nAn elevator chime and doors closing, soft lobby air, the faint squeak of a wheelchair wheel. All voices, ambience and music are carried by <Audio 1>.\n\nnon_diegetic_music:\nThe piano comes back, warm and simple.",
+   "width": 768,
+   "height": 1344,
+   "length": [
+    "14",
+    1
+   ],
+   "task_type": "auto",
+   "audio_mode": "lock_source",
+   "audio_denoise_strength": 0.0,
+   "add_source_as_reference": true,
+   "prompt_primary_audio_ordinal": 1,
+   "strict_prompt_tags": true,
+   "ref_image_size": "match",
+   "reference_video_policy": "official_2_to_15s",
+   "clip": [
+    "3",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ],
+   "drive_audio": [
+    "14",
+    0
+   ],
+   "ref_images.ref_image_0": [
+    "17",
+    0
+   ]
+  }
+ },
+ "7": {
+  "class_type": "MiniMaxH3DualClockSamplerT8",
+  "inputs": {
+   "steps": 4,
+   "shift_video": 12.0,
+   "shift_audio": 3.0,
+   "sampler_name": "dual_clock_euler",
+   "scheduler": "native_flow",
+   "model": [
+    "2",
+    0
+   ],
+   "av_latent": [
+    "6",
+    1
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "7",
+    0
+   ],
+   "conditioning": [
+    "6",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20260932
+  }
+ },
+ "10": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "9",
+    0
+   ],
+   "guider": [
+    "8",
+    0
+   ],
+   "sampler": [
+    "7",
+    1
+   ],
+   "sigmas": [
+    "7",
+    2
+   ],
+   "latent_image": [
+    "6",
+    1
+   ]
+  }
+ },
+ "11": {
+  "class_type": "MiniMaxH3AVDecodeT8",
+  "inputs": {
+   "av_latent": [
+    "10",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ],
+   "audio": [
+    "15",
+    1
+   ],
+   "filename_prefix": "MiniMaxH3/v3run/f1s14",
+   "crf": 19
+  }
+ },
+ "13": {
+  "class_type": "LoadAudio",
+  "inputs": {
+   "audio": "orig_audio/film1/shot14.wav"
+  }
+ },
+ "14": {
+  "class_type": "MiniMaxH3AudioWindowT8",
+  "inputs": {
+   "scene_start_seconds": 0.0,
+   "scene_duration_seconds": 10.875,
+   "warmup_seconds": 0.0,
+   "cooldown_seconds": 0.0,
+   "ensure_minimum_context": true,
+   "audio": [
+    "13",
+    0
+   ]
+  }
+ },
+ "15": {
+  "class_type": "MiniMaxH3OutputTrimT8",
+  "inputs": {
+   "start_seconds": [
+    "14",
+    2
+   ],
+   "duration_seconds": [
+    "14",
+    3
+   ],
+   "fps": 24,
+   "frames": [
+    "11",
+    0
+   ],
+   "audio": [
+    "6",
+    2
+   ]
+  }
+ },
+ "17": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "refs/prod_P2_white.png"
+  }
+ }
+}

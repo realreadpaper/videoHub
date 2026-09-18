@@ -1,0 +1,79 @@
+# FastVideo 推理服务配置（RTX 4090 / 24 GB，单卡对外服务）
+#
+# 启动：
+#   FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN fastvideo serve --config 08-4090-serve-fastwan1.3b.yaml
+#
+# 起来之后：
+#   Playground : http://127.0.0.1:8000/playground/
+#   模型列表   : GET  http://127.0.0.1:8000/v1/models
+#   提交任务   : POST http://127.0.0.1:8000/v1/videos
+#   同步出片   : POST http://127.0.0.1:8000/v1/videos/sync   直接返回 MP4 body
+#
+# 与 06 号配置的区别：这是常驻服务，所以 compile 值得开 ——
+# 编译是一次性成本，之后每个请求都受益，摊薄后划算。
+
+generator:
+  model_path: FastVideo/FastWan2.1-T2V-1.3B-Diffusers
+  engine:
+    num_gpus: 1
+    execution_backend: mp
+    use_fsdp_inference: false
+    quantization:
+      transformer_quant: FP8         # sm_89 硬件支持，4090 上白拿的省显存 + 提速
+    parallelism:
+      tp_size: 1
+      sp_size: 1
+    offload:
+      dit_layerwise: true            # 常驻服务也别关：显存余量留给并发请求
+      dit: false
+      vae: false                     # 服务化会连续处理请求，VAE 反复搬运不划算
+      image_encoder: false
+      text_encoder: false
+      pin_cpu_memory: true           # 96 GB 内存足够
+    compile:
+      enabled: true                  # 一次性编译，之后每个请求都受益
+  pipeline:
+    experimental:
+      VSA_sparsity: 0.8
+      dmd_denoising_steps: [1000, 757, 522]
+
+server:
+  host: 127.0.0.1                    # ⚠️ 不要直接改成 0.0.0.0 暴露公网
+                                     # 官方明确说：SDK 里的 key 只是占位符、不是鉴权
+                                     # 要对外必须套一层带鉴权的反向代理（Nginx/Caddy + API Key）
+  port: 8000
+  output_dir: outputs/4090_serve
+  served_model_name: fastwan21-1.3b  # 客户端用这个名字调用
+
+default_request:
+  negative_prompt: >-
+    Bright tones, overexposed, static, blurred details, subtitles, style,
+    works, paintings, images, static, overall gray, worst quality, low
+    quality, JPEG compression residue, ugly, incomplete, extra fingers,
+    poorly drawn hands, poorly drawn faces, deformed, disfigured, misshapen
+    limbs, fused fingers, still picture, messy background, three legs, many
+    people in the background, walking backwards
+  sampling:
+    seed: 1024
+    num_frames: 81
+    height: 480
+    width: 832
+    fps: 16
+    num_inference_steps: 3
+  output:
+    return_frames: false
+
+# ─────────────────────────────────────────────────────────────
+# 压测（服务起来后另开终端）：
+#   fastvideo bench --dataset vbench --num-prompts 20 --port 8000
+#
+# 客户端示例（仓库自带，改环境变量指向本地服务）：
+#   FASTVIDEO_BASE_URL=http://127.0.0.1:8000 \
+#   FASTVIDEO_MODEL=fastwan21-1.3b \
+#   python examples/serving/clients/video.py
+#
+# 要换更重的模型（5B / 14B）：把 model_path 换成
+#   Wan-AI/Wan2.2-TI2V-5B-Diffusers        （720P，单卡官方配置）
+#   FastVideo/FastWan2.1-T2V-14B-480P-Diffusers  （需配合 07 号模板的卸载策略）
+# 并同步放大 server.output_dir 和请求默认分辨率。
+# ─────────────────────────────────────────────────────────────

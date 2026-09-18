@@ -1,0 +1,29 @@
+[
+ {
+  "speaker": "S4",
+  "text": "通先靠边站。排骨冷水下锅焯水，捞出来用温水洗干净，直接放进电饭锅里。",
+  "mp3": "s10_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 5.388
+ },
+ {
+  "speaker": "S4",
+  "text": "重点来了，撕开这一包鲍汁红烧酱料直接倒进去。",
+  "mp3": "s10_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a01.wav",
+  "t": 5.664,
+  "dur": 3.021
+ },
+ {
+  "speaker": "S4",
+  "text": "这里面是大厨调好的黄金比例，咸淡、上色、香味都配好了，根本不用你再猜「少许」到底是多少。",
+  "mp3": "s10_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 8.761,
+  "dur": 6.062
+ }
+]

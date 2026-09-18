@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FastVideo on RTX 4090 — 落地实现方案</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg2:#f7f8f9; --bg3:#f0f2f4;
+    --line:#e3e6e9; --line2:#d0d5da;
+    --tx:#1a1d21; --tx2:#5a6169; --tx3:#8b939c;
+    --blue:#1a6fd4; --blue-bg:#eaf3fd;
+    --green:#1a7f4b; --green-bg:#e9f6ef;
+    --amber:#9a6410; --amber-bg:#fdf4e3;
+    --red:#c0392b; --red-bg:#fdeceb;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:14px;line-height:1.72;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:48px 32px 96px}
+
+  header{border-bottom:2px solid var(--tx);padding-bottom:24px;margin-bottom:8px}
+  h1{font-size:26px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+  .sub{color:var(--tx2);font-size:14px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tag{font-size:12px;padding:3px 10px;border-radius:20px;background:var(--bg3);color:var(--tx2);border:1px solid var(--line)}
+  .tag.ok{background:var(--green-bg);color:var(--green);border-color:#c5e6d4}
+  .tag.warn{background:var(--amber-bg);color:var(--amber);border-color:#f0dcb4}
+
+  h2{font-size:19px;font-weight:600;margin:52px 0 6px;padding-top:20px;border-top:1px solid var(--line)}
+  h2:first-of-type{border-top:none;padding-top:0}
+  h2 .n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:var(--tx);color:#fff;font-size:13px;font-weight:600;margin-right:10px;vertical-align:2px}
+  h3{font-size:15px;font-weight:600;margin:28px 0 8px}
+  h4{font-size:13.5px;font-weight:600;margin:20px 0 6px;color:var(--tx2)}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  a{color:var(--blue);text-decoration:none;border-bottom:1px solid #bcd9f7}
+  strong{font-weight:600}
+  code{font-family:var(--mono);font-size:12.5px;background:var(--bg3);padding:1.5px 5px;border-radius:4px;color:#25468a}
+
+  pre{background:#fbfcfd;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:8px;padding:14px 16px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.65}
+  pre code{background:none;padding:0;color:var(--tx);font-size:12.5px}
+  pre .c{color:var(--tx3)}
+  pre .k{color:var(--blue);font-weight:600}
+  pre .s{color:#8a5a00}
+  pre .e{color:var(--red)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+  th{text-align:left;font-weight:600;padding:8px 10px;background:var(--bg2);border-bottom:1px solid var(--line2);white-space:nowrap}
+  td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td code{font-size:12px}
+
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+  .card.warn{background:var(--amber-bg);border-color:#f0dcb4}
+  .card.danger{background:var(--red-bg);border-color:#f5cdc9}
+  .card.ok{background:var(--green-bg);border-color:#c5e6d4}
+  .card h4{margin-top:0;color:var(--tx)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+  .step{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:14px}
+  .step .t{font-weight:600;font-size:13.5px;margin-bottom:4px}
+  .step .d{font-size:12.5px;color:var(--tx2);line-height:1.6}
+  .step .time{font-size:11.5px;color:var(--tx3);margin-top:8px;font-family:var(--mono)}
+
+  .kv{display:grid;grid-template-columns:118px 1fr;gap:6px 14px;font-size:13px;margin:12px 0}
+  .kv dt{color:var(--tx3)}
+  .kv dd{margin:0}
+
+  .note{font-size:12.5px;color:var(--tx2);border-left:2px solid var(--line2);padding-left:12px;margin:12px 0}
+  .pill{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:4px;font-family:var(--mono);font-weight:600}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+  .pill.r{background:var(--red-bg);color:var(--red)}
+  .pill.a{background:var(--amber-bg);color:var(--amber)}
+
+  @media(max-width:720px){.steps{grid-template-columns:1fr}.kv{grid-template-columns:1fr}.wrap{padding:32px 20px 64px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>FastVideo on RTX 4090 — 落地实现方案</h1>
+  <p class="sub">从裸机到对外提供视频生成服务，逐条命令。基于 hao-ai-lab/FastVideo <code>main</code> 分支 commit <code>9b0e57fe</code> 实测核对。</p>
+  <div class="meta">
+    <span class="tag ok">4090 官方支持</span>
+    <span class="tag">单卡 24 GB</span>
+    <span class="tag">96 GB 内存</span>
+    <span class="tag warn">环境必须 Linux / WSL</span>
+    <span class="tag warn">Python 3.10–3.12</span>
+  </div>
+</header>
+
+<h2><span class="n">0</span>方案总览</h2>
+
+<p>目标不是"跑个 demo"，是<strong>建成一条能持续出片、能对外提供接口的生成链路</strong>。拆成三个里程碑，每个都有明确验收标准，任何一步不通过就不往下走。</p>
+
+<div class="steps">
+  <div class="step">
+    <div class="t">M1 · 跑通</div>
+    <div class="d">环境就绪，跑出第一个 MP4，确认卡和驱动没问题</div>
+    <div class="time">验收：video_samples/ 下有可播放 mp4</div>
+  </div>
+  <div class="step">
+    <div class="t">M2 · 调优</div>
+    <div class="d">叠上 FP8 + 稀疏注意力 + 逐层卸载，摸清这张卡的真实产能</div>
+    <div class="time">验收：拿到单条出片耗时基线</div>
+  </div>
+  <div class="step">
+    <div class="t">M3 · 服务化</div>
+    <div class="d">起 OpenAI 兼容 API，任何 OpenAI SDK 客户端可直接调</div>
+    <div class="time">验收：curl 拿到 MP4 + 压测有数</div>
+  </div>
+</div>
+
+<div class="card">
+  <h4>硬约束（先说清楚，避免白折腾）</h4>
+  <table>
+    <tr><th>项</th><th>要求</th><th>说明</th></tr>
+    <tr><td>操作系统</td><td><strong>Linux 或 Windows WSL</strong></td><td>不支持 macOS，这条无解</td></tr>
+    <tr><td>Python</td><td>3.10 – 3.12</td><td>3.13 会被拒绝</td></tr>
+    <tr><td>CUDA</td><td>12.6 或 13.0</td><td>驱动需匹配</td></tr>
+    <tr><td>PyTorch</td><td>2.12.0</td><td>安装器自动处理</td></tr>
+    <tr><td>磁盘</td><td>建议 ≥ 200 GB</td><td>镜像 ~15 GB + 模型权重。<strong>实测体积</strong>（名字里的参数量骗人）：FastWan 1.3B 实际 <strong>27.2 GB</strong>、Wan2.2 5B 为 31.9 GB、FastH3 Preview 为 137.7 GB</td></tr>
+    <tr><td>架构</td><td>sm_89（Ada）<span class="pill g">已支持</span></td><td>官方基准卡 L40S 就是 8.9，同架构</td></tr>
+  </table>
+</div>
+
+<h2><span class="n">1</span>M1 · 环境准备与跑通</h2>
+
+<p>两条路。Docker 快但代码是只读习惯，源码装可改代码。第一次建议走 Docker 先把链路验通，要改代码再转源码。</p>
+
+<h3>路线 A：Docker（推荐起步，约 30 分钟）</h3>
+
+<pre><code><span class="c"># 1) 宿主机确认 —— 必须能看到卡，看不到就先修驱动</span>
+nvidia-smi
+docker --version
+nvidia-container-toolkit 状态检查   <span class="c"># 没装见下</span>
+
+<span class="c"># 2) 拉镜像（约 15 GB，第一次慢）</span>
+docker pull ghcr.io/hao-ai-lab/fastvideo/fastvideo-dev:py3.12-latest
+
+<span class="c"># 3) 起容器 —— 三个挂载点很关键，尤其模型缓存</span>
+mkdir -p ~/fastvideo_models ~/fastvideo_outputs
+docker run --gpus all -it --rm \
+  -v ~/fastvideo_models:/root/.cache/huggingface \
+  -v ~/fastvideo_outputs:/outputs \
+  --shm-size=16g \
+  ghcr.io/hao-ai-lab/fastvideo/fastvideo-dev:py3.12-latest</code></pre>
+
+<div class="note">
+<strong>为什么这三个参数不能省：</strong><br>
+· <code>-v .../huggingface</code> —— 不挂载的话，容器一删模型权重全没，几十 GB 重下<br>
+· <code>--shm-size=16g</code> —— Docker 默认共享内存只有 64 MB，多进程加载会直接崩<br>
+· <code>--gpus all</code> —— 需要宿主机装好 nvidia-container-toolkit，否则报 <code>could not select device driver</code>
+</div>
+
+<p>容器内代码在 <code>/FastVideo</code>，虚拟环境已激活。</p>
+
+<h3>路线 B：源码安装（要改代码时用）</h3>
+
+<pre><code><span class="c"># 1) 装 uv（比 pip 快且稳，官方推荐）</span>
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source ~/.local/bin/env
+
+<span class="c"># 2) 拉代码</span>
+git clone https://github.com/hao-ai-lab/FastVideo.git && cd FastVideo
+
+<span class="c"># 3) 建环境 —— Python 必须 3.12，别用系统的</span>
+uv venv --python 3.12 --seed
+source .venv/bin/activate
+
+<span class="c"># 4) 装 FastVideo（CUDA 12；若是 CUDA 13 换成 cu130）</span>
+UV_TORCH_BACKEND=cu126 uv pip install -e .
+
+<span class="c"># 5) 可选但推荐：装 FlashAttention，快一档</span>
+uv pip install flash-attn --no-build-isolation -v</code></pre>
+
+<div class="card warn">
+<h4>关于 VSA 稀疏注意力的内核</h4>
+<p style="margin:0">4090 不是 Hopper，<code>fastvideo-kernel</code> 会<strong>跳过 C++（ThunderKittens）编译，只装带 Triton 内核的 Python 包</strong>。这是官方设计好的降级路径，功能可用。如果启动时报 VSA 相关错误，先退回 <code>FLASH_ATTN</code> 跑通，再回来排查内核。</p>
+</div>
+
+<h3>验收：确认卡被正确识别</h3>
+
+<pre><code>python -c "
+import torch
+print('torch ', torch.__version__, '| cuda', torch.version.cuda)
+print('gpu   ', torch.cuda.get_device_name(0))
+print('cap   ', torch.cuda.get_device_capability(0))
+print('vram  ', round(torch.cuda.get_device_properties(0).total_memory/1024**3, 1), 'GB')
+"
+<span class="c"># 期望输出：</span>
+<span class="c"># torch  2.12.0+cu126 | cuda 12.6</span>
+<span class="c"># gpu    NVIDIA GeForce RTX 4090</span>
+<span class="c"># cap    (8, 9)          ← 必须是 (8,9)，这是所有优化的判断依据</span>
+<span class="c"># vram   24.0 GB</span></code></pre>
+
+<h3>跑第一个样片</h3>
+
+<pre><code><span class="c"># 用仓库自带的最小例子：Wan2.1 T2V 1.3B，480P，自动下权重</span>
+python examples/inference/basic/basic.py</code></pre>
+
+<dl class="kv">
+  <dt>首次耗时</dt><dd>下权重 5–15 分钟（看带宽，约 6 GB）+ 加载 1–2 分钟 + 生成 81 帧约 1–3 分钟</dd>
+  <dt>产物位置</dt><dd><code>video_samples/</code> 下的 mp4，脚本会连续生成两条</dd>
+  <dt>同时监控</dt><dd>另开终端 <code>nvidia-smi dmon -s um -c 120</code> 看显存与利用率曲线</dd>
+</dl>
+
+<div class="card danger">
+<h4>如果这一步就 OOM</h4>
+<p style="margin:0 0 8px">1.3B 在 24 GB 上不该 OOM。真发生了，按顺序排查：</p>
+<ul style="margin:0">
+  <li>显存被别的东西占了 —— <code>nvidia-smi</code> 看有没有残留进程</li>
+  <li>换更保守的配置：直接用下一节的 <code>06</code> 号模板（已带 FP8 + 卸载）</li>
+  <li>分辨率降到 640×384、帧数降到 49</li>
+</ul>
+</div>
+
+<h2><span class="n">2</span>M2 · 叠上 4090 的优化</h2>
+
+<p>三个优化都在 4090 的架构支持范围内，叠起来才压得出产能。</p>
+
+<table>
+  <tr><th>优化</th><th>开关</th><th>4090 上的作用</th></tr>
+  <tr><td><strong>FP8 权重量化</strong></td><td><code>engine.quantization.transformer_quant: FP8</code></td><td>DiT 权重砍一半，官方把 4090 与 H100、L40S 并列点名为支持设备</td></tr>
+  <tr><td><strong>VSA 稀疏注意力</strong></td><td><code>FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN</code><br>+ <code>pipeline.experimental.VSA_sparsity</code></td><td>跳掉大部分注意力块计算，长视频序列上省显存也提速</td></tr>
+  <tr><td><strong>DiT 逐层卸载</strong></td><td><code>engine.offload.dit_layerwise: true</code></td><td>权重逐层过 PCIe，与计算重叠，开销可忽略 —— 单卡的显存续命线</td></tr>
+</table>
+
+<pre><code><span class="c"># 用 06 号模板：1.3B + FP8 + VSA 0.8 + 逐层卸载</span>
+FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN \
+  fastvideo generate --config fastvideo-configs/06-rtx4090-24gb-fp8-vsa.yaml</code></pre>
+
+<h3>要摸清产能，先跑标准压测</h3>
+
+<pre><code><span class="c"># 关掉编译，重复跑 N 次取平均 —— 首次生成永远最慢，别拿它当基线</span>
+<span class="c"># 记录：单条出片秒数、峰值显存、GPU 利用率</span>
+nvidia-smi dmon -s um -c 600 &gt; gpu_log.txt &amp;
+FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN \
+  fastvideo generate --config fastvideo-configs/06-rtx4090-24gb-fp8-vsa.yaml
+
+<span class="c"># 跑完后看峰值显存：</span>
+awk '{print $3}' gpu_log.txt | sort -n | tail -1</code></pre>
+
+<div class="card">
+<h4>为什么强调"别拿第一次当基线"</h4>
+<p style="margin:0">开了 <code>torch.compile</code> 后，首次生成要等几十秒到几分钟建图，这是<strong>一次性</strong>成本。官方文档专门点出："测量预热轮是最常见的得出『编译反而更慢』错误结论的原因"。测速必须丢掉第一轮。</p>
+</div>
+
+<h3>升级到 14B（压榨这一步的极限）</h3>
+
+<p>官方 <code>main</code> 分支里本身就带一份单卡 14B 480P 的配置，所以这条路是官方承认的。用 <code>07</code> 号模板：</p>
+
+<pre><code>FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN \
+  fastvideo generate --config fastvideo-configs/07-rtx4090-24gb-14b-push.yaml</code></pre>
+
+<p>三个开关少一个都可能崩：FP8 压权重、VSA 砍注意力、逐层卸载把权重挪到宿主内存。96 GB 内存在这里才真正派上用场。</p>
+
+<h2><span class="n">3</span>M3 · 服务化：对外提供接口</h2>
+
+<p>这是变现的关键一步。FastVideo 自带 <strong>OpenAI 兼容的 REST 服务</strong>，起来之后任何 OpenAI SDK 的客户端都能直接调，不用写适配层。</p>
+
+<pre><code><span class="c"># 启动服务（用 08 号配置：单卡 4090，已开 FP8 + VSA + 编译）</span>
+FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN \
+  fastvideo serve --config fastvideo-configs/08-4090-serve-fastwan1.3b.yaml</code></pre>
+
+<h3>服务暴露的接口</h3>
+
+<table>
+  <tr><th>接口</th><th>方法</th><th>用途</th></tr>
+  <tr><td><code>/playground/</code></td><td>GET</td><td>浏览器里的可视化生成界面，起服务后直接开</td></tr>
+  <tr><td><code>/v1/models</code></td><td>GET</td><td>列出可用模型（OpenAI 标准）</td></tr>
+  <tr><td><code>/v1/videos</code></td><td>POST</td><td>提交生成任务，返回任务 ID（异步，需轮询）</td></tr>
+  <tr><td><code>/v1/videos/sync</code></td><td>POST</td><td><strong>阻塞式</strong>，直接把 MP4 二进制吐回来</td></tr>
+  <tr><td><code>/v1/images</code></td><td>POST</td><td>文生图模型用（SD3.5 / FLUX 等）</td></tr>
+</table>
+
+<h3>验证：三条命令确认服务可用</h3>
+
+<pre><code><span class="c"># 1) 浏览器打开可视化界面</span>
+open http://127.0.0.1:8000/playground/
+
+<span class="c"># 2) 命令行拿一条视频（同步接口，最直接）</span>
+curl -X POST http://127.0.0.1:8000/v1/videos/sync \
+  -H "Content-Type: application/json" \
+  -d '{"model":"fastwan21-1.3b","prompt":"a raccoon peers through sunflowers, cinematic"}' \
+  -o test.mp4
+ffplay test.mp4
+
+<span class="c"># 3) 用官方客户端脚本（验证 OpenAI SDK 兼容性）</span>
+FASTVIDEO_BASE_URL=http://127.0.0.1:8000 \
+FASTVIDEO_MODEL=fastwan21-1.3b \
+python examples/serving/clients/video.py</code></pre>
+
+<h3>压测拿并发上限</h3>
+
+<pre><code><span class="c"># 另开终端，服务保持运行</span>
+fastvideo bench --dataset vbench --num-prompts 20 --port 8000</code></pre>
+
+<p>这个数字决定你能承诺给客户多少并发 —— 单卡 4090 的并发上限通常很低，先测出来再谈。</p>
+
+<div class="card danger">
+<h4>⚠️ 对外暴露前必须加鉴权</h4>
+<p style="margin:0">官方文档明确写：客户端 SDK 里的 key <strong>只是占位符，不是认证机制</strong>，并建议"把服务保持在回环地址，或使用带认证的反向代理"。所以配置里我写的是 <code>127.0.0.1</code>。要对外提供服务，必须自己套一层 Nginx / Caddy + API Key 校验。<strong>直接改 <code>0.0.0.0</code> 裸奔，等于把你家 GPU 挂公网给人白嫖。</strong></p>
+</div>
+
+<h2><span class="n">4</span>变现路径</h2>
+
+<p>服务化打通后，实际可变现的三条路，按落地难度排序：</p>
+
+<table>
+  <tr><th>路径</th><th>怎么做</th><th>关键前提</th></tr>
+  <tr>
+    <td><strong>① 自用内容生产</strong><br><span class="pill g">最快</span></td>
+    <td>把 3 步蒸馏模型当成素材机：一条 prompt 批量出 480P 镜头，进你的解说/短剧剪辑管线。<code>/v1/videos/sync</code> 天然适合脚本化批处理</td>
+    <td>先测出单条耗时，算清"一小时能出几条"</td>
+  </tr>
+  <tr>
+    <td><strong>② 私有化交付</strong><br><span class="pill a">中等</span></td>
+    <td>给客户部署一套本地视频生成服务。客户自己有卡，你卖部署 + 调优 + 工作流</td>
+    <td>把 M1–M3 流程整理成可交付的安装包</td>
+  </tr>
+  <tr>
+    <td><strong>③ API 转售</strong><br><span class="pill r">最难</span></td>
+    <td>起服务对外按次计费</td>
+    <td>单卡产能太低，且需核清权重许可 —— 见下</td>
+  </tr>
+</table>
+
+<div class="card danger">
+<h4>许可红线（踩了就是法律风险）</h4>
+<p style="margin:0 0 8px">FastVideo <strong>代码是 Apache-2.0</strong>，但<strong>权重是各自独立的许可</strong>：</p>
+<ul style="margin:0">
+  <li>Wan 系列 → 跟随各自 model card，商用前逐一核对</li>
+  <li><strong>MiniMax H3 系列 → MiniMax H3 Community License</strong>，与 Apache-2.0 无关</li>
+  <li><strong>Lucy Edit Dev → 明确非商用</strong></li>
+</ul>
+<p style="margin:8px 0 0">拿代码做内部产品没问题；<strong>对外卖服务前，必须逐张核对你要用的那个模型权重</strong>。这一条不是建议，是硬约束。</p>
+</div>
+
+<h2><span class="n">5</span>排错速查</h2>
+
+<table>
+  <tr><th>症状</th><th>原因</th><th>处理</th></tr>
+  <tr><td><code>could not select device driver</code></td><td>缺 nvidia-container-toolkit</td><td>宿主机装 toolkit 后重启 docker 服务</td></tr>
+  <tr><td>加载阶段就崩 / 卡死</td><td>Docker 共享内存不足</td><td>加 <code>--shm-size=16g</code></td></tr>
+  <tr><td><code>Invalid argument</code> 类 CUDA 错误</td><td>pinned memory 分配失败</td><td><code>offload.pin_cpu_memory: false</code>（官方在 4090 的例子里正是这么注释的）</td></tr>
+  <tr><td>VSA 启动报错</td><td>Triton 内核未就绪</td><td>退回 <code>FASTVIDEO_ATTENTION_BACKEND=FLASH_ATTN</code> 先跑通</td></tr>
+  <tr><td>换了后端却不生效</td><td><strong>后端只解析一次</strong></td><td>改 <code>FASTVIDEO_ATTENTION_BACKEND</code> 后必须重建生成器 / 重启进程</td></tr>
+  <tr><td><code>experimental</code> 里的键改了没用</td><td>该字段无 schema，键名错会<strong>静默失效</strong></td><td>对照官方配置原文逐个核对拼写</td></tr>
+  <tr><td>选了量化但没变快</td><td>NVFP4 在 4090 上会<strong>静默回退</strong> FA</td><td>4090 只能用 FP8，NVFP4 是 sm_120 硬门槛</td></tr>
+  <tr><td>编译后反而变慢</td><td>把预热轮算进平均了</td><td>丢掉第一次生成再测</td></tr>
+</table>
+
+<h2><span class="n">6</span>资源清单</h2>
+
+<dl class="kv">
+  <dt>产出文件</dt><dd><code>fastvideo-configs/06-rtx4090-24gb-fp8-vsa.yaml</code> — M2 稳妥档<br><code>fastvideo-configs/07-rtx4090-24gb-14b-push.yaml</code> — M2 压榨档<br><code>fastvideo-configs/08-4090-serve-fastwan1.3b.yaml</code> — M3 服务配置</dd>
+  <dt>源码位置</dt><dd><code>repos/FastVideo/</code>（2530 文件，固定在 commit 9b0e57fe）</dd>
+  <dt>本地文档</dt><dd><code>FastVideo-使用说明.html</code>（配置体系详解，18 张表）</dd>
+  <dt>关键官方文档</dt><dd><code>docs/getting_started/installation/gpu.md</code> — 安装<br><code>docs/inference/optimizations.md</code> — 优化开关<br><code>docs/inference/offloading.md</code> — 卸载策略<br><code>examples/serving/README.md</code> — 服务化</dd>
+</dl>
+
+<div class="card ok">
+<h4>下一步就是动手</h4>
+<p style="margin:0">从路线 A 的第一条 <code>nvidia-smi</code> 开始。M1 跑通的标志是 <code>video_samples/</code> 里出现能播放的 mp4 —— 到那一步再谈优化和变现才有意义。</p>
+</div>
+
+</div>
+</body>
+</html>

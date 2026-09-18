@@ -1,0 +1,80 @@
+# FastVideo 推理配置模板（RTX 4090 / 24 GB 显存 —— 稳妥起步档）
+#
+# 环境前提（缺一不可，注意不是 macOS）：
+#   OS:      Linux 或 Windows WSL
+#   Python:  3.10–3.12          （3.13 会被拒绝）
+#   CUDA:    12.6 或 13.0
+#   PyTorch: 2.12.0
+#
+#   uv venv --python 3.12 --seed && source .venv/bin/activate
+#   UV_TORCH_BACKEND=cu126 uv pip install fastvideo
+#   uv pip install flash-attn --no-build-isolation -v     # 可选，装了就快一档
+#
+# 运行：
+#   FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN fastvideo generate --config 06-rtx4090-24gb-fp8-vsa.yaml
+#   （没装 fastvideo-kernel 时换成 FASTVIDEO_ATTENTION_BACKEND=FLASH_ATTN）
+#
+# 这是 4090 上最稳的组合：小模型 + FP8 量化 + 稀疏注意力 + 逐层卸载。
+# 三件事都是 4090 架构支持范围内的（sm_89），不会踩架构门槛。
+
+generator:
+  model_path: FastVideo/FastWan2.1-T2V-1.3B-Diffusers
+  engine:
+    num_gpus: 1
+    execution_backend: mp            # 单机多进程；只有跨机才用 ray
+    use_fsdp_inference: false        # 单卡不需要 FSDP 切分
+    quantization:
+      transformer_quant: FP8         # 4090 的核心红利：sm_89 原生硬件 FP8
+                                     # 官方文档把 4090 与 H100、L40S 并列点名为支持设备
+                                     # 想要更高精度可改 granularity=channel，但会更慢
+    parallelism:
+      tp_size: 1
+      sp_size: 1
+    offload:
+      dit_layerwise: true            # 单卡「推荐常开」：逐层卸载且与计算重叠，开销可忽略
+      dit: false                     # 这个只对 FSDP 生效，单卡开了纯粹白搬运
+      vae: false                     # 24G 跑 480P 基本够；OOM 时按末尾顺序逐级打开
+      image_encoder: false
+      text_encoder: false            # 最慢的一档，放到最后才考虑
+      pin_cpu_memory: true           # 96 GB 内存完全够锁页；报 pinned 分配失败再改 false
+    compile:
+      enabled: false                 # 首次编译要等几十秒到几分钟，先跑通再考虑开
+
+  pipeline:
+    experimental:
+      VSA_sparsity: 0.8              # 稀疏率，官方用量在 0.8–0.9；越高越省显存越快
+      dmd_denoising_steps: [1000, 757, 522]   # DMD 蒸馏的 3 步（FastWan 系列专用）
+
+request:
+  prompt: >-
+    A curious raccoon peers through a vibrant field of yellow sunflowers,
+    its eyes wide with interest, shallow depth of field, warm sunlight.
+  sampling:
+    seed: 1024
+    num_frames: 81                   # 24G 上先守住 81 帧（Wan 系列要求 4n+1）
+    height: 480
+    width: 832
+    fps: 16
+    num_inference_steps: 3           # DMD 蒸馏模型 3 步就够，别照搬原版的 50
+    # guidance_scale: 用模型自带默认值，蒸馏模型不要随手调高
+  output:
+    output_path: outputs/4090_1.3b/
+    save_video: true
+    return_frames: false             # CLI 上默认就是 false，要帧数据得显式写 true
+
+# ─────────────────────────────────────────────────────────────
+# 万一还是 OOM，按这个顺序逐级打开卸载（一次只加一个，每加一个都变慢）：
+#   1) offload.vae: true             ← 先加这个，代价最小
+#   2) offload.image_encoder: true   ← 做 I2V 才有意义
+#   3) offload.text_encoder: true    ← 明显变慢，但文本编码本来不是瓶颈
+#   4) 还不行就压规格：width/height 降到 640×384，num_frames 降到 49
+#   5) 实在不行换更小的模型（TurboWan2.1-T2V-1.3B，1–4 步出片）
+#
+# 想上 14B：见同目录 07-rtx4090-24gb-14b-push.yaml
+#
+# 4090 上不要碰的开关（会踩架构门槛或静默失效）：
+#   ✗ transformer_quant: nvfp4_qat + ATTN_QAT_INFER   → 硬门槛 sm_120，4090 会回退 FA
+#   ✗ FASTVIDEO_ATTENTION_BACKEND=SAGE_ATTN_THREE     → 要求 Blackwell（RTX 5090）
+#   ✗ FASTVIDEO_FA4=1                                 → 低于 sm90 只能服务部分调用
+#   ✗ FASTVIDEO_ATTENTION_BACKEND=SLIDING_TILE_ATTN   → 要求 Hopper，且已归档
+# ─────────────────────────────────────────────────────────────

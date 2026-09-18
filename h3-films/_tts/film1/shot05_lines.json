@@ -1,0 +1,74 @@
+[
+ {
+  "speaker": "S1",
+  "text": "束一半了。",
+  "mp3": "s05_0.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 0.738
+ },
+ {
+  "speaker": "S2",
+  "text": "大爷，您怎么摔地上了？",
+  "mp3": "s05_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f01.wav",
+  "t": 1.227,
+  "dur": 1.379
+ },
+ {
+  "speaker": "S1",
+  "text": "轮椅滑了，我起不来。",
+  "mp3": "s05_2.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f02.wav",
+  "t": 2.896,
+  "dur": 1.238
+ },
+ {
+  "speaker": "S2",
+  "text": "您先别急，有没有摔到头？手能动吗？",
+  "mp3": "s05_3.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f03.wav",
+  "t": 4.423,
+  "dur": 2.711
+ },
+ {
+  "speaker": "S1",
+  "text": "头没事，就是没力气。你手上都是灰。",
+  "mp3": "s05_4.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f04.wav",
+  "t": 7.424,
+  "dur": 2.683
+ },
+ {
+  "speaker": "S2",
+  "text": "早上吃饭了吗？",
+  "mp3": "s05_5.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f05.wav",
+  "t": 10.396,
+  "dur": 0.853
+ },
+ {
+  "speaker": "S1",
+  "text": "没顾上吃，饿得有点发晕。",
+  "mp3": "s05_6.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f06.wav",
+  "t": 11.539,
+  "dur": 1.507
+ },
+ {
+  "speaker": "S2",
+  "text": "那可不行，老人家最怕",
+  "mp3": "s05_7.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f07.wav",
+  "t": 13.336,
+  "dur": 1.488
+ }
+]

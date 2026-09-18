@@ -1,0 +1,64 @@
+# FastVideo 推理配置模板（RTX 4090 / 24 GB —— 硬上 14B 压榨档）
+#
+# 这一档挑战的是「单张 24G 卡能不能跑 14B」。官方在 main 分支里确实带了一份
+# 单卡 14B 480P 的配置（scripts/inference/inference_wan_VSA_DMD_14B_480P.yaml），
+# 所以路径是通的 —— 但显存是全靠 FP8 + 稀疏 + 逐层卸载三者叠出来的，
+# 少任何一个都可能 OOM。先跑通 06 号模板再来试这个。
+#
+# 运行：
+#   FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN fastvideo generate --config 07-rtx4090-24gb-14b-push.yaml
+
+generator:
+  model_path: FastVideo/FastWan2.1-T2V-14B-480P-Diffusers
+  engine:
+    num_gpus: 1
+    execution_backend: mp
+    use_fsdp_inference: false
+    quantization:
+      transformer_quant: FP8         # 这一档的命根子。去掉它 24G 基本无解
+    parallelism:
+      tp_size: 1
+      sp_size: 1
+    offload:
+      dit_layerwise: true            # 同样必须开：14B 权重逐层过 PCIe
+      dit: false
+      vae: true                      # 第一级保险
+      image_encoder: true
+      text_encoder: false            # 先留着不开，让首轮跑得动就行
+      pin_cpu_memory: true
+    compile:
+      enabled: false                 # 编译期本身会吃额外显存，压榨档先别开
+  pipeline:
+    experimental:
+      VSA_sparsity: 0.9              # 官方 14B 配置用的就是 0.9，比 1.3B 更狠一档
+      dmd_denoising_steps: [1000, 757, 522]
+
+request:
+  prompt: >-
+    A majestic lion strides across the golden savanna, its powerful frame
+    glistening under the warm afternoon sun, low angle steady tracking shot.
+  sampling:
+    seed: 1024
+    num_frames: 81                   # 480P + 81 帧是官方单卡配置的原始规格
+    height: 480
+    width: 832
+    fps: 16
+    num_inference_steps: 3
+  output:
+    output_path: outputs/4090_14b/
+    save_video: true
+
+# ─────────────────────────────────────────────────────────────
+# 实测时的三个提醒：
+#
+# 1) 逐层卸载走 PCIe，14B 会比 1.3B 慢得多 —— 慢是正常的，先确认「不 OOM」，
+#    再谈速度。想快就回到 06 号模板。
+#
+# 2) 如果你打算加第二张 4090 走 FSDP：消费级卡没有 P2P，官方文档明确说
+#    「多张消费级 GPU 经慢速 PCIe 且无 P2P 时，FSDP 的开销会显现出来」。
+#    加卡能扩显存，但不一定等比例提速。
+#
+# 3) 96 GB 系统内存在这档是真正被用上的：FP8 之后的 14B 权重 + 逐层卸载的
+#    中转缓冲都在宿主内存里。内存不够会在加载阶段就挂，那种情况才需要
+#    offload.lazy_module_load: true。
+# ─────────────────────────────────────────────────────────────

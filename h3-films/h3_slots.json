@@ -1,0 +1,384 @@
+{
+ "_note": "由 probe_h3_nodes.py 从 /object_info 导出；生成器优先读它，缺失则回退 SLOT_FALLBACK",
+ "source": "http://127.0.0.1:8188",
+ "h3_slots": {
+  "MiniMaxH3AudioConditioningT8": [
+   {
+    "name": "clip",
+    "type": "CLIP",
+    "kind": "required"
+   },
+   {
+    "name": "video_vae",
+    "type": "VAE",
+    "kind": "required"
+   },
+   {
+    "name": "audio_vae",
+    "type": "VAE",
+    "kind": "required"
+   },
+   {
+    "name": "length",
+    "type": "INT",
+    "kind": "required"
+   },
+   {
+    "name": "drive_audio",
+    "type": "AUDIO",
+    "kind": "optional"
+   },
+   {
+    "name": "final_audio",
+    "type": "AUDIO",
+    "kind": "optional"
+   },
+   {
+    "name": "first_frame",
+    "type": "IMAGE",
+    "kind": "optional"
+   },
+   {
+    "name": "last_frame",
+    "type": "IMAGE",
+    "kind": "optional"
+   },
+   {
+    "name": "ref_images",
+    "type": "COMFY_AUTOGROW_V3",
+    "kind": "optional"
+   },
+   {
+    "name": "ref_videos",
+    "type": "COMFY_AUTOGROW_V3",
+    "kind": "optional"
+   },
+   {
+    "name": "ref_video_audios",
+    "type": "COMFY_AUTOGROW_V3",
+    "kind": "optional"
+   },
+   {
+    "name": "ref_audios",
+    "type": "COMFY_AUTOGROW_V3",
+    "kind": "optional"
+   },
+   {
+    "name": "allow_above_reference_area",
+    "type": "BOOLEAN",
+    "kind": "optional"
+   },
+   {
+    "name": "prompt",
+    "type": "STRING",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "width",
+    "type": "INT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "height",
+    "type": "INT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "task_type",
+    "type": "COMBO",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "audio_mode",
+    "type": "COMBO",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "audio_denoise_strength",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "add_source_as_reference",
+    "type": "BOOLEAN",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "prompt_primary_audio_ordinal",
+    "type": "INT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "strict_prompt_tags",
+    "type": "BOOLEAN",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "ref_image_size",
+    "type": "COMBO",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "reference_video_policy",
+    "type": "COMBO",
+    "kind": "required-scalar"
+   }
+  ],
+  "MiniMaxH3AudioWindowT8": [
+   {
+    "name": "audio",
+    "type": "AUDIO",
+    "kind": "required"
+   },
+   {
+    "name": "scene_start_seconds",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "scene_duration_seconds",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "warmup_seconds",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "cooldown_seconds",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "ensure_minimum_context",
+    "type": "BOOLEAN",
+    "kind": "required-scalar"
+   }
+  ],
+  "MiniMaxH3AVDecodeT8": [
+   {
+    "name": "av_latent",
+    "type": "LATENT",
+    "kind": "required"
+   },
+   {
+    "name": "video_vae",
+    "type": "VAE",
+    "kind": "required"
+   },
+   {
+    "name": "audio_vae",
+    "type": "VAE",
+    "kind": "required"
+   }
+  ],
+  "MiniMaxH3DualClockSamplerT8": [
+   {
+    "name": "model",
+    "type": "MODEL",
+    "kind": "required"
+   },
+   {
+    "name": "av_latent",
+    "type": "LATENT",
+    "kind": "required"
+   },
+   {
+    "name": "sampler_name",
+    "type": "COMBO",
+    "kind": "optional"
+   },
+   {
+    "name": "scheduler",
+    "type": "COMBO",
+    "kind": "optional"
+   },
+   {
+    "name": "steps",
+    "type": "INT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "shift_video",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "shift_audio",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   }
+  ],
+  "MiniMaxH3OutputTrimT8": [
+   {
+    "name": "frames",
+    "type": "IMAGE",
+    "kind": "required"
+   },
+   {
+    "name": "audio",
+    "type": "AUDIO",
+    "kind": "optional"
+   },
+   {
+    "name": "start_seconds",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "duration_seconds",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "fps",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   }
+  ],
+  "MiniMaxH3PreflightT8": [
+   {
+    "name": "model",
+    "type": "MODEL",
+    "kind": "optional"
+   },
+   {
+    "name": "video_vae",
+    "type": "VAE",
+    "kind": "optional"
+   },
+   {
+    "name": "audio_vae",
+    "type": "VAE",
+    "kind": "optional"
+   },
+   {
+    "name": "drive_audio",
+    "type": "AUDIO",
+    "kind": "optional"
+   },
+   {
+    "name": "ref_images",
+    "type": "COMFY_AUTOGROW_V3",
+    "kind": "optional"
+   },
+   {
+    "name": "ref_videos",
+    "type": "COMFY_AUTOGROW_V3",
+    "kind": "optional"
+   },
+   {
+    "name": "ref_audios",
+    "type": "COMFY_AUTOGROW_V3",
+    "kind": "optional"
+   },
+   {
+    "name": "width",
+    "type": "INT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "height",
+    "type": "INT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "length",
+    "type": "INT",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "audio_mode",
+    "type": "COMBO",
+    "kind": "required-scalar"
+   }
+  ],
+  "MiniMaxH3AudioLatentControlT8": [
+   {
+    "name": "av_latent",
+    "type": "LATENT",
+    "kind": "required"
+   },
+   {
+    "name": "source_audio",
+    "type": "AUDIO",
+    "kind": "required"
+   },
+   {
+    "name": "audio_vae",
+    "type": "VAE",
+    "kind": "required"
+   },
+   {
+    "name": "mode",
+    "type": "COMBO",
+    "kind": "required-scalar"
+   },
+   {
+    "name": "strength",
+    "type": "FLOAT",
+    "kind": "required-scalar"
+   }
+  ],
+  "LoadImage": [
+   {
+    "name": "image",
+    "type": "",
+    "kind": "required"
+   }
+  ]
+ },
+ "cond_slot_order": [
+  "clip",
+  "video_vae",
+  "audio_vae",
+  "length",
+  "drive_audio",
+  "final_audio",
+  "first_frame",
+  "last_frame",
+  "ref_images",
+  "ref_videos",
+  "ref_video_audios",
+  "ref_audios",
+  "allow_above_reference_area",
+  "prompt",
+  "width",
+  "height",
+  "task_type",
+  "audio_mode",
+  "audio_denoise_strength",
+  "add_source_as_reference",
+  "prompt_primary_audio_ordinal",
+  "strict_prompt_tags",
+  "ref_image_size",
+  "reference_video_policy"
+ ],
+ "cond_slot_index": {
+  "clip": 0,
+  "video_vae": 1,
+  "audio_vae": 2,
+  "length": 3,
+  "drive_audio": 4,
+  "final_audio": 5,
+  "first_frame": 6,
+  "last_frame": 7,
+  "ref_images": 8,
+  "ref_videos": 9,
+  "ref_video_audios": 10,
+  "ref_audios": 11,
+  "allow_above_reference_area": 12,
+  "prompt": 13,
+  "width": 14,
+  "height": 15,
+  "task_type": 16,
+  "audio_mode": 17,
+  "audio_denoise_strength": 18,
+  "add_source_as_reference": 19,
+  "prompt_primary_audio_ordinal": 20,
+  "strict_prompt_tags": 21,
+  "ref_image_size": 22,
+  "reference_video_policy": 23
+ }
+}

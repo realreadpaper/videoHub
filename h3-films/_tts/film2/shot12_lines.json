@@ -1,0 +1,29 @@
+[
+ {
+  "speaker": "S4",
+  "text": "人。排骨吸满浓郁酱汁，筷子轻轻一戳就脱骨，软烂入味，特别下饭。",
+  "mp3": "s12_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 4.616
+ },
+ {
+  "speaker": "S4",
+  "text": "关键是吃完只用洗一个电饭锅内胆，不用刷炒锅，不用擦满是油点的灶台，简直就是懒人和上班族的厨房之光。",
+  "mp3": "s12_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a01.wav",
+  "t": 4.887,
+  "dur": 6.343
+ },
+ {
+  "speaker": "S4",
+  "text": "而且它配料表干净，最重要的是 0 蔗糖，家里老人小孩都",
+  "mp3": "s12_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 11.3,
+  "dur": 3.523
+ }
+]

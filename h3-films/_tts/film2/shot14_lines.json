@@ -1,0 +1,29 @@
+[
+ {
+  "speaker": "S4",
+  "text": "手五包。还没完，现在拼手速下单的，我再自掏腰包多送你两包。",
+  "mp3": "s14_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 4.294
+ },
+ {
+  "speaker": "S4",
+  "text": "也就是说 9 块 9 整整七包，直接包邮到家，折算下来，一块多钱就能解决一顿大餐的调味。",
+  "mp3": "s14_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a01.wav",
+  "t": 4.558,
+  "dur": 5.496
+ },
+ {
+  "speaker": "S4",
+  "text": "告别满身油烟，零厨艺也能轻松做出大厨味。现货库存马上见底，赶",
+  "mp3": "s14_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 10.117,
+  "dur": 4.706
+ }
+]

@@ -1,0 +1,162 @@
+<?svml using="@hypit/markup@1"?>
+
+<!--
+  复刻：抖音「看好剧推荐」短剧带货片 · 广告卖货段
+  参考片：references/zui-guoli-ribs/source.mp4（原片 286s，卖货段 176s–270s）
+  本片：把原片卖货段切片作为 A-roll，叠加原片没有的四层图形（痛点条 / 五步条 / 价格卡 / CTA）。
+  换产品、换文案、换素材都发生在这一层。
+-->
+<svml>
+  <import as="media" from="@hypit/media@1"/>
+  <import as="pipeline" from="@hypit/media-pipeline@1"/>
+  <import as="media-track" from="@hypit/media-track@1"/>
+  <import as="audio-track" from="@hypit/audio-track@1"/>
+  <import as="text" from="@hypit/typography-track@1"/>
+  <import as="time" from="@hypit/timeline-author@1"/>
+  <import as="space" from="@hypit/spatial@1"/>
+  <import as="program" from="@hypit/program-space@1"/>
+  <import as="fonts" from="@hypit/fonts-open@1"/>
+  <import as="film" from="@hypit/film@1"/>
+  <import as="render" from="@hypit/render-hyperframes@1"/>
+  <import as="recipes" source="./recipes.svs"/>
+
+  <program:Clock id="clock" frame-rate="30"/>
+  <time:Timeline id="film-time" clock={clock} end="94.2s"/>
+
+  <space:Canvas id="vertical" width="720" height="1280"/>
+  <space:Frame id="full" within={vertical}
+    left="0%" top="0%" right="100%" bottom="100%"/>
+  <!-- 顶部通栏：避开原片自带的底部字幕与免责声明 -->
+  <space:Frame id="banner-frame" within={vertical}
+    left="3%" top="2.2%" right="97%" bottom="11.6%"/>
+  <!-- 价格卡：中段，仅成交窗口出现 -->
+  <space:Frame id="price-frame" within={vertical}
+    left="7%" top="44%" right="93%" bottom="62%"/>
+
+  <fonts:Stack id="cn-sans" family="noto-sans-sc" weight="900" style="normal"/>
+  <fonts:Stack id="cn-display" family="zcool-qingke-huangyou" weight="400" style="normal"/>
+
+  <!-- ═══ 样式：白字红底卖点条 ═══ -->
+  <text:Style id="banner-style" recipe={recipes.banner.text} font={cn-sans}>
+    <text:Fill color="#FFFFFF"/>
+    <text:Stroke color="#1A1208" width="6" placement="outside"/>
+    <text:Box target="paragraph" color="#C8102E" padding="16 26" radius="14"/>
+  </text:Style>
+
+  <!-- ═══ 样式：黄字黑底步骤条 ═══ -->
+  <text:Style id="step-style" recipe={recipes.step.text} font={cn-sans}>
+    <text:Fill color="#FFE14D"/>
+    <text:Stroke color="#1A1208" width="6" placement="outside"/>
+    <text:Box target="paragraph" color="#12100CEB" padding="16 26" radius="14"/>
+  </text:Style>
+
+  <!-- ═══ 样式：黄字红十字价格卡 ═══ -->
+  <text:Style id="price-style" recipe={recipes.price.text} font={cn-display}>
+    <text:Fill color="#FFE14D"/>
+    <text:Stroke color="#8A0C14" width="8" placement="outside"/>
+    <text:Box target="paragraph" color="#C8102EF2" padding="20 32" radius="22"/>
+  </text:Style>
+
+  <!-- ═══ 样式：白字黑底 CTA ═══ -->
+  <text:Style id="cta-style" recipe={recipes.cta.text} font={cn-display}>
+    <text:Fill color="#FFFFFF"/>
+    <text:Stroke color="#000000" width="4" placement="outside"/>
+    <text:Box target="paragraph" color="#0F0F0FE8" padding="16 28" radius="14"/>
+  </text:Style>
+
+  <!-- ═══ 素材：卖货段切片（176s–270s，94.2s）═══ -->
+  <media:Video id="aroll" src="../assets/ad-segment.mp4"/>
+  <pipeline:Normalize id="aroll-media" source={aroll}
+    video="primary-moving" audio="default" span-authority="video" clock={clock}/>
+
+  <media-track:Track id="picture" timeline={film-time.timeline} canvas={vertical}>
+    <media-track:Item id="base" media={aroll-media.media} during="program"
+      frame={full} appearance={recipes.media.base}/>
+  </media-track:Track>
+
+  <!-- A-roll 原声：画面归 media-track，声音必须走独立的 audio-track。
+       官方范式见 hypit 仓库 examples/podcast/reference.svml。 -->
+  <audio-track:Track id="aroll-sound" timeline={film-time.timeline}>
+    <audio-track:Item source={aroll-media.media} during="program"
+      playback="once-start" gain="1"/>
+  </audio-track:Track>
+
+  <!-- ═══ 图形层 1：痛点与结果（白字红底）═══ -->
+  <text:Track id="ask" timeline={film-time.timeline}>
+    <text:Area id="hook" placement={banner-frame} style={banner-style} at="2s" for="6s">
+      下班回家 还得炒糖色？
+    </text:Area>
+    <text:Area id="pain1" placement={banner-frame} style={banner-style} at="8s" for="6s">
+      切葱姜蒜 · 炒糖色
+    </text:Area>
+    <text:Area id="pain2" placement={banner-frame} style={banner-style} at="14s" for="6s">
+      一顿饭 三次崩溃
+    </text:Area>
+    <text:Area id="claim" placement={banner-frame} style={banner-style} at="20s" for="7s">
+      一个电饭锅 = 一桌硬菜
+    </text:Area>
+    <text:Area id="tender" placement={banner-frame} style={banner-style} at="62s" for="6s">
+      筷子一戳 直接脱骨
+    </text:Area>
+    <text:Area id="clean" placement={banner-frame} style={banner-style} at="68s" for="5s">
+      只洗一个内胆
+    </text:Area>
+    <text:Area id="versatile" placement={banner-frame} style={banner-style} at="73s" for="7s">
+      红烧肉 / 鱼 / 羊肉 一包搞定
+    </text:Area>
+    <text:Area id="family" placement={banner-frame} style={banner-style} at="80s" for="4s">
+      老人 小孩 孕妈 都能吃
+    </text:Area>
+  </text:Track>
+
+  <!-- ═══ 图形层 2：五步做法（黄字黑底）═══ -->
+  <text:Track id="how" timeline={film-time.timeline}>
+    <text:Area id="drop" placement={banner-frame} style={step-style} at="27s" for="5s">
+      八角 桂皮 老抽 → 靠边站
+    </text:Area>
+    <text:Area id="s1" placement={banner-frame} style={step-style} at="32s" for="6s">
+      ① 排骨焯水 洗净
+    </text:Area>
+    <text:Area id="s2" placement={banner-frame} style={step-style} at="38s" for="6s">
+      ② 丢进电饭锅
+    </text:Area>
+    <text:Area id="s3" placement={banner-frame} style={step-style} at="44s" for="6s">
+      ③ 撕一包 倒进去
+    </text:Area>
+    <text:Area id="s4" placement={banner-frame} style={step-style} at="50s" for="6s">
+      ④ 加半碗清水
+    </text:Area>
+    <text:Area id="s5" placement={banner-frame} style={step-style} at="56s" for="6s">
+      ⑤ 按煮饭键 走人
+    </text:Area>
+  </text:Track>
+
+  <!-- ═══ 图形层 3：价格锚点 ═══ -->
+  <text:Track id="price" timeline={film-time.timeline}>
+    <text:Area id="anchor" placement={price-frame} style={price-style} at="84s" for="3s">
+      超市一包 7-8 元
+    </text:Area>
+    <text:Area id="deal" placement={price-frame} style={price-style} at="87s" for="7.2s">
+      9.9 元 7 包 包邮
+    </text:Area>
+  </text:Track>
+
+  <!-- ═══ 图形层 4：成交指令 ═══ -->
+  <text:Track id="cta" timeline={film-time.timeline}>
+    <text:Area id="go" placement={banner-frame} style={cta-style} at="88s" for="6.2s">
+      点击左下角 · 现货马上见底
+    </text:Area>
+  </text:Track>
+
+  <film:Film id="main" canvas={vertical} timeline={film-time.timeline}
+    appearance={recipes.film.vertical}>
+    <film:Track source={picture.visual}/>
+    <film:Track source={ask.track}/>
+    <film:Track source={how.track}/>
+    <film:Track source={price.track}/>
+    <film:Track source={cta.track}/>
+    <film:Track source={aroll-sound.audio}/>
+  </film:Film>
+
+  <render:Video id="final" composition={main.composition} timeline={film-time.timeline}/>
+</svml>

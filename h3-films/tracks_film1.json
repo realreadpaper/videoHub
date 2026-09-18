@@ -1,0 +1,32 @@
+{
+ "_说明": "产品贴图轨道配置。seed=auto 表示从检测到的红区四边形自动起步；range 是「袋面完整可见」的时段（镜内秒）。每镜可单独覆盖 min_area/min_fill/seed_qerr。",
+ "shots_dir": "_deliver/shots_film1",
+ "out_dir": "_post/film1/s1_overlay",
+ "product": "_product/mine/product_鲍汁红烧酱料_原图.jpg",
+ "crop": [62, 78, 752, 1022],
+ "tracks": {
+  "13": {
+   "range": [0.3, 1.5],
+   "seed": "auto",
+   "seed_qerr": 0.02,
+   "min_red": 0.30,
+   "fade": 0.25
+  },
+  "15": {
+   "range": [6.0, 10.5],
+   "seed": "auto",
+   "seed_qerr": 0.03,
+   "min_red": 0.25,
+   "fade": 0.40
+  },
+  "18": {
+   "range": [6.0, 12.0],
+   "seed": "auto",
+   "seed_qerr": 0.035,
+   "min_area": 0.004,
+   "min_fill": 0.50,
+   "min_red": 0.25,
+   "fade": 0.40
+  }
+ }
+}

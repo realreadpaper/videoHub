@@ -1,0 +1,14 @@
+{
+  "name": "@local/provider-selfhosted-video",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "hypit": { "activation": "./dist/activation.js" },
+  "exports": { ".": "./dist/provider.js" },
+  "files": ["dist"],
+  "scripts": { "build": "tsc -p tsconfig.json" },
+  "devDependencies": {
+    "@hypit/hypit": "0.1.10",
+    "typescript": "5.9.3"
+  }
+}

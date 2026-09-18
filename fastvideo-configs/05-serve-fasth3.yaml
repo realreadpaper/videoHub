@@ -1,0 +1,64 @@
+# FastVideo 服务端配置模板（OpenAI 兼容 /v1/videos + 内置 playground）
+#
+#   fastvideo serve --config 05-serve-fasth3.yaml
+#
+# 就绪检查（另一个终端）：
+#   curl -s http://127.0.0.1:8000/health        # 期望 {"status":"ok"}
+# 浏览器 playground：
+#   http://127.0.0.1:8000/playground/
+
+generator:
+  model_path: FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree
+  engine:
+    num_gpus: 1
+    use_fsdp_inference: false
+    offload:
+      lazy_module_load: true
+    compile:
+      enabled: false
+  pipeline:
+    experimental:
+      attention_backend: VIDEO_SPARSE_ATTN_H3
+      VSA_sparsity: 0.9
+      VSA_tile_size: 64
+
+server:
+  host: 127.0.0.1      # 默认是 0.0.0.0，本地开发建议锁回环
+  port: 8000
+  output_dir: outputs/
+  served_model_name: fasth3
+
+# 可选：服务端固化的基线请求（客户端请求会 merge 到它之上）
+# default_request:
+#   prompt: ""
+#   sampling:
+#     num_frames: 124
+#     height: 768
+#     width: 1344
+#     num_inference_steps: 5
+#     guidance_scale: 1.0
+#   output:
+#     save_video: true
+
+# 可选：流式会话相关旋钮（做成产品时才需要动）
+# streaming:
+#   session_timeout_seconds: 300
+#   generation_segment_cap: 6
+#   stream_mode: av_fmp4          # 或 legacy_jpeg
+#   warmup:
+#     enabled: true
+#     timeout_seconds: 2400
+#   pool:
+#     num_workers: null
+#     conditioning_num_frames: 9
+#   prompt:
+#     enabled: false              # 提示词增强，走 cerebras / groq
+#   safety:
+#     enabled: false              # 需要额外装 fasttext
+
+# ─────────────────────────────────────────────────────────────
+# 🚨 安全提示：这个服务端「没有内置鉴权」。
+#    客户端里那个 "local" key 只是占位符，官方明确说明需要自己套一层
+#    带认证的 TLS 反向代理才能对外暴露。
+#    另外：FASTVIDEO_API_KEY 绝不要复用任何 OpenAI 云端的 key。
+# ─────────────────────────────────────────────────────────────

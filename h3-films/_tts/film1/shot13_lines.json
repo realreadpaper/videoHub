@@ -1,0 +1,38 @@
+[
+ {
+  "speaker": "S1",
+  "text": "一次给我看看。",
+  "mp3": "s13_0.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 0.776
+ },
+ {
+  "speaker": "S2",
+  "text": "顾董，我平时自己带饭，就是因为家里这边远，今天正好带了常用的红烧酱料，我现场做一锅给您尝尝。",
+  "mp3": "s13_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a01.wav",
+  "t": 1.047,
+  "dur": 5.378
+ },
+ {
+  "speaker": "S2",
+  "text": "顾董，今天我就用食堂的电饭锅给您做一道上排骨，省事还不弄得满身油烟。",
+  "mp3": "s13_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 6.496,
+  "dur": 4.076
+ },
+ {
+  "speaker": "S2",
+  "text": "顾董，家人们，别再拿老一套方法做红烧排骨了。每天下班回家累得骨",
+  "mp3": "s13_3.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a03.wav",
+  "t": 10.642,
+  "dur": 4.181
+ }
+]

@@ -1,0 +1,14 @@
+integrated_multimodal_description:
+<Product reference — the product SP is the sealed stand-up sauce pouch shown in <Picture 1>. Whenever the pouch is on screen, keep its identity, silhouette, proportions, colour, material and its own printed packaging design exactly as shown in <Picture 1> - do not invent, restyle, re-letter or recolour the packaging, and do not replace it with a different bag or a box.>
+
+<Scene reference — this entire shot takes place in: a professional canteen kitchen: brushed stainless-steel counter, white tiled walls behind, bright overhead lights>
+
+The supplied <Picture 1> reference fixes what the product is and how its packaging looks.
+
+[00:00.000 – 00:15.000] Extreme close-up product beauty shot: the sealed stand-up sauce pouch stands upright, centred in frame, resting on a brushed stainless-steel counter. The pouch fills roughly eighty percent of the frame height and is the only subject. The camera is locked off at pouch height, perfectly centred and level, with a very slow push-in. The printed front panel faces the camera squarely and stays perfectly sharp and legible for the whole shot, with no motion blur: the tall vertical white display lettering down the left of the panel, the round embossed seal at the centre and the small white badge panel on the upper right all read clearly and crisply. Soft even studio lighting from the front, shallow depth of field with the kitchen falling softly out of focus behind the pouch.
+
+overall_soundscape:
+Quiet kitchen room tone, a low extractor hum in the distance. No speech, no voices.
+
+non_diegetic_music:
+None.

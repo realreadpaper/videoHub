@@ -1,0 +1,56 @@
+[
+ {
+  "speaker": "S1",
+  "text": "了。",
+  "mp3": "s04_0.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 0.28
+ },
+ {
+  "speaker": "S3",
+  "text": "你什么意思啊？你不是嫌他丢人吗？",
+  "mp3": "s04_1.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f01.wav",
+  "t": 1.16,
+  "dur": 1.962
+ },
+ {
+  "speaker": "S1",
+  "text": "那你也不配进我的家门。",
+  "mp3": "s04_2.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f02.wav",
+  "t": 3.803,
+  "dur": 0.957
+ },
+ {
+  "speaker": "S3",
+  "text": "孩子我可以接受，但婚前必须说清楚，他以后不能分你的钱。",
+  "mp3": "s04_3.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f03.wav",
+  "t": 5.44,
+  "dur": 3.654
+ },
+ {
+  "speaker": "S1",
+  "text": "你还没进门就开始分财产？",
+  "mp3": "s04_4.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f04.wav",
+  "t": 9.775,
+  "dur": 1.422
+ },
+ {
+  "speaker": "S3",
+  "text": "这叫现实。房子、车全写我名，工资",
+  "mp3": "s04_5.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f05.wav",
+  "t": 11.878,
+  "dur": 2.945
+ }
+]

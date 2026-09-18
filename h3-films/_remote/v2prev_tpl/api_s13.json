@@ -1,0 +1,264 @@
+{
+ "1": {
+  "class_type": "LoadVideo",
+  "inputs": {
+   "file": "drafts/s13.mp4"
+  }
+ },
+ "2": {
+  "class_type": "GetVideoComponents",
+  "inputs": {
+   "video": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "MiniMaxH3SolEngineDraftToLTXT8Advanced",
+  "inputs": {
+   "target_width": 768,
+   "target_height": 1344,
+   "frame_policy": "trim_to_8n_plus_1",
+   "fps": [
+    "2",
+    2
+   ],
+   "frames": [
+    "2",
+    0
+   ]
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "ltx-2.5-video-vae-conv-bf16.safetensors"
+  }
+ },
+ "5": {
+  "class_type": "VAEEncode",
+  "inputs": {
+   "pixels": [
+    "3",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ]
+  }
+ },
+ "6": {
+  "class_type": "LatentUpscaleModelLoader",
+  "inputs": {
+   "model_name": "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "LTXVLatentUpsampler",
+  "inputs": {
+   "samples": [
+    "5",
+    0
+   ],
+   "upscale_model": [
+    "6",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ]
+  }
+ },
+ "8": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+   "weight_dtype": "default"
+  },
+  "_meta": {
+   "shot": 13
+  }
+ },
+ "10": {
+  "class_type": "MiniMaxH3SolEngineLTXRefinerSetupT8Advanced",
+  "inputs": {
+   "enabled": true,
+   "attention_backend": "auto_sol_attn",
+   "min_tokens": 4096,
+   "kernel_precision": "bf16_official",
+   "verbose": false,
+   "model": [
+    "8",
+    0
+   ]
+  }
+ },
+ "11": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+   "type": "ltxv",
+   "device": "default"
+  }
+ },
+ "12": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "integrated_multimodal_description:\n<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Picture 1> is the authoritative reference for the product SP: a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette with a vivid tomato-red metallised front panel and a narrow ivory header band carrying a round punched hang-hole. Whenever the pouch is on screen, keep its identity, silhouette, proportions, colour, material and its own printed packaging design exactly as shown in <Picture 1> - do not invent, restyle, re-letter or recolour the packaging, and do not replace it with a different bag or a box; <Subject 1> (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; <Subject 2> (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm>\n\n<Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter>\n\nThe supplied <Picture 1> reference fixes what the product is and how its packaging looks; the description below only covers staging, action, camera and timing. Do not re-describe or re-draw the packaging design beyond what <Picture 1> already shows.\n\n[00:00.000 – 00:05.000] Medium shot in a bright modern corporate lobby or corridor with pale marble floors, a long reception counter and a wall of frosted glass: S1 in his wheelchair speaks up to S2, who stands beside the table in her black blazer. She listens, then nods once with a small determined smile.\n[00:05.000 – 00:10.000] Cut to a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter. S2, now in the pale blue shirt and beige apron, stands at the stainless counter and sets a slim red sauce pouch down flat on the steel surface beside a rice cooker.\n[00:10.000 – 00:15.000] Medium shot from the counter: S2 looks toward the camera position and speaks directly, chin level, hands opening in a small explaining gesture. Behind her the range and hood are clean and bright; the product pouch sits in the foreground with its printed front panel turned square toward the camera, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text overlay, no watermark, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame, especially in the lower half and along the bottom edge; the only lettering allowed is the printing that is physically part of an object's own surface, and it must stay flat, matte, slightly out of focus and exactly as it appears in the supplied reference image - never sharpened, never glowing, never larger, bolder or more legible than the physical print.\n\noverall_soundscape:\nA change of room tone from lobby to kitchen: extractor hum, stainless counter resonance. No speech, no voices.\n\nnon_diegetic_music:\nBright neutral cue as the scene moves into the kitchen.",
+   "clip": [
+    "11",
+    0
+   ]
+  }
+ },
+ "13": {
+  "class_type": "CLIPTextEncode",
+  "inputs": {
+   "text": "",
+   "clip": [
+    "11",
+    0
+   ]
+  }
+ },
+ "14": {
+  "class_type": "CFGGuider",
+  "inputs": {
+   "cfg": 1.0,
+   "model": [
+    "10",
+    0
+   ],
+   "positive": [
+    "26",
+    0
+   ],
+   "negative": [
+    "26",
+    1
+   ]
+  }
+ },
+ "15": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20260931
+  }
+ },
+ "16": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "15",
+    0
+   ],
+   "guider": [
+    "14",
+    0
+   ],
+   "sampler": [
+    "10",
+    1
+   ],
+   "sigmas": [
+    "10",
+    2
+   ],
+   "latent_image": [
+    "7",
+    0
+   ]
+  }
+ },
+ "17": {
+  "class_type": "VAEDecode",
+  "inputs": {
+   "samples": [
+    "16",
+    0
+   ],
+   "vae": [
+    "4",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "VAEDecode (A1 patch: 替代 TAEHV 预览解码器)"
+  }
+ },
+ "18": {
+  "class_type": "MiniMaxH3OutputTrimT8",
+  "inputs": {
+   "start_seconds": 0.0,
+   "duration_seconds": [
+    "3",
+    5
+   ],
+   "fps": [
+    "2",
+    2
+   ],
+   "frames": [
+    "17",
+    0
+   ],
+   "audio": [
+    "2",
+    1
+   ]
+  }
+ },
+ "19": {
+  "class_type": "CreateVideo",
+  "inputs": {
+   "fps": [
+    "2",
+    2
+   ],
+   "bit_depth": [
+    "2",
+    3
+   ],
+   "images": [
+    "18",
+    0
+   ],
+   "audio": [
+    "18",
+    1
+   ]
+  }
+ },
+ "20": {
+  "class_type": "SaveVideo",
+  "inputs": {
+   "filename_prefix": "MiniMaxH3/film1-refined/s13",
+   "video": [
+    "19",
+    0
+   ],
+   "format": "auto",
+   "codec": "auto"
+  },
+  "_meta": {
+   "title": "shot13 refine"
+  }
+ },
+ "26": {
+  "class_type": "LTXVConditioning",
+  "inputs": {
+   "frame_rate": 24.0,
+   "positive": [
+    "12",
+    0
+   ],
+   "negative": [
+    "13",
+    0
+   ]
+  }
+ }
+}

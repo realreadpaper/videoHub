@@ -1,0 +1,23 @@
+{
+  "format": "hypit.runtime-local@1",
+  "dataRoot": ".hypit/runtimes/local",
+  "credentials": {
+    "os": {
+      "use": "@hypit/credential-store-os"
+    }
+  },
+  "endpoints": {
+    "selfhosted.video": {
+      "use": "@local/provider-selfhosted-video",
+      "config": {
+        "baseUrl": "http://127.0.0.1:8188",
+        "pollIntervalMs": 5000,
+        "requestTimeoutMs": 120000,
+        "concurrency": 1
+      }
+    }
+  },
+  "bindings": {
+    "@hypit/seedance@1#seedance-2-mini": "selfhosted.video"
+  }
+}

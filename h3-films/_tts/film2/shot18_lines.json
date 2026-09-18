@@ -1,0 +1,38 @@
+[
+ {
+  "speaker": "S4",
+  "text": "椅，阿姨也不会嫌你。",
+  "mp3": "s18_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 1.311
+ },
+ {
+  "speaker": "S1",
+  "text": "你知道我是谁，以后不生气吗？",
+  "mp3": "s18_1.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f01.wav",
+  "t": 1.644,
+  "dur": 1.619
+ },
+ {
+  "speaker": "S4",
+  "text": "生气。你们试探我，但不生孩子的气。他只是想知道，以后会不会有人真的疼他。",
+  "mp3": "s18_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 3.397,
+  "dur": 5.553
+ },
+ {
+  "speaker": "S1",
+  "text": "今天是我做的不对，不该让孩子陪我演这场戏。可我更怕有一天，把他交给一个表面温柔、背后",
+  "mp3": "s18_3.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f03.wav",
+  "t": 9.082,
+  "dur": 5.741
+ }
+]

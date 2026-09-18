@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>后处理流水线交付报告 · 片1</title>
+<style>
+  :root{
+    --bg:#f5f4f1; --card:#ffffff; --ink:#1f1e1c; --ink2:#5c5a55; --ink3:#8a8781;
+    --line:#e6e3dd; --accent:#0f6e56; --accent2:#993c1d; --amber:#8a5a00; --amberbg:#fdf6e6;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.72 -apple-system,"PingFang SC","Hiragino Sans GB",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:44px 28px 90px}
+  h1{font-size:28px;margin:0 0 8px;letter-spacing:-.3px}
+  .sub{color:var(--ink3);font-size:13.5px;margin-bottom:34px}
+  h2{font-size:19px;margin:40px 0 14px;padding-bottom:9px;border-bottom:2px solid var(--line)}
+  h3{font-size:15.5px;margin:22px 0 8px}
+  p{margin:9px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:20px 22px;margin:14px 0}
+  .lead{background:#eef6f2;border:1px solid #cfe6dc;border-left:4px solid var(--accent)}
+  .warn{background:var(--amberbg);border:1px solid #f0e0b8;border-left:4px solid var(--amber)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--card);
+        border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  th{background:#faf9f6;text-align:left;padding:10px 12px;font-weight:600;color:var(--ink2);
+     border-bottom:1px solid var(--line);font-size:13px}
+  td{padding:10px 12px;border-bottom:1px solid #f1efe9;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  .num{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:13px}
+  code,.mono{font-family:var(--mono);font-size:12.5px;background:#f4f2ee;
+             padding:1.5px 6px;border-radius:5px;color:#3a3833}
+  pre{background:#faf9f6;border:1px solid var(--line);border-radius:8px;padding:13px 15px;
+      overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.6;margin:11px 0}
+  .pipe{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}
+  .step{flex:1;min-width:130px;background:var(--card);border:1px solid var(--line);
+        border-radius:9px;padding:12px 13px}
+  .step .n{font-size:11px;color:#fff;background:var(--accent);border-radius:20px;
+           padding:2px 9px;display:inline-block;margin-bottom:7px;font-weight:600}
+  .step .t{font-weight:600;font-size:13.5px;margin-bottom:3px}
+  .step .d{font-size:12px;color:var(--ink3);line-height:1.5}
+  .ok{color:var(--accent);font-weight:600}
+  .no{color:var(--accent2);font-weight:600}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:20px;
+       background:#eef6f2;color:var(--accent);border:1px solid #cfe6dc;margin-left:6px}
+  .tag.w{background:var(--amberbg);color:var(--amber);border-color:#f0e0b8}
+  img{width:100%;border:1px solid var(--line);border-radius:9px;margin:10px 0 4px;display:block}
+  .cap{font-size:12.5px;color:var(--ink3);margin-bottom:16px}
+  ul{margin:8px 0 8px 20px;padding:0}
+  li{margin:5px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>后处理流水线 · 交付报告</h1>
+<div class="sub">片1《良心面试 / 食堂红烧（原片复刻）》　|　2026-09-17　|　零 GPU 全本地处理</div>
+
+<div class="card lead">
+<p><b>三件事都做完了，而且固化成了可复跑的流水线。</b> 成片从 300.83s 收到 <b>286.81s</b>
+（原片 286.13s，差 0.24%）；产品镜袋面换成了你的真产品图；6 个乱码字幕镜做了覆盖处理。
+全流程 <b>2 分 30 秒纯 CPU</b>，零 GPU 开销。</p>
+</div>
+
+<h2>一、流水线总览</h2>
+<p>后处理拆成 6 个可独立复跑的阶段，配置驱动。一键 <code>bash post_produce.sh film1</code>，
+断点续跑 <code>--from 3</code>，单阶段 <code>--only 2</code>。</p>
+
+<div class="pipe">
+  <div class="step"><span class="n">S1</span><div class="t">产品贴图</div>
+    <div class="d">真产品图逐帧透视贴到袋面<br>检测 + 光流两级降级</div></div>
+  <div class="step"><span class="n">S2</span><div class="t">节奏对齐</div>
+    <div class="d">裁句末静音 + 等比提速<br>精确命中目标时长</div></div>
+  <div class="step"><span class="n">S3</span><div class="t">字幕带处理</div>
+    <div class="d">压掉照抄来的乱码字<br>只处理确认有字的镜</div></div>
+  <div class="step"><span class="n">S4</span><div class="t">拼接</div>
+    <div class="d">-c copy 零转码<br>失败自动降级重编码</div></div>
+  <div class="step"><span class="n">S5</span><div class="t">字幕重算</div>
+    <div class="d">按实际时间轴生成<br>外挂 srt/vtt</div></div>
+  <div class="step"><span class="n">S6</span><div class="t">校验</div>
+    <div class="d">字幕带接触表<br>人眼逐格 + 参数校验</div></div>
+</div>
+
+<table>
+  <thead><tr><th>阶段</th><th>脚本</th><th class="num">实测耗时</th><th>处理量</th></tr></thead>
+  <tbody>
+    <tr><td>S1 产品贴图</td><td><code>overlay_product.py</code></td><td class="num">30s</td><td>3 镜（袋面完整时段逐帧）</td></tr>
+    <tr><td>S2 节奏对齐</td><td><code>trim_shots.py</code></td><td class="num">60s</td><td>20 镜重编码，裁掉 14.71s</td></tr>
+    <tr><td>S3 字幕带</td><td><code>mask_text_band.py</code></td><td class="num">40s</td><td>6 镜覆盖</td></tr>
+    <tr><td>S4 拼接</td><td>ffmpeg concat</td><td class="num">5s</td><td>20 镜</td></tr>
+    <tr><td>S5 字幕重算</td><td><code>make_subs_post.py</code></td><td class="num">1s</td><td>83 条</td></tr>
+    <tr><td>S6 校验</td><td><code>scan_text_band.py</code></td><td class="num">30s</td><td>字幕带接触表 48 格</td></tr>
+  </tbody>
+</table>
+
+<h2>二、结果一：产品图贴上了<span class="tag">已完成</span></h2>
+
+<p>用你给的产品图（鲍汁红烧酱料、佐味纪、PICC、8元/包、80克）逐帧贴到袋面。
+<b>产品镜的权威来源是 prompt 里的 <code>&lt;Subject P&gt;</code> 锚定</b> —— 片1 共
+<b>镜 13 / 15 / 18</b>（不是靠猜），另有镜 14 里袋子太小且被手遮挡，未贴。</p>
+
+<img src="_review/POC_产品贴图_三镜对比.jpg" alt="产品贴图前后对比">
+<div class="cap">左：H3 生成（纯红空壳）　右：真产品图贴图后。品牌、品名、PICC、价格、净含量全部真实可读。</div>
+
+<h3>技术要点</h3>
+<ul>
+  <li><b>三级降级定位</b>：红色四边形检测 → LK 光流追踪 → 都不行就<b>不贴</b>（宁可少贴不可贴歪）。</li>
+  <li><b>两道防呆门</b>：① 红度校验（防追踪漂到人物身上）② 追踪帧数上限（防缓慢漂移）。
+      这两道门是实测踩出来的 —— 首轮不加，产品图被贴到了人物脸上。</li>
+  <li><b>袋面完整时段</b>由人工抽帧确认后写进配置：镜13 = 0.3–1.5s，镜15 = 6–10.5s，镜18 = 6–12s。</li>
+</ul>
+
+<div class="card warn">
+<b>需要你拍板的一处：</b> H3 画出来的袋型与真产品<b>比例不一致</b>。
+镜13 的袋面宽高比 0.74 ≈ 产品图 0.731（贴上去几乎不变形）；
+镜15/18 的袋面偏扁（1.0–1.5），硬贴会有<b>横向拉伸</b>。
+当前版本采用「整图贴合」，观感上文字仍清晰可读。若你要「绝不变形」，
+可改成只贴红区（品牌/品名/价格都在红区），代价是丢掉底部价格条 ——
+改一个配置项即可，不用重跑。
+</div>
+
+<h2>三、结果二：节奏对齐到原片时长<span class="tag">已完成</span></h2>
+
+<div class="card warn">
+<b>这里纠正一个前提。</b> 你上次说「每镜裁尾 0.7s」，我实测发现<b>这条路是死的</b>：
+audio-lock 下每镜语音结束点由 TTS 实测决定，<b>多数镜贴在 14.82s，离镜尾只剩 0.22s</b> ——
+裁 0.7s 会直接切掉最后半句台词。20 镜里只有 4 镜（1/6/16/19）有可裁的静音余量。
+</div>
+
+<p>改用<b>两步走</b>，既不动语音又精确命中目标：</p>
+<ol>
+  <li><b>裁句末静音</b>：按「末句结束 + 0.32s」逐镜裁，只对真有留白的镜生效
+      （镜1 裁 1.44s、镜6 裁 0.67s、镜16 裁 0.41s、镜19 裁 <b>6.82s</b> —— 这镜台词只说到 7.87s）。</li>
+  <li><b>整镜等比提速 k=1.0194</b>（+1.94%），把剩余差额补上。
+      因为音频与画面按<b>同一倍数</b>压缩，<b>音画对应关系逐帧不变、口型完全同步</b>，
+      且 <code>atempo</code> 变速不变调（音色不变）。</li>
+</ol>
+
+<table>
+  <thead><tr><th>指标</th><th class="num">改造前</th><th class="num">改造后</th><th class="num">原片</th></tr></thead>
+  <tbody>
+    <tr><td>总时长</td><td class="num">300.83s</td><td class="num"><b>286.81s</b></td><td class="num">286.13s</td></tr>
+    <tr><td>与原片差</td><td class="num no">+14.70s（+5.14%）</td><td class="num ok">+0.68s（+0.24%）</td><td class="num">—</td></tr>
+    <tr><td>镜 19 时长</td><td class="num">15.04s</td><td class="num">8.22s</td><td class="num">—</td></tr>
+  </tbody>
+</table>
+<p class="sub" style="margin:0">「话说完画面还在动」的空白被剪掉了，这才是「拖沓」观感的真正来源。</p>
+
+<h2>四、结果三：乱码字幕压掉了<span class="tag w">兜底，非根治</span></h2>
+
+<p>处理 6 个确认有乱码字的镜（2/3/7/8/11/12）。字幕带实测位于画面 <b>y ≈ 72%–82%</b>。</p>
+
+<img src="_review/POC_字幕带处理对比.jpg" alt="字幕带处理前后对比">
+<div class="cap">上：处理前（成行伪汉字/数字）　下：处理后（正上方同高度画面覆盖，纹理连续）</div>
+
+<div class="card warn">
+<b>方法上说清楚：</b> 首轮用 ffmpeg <code>delogo</code>，在人物黑西装上产生明显<b>垂直拖拽伪影</b>，
+比原来的乱码字更难看 —— 校验接触表一眼否掉。改成
+<b>clone（克隆字幕带正上方同高度画面覆盖）</b>，纹理与光照天然连续，几乎无痕；
+代价是画面里有运动物体时有轻微内容重复。
+</div>
+
+<p><b>根治办法是把这些镜重跑</b>（禁字铁律已经写死在 <code>build.py</code>，
+缺条款直接拒绝出片）。而乱码最重的 178–250s 恰好就是卖货段 ——
+换产品本来就要重做那段，<b>一次 GPU 解决两件事</b>。</p>
+
+<h2>五、最终成片</h2>
+<table>
+  <thead><tr><th>项</th><th>值</th></tr></thead>
+  <tbody>
+    <tr><td>文件</td><td><code>_post/film1/良心面试_食堂红烧（原片复刻）_全片.mp4</code></td></tr>
+    <tr><td>规格</td><td class="num">768×1344 / 24fps / h264 crf16 / aac 48kHz 立体声</td></tr>
+    <tr><td>时长 / 大小</td><td class="num">286.81s（4:46.81） / 116 MB</td></tr>
+    <tr><td>字幕</td><td class="num">83 条，末句收于 285.92s，<b>外挂不烧画面</b>，与成片同名同目录</td></tr>
+  </tbody>
+</table>
+
+<h2>六、你可以审查什么</h2>
+<table>
+  <thead><tr><th class="num">#</th><th>看什么</th><th>路径</th><th>判断标准</th></tr></thead>
+  <tbody>
+    <tr><td class="num">1</td><td><b>产品贴图效果</b></td><td><code>_review/POC_产品贴图_三镜对比.jpg</code></td>
+        <td>品牌/品名/价格是否清晰、位置是否贴合；<b>能否接受轻微拉伸</b></td></tr>
+    <tr><td class="num">2</td><td><b>字幕带处理效果</b></td><td><code>_review/POC_字幕带处理对比.jpg</code></td>
+        <td>乱码字是否被压掉、有无难看的接缝</td></tr>
+    <tr><td class="num">3</td><td>全片字幕带复扫</td><td><code>_post/film1/…全片_字幕带校验.jpg</code></td>
+        <td><b>48 格逐格扫</b>，确认没有残留成行乱码字</td></tr>
+    <tr><td class="num">4</td><td>节奏账本</td><td><code>_post/film1/trim_report.json</code></td>
+        <td>每镜「原长/语音结束/裁掉/新长/余量」，看有没有裁到语音</td></tr>
+    <tr><td class="num">5</td><td>成片本体</td><td><code>_post/film1/…全片.mp4</code></td>
+        <td>整体观感、音画同步</td></tr>
+    <tr><td class="num">6</td><td>流水线配置</td><td><code>tracks_film1.json</code></td>
+        <td>产品镜时段、参数；<b>后续片子只需改这个文件</b></td></tr>
+  </tbody>
+</table>
+
+<h2>七、下一步（批量生产）</h2>
+
+<p>新增一部片的清单已写进 skill（<code>scripts/post/README.md</code>）：</p>
+<pre>1. 生成分镜 + 干声 → 确认 _tts/&lt;film&gt;/shotNN_lines.json 齐全
+2. detect_pack.py 扫袋面候选（只找位置，不判语义）
+3. manifest.json 里含 &lt;Subject P&gt; 的镜 = 产品镜（权威来源）
+4. 产品镜抽多帧接触表 → 人工定「袋面完整时段」→ 写 tracks_filmN.json
+5. scan_text_band.py 人工圈出有乱码字的镜 → 写进 MASKS
+6. 确认目标总时长 → 写进 TARGET
+7. bash post_produce.sh filmN</pre>
+
+<div class="card">
+<h3 style="margin-top:0">已知限制（不藏着）</h3>
+<ul>
+  <li><b>产品贴图的袋型比例问题</b>：H3 画的袋面与真产品比例不一致，镜15/18 有拉伸。
+      要根治得改 prompt 让 H3 画对袋型比例（需重跑）。</li>
+  <li><b>镜18 贴图覆盖率仅 28%</b>：该镜袋面完整可见只有约 1.7 秒，其余时间在人物/撕袋动作中，
+      属正常。若想提高，放宽 <code>seed_qerr</code> 会带来误贴风险。</li>
+  <li><b>字幕带处理是兜底</b>：clone 会在运动物体上留轻微重复。根治 = 重跑（铁律已就位）。</li>
+  <li><b>远端 4090 仍失联</b>：产品贴图/节奏/字幕三件事都不需要 GPU（已完成）；
+      表情注入、产品镜重跑需要 GPU，等实例恢复。</li>
+</ul>
+</div>
+
+<p class="sub" style="margin-top:34px">
+脚本已归档：<code>~/.workbuddy/skills/h3-film-production/scripts/post/</code>（8 个文件 + README 规范）。
+</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+[
+ {
+  "speaker": "S2",
+  "text": "声，直接开饭。您看这出锅的色泽，排骨吸满了浓郁的酱汁，筷子一戳直接脱骨。",
+  "mp3": "s17_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 5.555
+ },
+ {
+  "speaker": "S1",
+  "text": "还真是一戳就脱骨。",
+  "mp3": "s17_1.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f01.wav",
+  "t": 6.349,
+  "dur": 1.218
+ },
+ {
+  "speaker": "S2",
+  "text": "关键是吃完只用洗一个电饭锅内胆，简直是咱们懒人和上班族的厨房之光。它配料表干干净净，家里",
+  "mp3": "s17_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 8.16,
+  "dur": 6.664
+ }
+]

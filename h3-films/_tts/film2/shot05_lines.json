@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S3",
+  "text": "卡也得交给我。孩子以后康复、上学、请保姆，这些钱都不能影响我的生活质量。",
+  "mp3": "s05_0.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 5.156
+ },
+ {
+  "speaker": "S3",
+  "text": "如果他真的一辈子坐轮椅，那就更得请人照顾。我不可能给别人孩子当免费保姆，也不可能让一个坐轮椅的孩子拖累我的后半生。",
+  "mp3": "s05_1.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f01.wav",
+  "t": 5.418,
+  "dur": 7.38
+ },
+ {
+  "speaker": "S1",
+  "text": "你不是来相亲的。",
+  "mp3": "s05_2.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f02.wav",
+  "t": 12.861,
+  "dur": 0.747
+ },
+ {
+  "speaker": "S3",
+  "text": "那我是什么？",
+  "mp3": "s05_3.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f03.wav",
+  "t": 13.67,
+  "dur": 0.611
+ },
+ {
+  "speaker": "S1",
+  "text": "你是来",
+  "mp3": "s05_4.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f04.wav",
+  "t": 14.343,
+  "dur": 0.48
+ }
+]

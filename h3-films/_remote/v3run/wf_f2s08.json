@@ -1,0 +1,212 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderBypassModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+   "strength_model": 1.0,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "5": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "6": {
+  "class_type": "MiniMaxH3AudioConditioningT8",
+  "inputs": {
+   "prompt": "<Audio 1> carries the original soundtrack of this scene: the actors' real voices, ambience and music. Keep the visual timing, phrasing, lip movement and performance locked to <Audio 1> exactly. Follow the shot description below exactly.\n\nintegrated_multimodal_description:\n<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>\n\n<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>\n\n[00:00.000 – 00:13.630] S3 turns on her heel and walks away down the paving without a backward glance, handbag swinging. S1 watches her go, then puts both hands on the wheelchair handles. Then, still in the same continuous take, s1 turns the chair around and pushes it away along the paving, leaning down to say something short to the boy as they reach the step at the shopfronts. The take then continues with s4 appears in the doorway of a small warm restaurant, wiping her hands on her apron, and crouches down in front of the wheelchair at eye level with the boy, smiling. One single continuous take, no cuts; the shot runs about 13.6 seconds. Visible camera or subject movement carries through the take. cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos\n\noverall_soundscape:\nHeels on paving receding, then wheelchair casters rolling over stone, a shop door swinging. All voices, ambience and music are carried by <Audio 1>.\n\nnon_diegetic_music:\nThe piano returns, warmer, as the street empties.",
+   "width": 768,
+   "height": 1344,
+   "length": [
+    "14",
+    1
+   ],
+   "task_type": "auto",
+   "audio_mode": "lock_source",
+   "audio_denoise_strength": 0.0,
+   "add_source_as_reference": true,
+   "prompt_primary_audio_ordinal": 1,
+   "strict_prompt_tags": true,
+   "ref_image_size": "match",
+   "reference_video_policy": "official_2_to_15s",
+   "clip": [
+    "3",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ],
+   "drive_audio": [
+    "14",
+    0
+   ]
+  }
+ },
+ "7": {
+  "class_type": "MiniMaxH3DualClockSamplerT8",
+  "inputs": {
+   "steps": 4,
+   "shift_video": 12.0,
+   "shift_audio": 3.0,
+   "sampler_name": "dual_clock_euler",
+   "scheduler": "native_flow",
+   "model": [
+    "2",
+    0
+   ],
+   "av_latent": [
+    "6",
+    1
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "7",
+    0
+   ],
+   "conditioning": [
+    "6",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20260927
+  }
+ },
+ "10": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "9",
+    0
+   ],
+   "guider": [
+    "8",
+    0
+   ],
+   "sampler": [
+    "7",
+    1
+   ],
+   "sigmas": [
+    "7",
+    2
+   ],
+   "latent_image": [
+    "6",
+    1
+   ]
+  }
+ },
+ "11": {
+  "class_type": "MiniMaxH3AVDecodeT8",
+  "inputs": {
+   "av_latent": [
+    "10",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ],
+   "audio": [
+    "15",
+    1
+   ],
+   "filename_prefix": "MiniMaxH3/v3run/f2s08",
+   "crf": 19
+  }
+ },
+ "13": {
+  "class_type": "LoadAudio",
+  "inputs": {
+   "audio": "orig_audio/film2/shot08.wav"
+  }
+ },
+ "14": {
+  "class_type": "MiniMaxH3AudioWindowT8",
+  "inputs": {
+   "scene_start_seconds": 0.0,
+   "scene_duration_seconds": 13.625,
+   "warmup_seconds": 0.0,
+   "cooldown_seconds": 0.0,
+   "ensure_minimum_context": true,
+   "audio": [
+    "13",
+    0
+   ]
+  }
+ },
+ "15": {
+  "class_type": "MiniMaxH3OutputTrimT8",
+  "inputs": {
+   "start_seconds": [
+    "14",
+    2
+   ],
+   "duration_seconds": [
+    "14",
+    3
+   ],
+   "fps": 24,
+   "frames": [
+    "11",
+    0
+   ],
+   "audio": [
+    "6",
+    2
+   ]
+  }
+ }
+}

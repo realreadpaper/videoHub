@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抖音带货复刻工程 · 交付与渲染说明</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --line:#e5e7eb; --text:#1f2328; --muted:#6b7280;
+    --ok:#15803d; --ok-bg:#f0fdf4; --warn:#b45309; --warn-bg:#fffbeb;
+    --accent:#1d4ed8; --accent-bg:#eff6ff; --code-bg:#f3f4f6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; padding:40px 24px 64px; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px; margin:0 auto;}
+  header{margin-bottom:28px;}
+  h1{font-size:26px; margin:0 0 6px; letter-spacing:-.2px;}
+  .sub{color:var(--muted); font-size:14px;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px 24px; margin-bottom:18px;}
+  h2{font-size:16px; margin:0 0 14px; display:flex; align-items:center; gap:8px;}
+  h2::before{content:""; width:3px; height:15px; background:var(--accent); border-radius:2px;}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;}
+  .stat{border:1px solid var(--line); border-radius:9px; padding:14px 16px; background:#fcfcfd;}
+  .stat .k{font-size:12px; color:var(--muted); margin-bottom:5px;}
+  .stat .v{font-size:14px; font-weight:600;}
+  .stat .v.ok{color:var(--ok);}
+  .stat .v.warn{color:var(--warn);}
+  .cmd{background:#0f172a; color:#e2e8f0; border-radius:9px; padding:16px 18px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px; overflow-x:auto; line-height:1.75;}
+  .cmd .cmt{color:#64748b;}
+  .cmd .kw{color:#7dd3fc;}
+  code{background:var(--code-bg); padding:2px 6px; border-radius:5px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px;}
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th,td{text-align:left; padding:9px 10px; border-bottom:1px solid var(--line);}
+  th{font-weight:600; color:var(--muted); font-size:12.5px; background:#fafbfc;}
+  tr:last-child td{border-bottom:none;}
+  .tick{color:var(--ok); font-weight:700;}
+  .cross{color:#b91c1c; font-weight:700;}
+  .note{border-left:3px solid var(--warn); background:var(--warn-bg); padding:12px 16px; border-radius:0 8px 8px 0; font-size:13.5px; margin-top:14px;}
+  .note.info{border-left-color:var(--accent); background:var(--accent-bg);}
+  ol,ul{margin:10px 0 0; padding-left:22px; font-size:13.5px;}
+  li{margin-bottom:6px;}
+  .flow{display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13px; margin-top:6px;}
+  .step{background:var(--accent-bg); color:var(--accent); border-radius:20px; padding:4px 13px; font-weight:500;}
+  .arrow{color:var(--muted);}
+  footer{color:var(--muted); font-size:12.5px; text-align:center; margin-top:32px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>抖音带货复刻工程 · 交付与渲染说明</h1>
+    <div class="sub">工程 <code>~/Desktop/videoHub/videos/douyin-ad</code> · 全部本地渲染，零 Provider 费用</div>
+  </header>
+
+  <div class="card">
+    <h2>准备状态</h2>
+    <div class="grid">
+      <div class="stat"><div class="k">本地容器 / 镜像</div><div class="v ok">✓ 已清理（回收 6.7 GB）</div></div>
+      <div class="stat"><div class="k">工程校验</div><div class="v ok">✓ Outputs 19</div></div>
+      <div class="stat"><div class="k">渲染计划</div><div class="v ok">✓ 5 请求全本地 · 0 元</div></div>
+      <div class="stat"><div class="k">一键脚本</div><div class="v ok">✓ 本地 + 远端各一套</div></div>
+      <div class="stat"><div class="k">工程备份</div><div class="v ok">✓ douyin-ad.bak (88 MB)</div></div>
+      <div class="stat"><div class="k">已知风险</div><div class="v warn">1 项（见下）</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>出片：一条命令</h2>
+    <p style="font-size:13.5px;color:var(--muted);margin:0 0 12px;">
+      请在<strong>你自己的终端</strong>（Terminal.app / iTerm）里执行 —— 不要在 AI 对话环境里跑。
+    </p>
+    <div class="cmd">
+      <span class="kw">cd</span> ~/Desktop/videoHub/videos/douyin-ad<br>
+      bash render-local.sh
+    </div>
+    <div class="flow" style="margin-top:14px;">
+      <span class="step">环境体检</span><span class="arrow">→</span>
+      <span class="step">校验工程</span><span class="arrow">→</span>
+      <span class="step">预演计划</span><span class="arrow">→</span>
+      <span class="step">渲染</span><span class="arrow">→</span>
+      <span class="step">导出成片</span>
+    </div>
+    <p style="font-size:13.5px;margin:14px 0 0;">
+      成片落地：<code>videos/douyin-ad/output/final-ad-clone-&lt;时间戳&gt;.mp4</code>
+    </p>
+    <div class="note info">
+      也可以只跑其中一步：<code>bash render-local.sh doctor</code> 体检 · <code>check</code> 校验 · <code>plan</code> 看费用 ·
+      <code>build</code> 只渲染 · <code>get</code> 只导出。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>环境实测结果</h2>
+    <table>
+      <tr><th>组件</th><th>路径 / 版本</th><th>状态</th></tr>
+      <tr><td>Node</td><td>v22.22.2（托管）</td><td class="tick">✓</td></tr>
+      <tr><td>hypit CLI</td><td>0.1.10</td><td class="tick">✓</td></tr>
+      <tr><td>ffmpeg</td><td>9.0.1 · /opt/homebrew/bin</td><td class="tick">✓（需 ≥8）</td></tr>
+      <tr><td>无头浏览器</td><td>chrome-headless-shell mac_arm-153.0.8010.36</td><td class="tick">✓</td></tr>
+      <tr><td>中文字体</td><td>noto-sans-sc · zcool-qingke-huangyou</td><td class="tick">✓</td></tr>
+      <tr><td>hyperframes</td><td>0.8.41（provider 声明 0.7.101）</td><td class="cross">⚠ 见风险</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>唯一已知风险</h2>
+    <p style="font-size:13.5px;margin:0;">
+      全局 <code>hyperframes</code> 是 <strong>0.8.41</strong>，而 hypit provider 声明依赖 <strong>0.7.101</strong>。
+      <code>check</code> / <code>plan</code> 两关都通过，所以配置层没问题；若渲染时报引擎或版本相关错误，
+      执行下面这条即可（<code>render-local.sh doctor</code> 也会提示）：
+    </p>
+    <div class="cmd" style="margin-top:12px;">
+      <span class="kw">npm</span> i -g hyperframes@0.7.101
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>备用通道：远端渲染</h2>
+    <p style="font-size:13.5px;margin:0 0 12px;">
+      如果本机不方便，或想丢给常开的服务器 —— 给我 IP 即可。<strong>成片渲染全程只吃 CPU，不需要 GPU。</strong>
+    </p>
+    <div class="cmd">
+      <span class="kw">bash</span> ~/Desktop/videoHub/remote-render/render-on-remote.sh <span class="cmt">\</span><br>
+      &nbsp;&nbsp;--host root@你的IP <span class="cmt"># 可选 --port 22024 --slim --dry-run</span>
+    </div>
+    <p style="font-size:13.5px;margin:14px 0 0;">远端要求：Debian / Ubuntu 系 · 有 sudo · 磁盘 ≥5 GB · <strong>x86_64</strong>（headless-shell 官方只发 x86_64）。</p>
+    <div class="note">
+      共 <strong>4 个远端专属坑</strong>已全部写进 bootstrap 脚本并实测：ffmpeg 必须 ≥8（7.x 会静默丢帧）·
+      npm 发布版缺 112 个内部包软链 · headless-shell 无 arm64 构建 · <code>HYPERFRAMES_BROWSER_PATH</code> 需显式注入。
+    </div>
+  </div>
+
+  <footer>
+    为什么之前在本对话里跑不出片：本环境对文件删除做批量计数（阈值 50 / 每个 turn），
+    hypit 渲染收尾清理自己的临时产物时会被打断。你自己的终端没有这层限制。
+  </footer>
+
+</div>
+</body>
+</html>

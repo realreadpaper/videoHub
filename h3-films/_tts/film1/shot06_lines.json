@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S2",
+  "text": "饿着。我带了中午饭，您先吃几口垫垫。",
+  "mp3": "s06_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 2.754
+ },
+ {
+  "speaker": "S1",
+  "text": "这不是你的午饭吗？我吃了你怎么办？",
+  "mp3": "s06_1.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f01.wav",
+  "t": 3.704,
+  "dur": 2.451
+ },
+ {
+  "speaker": "S2",
+  "text": "我家离这边远，中午回不去。",
+  "mp3": "s06_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 6.905,
+  "dur": 1.692
+ },
+ {
+  "speaker": "S2",
+  "text": "您别嫌弃，先吃点热乎的。这排骨软烂，颜色也红亮。",
+  "mp3": "s06_3.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f03.wav",
+  "t": 9.347,
+  "dur": 3.686
+ },
+ {
+  "speaker": "S1",
+  "text": "你",
+  "mp3": "s06_4.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f04.wav",
+  "t": 13.782,
+  "dur": 0.238
+ }
+]

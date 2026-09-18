@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A100 落地执行手册 · H3 双片管线换卡</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --line:#e4e7ec; --line2:#eef0f3;
+    --ink:#1f2430; --ink2:#5a6272; --ink3:#8a92a3;
+    --blue:#2563eb; --blue-bg:#eff4ff;
+    --green:#15803d; --green-bg:#eefaf1;
+    --amber:#b45309; --amber-bg:#fff8ec;
+    --red:#c0392b; --red-bg:#fdf0ee;
+    --purple:#6d4aff; --purple-bg:#f4f1ff;
+    --mono:"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.72 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:44px 28px 90px}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+  h1{margin:0 0 10px;font-size:30px;letter-spacing:-.4px;line-height:1.28}
+  .sub{color:var(--ink2);font-size:15px}
+  .meta{margin-top:14px;color:var(--ink3);font-size:13px;font-family:var(--mono)}
+
+  h2{font-size:21px;margin:46px 0 16px;padding-left:13px;border-left:4px solid var(--blue);
+     letter-spacing:-.2px;scroll-margin-top:20px}
+  h3{font-size:16.5px;margin:26px 0 10px;color:var(--ink)}
+  h4{font-size:14.5px;margin:18px 0 8px;color:var(--ink2);font-weight:600}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  code{font-family:var(--mono);font-size:12.8px;background:#eef0f4;color:#243044;
+       padding:1.5px 5px;border-radius:4px}
+  pre{background:#1c2128;color:#d7dde6;padding:15px 17px;border-radius:9px;overflow-x:auto;
+      font-family:var(--mono);font-size:12.6px;line-height:1.62;margin:12px 0}
+  pre .c{color:#7d8794}
+  pre .k{color:#7ee2a8}
+  pre .s{color:#f0c674}
+  pre .r{color:#ff8f8f}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:11px;
+        padding:20px 22px;margin:16px 0}
+  .card>*:first-child{margin-top:0}
+  .card>*:last-child{margin-bottom:0}
+
+  .lead{background:var(--blue-bg);border:1px solid #cfddff;border-radius:11px;padding:18px 22px;margin:18px 0}
+  .lead b{color:#1b4fd8}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.6px;background:#fff}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f2f4f7;font-weight:600;font-size:13px;color:#3b4252}
+  td.mono,th.mono{font-family:var(--mono);font-size:12.4px}
+  tr.hl td{background:var(--amber-bg)}
+
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:20px;
+       line-height:1.6;white-space:nowrap}
+  .t-ok{background:var(--green-bg);color:var(--green);border:1px solid #c7eed4}
+  .t-warn{background:var(--amber-bg);color:var(--amber);border:1px solid #f5dfb3}
+  .t-bad{background:var(--red-bg);color:var(--red);border:1px solid #f6cfc9}
+  .t-info{background:var(--blue-bg);color:#1b4fd8;border:1px solid #cfddff}
+  .t-new{background:var(--purple-bg);color:var(--purple);border:1px solid #ddd5ff}
+
+  .box{border-left:3px solid var(--blue);background:#f8faff;padding:13px 17px;margin:14px 0;
+       border-radius:0 8px 8px 0}
+  .box.warn{border-color:#e0a422;background:var(--amber-bg)}
+  .box.bad{border-color:var(--red);background:var(--red-bg)}
+  .box.good{border-color:#1e9e52;background:var(--green-bg)}
+  .box.new{border-color:var(--purple);background:var(--purple-bg)}
+  .box .h{font-weight:700;font-size:13.5px;margin-bottom:5px;display:block}
+
+  .steps{counter-reset:s;list-style:none;padding-left:0;margin:14px 0}
+  .steps>li{counter-increment:s;position:relative;padding-left:42px;margin:16px 0}
+  .steps>li::before{content:counter(s);position:absolute;left:0;top:0;width:27px;height:27px;
+    background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;font-size:13px;font-weight:700}
+  .steps>li>b{display:block;margin-bottom:4px}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .mini{background:#fff;border:1px solid var(--line);border-radius:10px;padding:15px 17px}
+  .mini h4{margin:0 0 7px;font-size:14px;color:var(--ink)}
+  .mini .big{font-size:23px;font-weight:700;letter-spacing:-.5px;line-height:1.2}
+  .mini .u{font-size:12.5px;color:var(--ink3);font-weight:500}
+  .mini .d{font-size:12.8px;color:var(--ink2);margin-top:5px}
+
+  .toc{background:#fff;border:1px solid var(--line);border-radius:11px;padding:16px 22px;margin:22px 0}
+  .toc ol{columns:2;column-gap:34px;margin:6px 0 0;padding-left:20px;font-size:13.6px}
+  @media(max-width:760px){.toc ol{columns:1}}
+  .toc a{color:#1b4fd8;text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+
+  .kv{font-family:var(--mono);font-size:12.6px;color:var(--ink2)}
+  hr{border:0;border-top:1px solid var(--line);margin:34px 0}
+  .foot{color:var(--ink3);font-size:12.6px;margin-top:40px;padding-top:18px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A100 40G 落地执行手册</h1>
+  <div class="sub">H3 双片管线 · 从 4090 换到 A100 的完整迁移方案 —— 拿到 SSH 后照着敲即可</div>
+  <div class="meta">目标卡：A100 40G (SM 8.0 Ampere) · 驱动 580 / CUDA 13 · 状态：<b>等你发配置</b></div>
+</header>
+
+<div class="lead">
+  <b>一句话结论：能跑，只需要换一个权重文件。</b>
+  你给我配置后的第一件事是跑 <code>a100_bootstrap.sh</code>（5 分钟出判决），
+  然后是 <code>a100_weights.sh</code> 补权重、<code>a100_patch_clip.py</code> 换 CLIP、
+  投送本地资产、跑一镜验收。全部阶段与命令在下面，一条一条来。
+</div>
+
+<div class="toc">
+  <b style="font-size:14px">目录</b>
+  <ol>
+    <li><a href="#s0">拿到配置后前 5 分钟</a></li>
+    <li><a href="#s1">换卡差异清单（要改 / 不用改）</a></li>
+    <li><a href="#s2">A100 vs 4090 能力与速度预判</a></li>
+    <li><a href="#s3">权重获取（含 Ref2VA 独立权重）</a></li>
+    <li><a href="#s4">环境搭建（镜像 / 裸机两路）</a></li>
+    <li><a href="#s5">CLIP 替换（唯一必改项）</a></li>
+    <li><a href="#s6">ComfyUI 启动参数（A100 调优）</a></li>
+    <li><a href="#s7">本地资产投送</a></li>
+    <li><a href="#s8">单镜三路线验证</a></li>
+    <li><a href="#s9">批量生产与回传</a></li>
+    <li><a href="#s10">排错表</a></li>
+    <li><a href="#s11">验收清单</a></li>
+  </ol>
+</div>
+
+<!-- ══════════════ S0 ══════════════ -->
+<h2 id="s0">一、拿到配置后前 5 分钟</h2>
+
+<p>你发我配置（IP / 端口 / 密码）后，我只跑这三条，不改任何远端配置：</p>
+
+<pre><span class="c"># ① 硬件判决 + 环境基线 + 权重盘点（一条命令，报告落盘到 _a100/）</span>
+export SSHPASS=<span class="s">'你的密码'</span>
+bash a100_bootstrap.sh root@<span class="s">&lt;IP&gt;</span> <span class="s">&lt;端口&gt;</span>
+
+<span class="c"># ② 缺什么权重一目了然后，补齐（先演练看清单，再加 --go）</span>
+bash a100_weights.sh root@<span class="s">&lt;IP&gt;</span> <span class="s">&lt;端口&gt;</span>            <span class="c"># 演练</span>
+bash a100_weights.sh root@<span class="s">&lt;IP&gt;</span> <span class="s">&lt;端口&gt;</span> --go --mirror  <span class="c"># 实下</span>
+
+<span class="c"># ③ A100 唯一必改项：CLIP 权重 nvfp4 → int8_convrot（本地改，自动备份）</span>
+python3 a100_patch_clip.py --dir _remote --check   <span class="c"># 先看改几处</span>
+python3 a100_patch_clip.py --dir _remote           <span class="c"># 执行</span>
+</pre>
+
+<div class="box good">
+  <span class="h">这三个脚本我已经写好并本地验证过</span>
+  <ul style="margin:6px 0">
+    <li><code>a100_bootstrap.sh</code> —— 5 个阶段只读探测，含 P4「从远端实际工作流反查权重清单」（85 份工作流的反查逻辑已用本地数据验证）</li>
+    <li><code>a100_weights.sh</code> —— 由反查结果驱动，不硬编码清单；映射表已用 10 个真实文件名验证，认不出的不猜、单独列出</li>
+    <li><code>a100_patch_clip.py</code> —— 已完整测试：44 份工作流改写、0 残留、幂等、可 <code>--restore</code> 回滚；路径前缀原样保留（这条是踩过的坑）</li>
+  </ul>
+</div>
+
+<!-- ══════════════ S1 ══════════════ -->
+<h2 id="s1">二、换卡差异清单</h2>
+
+<p>这是整份方案的核心。换卡要动的东西<b>比想象中少得多</b>——因为 4090 和 A100 在量化格式上的差异，只集中在<b>文本编码器</b>这一个文件上。</p>
+
+<h3>必须改（1 项）</h3>
+<table>
+  <thead><tr><th style="width:15%">位置</th><th style="width:32%">4090 上用的</th><th style="width:32%">A100 要换成</th><th>为什么</th></tr></thead>
+  <tbody>
+    <tr class="hl">
+      <td>CLIPLoader<br><span class="kv">node 3</span></td>
+      <td class="mono">minimax_h3/<br>qwen3vl_32b_minimax_h3_<br><b>nvfp4_awq</b>.safetensors</td>
+      <td class="mono">minimax_h3/<br>qwen3vl_32b_minimax_h3_<br><b>int8_convrot</b>.safetensors</td>
+      <td>NVFP4 是 <b>Blackwell (SM 10.0+) 专属</b> 4bit 格式，A100 (SM 8.0) 没有 FP4 硬件，只能走 eager fallback。换 int8 版走 INT8 tensor core —— A100 从 Turing (7.5) 起就原生支持</td>
+    </tr>
+  </tbody>
+</table>
+<p style="font-size:13.5px;color:var(--ink2)">
+  影响面：<b>85 处</b>（20 份片1 工作流 + 20 份片2 工作流 + 3 份 i2v/ref2va 试验工作流，含节点包模板重复计数）。
+  全部在 CLIPLoader 这一个字段，<code>a100_patch_clip.py</code> 一把改完。
+</p>
+
+<h3>坚决不改（动了就是白折腾）</h3>
+<table>
+  <thead><tr><th style="width:22%">位置</th><th style="width:40%">当前值</th><th>A100 上的状态</th></tr></thead>
+  <tbody>
+    <tr><td>UNETLoader</td><td class="mono">minimax_h3_fl2va_pruned_int8_convrot.safetensors</td><td><span class="tag t-ok">原样可用</span> int8_convrot 走 SM≥7.5 kernel</td></tr>
+    <tr><td>LoraLoaderBypassModelOnly</td><td class="mono">minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors</td><td><span class="tag t-ok">原样可用</span> bf16，Ampere 原生</td></tr>
+    <tr><td>VAELoader ×2</td><td class="mono">minimax_h3_video_vae_fp16 / audio_vae_fp32</td><td><span class="tag t-ok">原样可用</span></td></tr>
+    <tr><td>Stage2 LTX VAE</td><td class="mono">ltx-2.5-video-vae-conv-bf16</td><td><span class="tag t-ok">原样可用</span> A100 原生 bf16（V100 才不行）</td></tr>
+    <tr><td>分辨率 / 帧数</td><td class="mono">384×672 → 768×1344 / 362 帧 / 24fps</td><td><span class="tag t-ok">原样可用</span> 与硬件无关</td></tr>
+    <tr><td>prompt / seed / 节点连线</td><td>40 镜的 manifest 与工作流</td><td><span class="tag t-ok">一字不动</span></td></tr>
+    <tr><td>全部本地脚本</td><td>deploy_*.sh / post_produce.sh / 后处理 8 脚本</td><td><span class="tag t-ok">一字不动</span></td></tr>
+  </tbody>
+</table>
+
+<div class="box warn">
+  <span class="h">有一条要留意：A100 没有 FP8</span>
+  FP8 (E4M3/E5M2) tensor core 是 Ada (SM 8.9) 起才有的，A100 (SM 8.0) 没有。
+  我们现有 20 镜路线<b>没有用到 FP8 权重</b>（UNET 是 int8、CLIP 换 int8、VAE 是 fp16/fp32/bf16），
+  所以不影响。但如果你后续想引入 FP8 加速的 LoRA 或权重，A100 上会退化到模拟路径 —— 记住这条边界。
+</div>
+
+<!-- ══════════════ S2 ══════════════ -->
+<h2 id="s2">三、A100 vs 4090：能力与速度预判</h2>
+
+<div class="grid">
+  <div class="mini">
+    <h4>显存</h4>
+    <div class="big">40 <span class="u">GB HBM2</span></div>
+    <div class="d">vs 4090 24GB GDDR6X —— 多 67%，offload 压力显著更小。实测 4090 上单镜峰值 23.2/24 GiB 已经顶格，A100 上会宽松很多</div>
+  </div>
+  <div class="mini">
+    <h4>显存带宽</h4>
+    <div class="big">1555 <span class="u">GB/s</span></div>
+    <div class="d">vs 4090 1008 GB/s —— 高 54%。diffusion 采样是带宽敏感型，这一项 A100 占优</div>
+  </div>
+  <div class="mini">
+    <h4>算力（BF16/FP16 dense）</h4>
+    <div class="big">≈156 <span class="u">TFLOPS</span></div>
+    <div class="d">vs 4090 ≈165 TFLOPS —— <b>基本持平</b>。别指望算力带来的提升</div>
+  </div>
+  <div class="mini">
+    <h4>精度格式支持</h4>
+    <div class="big">SM 8.0</div>
+    <div class="d">INT8 ✓ · bf16 ✓ · <b>FP8 ✗</b> · <b>NVFP4 ✗</b> —— 这就是为什么只改 CLIP 一个文件</div>
+  </div>
+</div>
+
+<div class="box good">
+  <span class="h">速度预判 → 已实测校准（2026-09-17 更新）</span>
+  当时的基线取的是 4090「逐镜交替」口径：草稿 107–120s + 精修 139–148s = 248s/镜。<br>
+  <b>实测结果：A100 热态批处理 74.3 + 75.2 = 149 s/镜</b>，与 4090 的<b>同口径</b>值
+  72.5 + 90.6 = 163 s 相比快约 9% —— <b>「同档」的预判成立，但当时写「或略慢」，方向错了。</b><br>
+  ⚠ <b>不要再拿 248 s 当 A100 的对照基线。</b>248 s 是「逐镜交替」（每镜切一次权重）口径，
+  149 s 是「热态批处理」口径，两者相差 100 s/镜 —— 其中约 35 s 是每镜重装 TE+UNET 的钱，
+  与卡无关（草稿段 4090 热态 72.5 s vs A100 热态 74.3 s，本就同档）。<br>
+  真正的收益仍是三条：<b>① 显存不再顶格（稳定不 OOM）② 数据中心卡 + ECC，长跑无人值守更稳 ③ 片子能继续出</b>。
+</div>
+
+<div class="box warn">
+  <span class="h">需要你确认一件事：是 SXM4 还是 PCIe？</span>
+  40G 有两个版本，带宽差 66%：<b>SXM4 = 1555 GB/s</b>，<b>PCIe = 933 GB/s</b>。
+  上面按 SXM4 算的。如果你租的是 PCIe 版，带宽反而比 4090 略低，速度预判要下调到 <b>−20% ~ +10%</b>。
+  <code>a100_bootstrap.sh</code> 的 P1 阶段会打印 <code>nvidia-smi -q</code> 的 PCIe/SXM 信息，跑完就知道。
+</div>
+
+<!-- ══════════════ S3 ══════════════ -->
+<h2 id="s3">四、权重获取</h2>
+
+<div class="box bad">
+  <span class="h">最大的变数：本地没有权重备份</span>
+  我查过了 —— 你的 Mac 上一个 <code>.safetensors</code> 都没有，权重全在原来那台 4090 实例上。
+  新实例如果是干净的，<b>需要重新下载约 60–90 GB</b>。这一步可能比其它所有步骤加起来都慢，
+  所以 <code>a100_weights.sh</code> 第一件事就是反查列出「缺哪些」，别盲下。
+</div>
+
+<h3>清单（按当前 20 镜路线，必需）</h3>
+<table>
+  <thead><tr><th style="width:44%">文件</th><th style="width:20%">放置目录</th><th>来源</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">minimax_h3_fl2va_pruned_int8_convrot.safetensors</td><td class="mono">models/diffusion_models/</td><td>Comfy-Org/MiniMax-H3</td></tr>
+    <tr class="hl"><td class="mono">qwen3vl_32b_minimax_h3_<b>int8_convrot</b>.safetensors</td><td class="mono">models/text_encoders/minimax_h3/</td><td>Comfy-Org/MiniMax-H3 · <b>A100 用这个</b></td></tr>
+    <tr><td class="mono">minimax_h3_video_vae_fp16.safetensors</td><td class="mono">models/vae/</td><td>Comfy-Org/MiniMax-H3</td></tr>
+    <tr><td class="mono">minimax_h3_audio_vae_fp32.safetensors</td><td class="mono">models/vae/</td><td>Comfy-Org/MiniMax-H3</td></tr>
+    <tr><td class="mono">minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors</td><td class="mono">models/loras/</td><td>lightx2v/Minimax-h3-Turbo</td></tr>
+    <tr><td class="mono">LTX-2.5 Stage2 精修链（VAE 等）</td><td class="mono">models/</td><td><b>靠反查确定</b> —— 这块工作流只在远端，我拿不到本地副本</td></tr>
+  </tbody>
+</table>
+
+<h3>Ref2VA 路线要额外下（如果你要跑产品参考图）<span class="tag t-new" style="margin-left:6px">新情报</span></h3>
+<div class="box new">
+  <span class="h">我上一轮的猜测被推翻了 —— Ref2VA 确实有独立权重</span>
+  上轮我说「T8 节点文档说六种任务共用一个 latent，所以可能不需要单独权重，但不敢打包票」。
+  现在查到官方仓库里明确有：
+  <ul style="margin:8px 0">
+    <li><code>diffusion_models/minimax_h3_<b>ref2va</b>_int8_convrot.safetensors</code> —— 独立的 UNET</li>
+    <li><code>loras/minimax_h3_<b>ref2v</b>_turbo_8step_v1.0_768p_comfyui_bf16.safetensors</code> —— Ref2VA 专用 LoRA（注意是 <code>ref2v</code> 不是 <code>fl2v</code>）</li>
+  </ul>
+  <b>不能用 fl2va 顶替。</b>这意味着走产品参考图路线要多下一份 UNET（int8 约 20GB+）。
+  <code>a100_weights.sh</code> 的映射表已经把这两个文件名认进去了，反查到就会下。
+</div>
+
+<h3>顺手挖到两个硬边界（会影响产品镜方案）</h3>
+<table>
+  <thead><tr><th style="width:26%">边界</th><th>内容与影响</th></tr></thead>
+  <tbody>
+    <tr class="hl">
+      <td><b>pruned INT8 在短边 &lt; 512px 会结构崩坏</b></td>
+      <td>节点包文档明确写：Ref2VA 静态编辑时，pruned INT8 模型在 &lt;512px 下结构崩坏，推荐
+        <code>canvas_mode=from_edit_image</code> 且短边 ≥512。<br>
+        <b>我们 stage1 是 384×672（短边 384）</b> —— 所以 Ref2VA 路线不能直接套现有工作流，
+        要么改 canvas_mode 让画布从参考图继承（参考图短边做到 ≥512），要么把 stage1 提到 512 短边。
+        现有的 T2VA / FL2VA 路线不受影响（20 镜已实测跑通）。</td>
+    </tr>
+    <tr>
+      <td>引用上限</td>
+      <td><b>9 图 / 3 视频 / 3 音频</b>。多图共用一个 <code>ref_images</code> 槽，编号必须连续
+        （<code>&lt;Picture 1..N&gt;</code>），且 <code>strict_prompt_tags=true</code> 会校验。
+        建议先单图跑通再上多图。</td>
+    </tr>
+    <tr>
+      <td>LoRA 加载方式</td>
+      <td>必须用 <code>LoraLoaderBypassModelOnly</code> 加载 —— <b>我们现有工作流已经就是这个节点</b>，不用改。
+        另外「严禁再串联 SigmaShift 或外部 scheduler」（我们用的是双时钟 sampler，也已合规）。</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══════════════ S4 ══════════════ -->
+<h2 id="s4">五、环境搭建</h2>
+
+<p>你说能装 580 驱动 + CUDA 13 —— 那第一道门（CUDA 13 覆盖 Ampere）就过了。
+下面按「镜像自带」和「裸机」两条路给，先跑 P3 探测判断你在哪条路上。</p>
+
+<h3>路线 A：镜像已带 ComfyUI（大概率，先按这条试）</h3>
+<ol class="steps">
+  <li><b>确认 ComfyUI 与节点包在位</b>
+<pre>ls -d /workspace/ComfyUI /workspace/ComfyUI/custom_nodes/comfyui-minimax-h3-audio-T8
+ls -l /workspace/h3scripts/80_run_workflow_remote.py
+/workspace/venv/bin/python -V</pre>
+  </li>
+  <li><b>确认 torch 是 CUDA build 且认得出 A100</b>
+<pre>/workspace/venv/bin/python -c <span class="s">"import torch;print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))"</span></pre>
+  <span class="kv">期望输出形如：2.x.y+cu130 13.0 NVIDIA A100-SXM4-40GB</span>
+  </li>
+  <li><b>确认 comfy-kitchen 的 CUDA 后端能加载</b> —— 这是全方案唯一真正的未知数，见下方红框
+<pre>/workspace/venv/bin/python -c <span class="s">"import comfy_kitchen as k; print(k.__version__); print(getattr(k,'available_backends',lambda:'?')())"</span></pre>
+  </li>
+</ol>
+
+<h3>路线 B：裸机从零搭</h3>
+<ol class="steps">
+  <li><b>驱动与 CUDA</b>（你说能装 580 / CUDA 13）
+<pre><span class="c"># 确认驱动版本 ≥ 580（CUDA 13 要求）</span>
+nvidia-smi | head -4
+
+<span class="c"># CUDA Toolkit 13.x（如果镜像没带）</span>
+<span class="c"># 用官方 runfile 或 apt 源，注意必须选 13.x 才能满足 comfy-kitchen 的门控</span></pre>
+  </li>
+  <li><b>ComfyUI + 节点包</b>
+<pre>cd /workspace
+git clone https://github.com/comfyanonymous/ComfyUI.git
+cd ComfyUI/custom_nodes
+git clone https://github.com/T8mars/comfyui-minimax-h3-audio-T8.git
+<span class="c"># 注意：节点包 README 强调「先更新 ComfyUI 本体，再装节点包」</span>
+<span class="c"># 它依赖新原生 H3 支持（comfy_api.latest / comfy.weight_adapter / comfy.ldm.minimax）</span></pre>
+  </li>
+  <li><b>Python 环境</b>
+<pre>python3 -m venv /workspace/venv
+/workspace/venv/bin/pip install -U pip
+<span class="c"># torch 必须装 CUDA 13 build（cu130），否则 comfy-kitchen wheel 装不上</span>
+/workspace/venv/bin/pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu130
+/workspace/venv/bin/pip install -r /workspace/ComfyUI/requirements.txt
+<span class="c"># 节点包 requirements.txt 是空的（有意为之）—— 不要额外 pip install</span></pre>
+  </li>
+  <li><b>把 h3scripts 的 runner 放回去</b>
+<pre>ls -l /workspace/h3scripts/80_run_workflow_remote.py   <span class="c"># 没有就从旧实例/备份取</span></pre>
+  </li>
+</ol>
+
+<div class="box bad">
+  <span class="h">全方案唯一没有实证的环节：comfy-kitchen 在 SM 8.0 上有没有编进 int8_convrot kernel</span>
+  <b>证据是间接的</b>：comfy-kitchen 预编译 wheel 的默认 arch 列表包含 <code>80-real</code>，
+  且 INT8 tensor core 从 SM 7.5 起就有。所以 A100 <b>应当</b>能走 int8 路径。
+  <b>但我没有 A100 实机验证记录</b>，不敢当结论用。<br><br>
+  怎么验：跑一镜，看日志里有没有
+  <code>NoCapableBackendError</code> / <code>no kernel image is available</code>。
+  <ul style="margin:8px 0">
+    <li>没报错 → 通路成立，后面 39 镜只是重复劳动</li>
+    <li>报错 → 从源码重编：<code>--cuda-archs="80"</code>（或含 <code>sm_80</code> 的 CUDA_ARCHS 环境变量），
+        再重跑该镜</li>
+  </ul>
+  <b>所以验证顺序一定是「先跑一镜，别批量提交」。</b>
+</div>
+
+<!-- ══════════════ S5 ══════════════ -->
+<h2 id="s5">六、CLIP 替换（唯一必改项）</h2>
+
+<p>本地改、改完再投送。工具已经写好，支持先看后改、自动备份、幂等、回滚。</p>
+
+<ol class="steps">
+  <li><b>先看会改几处</b>
+<pre>python3 a100_patch_clip.py --dir _remote --check
+<span class="c"># 期望：命中 85 处，分布在 44 份文件里；0 处落盘</span></pre>
+  </li>
+  <li><b>执行改写</b>
+<pre>python3 a100_patch_clip.py --dir _remote
+<span class="c"># 每份原文件备份为 *.json.bak；改完自动复验「残留 nvfp4 引用 0 处」</span></pre>
+  </li>
+  <li><b>如果要走 bf16 版（质量优先但有代价）</b>
+<pre>python3 a100_patch_clip.py --dir _remote --to bf16 --check</pre>
+  <span class="kv">bf16 版 51.51GB &gt; 40GB 显存，必须靠 offload，会明显变慢。默认不推荐，先按 int8 跑通。</span>
+  </li>
+  <li><b>出问题了回滚</b>
+<pre>python3 a100_patch_clip.py --dir _remote --restore</pre>
+  </li>
+</ol>
+
+<div class="box warn">
+  <span class="h">一个踩过的坑，工具已帮你保留</span>
+  CLIPLoader 的 <code>clip_name</code> 在远端<b>必须带 <code>minimax_h3/</code> 目录前缀</b>
+  （缺了会 400 <code>value_not_in_list</code>），而 UNET 在根目录<b>不能</b>带前缀 ——
+  官方示例模板和磁盘实际布局不一致。所以工具<b>只换文件名本体、原样保留前缀</b>。
+  另外它会告警：有 1 处（<code>stage1_audio_lock.json</code> 模板）本来就没前缀 —— 那份是模板不是部署件，
+  不用管，但如果哪天真要用记得补上。
+</div>
+
+<!-- ══════════════ S6 ══════════════ -->
+<h2 id="s6">七、ComfyUI 启动参数（A100 调优）</h2>
+
+<p>4090 是 24G 顶格跑，A100 有 40G，启动策略可以更宽松，减少 CPU↔GPU 搬运。</p>
+
+<pre><span class="c"># A100 40G 推荐起法</span>
+cd /workspace/ComfyUI
+/workspace/venv/bin/python main.py \
+  --listen 0.0.0.0 --port 8188 \
+  --disable-auto-launch \
+  --bf16-vae \
+  > /workspace/films/comfyui.log 2>&1 &
+
+<span class="c"># 验证起来了</span>
+curl -s http://127.0.0.1:8188/system_stats | head -c 400
+</pre>
+
+<table>
+  <thead><tr><th style="width:26%">参数</th><th>为什么</th></tr></thead>
+  <tbody>
+    <tr><td class="mono">--bf16-vae</td><td>A100 原生支持 bf16，VAE 走 bf16 比 fp32 快且省显存</td></tr>
+    <tr><td><b>不要</b>加 <code>--lowvram</code></td><td>40G 够用，加了反而强制分层搬运、变慢。4090 时代才需要</td></tr>
+    <tr><td><b>不要</b>加 <code>--fp8*</code> 系列</td><td>A100 无 FP8 硬件，加了会走模拟路径，更慢</td></tr>
+    <tr><td>视情况 <code>--reserve-vram 2</code></td><td>如果想给系统留余量，防止长时间跑后碎片化 OOM</td></tr>
+  </tbody>
+</table>
+
+<div class="box">
+  <span class="h">显存账（帮你判断要不要调）</span>
+  单个阶段不会同时驻留 UNET 和 CLIP：文本编码先做、做完释放，再加载 UNET 采样。<br>
+  <b>峰值估算</b>：UNET int8 ≈ 21GB + 激活 ≈ 2–3GB ≈ <b>24GB 左右</b>；CLIP int8 = 27.14GB。<br>
+  两者都在 40GB 内，<b>理论不需要 offload</b>。但 CLIP 27.14GB 是单文件较大的一个，
+  如果实际出现 OOM，优先加 <code>--reserve-vram</code> 或临时降到 bf16 VAE，别急着上 <code>--lowvram</code>。
+</div>
+
+<!-- ══════════════ S7 ══════════════ -->
+<h2 id="s7">八、本地资产投送</h2>
+
+<p>本地要传的东西不多（这是我盘过的实际体积）：</p>
+
+<table>
+  <thead><tr><th style="width:26%">资产</th><th style="width:16%">体积</th><th>投送方式</th></tr></thead>
+  <tbody>
+    <tr><td>40 镜干声 <code>_tts/</code></td><td>78 MB</td><td rowspan="2"><code>deploy_voice.sh</code>（内含清旧货 + 投送 + 校验）</td></tr>
+    <tr><td>43 份工作流 <code>_remote/</code></td><td>约 750 KB</td></tr>
+    <tr><td>首帧锚定图 <code>_frames/</code></td><td>1.4 MB</td><td rowspan="2"><code>deploy_refs.sh</code>（含 probe 复验槽位）</td></tr>
+    <tr><td>产品参考图 <code>_refs/</code></td><td>2.2 MB</td></tr>
+  </tbody>
+</table>
+
+<pre><span class="c"># 顺序很重要：先换 CLIP（本地），再投送工作流，否则投上去的还是 nvfp4 版</span>
+python3 a100_patch_clip.py --dir _remote
+
+export SSHPASS=<span class="s">'你的密码'</span>
+bash deploy_refs.sh  root@<span class="s">IP</span> <span class="s">端口</span>    <span class="c"># 首帧图 + 参考图</span>
+bash deploy_voice.sh root@<span class="s">IP</span> <span class="s">端口</span>    <span class="c"># 干声 + 工作流 + runner</span>
+
+<span class="c"># 远端确认落地</span>
+ssh -p <span class="s">端口</span> root@<span class="s">IP</span> <span class="s">'ls /workspace/films/douyin-office/workflows | wc -l; \
+  grep -o "qwen3vl[^\"]*" /workspace/films/douyin-office/workflows/stage1_voice_film1_s05.json | head -1'</span>
+<span class="c"># 最后一行应打印 int8_convrot —— 这是「CLIP 真的换成 A100 版了」的铁证</span>
+</pre>
+
+<div class="box warn">
+  <span class="h">投送前必须确认一件事</span>
+  <code>deploy_*.sh</code> 里硬编码了默认 host/port（原来那台 4090 的）。把新 IP 端口作为参数传进去，
+  或者先改掉脚本里的默认值，别误传到旧地址。
+</div>
+
+<!-- ══════════════ S8 ══════════════ -->
+<h2 id="s8">九、单镜三路线验证</h2>
+
+<p><b>这是整份方案的关键闸门。这一镜不过关，就不要提交后面 39 镜。</b>
+三条路线各验一镜，顺序按「排障路径最短」排。</p>
+
+<table>
+  <thead><tr><th style="width:8%">序</th><th style="width:20%">验什么</th><th style="width:22%">命令</th><th>通过标准</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><b>1</b></td>
+      <td>T2VA / audio-lock 通路<br><span class="kv">现役 20 镜路线</span></td>
+      <td class="mono">11_run_voice_film.py<br>--film film1 --shots 5</td>
+      <td>草稿 + 精修都出片；日志<b>无</b> <code>NoCapableBackendError</code>；
+        音轨是中文干声原文；画面无乱码字</td>
+    </tr>
+    <tr>
+      <td><b>2</b></td>
+      <td>Ref2VA 参考图<br><span class="kv">产品图直接生成</span></td>
+      <td class="mono">stage1_ref2va_film1_s15.json</td>
+      <td>袋面出现真产品印刷（像参考图）；<b>注意短边 512 的坑</b>，
+        若结构崩坏就改用 canvas_mode=from_edit_image</td>
+    </tr>
+    <tr>
+      <td><b>3</b></td>
+      <td>FL2VA 首帧锚定<br><span class="kv">与 2 做 A/B</span></td>
+      <td class="mono">stage1_i2v_film1_s18.json</td>
+      <td>首帧就是你给的锚定图；袋面字是渲染出来的真字、不是鬼画符</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><span class="c"># 第 1 步：验证现役路线（最重要）</span>
+ssh -p <span class="s">端口</span> root@<span class="s">IP</span>
+cd /workspace/films/douyin-office
+/workspace/venv/bin/python 11_run_voice_film.py --film film1 --shots 5
+
+<span class="c"># 同时开一个窗口盯显存</span>
+watch -n 2 nvidia-smi
+
+<span class="c"># 看日志里有没有后端报错（没输出就是好消息）</span>
+grep -iE "NoCapableBackend|no kernel image|CUDA error|out of memory" \
+  /workspace/films/douyin-office/logs/*.log
+</pre>
+
+<div class="box good">
+  <span class="h">速度基线怎么建（这一镜顺便把预判校准）</span>
+  记下这一镜的 <code>草稿耗时 / 精修耗时 / 峰值显存</code>（脚本会打印）。
+  与基线对照（<b>必须同口径，别拿逐镜交替的 248 s 来比批处理</b>）：<br>
+  A100 实测热态 —— 草稿 <b>74.3 s</b> / 精修 <b>75.2 s</b> / S1 峰值 ~40.0 GiB（98%）；<br>
+  4090 同口径热态 —— 草稿 <b>72.5 s</b> / 精修 <b>90.6 s</b>
+  （逐镜交替口径才是 107–120 s / 139–148 s，峰值 23.2 GiB）。<br>
+  <b>三个数都在同档或更好 → 后面 39 镜放心批量。</b>明显落后（&gt;1.5×）→ 先查是不是走了 offload 或 fp8 模拟路径，
+  别硬着头皮跑 39 镜。
+</div>
+
+<!-- ══════════════ S9 ══════════════ -->
+<h2 id="s9">十、批量生产与回传</h2>
+
+<pre><span class="c"># 单镜过了 → 两批跑（拆批比交替跑省约 40 分钟，这是唯一无代价的优化）</span>
+cd /workspace/films/douyin-office
+/workspace/venv/bin/python 11_run_voice_film.py --film film1 --shots 1-20 --stage draft
+/workspace/venv/bin/python 11_run_voice_film.py --film film1 --shots 1-20 --stage refine
+/workspace/venv/bin/python 11_run_voice_film.py --film film1 --concat
+
+<span class="c"># 片1 回传后立刻起片2（远端不空转）</span>
+cd /workspace/films/douyin-blinddate
+/workspace/venv/bin/python 11_run_voice_film.py --film film2 --shots 1-20 --stage draft
+/workspace/venv/bin/python 11_run_voice_film.py --film film2 --shots 1-20 --stage refine
+</pre>
+
+<pre><span class="c"># 本地拉回（新 IP/端口）</span>
+export SSHPASS=<span class="s">'密码'</span>
+mkdir -p ~/Desktop/videoHub/h3-films/_deliver/shots_film1
+sshpass -e scp -P <span class="s">端口</span> root@<span class="s">IP</span>:/workspace/films/douyin-office/final/shot*.mp4 \
+  ~/Desktop/videoHub/h3-films/_deliver/shots_film1/
+
+<span class="c"># 拉回后跑后处理流水线（零 GPU，本地）</span>
+cd ~/Desktop/videoHub/h3-films
+bash post_produce.sh --film film1
+<span class="c"># S1 产品贴图 → S2 节奏对齐 → S3 字幕带 → S4 拼接 → S5 字幕重算 → S6 校验</span>
+</pre>
+
+<div class="box">
+  <span class="h">一个顺带的好消息：产品镜可以「一次 GPU 解决两件事」</span>
+  片1 卖货段（镜 13–18）如果用 Ref2VA 重跑，<b>产品样子</b>和<b>画面乱码字</b>可以在同一次生成里一起解决 ——
+  因为参考图喂进去之后，袋面由模型自己渲染，不再需要事后贴图（也就没有贴图比例不对的问题）。
+  后处理的 S1 贴图阶段对这几镜可以跳过，S3 字幕带处理仍需保留（那是生成层的兜底）。
+</div>
+
+<!-- ══════════════ S10 ══════════════ -->
+<h2 id="s10">十一、排错表</h2>
+
+<table>
+  <thead><tr><th style="width:26%">症状</th><th style="width:34%">最可能的原因</th><th>处置</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>NoCapableBackendError</code><br><code>no kernel image is available</code></td>
+      <td>comfy-kitchen 在 SM 8.0 上没有对应 kernel（全方案最大未知数）</td>
+      <td>从源码重编，显式指定 <code>--cuda-archs="80"</code>；或确认 torch 是 cu130 build</td>
+    </tr>
+    <tr>
+      <td>400 <code>value_not_in_list</code></td>
+      <td>clip_name 缺 <code>minimax_h3/</code> 前缀，或引用了不存在的文件名</td>
+      <td>检查 P3 探测的「权重盘点」输出，确认目标文件真的在 <code>text_encoders/minimax_h3/</code> 下</td>
+    </tr>
+    <tr>
+      <td>OOM（CLIP 阶段）</td>
+      <td>int8 CLIP 27.14GB + 显存碎片</td>
+      <td>加 <code>--reserve-vram 2</code>；或确认没有别的进程占卡（<code>nvidia-smi</code>）</td>
+    </tr>
+    <tr>
+      <td>速度比 4090 慢很多（&gt;1.5×）</td>
+      <td>走了 offload / fp8 模拟路径；或租到的是 PCIe 版（933GB/s）</td>
+      <td>核对启动参数（别加 --lowvram / --fp8）；P1 阶段确认是 SXM4 还是 PCIe</td>
+    </tr>
+    <tr>
+      <td>Ref2VA 出的画面结构崩坏</td>
+      <td>pruned INT8 + 短边 &lt;512px 已知会崩</td>
+      <td>改 <code>canvas_mode=from_edit_image</code> 让画布继承参考图（参考图短边做到 ≥512）</td>
+    </tr>
+    <tr>
+      <td>参考图接上了但产品没变化</td>
+      <td>prompt 里没引用 <code>&lt;Picture 1&gt;</code>，图片未被认领</td>
+      <td>我们的 prompt 已经写好引用（build.py 有硬校验拦这个）；若手工改过，检查标签编号连续</td>
+    </tr>
+    <tr>
+      <td>画面又出现乱码字</td>
+      <td>生成层压不住（4090 时代就实测压不住）</td>
+      <td>后处理 S3 字幕带处理（clone 方式）兜底；同时查 prompt 里有没有成对的英文引号包住中文</td>
+    </tr>
+    <tr>
+      <td>投送后发现远端还是旧权重</td>
+      <td>先投了工作流、后改的 CLIP</td>
+      <td>顺序必须是「先 <code>a100_patch_clip.py</code>、再 <code>deploy_voice.sh</code>」；投完 grep 复验</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══════════════ S11 ══════════════ -->
+<h2 id="s11">十二、验收清单</h2>
+
+<div class="card">
+  <h4 style="margin-top:0">阶段 1 · 环境就绪</h4>
+  <ul style="list-style:none;padding-left:0">
+    <li>☐ <code>nvidia-smi</code> 显示 A100 40G，驱动 ≥ 580</li>
+    <li>☐ <code>torch.version.cuda</code> 是 13.x，<code>torch.cuda.is_available()</code> 为 True</li>
+    <li>☐ <code>check_gpu_compat.py</code> 退出码 0 或 2（不是 3）</li>
+    <li>☐ comfy-kitchen 可 import，无架构报错</li>
+    <li>☐ ComfyUI + T8 节点包在位，8188 端口可访问</li>
+  </ul>
+  <h4>阶段 2 · 权重就绪</h4>
+  <ul style="list-style:none;padding-left:0">
+    <li>☐ 反查清单里所有 <code>.safetensors</code> 都在位（无 ✘ 项）</li>
+    <li>☐ CLIP 用的是 <b>int8_convrot</b> 版，不是 nvfp4</li>
+    <li>☐ 若走 Ref2VA：<code>minimax_h3_ref2va_int8_convrot</code> + <code>ref2v_turbo</code> LoRA 都在位</li>
+    <li>☐ <code>/workspace</code> 剩余空间 ≥ 20GB</li>
+  </ul>
+  <h4>阶段 3 · 单镜通过</h4>
+  <ul style="list-style:none;padding-left:0">
+    <li>☐ 镜 5 草稿 + 精修都出片，日志无后端报错</li>
+    <li>☐ 成片规格 768×1344 / 24fps / 361 帧 / 双声道</li>
+    <li>☐ 音轨是中文干声原文（转写回来比对一致）</li>
+    <li>☐ 峰值显存 &lt; 40GB，无 OOM</li>
+    <li>☐ 单镜耗时在 4090 基线的 1.5× 以内</li>
+    <li>☐ 画面无乱码字幕（有则记下来走 S3 兜底）</li>
+  </ul>
+  <h4>阶段 4 · 批量交付</h4>
+  <ul style="list-style:none;padding-left:0">
+    <li>☐ 片1 20 镜齐（<code>final/shot01..20.mp4</code>）</li>
+    <li>☐ 片1 回传本地后跑通 <code>post_produce.sh</code></li>
+    <li>☐ 成片时长对齐原片（286.13s ± 1s）</li>
+    <li>☐ 字幕是外挂 <code>.srt</code>，<b>没有烧进画面</b>（铁律）</li>
+    <li>☐ 片2 同流程走完</li>
+  </ul>
+</div>
+
+<hr>
+<div class="foot">
+  <b>本轮产出（全部零 GPU，已在本地验证）：</b><br>
+  <code>a100_bootstrap.sh</code> · <code>a100_weights.sh</code> · <code>a100_patch_clip.py</code> · 本手册<br><br>
+  <b>待你提供：</b>SSH 配置（IP / 端口 / 密码），或确认沿用某个已有实例<br>
+  <b>唯一未实证项：</b>comfy-kitchen 在 SM 8.0 上的 int8_convrot kernel —— 跑一镜即定论
+</div>
+
+</div>
+</body>
+</html>

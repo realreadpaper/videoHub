@@ -1,0 +1,65 @@
+[
+ {
+  "speaker": "S4",
+  "text": "会不舒服吧？阿姨给你拿个软垫。",
+  "mp3": "s07_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 2.178
+ },
+ {
+  "speaker": "S2",
+  "text": "阿姨，你不嫌我麻烦吗？",
+  "mp3": "s07_1.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f01.wav",
+  "t": 2.743,
+  "dur": 1.487
+ },
+ {
+  "speaker": "S4",
+  "text": "你这么可爱，哪里麻烦了？小孩来吃饭，阿姨高兴还来不及。",
+  "mp3": "s07_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 4.596,
+  "dur": 3.902
+ },
+ {
+  "speaker": "S4",
+  "text": "想吃什么，阿姨给你做。",
+  "mp3": "s07_3.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f03.wav",
+  "t": 8.864,
+  "dur": 1.464
+ },
+ {
+  "speaker": "S2",
+  "text": "阿姨，我想吃红烧排骨。",
+  "mp3": "s07_4.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f04.wav",
+  "t": 10.694,
+  "dur": 1.569
+ },
+ {
+  "speaker": "S1",
+  "text": "不用，已经很麻烦你了。",
+  "mp3": "s07_5.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f05.wav",
+  "t": 12.629,
+  "dur": 1.224
+ },
+ {
+  "speaker": "S4",
+  "text": "红烧排",
+  "mp3": "s07_6.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f06.wav",
+  "t": 14.219,
+  "dur": 0.605
+ }
+]

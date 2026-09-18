@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S2",
+  "text": "地上没人管，出事就来不及了。",
+  "mp3": "s08_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 1.856
+ },
+ {
+  "speaker": "S2",
+  "text": "大爷，您要是不舒服，别一个人在后门待着，我进去帮您找人。",
+  "mp3": "s08_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f01.wav",
+  "t": 2.521,
+  "dur": 3.668
+ },
+ {
+  "speaker": "S1",
+  "text": "好姑娘，你先进去。",
+  "mp3": "s08_2.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f02.wav",
+  "t": 6.654,
+  "dur": 1.298
+ },
+ {
+  "speaker": "S3",
+  "text": "今天这个主管岗我势在必得。这种大公司最需要我这种懂形象管理的人。",
+  "mp3": "s08_3.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f03.wav",
+  "t": 8.417,
+  "dur": 4.14
+ },
+ {
+  "speaker": "S3",
+  "text": "不好意思，我刚才在后门扶了摔倒",
+  "mp3": "s08_4.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f04.wav",
+  "t": 13.021,
+  "dur": 1.802
+ }
+]

@@ -1,0 +1,38 @@
+[
+ {
+  "speaker": "S1",
+  "text": "有没有人啊，扶我一把。",
+  "mp3": "s01_0.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 1.381
+ },
+ {
+  "speaker": "S5",
+  "text": "顾董您慢点，别真摔着。",
+  "mp3": "s01_1.mp3",
+  "voice": "zh-CN-YunyangNeural",
+  "clip": "f01.wav",
+  "t": 2.332,
+  "dur": 1.231
+ },
+ {
+  "speaker": "S1",
+  "text": "别出来，今天来面试的人都从这后门进，我就看看他们见到一个摔倒的老人是扶一把还是踩一脚。",
+  "mp3": "s01_2.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f02.wav",
+  "t": 4.312,
+  "dur": 5.783
+ },
+ {
+  "speaker": "S1",
+  "text": "哎呦，年轻人，帮帮忙，我从轮椅上摔下来了。",
+  "mp3": "s01_3.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f03.wav",
+  "t": 10.845,
+  "dur": 2.696
+ }
+]

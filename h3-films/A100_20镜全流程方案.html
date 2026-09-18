@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>A100 · 20 镜全流程生产方案（含精修）</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --ink:#1c2024; --ink2:#59626d; --ink3:#8b949e;
+    --line:#e3e7ec; --accent:#1f6feb; --accent-soft:#eaf2ff;
+    --ok:#1a7f37; --ok-soft:#e8f5ec; --warn:#9a6700; --warn-soft:#fff6e5;
+    --bad:#b42318; --bad-soft:#fdeceb; --purple:#6f42c1; --purple-soft:#f3efff;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 32px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:32px}
+  h1{font-size:27px;margin:0 0 8px;letter-spacing:-.3px}
+  .sub{color:var(--ink2);font-size:14px}
+  .tagrow{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;
+    background:var(--accent-soft);color:var(--accent);border:1px solid #cfe1ff}
+  .tag.ok{background:var(--ok-soft);color:var(--ok);border-color:#c6e6cf}
+  .tag.warn{background:var(--warn-soft);color:var(--warn);border-color:#ffe0a3}
+  .tag.bad{background:var(--bad-soft);color:var(--bad);border-color:#f7c9c5}
+  h2{font-size:19px;margin:44px 0 6px;padding-top:22px;border-top:1px solid var(--line)}
+  h2:first-of-type{border-top:none;padding-top:0}
+  h3{font-size:16px;margin:26px 0 8px}
+  h4{font-size:14px;margin:20px 0 6px;color:var(--ink2)}
+  p{margin:10px 0}
+  .lede{font-size:16px;color:var(--ink2)}
+  code{font-family:var(--mono);font-size:12.5px;background:#f0f2f5;
+    padding:1.5px 5px;border-radius:4px;color:#243b53}
+  pre{background:#fbfcfd;border:1px solid var(--line);border-radius:8px;
+    padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+    line-height:1.65;color:#243b53;margin:10px 0}
+  pre .c{color:#8b949e}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  th{background:#f4f6f9;text-align:left;padding:9px 12px;font-weight:600;
+    font-size:12.5px;color:var(--ink2);border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:9px 12px;border-bottom:1px solid #f0f2f5;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:18px 20px;margin:16px 0}
+  .callout{border-left:3px solid var(--accent);background:var(--accent-soft);
+    padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0}
+  .callout.ok{border-color:var(--ok);background:var(--ok-soft)}
+  .callout.warn{border-color:var(--warn);background:var(--warn-soft)}
+  .callout.bad{border-color:var(--bad);background:var(--bad-soft)}
+  .callout.hi{border-color:var(--purple);background:var(--purple-soft)}
+  .callout p{margin:5px 0}
+  .callout strong{font-weight:650}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}.wrap{padding:24px 18px 60px}}
+  .big{font-size:23px;font-weight:650;letter-spacing:-.5px}
+  .kpi{display:flex;gap:26px;flex-wrap:wrap;margin:16px 0}
+  .kpi>div{min-width:130px}
+  .kpi .lbl{font-size:11.5px;color:var(--ink3);text-transform:uppercase;
+    letter-spacing:.6px;margin-bottom:3px}
+  .bar{height:22px;border-radius:4px;background:#eef1f5;position:relative;overflow:hidden;
+    display:flex;min-width:120px}
+  .bar i{display:block;height:100%}
+  .bar .seg1{background:#4f8ff7}
+  .bar .seg2{background:#7fb2fb}
+  .bar .seg3{background:#a9c9fd}
+  .bar .seg4{background:#d3e3fe}
+  .bar .over{background:#e5484d}
+  .bar small{position:absolute;right:6px;top:0;line-height:22px;font-size:11px;
+    color:#1c2024;font-family:var(--mono)}
+  .legend{font-size:12px;color:var(--ink2);margin-top:6px;display:flex;gap:14px;flex-wrap:wrap}
+  .legend span::before{content:"";display:inline-block;width:9px;height:9px;
+    border-radius:2px;margin-right:5px;vertical-align:-1px}
+  .lg1::before{background:#4f8ff7}.lg2::before{background:#7fb2fb}
+  .lg3::before{background:#a9c9fd}.lg4::before{background:#d3e3fe}
+  .flow{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:16px 18px;margin:16px 0;font-family:var(--mono);font-size:12.5px;
+    line-height:1.9;color:#243b53;overflow-x:auto;white-space:pre}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  .foot{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--ink3);font-size:12.5px}
+  .badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;
+    font-family:var(--mono);vertical-align:1px}
+  .b-ok{background:var(--ok-soft);color:var(--ok)}
+  .b-warn{background:var(--warn-soft);color:var(--warn)}
+  .b-bad{background:var(--bad-soft);color:var(--bad)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A100 全流程生产方案 · 20 镜草稿 + 精修</h1>
+  <div class="sub">华为云 p3s.2xlarge.8（A100-PCIE-40GB / 8 vCPU / 62 GB RAM / 148 GB 盘）· ComfyUI 0.36.0 + comfy-aimdo 0.5.5</div>
+  <div class="tagrow">
+    <span class="tag ok">Stage2 精修链路已跑通</span>
+    <span class="tag ok">纯热态 75.2 s/镜</span>
+    <span class="tag ok">768×1344 输出已验证</span>
+    <span class="tag warn">S2 峰值显存 98%</span>
+    <span class="tag bad">磁盘仅剩 9.3 GB</span>
+  </div>
+</header>
+
+<p class="lede">
+你提的方向是对的——<strong>缓存文本条件、阶段间释放、不要强开全模型常驻</strong>。但实测下来有一处需要校准：<strong>这张卡上"反复搬运"的代价不在显存，而在内存</strong>。全量权重 89 GB 塞不进 62 GB 内存，才是真正的瓶颈。下面先给账本，再给方案和工期。
+</p>
+
+<h2>一、结论摘要</h2>
+
+<div class="kpi">
+  <div><div class="lbl">20 镜全流程（含精修）</div><div class="big">约 78 分钟</div></div>
+  <div><div class="lbl">不批处理 · C 口径上界</div><div class="big" style="color:var(--bad)">约 217 分钟</div></div>
+  <div><div class="lbl">不批处理 · B 口径（4090 实测）</div><div class="big" style="color:var(--bad)">约 83 分钟</div></div>
+</div>
+
+<div class="callout hi">
+  <p><strong>三个必须分清的事实：</strong></p>
+  <p>1. <strong>不能全模型常驻是物理结论，不是策略选择</strong>——S1 光文本编码器 25.9 GB + 主模型 20.0 GB = 45.9 GB 已经超过 40 GB 显存，没有任何余量可挤。</p>
+  <p>2. <strong>时间上的大钱在"批处理"，不在"缓存条件"</strong>。把 20 镜连续跑（而不是逐镜切模型），
+    收益是 <b>25–161 分钟</b>——下界取 4090 实测的逐镜交替（248 s/镜 → 83 min），上界取"每镜都冷读 45 GB 权重"的
+    反事实（217 min）。<b>真正的节省取决于 A100 上逐镜交替到底多贵，这个量还没测过。</b>
+    缓存条件的增量收益只有几分钟。</p>
+  <p>3. <strong>但缓存条件的真正价值是显存余量</strong>。S2 精修峰值实测 40163 / 40960 MiB（98%），是当前唯一有 OOM 风险的环节；把 gemma 编码器从采样循环里摘出去，采样段显存从 37.3 GB 降到 22.7 GB，余量从 0.8 GB 变成 18 GB。</p>
+</div>
+
+<div class="callout warn">
+  <p><strong>★ 全文档口径约定</strong>（本页所有时间数字都按此标注，混用会得出差 4 倍的工期）：</p>
+  <p style="margin:6px 0">
+    <b>A · 热态批处理</b>（单镜 <b>149 s</b>）= 同进程连跑、权重已驻留 → <b>凡是排期，一律用这个</b>；
+    <b>B · 逐镜交替</b>（248 s）= 每镜在 S1/S2 之间切一次权重；
+    <b>C · 每镜冷启</b>（652 s）= 每镜都把 45 GB 权重从磁盘重读一遍，<b>反事实上界</b>。
+  </p>
+  <p style="margin-bottom:0">冷启类的数字（S1 首镜 382 s、S2 冷启 271.6 s）<b>只在一个批次的第一镜付一次，绝不乘 20</b>。
+  完整推导见 <code>产品高清方案.html</code>「口径二 / 口径三」两张卡片。</p>
+</div>
+
+<h2>二、显存账本：为什么不能全常驻</h2>
+
+<p>下面所有数字都是这台机器上 ComfyUI 自己打印的 <code>prepared for dynamic VRAM loading. XXXMB Staged</code> 实测值，不是按文件体积估的。</p>
+
+<table>
+  <thead><tr>
+    <th>阶段</th><th>组件</th><th class="num">磁盘</th><th class="num">显存</th><th>用途</th>
+  </tr></thead>
+  <tbody>
+    <tr><td rowspan="5">S1<br>H3 草稿</td>
+      <td>Qwen3-VL 32B 文本编码器 <span class="badge b-ok">int8_convrot</span></td>
+      <td class="num">25.28 GB</td><td class="num">25 882 MB</td><td>prompt 编码</td></tr>
+    <tr><td>MiniMax-H3 UNET <span class="badge b-ok">int8_convrot</span></td>
+      <td class="num">19.53 GB</td><td class="num">19 995 MB</td><td>采样</td></tr>
+    <tr><td>video VAE fp16</td><td class="num">4.85 GB</td><td class="num">4 965 MB</td><td>图像 ↔ latent</td></tr>
+    <tr><td>audio VAE fp32</td><td class="num">0.56 GB</td><td class="num">576 MB</td><td>音频 ↔ latent</td></tr>
+    <tr><td>turbo LoRA（fl2v 8step / ref2v 4step）</td>
+      <td class="num">1.82 GB ×2</td><td class="num">~300 MB</td><td>步数蒸馏</td></tr>
+    <tr><td rowspan="5">S2<br>LTX-2.5 精修</td>
+      <td>LTX-2.5 22B <span class="badge b-ok">int8_convrot</span>（distilled）</td>
+      <td class="num">20.03 GB</td><td class="num">~20 030 MB</td><td>3 步精修</td></tr>
+    <tr><td>gemma4-12B 文本编码器 <span class="badge b-ok">int8_convrot</span></td>
+      <td class="num">14.32 GB</td><td class="num">14 612 MB</td><td>prompt 编码</td></tr>
+    <tr><td>ltx video VAE conv-bf16</td><td class="num">1.35 GB</td><td class="num">1 384 MB</td><td>编/解码</td></tr>
+    <tr><td>ltx audio VAE bf16</td><td class="num">0.34 GB</td><td class="num">~350 MB</td><td>音频</td></tr>
+    <tr><td>latent 空间上采样 ×2</td><td class="num">0.93 GB</td><td class="num">949 MB</td><td>384×672 → 768×1344</td></tr>
+  </tbody>
+</table>
+
+<h4>四条硬结论</h4>
+
+<table>
+  <thead><tr><th>组合</th><th class="num">显存需求</th><th class="num">占 40 440 MB</th><th>判定</th></tr></thead>
+  <tbody>
+    <tr><td>S1 文本编码器 + S1 主模型</td><td class="num">45 877 MB</td><td class="num">113%</td><td><span class="badge b-bad">不可共存</span></td></tr>
+    <tr><td>S1 全部（含两个 VAE）</td><td class="num">51 418 MB</td><td class="num">127%</td><td><span class="badge b-bad">不可共存</span></td></tr>
+    <tr><td>S2 全部（gemma + LTX + VAE + upsampler）</td><td class="num">37 325 MB</td><td class="num">92%</td><td><span class="badge b-warn">实测峰值 98%，零余量</span></td></tr>
+    <tr><td>S1 主模型 + 两个 VAE</td><td class="num">25 536 MB</td><td class="num">63%</td><td><span class="badge b-ok">宽裕，可常驻</span></td></tr>
+    <tr><td>S2 采样段（摘掉 gemma）</td><td class="num">22 713 MB</td><td class="num">56%</td><td><span class="badge b-ok">宽裕，可常驻</span></td></tr>
+  </tbody>
+</table>
+
+<h2>三、真正的瓶颈不是显存，是 89 GB 权重 vs 62 GB 内存</h2>
+
+<p>这台机器上 ComfyUI 用的是 <strong>comfy-aimdo 0.5.5</strong>（AI Model Dynamic Offloader）——它不是传统的"模型整块加载/卸载"，而是一套 <strong>VBAR + 按需缺页</strong> 的显存分配器：</p>
+
+<ul>
+  <li>为模型建立虚拟基地址（<strong>不占真实显存</strong>，只占 GPU 虚拟地址空间）；</li>
+  <li>权重张量初始<strong>未分配</strong>，碰到就缺页；</li>
+  <li>需要时 <code>fault()</code> 把权重搬进显存，用完 <code>unpin()</code>，显存紧张时随时可被换出；</li>
+  <li><strong>权重的后备仓库是 <code>.safetensors</code> 文件本身</strong>（<code>comfy_aimdo.ModelMMAP</code>，走 mmap + 操作系统页缓存）。</li>
+</ul>
+
+<div class="callout bad">
+  <p><strong>这意味着"反复搬运"最贵的一档是从磁盘读，不是从内存读。</strong></p>
+  <p>实测页缓存只有 <code>5 GB</code>（<code>buff/cache</code>）。而 PCIe Gen3 x16 搬 25.9 GB 只要约 2.6 s，从这台 virtio 云盘读同一份却要 50 s 上下——<strong>差 20 倍</strong>。</p>
+  <p>权重总量：S1 约 52 GB + S2 约 37 GB = <strong>89 GB</strong>，内存只有 <strong>62 GB</strong>。<br>
+  两个阶段在同一进程里混跑，页缓存装不下全部 → <strong>每次阶段切换，被换出的那套权重下次必须重新从磁盘读</strong>。</p>
+</div>
+
+<h3>量化：切换一次要付多少</h3>
+
+<table>
+  <thead><tr><th>执行顺序</th><th>阶段切换次数</th><th class="num">额外磁盘读</th><th class="num">额外耗时</th></tr></thead>
+  <tbody>
+    <tr><td>逐镜交替（草稿→精修→草稿→精修…）</td><td class="num">20 次</td><td class="num">~37 GB ×20</td>
+        <td class="num" style="color:var(--bad)">~25 min</td></tr>
+    <tr><td>批处理（20 镜草稿跑完，再 20 镜精修）</td><td class="num">1 次</td><td class="num">~37 GB</td>
+        <td class="num" style="color:var(--ok)">~1.5 min</td></tr>
+    <tr><td>分阶段 + 进程边界释放</td><td class="num">1 次（且可预热）</td><td class="num">~37 GB</td>
+        <td class="num" style="color:var(--ok)">~1.5 min</td></tr>
+  </tbody>
+</table>
+
+<p class="sub">注：60 GB 内存下，S1 一套（52 GB）或 S2 一套（37 GB）都能完整装进页缓存，但两套加起来 89 GB 不行。<strong>所以"一次只让一套权重在场"就是本方案的设计轴心。</strong></p>
+
+<h2>四、方案：三段五阶段</h2>
+
+<div class="flow">P0  准备          草稿归档 / TTS 校验 / 提示词导出                  ~2 min
+    │
+    ├─ /free  ────────────────────────────────────────────  释放上一批
+    ▼
+P1  S1 条件编码  TE(25.9G) + 两个 VAE(5.5G) = 31.4 GB      20 镜 → 落盘 3 件套
+    │  SaveConditioning / SaveLatent / SaveAudio
+    ├─ /free
+    ▼
+P2  S1 采样      UNET(20.0G) + 两个 VAE(5.5G) = 25.5 GB    批1: fl2va 18 镜
+    │                                                       批2: ref2va 2 镜
+    ├─ /free
+    ▼
+P3  S2 条件编码  gemma(14.6G) = 14.6 GB                   20 镜 → 落盘
+    ├─ /free
+    ▼
+P4  S2 精修      LTX(20.0G) + VAE(1.7G) + upsampler(0.9G)
+                 = 22.7 GB                                 20 镜 → 768×1344 成片
+    │
+    ▼
+P5  后处理       拼接 / 外挂字幕 / 交付（本地 CPU）          ~10 min</div>
+
+<h3>4.1 为什么要在 P1/P2 之间切一刀</h3>
+
+<p>S1 六合一节点 <code>MiniMaxH3AudioConditioningT8</code> 一次产出三样东西：</p>
+
+<table>
+  <thead><tr><th class="num">输出槽</th><th>名称</th><th>类型</th><th>缓存手段</th><th>消费方</th></tr></thead>
+  <tbody>
+    <tr><td class="num">0</td><td><code>positive</code></td><td>CONDITIONING</td><td><code>SaveConditioning</code></td><td>BasicGuider</td></tr>
+    <tr><td class="num">1</td><td><code>av_latent</code></td><td>LATENT</td><td><code>SaveLatent</code></td><td>采样器 / DualClockSampler</td></tr>
+    <tr><td class="num">2</td><td><code>mux_audio</code></td><td>AUDIO</td><td><code>SaveAudio</code></td><td>OutputTrim</td></tr>
+  </tbody>
+</table>
+
+<p>把这三样落盘之后，P2 阶段的工作流里就<strong>一个 CLIPLoader 都不需要</strong>——25.9 GB 的文本编码器彻底不进场。</p>
+
+<div class="callout ok">
+  <p><strong>本机原生节点齐备，不需要自己写任何自定义节点</strong>（已实测确认）：</p>
+  <p><code>SaveConditioning</code> → safetensors → <code>ConditioningLoader</code> ·
+     <code>SaveLatent</code> → <code>LoadLatent</code> ·
+     <code>SaveAudio</code> → <code>LoadAudio</code></p>
+  <p>注意 <code>SaveConditioning</code> 落在 <code>output</code> 目录，需移到 <code>models/conditioning/</code> 才能被 <code>ConditioningLoader</code> 列出。</p>
+</div>
+
+<h3>4.2 显存预算条形图（按 40 440 MB = 100%）</h3>
+
+<div class="panel">
+  <h4 style="margin-top:0">S1 全部塞一起 —— 超 27%</h4>
+  <div class="bar"><i class="seg1" style="width:64%"></i><i class="seg2" style="width:49.5%"></i><i class="seg4" style="width:13.7%"></i><span style="position:absolute;left:calc(100% - 46px);line-height:22px;font-size:11px;color:#b42318;font-family:var(--mono)">超限</span></div>
+  <div class="legend"><span class="lg1">文本编码器 25.9G</span><span class="lg2">UNET 20.0G</span><span class="lg4">两个 VAE 5.5G</span></div>
+
+  <h4>P1 条件段（本方案）—— 78%，常驻无压力</h4>
+  <div class="bar"><i class="seg1" style="width:64%"></i><i class="seg4" style="width:13.7%"></i></div>
+  <div class="legend"><span class="lg1">TE 31.4G 合计</span></div>
+
+  <h4>P2 采样段（本方案）—— 63%，余 15 GB 给中间张量</h4>
+  <div class="bar"><i class="seg2" style="width:49.5%"></i><i class="seg4" style="width:13.7%"></i></div>
+  <div class="legend"><span class="lg2">UNET 20.0G</span><span class="lg4">两个 VAE 5.5G</span></div>
+
+  <h4>S2 当前实测 —— 98%，顶格</h4>
+  <div class="bar"><i class="seg2" style="width:49.5%"></i><i class="seg3" style="width:36.1%"></i><i class="seg4" style="width:6.6%"></i><span>40 163 MiB</span></div>
+  <div class="legend"><span class="lg2">LTX 20.0G</span><span class="lg3">gemma 14.6G</span><span class="lg4">VAE+upsampler 2.7G</span></div>
+
+  <h4>P4 精修段（摘掉 gemma）—— 56%，余 18 GB</h4>
+  <div class="bar"><i class="seg2" style="width:49.5%"></i><i class="seg4" style="width:6.6%"></i></div>
+  <div class="legend"><span class="lg2">LTX 20.0G</span><span class="lg4">VAE+upsampler 2.7G</span></div>
+</div>
+
+<h3>4.3 S1 内部还要再分批一次</h3>
+
+<p>本条片子里 <strong>18 镜走 fl2va、2 镜走 ref2va</strong>（s13 / s15 带产品参考图），两套 UNET 各 19.53 GB。若同时驻留内存：</p>
+
+<pre>25.28 (TE) + 19.53 (fl2va) + 19.53 (ref2va) + 5.4 (VAE) = <span class="c">69.7 GB &gt; 62 GB</span></pre>
+
+<p>所以 P2 拆成两批，每批内部连续跑：<strong>批 1 = fl2va 18 镜 → 批 2 = ref2va 2 镜</strong>（或反过来），UNET 只切换一次。</p>
+
+<h2>五、时间预算</h2>
+
+<p>下表所有"热态/冷启"数字都来自这台 A100 的实测，不是推算。</p>
+
+<h3>5.1 单镜实测基线</h3>
+
+<table>
+  <thead><tr><th>场景</th><th class="num">实测耗时</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>S1 草稿 · 冷启首镜</td><td class="num">382 s</td><td>45 GB 权重冷读盘 + kernel 首次编译</td></tr>
+    <tr><td>S1 草稿 · 热态</td><td class="num">74.3 s</td><td>模型已常驻，仅付采样+解码</td></tr>
+    <tr><td>S1 草稿 · 热态复测</td><td class="num">73.9 s</td><td>稳定性确认</td></tr>
+    <tr><td>S1 草稿 · 带参考图（冷启）</td><td class="num">327 s</td><td>采样 12.21 s/it（无图 11.4）</td></tr>
+    <tr><td><strong>S2 精修 · 热态</strong></td><td class="num" style="color:var(--ok)"><strong>75.2 s</strong></td><td>本次实测；含 gemma 编码 + 上采样 + 3 步精修 + VAE 解码 + 封装</td></tr>
+    <tr><td><strong>S2 精修 · 3 镜连续批处理</strong></td><td class="num" style="color:var(--ok)"><strong>271.6 / 75.3 / 75.3 s</strong></td><td>首镜付装卸载成本，后两镜稳定 <strong>75.3 s</strong>（与单测 75.2 s 一致，可复现）</td></tr>
+    <tr><td>S2 精修 · 冷启（含 S1 卸载）</td><td class="num">270 s</td><td>显存曲线显示 S1 卸载占 ~30 s</td></tr>
+    <tr><td>参考：4090 24G 上同规格草稿</td><td class="num">72.5 s</td><td>A100 热态与 4090 基本同档</td></tr>
+    <tr style="background:#f4f6f9">
+      <td><strong>单镜合计 · 热态批处理</strong></td>
+      <td class="num" style="color:var(--ok)"><strong>74 + 75 = 149 s</strong></td>
+      <td><strong>★ 排期一律用这个口径。</strong>草稿段两张卡同档，说明草稿这步卡不是变量</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <p><strong>★ 口径声明（读这张表前必看）</strong></p>
+  <p style="margin:6px 0">同一件事有<strong>三种计时口径</strong>，混用会得出差 4 倍的工期：</p>
+  <table style="margin:6px 0">
+    <thead><tr><th>口径</th><th class="num">单镜</th><th>什么时候用</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A · 热态批处理</strong></td><td class="num ok"><strong>149 s</strong></td>
+        <td><strong>排期用这个</strong>。同进程连跑、权重已驻留</td></tr>
+      <tr><td>B · 逐镜交替</td><td class="num">248 s</td>
+        <td>每镜在 S1/S2 之间切一次权重。出处：09-16 4090 单镜验证（107 + 139）</td></tr>
+      <tr><td>C · 每镜冷启</td><td class="num bad">652 s</td>
+        <td><strong>反事实上界</strong>：假设每镜都把 45 GB 权重从磁盘重读一遍（382 + 270）</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-bottom:0">上表里的「冷启首镜 382 s」「S2 冷启 270 s」都是 <strong>C 口径的一次性开销</strong>，
+  <strong>只在一个批次的第一镜付一次，绝不能乘 20</strong>。B 口径里 <code>107 s</code> 的草稿之所以比热态的 74 s 贵，
+  多出来的约 35 s 正是每镜重装 TE(25.9 G)+UNET(20 G) 的钱。</p>
+</div>
+
+<h3>5.2 20 镜总工期</h3>
+
+<table>
+  <thead><tr><th>阶段</th><th>内容</th><th>算式</th><th class="num">耗时</th></tr></thead>
+  <tbody>
+    <tr><td>P0</td><td>准备（草稿 / TTS / 提示词齐备性）</td><td>—</td><td class="num">2 min</td></tr>
+    <tr><td>P1</td><td>S1 条件编码 20 镜</td><td>冷启 ~120 + 20×6</td><td class="num">~4 min</td></tr>
+    <tr><td>P2a</td><td>S1 采样 · fl2va 18 镜</td><td>冷启 382 + 17×<b>74.3</b></td><td class="num">~27.5 min</td></tr>
+    <tr><td>P2b</td><td>S1 采样 · ref2va 2 镜</td><td>切模型 ~120 + 1×<b>77</b></td><td class="num">~3.5 min</td></tr>
+    <tr><td>P3</td><td>S2 条件编码 20 镜</td><td>冷启 ~60 + 20×4</td><td class="num">~2.5 min</td></tr>
+    <tr><td>P4</td><td>S2 精修 20 镜</td><td>冷启 <b>271.6</b> + 19×<b>75.3</b></td><td class="num">~28.5 min</td></tr>
+    <tr><td>P5</td><td>后处理（拼接 / 外挂字幕 / 交付）</td><td>本地 CPU</td><td class="num">~10 min</td></tr>
+    <tr style="background:#f4f6f9"><td colspan="3"><strong>合计</strong></td><td class="num"><strong>约 78 min</strong></td></tr>
+  </tbody>
+</table>
+
+<p style="font-size:13.5px;color:var(--ink3)">说明：P2a 的每镜值由 <code>78</code> 改为实测 <b>74.3 s</b>，
+P4 的每镜值由 <code>68</code> 改为实测 <b>75.3 s</b>、冷启由 <code>~90</code> 改为实测 <b>271.6 s</b>。
+原来的 70 min 是拿两个偏乐观的估值算出来的，按实测口径应为 <b>约 78 min</b>。
+—— 这一改动的意义在于：<b>78 min 是"最坏也这样"的数</b>，之前的 70 min 反而不可复现。</p>
+
+<div class="grid2">
+  <div class="panel">
+    <h4 style="margin-top:0;color:var(--bad)">不批处理 · 两个口径</h4>
+    <p style="font-size:13.5px"><b>C 口径 · 每镜冷启（反事实上界）</b> —— 假设每镜都把 45 GB 权重从磁盘重读一遍：</p>
+    <pre style="margin:6px 0">S1: 20 × 382 s = 127 min
+S2: 20 × 270 s =  90 min
+              ─────────
+                217 min</pre>
+    <p style="font-size:13.5px"><b>B 口径 · 逐镜交替</b> —— 09-16 在 4090 上实测 248 s/镜：</p>
+    <pre style="margin:6px 0">20 × 248 s = 83 min</pre>
+    <p style="font-size:13.5px;color:var(--ink3)">⚠ A100 上的 B 口径<b>未实测</b>：62 GB 内存装不下 89 GB 两阶段权重，
+    逐镜切换会退化成部分重读盘，真实值应在 <b>83–217 min</b> 之间。</p>
+  </div>
+  <div class="panel">
+    <h4 style="margin-top:0;color:var(--ok)">本方案（A 口径 · 实测值）</h4>
+    <p style="font-size:13.5px">批处理 + 阶段化 + 条件缓存：</p>
+    <pre style="margin:6px 0">P0–P4  约 68 min
+P5     约 10 min
+      ─────────
+       约 78 min</pre>
+  </div>
+</div>
+
+<div class="callout warn">
+  <p><strong>诚实交代各项优化的贡献占比（按统一口径重算）：</strong></p>
+  <ul style="margin:6px 0">
+    <li><strong>批处理（连续提交）</strong>：S1+S2 采样从 <b>217 min（C 口径）</b>压到
+      <b>56 min（A 口径实测：27.4 + 28.4）</b>。
+      相对 C 口径省 <strong>161 min</strong>；但若拿 B 口径（逐镜交替 83 min）当基线，
+      只省 <strong>25 min</strong>。→ <b>收益区间 25–161 min</b>，全都卡在
+      「A100 上逐镜交替到底多贵」这个<strong>还没测过</strong>的量上。</li>
+    <li><strong>阶段间释放（<code>/free</code>）</strong>：避免逐镜交替时 25 分钟级的磁盘回落。</li>
+    <li><strong>条件缓存</strong>：省时约 2–5 分钟，<strong>但把 S2 峰值显存从 98% 降到 56%</strong>——这才是它不可替代的价值。</li>
+  </ul>
+  <p>换句话说：你要的"缓存条件 + 阶段释放"方向完全正确，但它买到的是<strong>显存余量与可断点</strong>，不是时间。时间要靠批处理。</p>
+  <p style="margin-bottom:0">★ <b>顺带纠正一个之前的说法</b>：早前称"批处理是主要收益（约 2.5 小时）"，那是拿
+  C 口径（每镜冷读盘）当基线的。<b>2.5 小时是上界不是实测收益。</b>要把它钉死，只需跑一镜
+  "S1 → /free → S2" 的逐镜交替，成本约 6 分钟。</p>
+</div>
+
+<h2>六、已实测验证 / 待实施</h2>
+
+<div class="grid2">
+  <div class="panel" style="border-color:#c6e6cf;background:var(--ok-soft)">
+    <h4 style="margin-top:0;color:var(--ok)">✓ 本次已在真机验证</h4>
+    <ul style="font-size:13.5px">
+      <li><strong>Stage2 精修工作流从零重建并跑通</strong>。官方工作流引用的 dev-transformer(20 GB) + distilled-lora-450(8.29 GB) + TAEHV 权重本机全缺，已改造为<strong>融合版 distilled 单模型 + 标准 VAEDecode</strong>，零新增下载。</li>
+      <li>输出规格正确：<strong>768×1344 / 361 帧 / 24 fps / 15.04 s / 音轨保留</strong>（源草稿 384×672×362 帧，2× 上采样精确达成）。</li>
+      <li>热态单镜 <strong>75.2 s</strong>；3 镜连续批处理实测 <strong>271.6 / 75.3 / 75.3 s</strong>，后两镜稳定复现。</li>
+      <li><strong>阶段边界释放有效</strong>：<code>POST /free</code> 后显存从 26 667 MiB 降到 <strong>643 MiB</strong>，模型彻底卸载。</li>
+      <li>定位并修复一个<strong>会静默丢参数</strong>的坑：<code>SaveVideo</code> 的 <code>format</code>/<code>codec</code> 是 <code>COMFY_DYNAMICCOMBO_V3</code> 类型，UI→API 转换器不认它，导致提交后报 <code>missing 1 required positional argument: 'format'</code>。</li>
+      <li>确认 cond / latent / audio 三件套的落盘-读回节点全部原生可用。</li>
+    </ul>
+  </div>
+  <div class="panel" style="border-color:#ffe0a3;background:var(--warn-soft)">
+    <h4 style="margin-top:0;color:var(--warn)">○ 待实施（本方案的工作量）</h4>
+    <ul style="font-size:13.5px">
+      <li><strong>S1 工作流拆分</strong>为 P1（编码段）/ P2（采样段）两个 API 工作流，含三件套落盘与读回接线。</li>
+      <li><strong>S1 的 20 镜草稿全部要重跑</strong>（旧草稿留在已失联的 4090 实例上）。其中 s13/s15 走 ref2va、s18 走首帧锚定，需用 <code>build_voice_workflow.py</code> 重新生成带图版本。</li>
+      <li>批处理调度器（含断点续跑、阶段边界 <code>/free</code>、失败重试）。</li>
+      <li>把 <code>COMFY_DYNAMICCOMBO</code> 修复同步进 UI→API 转换脚本。</li>
+    </ul>
+  </div>
+</div>
+
+<h2>七、执行步骤</h2>
+
+<h3>7.1 阶段边界释放（每次切换前执行）</h3>
+<pre><span class="c"># ComfyUI 原生端点：卸载全部模型 + 释放缓存</span>
+curl -s -X POST http://127.0.0.1:8188/free \
+     -H 'Content-Type: application/json' \
+     -d '{"unload_models":true,"free_memory":true}'</pre>
+<div class="callout ok">
+  <p><strong>实测有效</strong>：调用前显存 26 667 MiB → 调用后 <strong>643 MiB</strong>，权重彻底卸载。</p>
+  <p><strong>注意一个会误导排查的细节</strong>：该端点返回 <strong>HTTP 200 但响应体 0 字节</strong>。若客户端写 <code>json.loads(resp.read())</code> 会抛 <code>JSONDecodeError</code>，被 <code>except</code> 吞掉后打印"调用失败"——<strong>其实请求已生效</strong>，却让人去排查一个不存在的问题。判断成功只看 HTTP 状态码，不要解析响应体。</p>
+</div>
+
+<h3>7.2 生成 S2 精修工作流（本次已归档）</h3>
+<pre><span class="c"># 1) 官方工作流 → API 格式</span>
+cd /root && python3 ui_to_api.py \
+  /workspace/ComfyUI/custom_nodes/comfyui-minimax-h3-audio-T8/examples/workflows/\
+22-sol-engine-h3-super/2026-08-29_H3_Sol_Engine_Super_Acceleration_LTX25_Advanced_EXP.json \
+  --out /root/s2/stage2_official_api.json --drop MarkdownNote
+
+<span class="c"># 2) 改造为 distilled 单模型 + 标准 VAEDecode（幂等，可重复执行）</span>
+cd /root/s2 && python3 s2_adapt.py \
+  --template stage2_official_api.json --out s2_template.json
+
+<span class="c"># 3) 按镜参数化</span>
+python3 s2_adapt.py --template s2_template.json --shot 13 \
+  --draft drafts/s13_ref.mp4 --prompt-file /tmp/p13.txt \
+  --seed 20260931 --prefix MiniMaxH3/film1-refined/s13 \
+  --width 768 --height 1344 --out api_s13.json
+
+<span class="c"># 4) 提交并计时（脚本会轮询到结束并打印耗时）</span>
+python3 submit_api.py api_s13.json --poll 15 --json-out hist_s13.json</pre>
+
+<h3>7.3 建议的落地顺序</h3>
+<ol>
+  <li><strong>先跑 P2a + P4 的最小闭环</strong>：用现有 5 个验证草稿连续跑 2–3 镜精修，确认批处理下的热态稳定性（不再逐镜冷启）。</li>
+  <li><strong>再补 S1 的 20 镜草稿</strong>（P2a/P2b 分批），这批是当前最大缺口。</li>
+  <li><strong>最后做 S1 条件拆分</strong>（P1/P2），把显存余量吃到手。</li>
+  <li>接 P5 后处理与交付。</li>
+</ol>
+
+<h2>八、风险与回退</h2>
+
+<table>
+  <thead><tr><th>风险</th><th>实测依据</th><th>对策</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>S2 精修 OOM</strong>（最高优先级）</td>
+      <td>峰值 40 163 / 40 960 MiB = 98%，零余量</td>
+      <td>P3/P4 拆分，把 gemma 从采样段摘出（56%）；必要时降 <code>min_tokens</code> 或分批解码</td>
+    </tr>
+    <tr>
+      <td><strong>磁盘只剩 9.3 GB</strong></td>
+      <td><code>df</code>：148 G 用 132 G</td>
+      <td>20 镜成片约 1.5 GB，够用；但<strong>权重文件必须保留</strong>（aimdo 靠 mmap 文件做后备，删了等于删模型）。若要下新权重须先扩盘</td>
+    </tr>
+    <tr>
+      <td><strong>权重搬运退化到磁盘</strong></td>
+      <td>页缓存实测仅 5 GB</td>
+      <td>严格"一次只让一套权重在场"+ 阶段边界 <code>/free</code>；可选在各阶段开始前顺序预读一遍权重预热页缓存</td>
+    </tr>
+    <tr>
+      <td><strong>distilled 融合版质量不及 dev+LoRA</strong></td>
+      <td>官方 RefinerSetup 节点 tooltip 原文指明期望"dev transformer with distilled refiner LoRA @0.8"；融合版体积一致（均 20.03 GB）</td>
+      <td>先用融合版（零下载）；已出 s13/s15 两镜可目视验收。若不达标，再扩盘下载 dev + LoRA（28.3 GB）</td>
+    </tr>
+    <tr>
+      <td><strong>ref2va / fl2va 混批导致内存超限</strong></td>
+      <td>两套 UNET 同驻需 69.7 GB &gt; 62 GB</td>
+      <td>P2 内部分两批，UNET 只切一次</td>
+    </tr>
+    <tr>
+      <td>启动参数误调</td>
+      <td><code>--fast fp16_accumulation cublas_ops autotune</code> 实测冷启 472 s（更慢）、热态 73.9 s（不变）</td>
+      <td><strong>不要开 <code>--fast</code></strong>。SM 8.0 无原生 FP8，<code>fp8_matrix_mult</code> 不适用</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>九、可选进一步提速（未实施）</h2>
+
+<ul>
+  <li><strong>SageAttention 2</strong>（<code>--use-sage-attention</code>）：SM 8.0 支持。采样段约 45 s 里 attention 占大头，有机会再压 20–30%。</li>
+  <li><strong>权重页缓存预热</strong>：阶段开始前 <code>vmtouch -t</code> 或顺序 <code>cat</code> 一遍当前阶段的权重文件，把冷读盘成本从关键路径挪走。</li>
+  <li><strong>换 RTX 4090 48G</strong>：同 Ada 架构零改动，按需 2.27 元/卡时（A100 40G 是 2.60），且原生 FP8 可用。</li>
+</ul>
+
+<div class="foot">
+  数据来源：华为云 p3s.2xlarge.8 实机 · ComfyUI 0.36.0 · comfy-aimdo 0.5.5 · comfy-kitchen 0.2.34 · 2026-09-17 现场实测。<br>
+  单镜耗时均取自 <code>/history</code> 的 <code>Prompt executed in X seconds</code>，显存取自 <code>nvidia-smi</code> 5 秒采样，权重体积取自 ComfyUI 启动日志的 <code>Staged</code> 字段。
+</div>
+
+</div>
+</body>
+</html>

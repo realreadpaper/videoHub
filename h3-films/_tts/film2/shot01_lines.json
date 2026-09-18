@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S2",
+  "text": "爸爸，我又没瘸，为什么非要坐轮椅骗人？",
+  "mp3": "s01_0.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 2.623
+ },
+ {
+  "speaker": "S1",
+  "text": "爸爸不是想骗人，爸爸只是想知道，谁会因为你坐轮椅就嫌弃你，谁又会把你当成真正的孩子疼。",
+  "mp3": "s01_1.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f01.wav",
+  "t": 3.573,
+  "dur": 5.037
+ },
+ {
+  "speaker": "S2",
+  "text": "那他们要是都嫌弃我呢？",
+  "mp3": "s01_2.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f02.wav",
+  "t": 9.36,
+  "dur": 1.617
+ },
+ {
+  "speaker": "S1",
+  "text": "那爸爸一个都不要。",
+  "mp3": "s01_3.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f03.wav",
+  "t": 11.727,
+  "dur": 0.787
+ },
+ {
+  "speaker": "S2",
+  "text": "可你不是",
+  "mp3": "s01_4.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f04.wav",
+  "t": 13.264,
+  "dur": 0.632
+ }
+]

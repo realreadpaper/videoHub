@@ -1,0 +1,65 @@
+[
+ {
+  "speaker": "S3",
+  "text": "价了吧。阿姨给你糖。",
+  "mp3": "s03_0.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 1.487
+ },
+ {
+  "speaker": "S2",
+  "text": "别碰我。",
+  "mp3": "s03_1.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f01.wav",
+  "t": 2.213,
+  "dur": 0.56
+ },
+ {
+  "speaker": "S3",
+  "text": "我刚做的，没假。",
+  "mp3": "s03_2.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f02.wav",
+  "t": 3.298,
+  "dur": 1.029
+ },
+ {
+  "speaker": "S3",
+  "text": "你带着这种孩子出来相亲，不是找老婆，是找护工吧？",
+  "mp3": "s03_3.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f03.wav",
+  "t": 4.854,
+  "dur": 3.14
+ },
+ {
+  "speaker": "S3",
+  "text": "以后我朋友问起来我怎么说？说我嫁过去就给人家当后妈？",
+  "mp3": "s03_4.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f04.wav",
+  "t": 8.52,
+  "dur": 3.521
+ },
+ {
+  "speaker": "S3",
+  "text": "你赶紧让司机把孩子送走。",
+  "mp3": "s03_5.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f05.wav",
+  "t": 12.567,
+  "dur": 1.423
+ },
+ {
+  "speaker": "S1",
+  "text": "不用",
+  "mp3": "s03_6.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f06.wav",
+  "t": 14.517,
+  "dur": 0.306
+ }
+]

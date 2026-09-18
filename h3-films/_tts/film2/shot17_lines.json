@@ -1,0 +1,56 @@
+[
+ {
+  "speaker": "S1",
+  "text": "没问题，有问题的是你们的人品。",
+  "mp3": "s17_0.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 1.981
+ },
+ {
+  "speaker": "S3",
+  "text": "顾总，我其实也很喜欢孩子，我也可以学着照顾他。",
+  "mp3": "s17_1.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f01.wav",
+  "t": 2.523,
+  "dur": 2.954
+ },
+ {
+  "speaker": "S1",
+  "text": "晚了。你们刚才嫌弃他的样子，他都记得。",
+  "mp3": "s17_2.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f02.wav",
+  "t": 5.819,
+  "dur": 2.6
+ },
+ {
+  "speaker": "S4",
+  "text": "那你坐了一上午，腿麻吗？",
+  "mp3": "s17_3.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f03.wav",
+  "t": 8.761,
+  "dur": 1.466
+ },
+ {
+  "speaker": "S2",
+  "text": "阿姨，你不怪我骗你吗？",
+  "mp3": "s17_4.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f04.wav",
+  "t": 10.568,
+  "dur": 1.584
+ },
+ {
+  "speaker": "S4",
+  "text": "能走是好事。可就算你真的坐轮",
+  "mp3": "s17_5.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f05.wav",
+  "t": 12.494,
+  "dur": 2.33
+ }
+]

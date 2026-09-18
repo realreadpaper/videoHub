@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图生视频方案 · 产品参考图针对性生成（Ref2VA）</title>
+<style>
+  :root{
+    --ink:#1a1a1c; --ink2:#3d4046; --ink3:#6b7078; --line:#e4e6ea;
+    --bg:#fbfbfc; --card:#ffffff; --red:#c0392b; --redbg:#fdf2f0;
+    --blue:#1f6fb2; --bluebg:#eef5fb; --green:#1e7a52; --greenbg:#eef7f2;
+    --amber:#9a6b00; --amberbg:#fdf6e3; --violet:#6b4bb0; --violetbg:#f4f0fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.72 -apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:44px 30px 90px}
+  h1{font-size:27px;line-height:1.35;margin:0 0 8px;letter-spacing:-.3px}
+  h2{font-size:19px;margin:46px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  h3{font-size:15.5px;margin:26px 0 10px;color:var(--ink2)}
+  p{margin:10px 0}
+  .sub{color:var(--ink3);font-size:13.5px;margin-bottom:26px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:20px 22px;margin:16px 0}
+  .verdict{background:var(--greenbg);border:1px solid #cfe7dc;border-left:4px solid var(--green);
+    border-radius:10px;padding:18px 22px;margin:22px 0}
+  .verdict b{color:var(--green)}
+  .warn{background:var(--amberbg);border:1px solid #f0e0b0;border-left:4px solid var(--amber);
+    border-radius:10px;padding:16px 20px;margin:16px 0}
+  .danger{background:var(--redbg);border:1px solid #f2d5d0;border-left:4px solid var(--red);
+    border-radius:10px;padding:16px 20px;margin:16px 0}
+  .info{background:var(--bluebg);border:1px solid #d3e5f4;border-left:4px solid var(--blue);
+    border-radius:10px;padding:16px 20px;margin:16px 0}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.8px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f5f6f8;font-weight:600;color:var(--ink2);white-space:nowrap}
+  tr:nth-child(even) td{background:#fcfcfd}
+  code{background:#f2f3f5;padding:1.5px 5px;border-radius:4px;font-size:12.6px;
+    font-family:"SF Mono",Menlo,Consolas,monospace;color:#8a3324}
+  pre{background:#f7f8fa;border:1px solid var(--line);border-radius:9px;padding:14px 16px;
+    overflow-x:auto;font-size:12.8px;line-height:1.65;
+    font-family:"SF Mono",Menlo,Consolas,monospace;color:#2c3038}
+  pre code{background:none;padding:0;color:inherit}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11.5px;
+    font-weight:600;letter-spacing:.2px;white-space:nowrap}
+  .p-red{background:var(--redbg);color:var(--red)}
+  .p-green{background:var(--greenbg);color:var(--green)}
+  .p-blue{background:var(--bluebg);color:var(--blue)}
+  .p-amber{background:var(--amberbg);color:var(--amber)}
+  .p-violet{background:var(--violetbg);color:var(--violet)}
+  .p-gray{background:#f0f1f3;color:var(--ink3)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .route{border:1px solid var(--line);border-radius:10px;padding:15px 17px;background:#fff}
+  .route h3{margin:0 0 8px;font-size:14.5px}
+  .route.win{border:2px solid var(--green);background:var(--greenbg)}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  .kv{font-size:13.5px;color:var(--ink2)}
+  .kv b{color:var(--ink)}
+  .flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;font-size:13px}
+  .box{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 12px}
+  .box.hi{border-color:#9dc9b3;background:var(--greenbg)}
+  .arrow{color:var(--ink3);font-weight:700}
+  .check{list-style:none;padding-left:0}
+  .check li{padding-left:26px;position:relative}
+  .check li:before{content:"☐";position:absolute;left:4px;color:var(--ink3);font-size:15px}
+  .foot{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--ink3);font-size:12.5px}
+  .mono{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:12.5px}
+  .big{font-size:16.5px;font-weight:600;color:var(--ink)}
+  .tag-num{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--ink);
+    color:#fff;font-size:11.5px;align-items:center;justify-content:center;margin-right:7px;
+    font-weight:700;flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>图生视频可行，而且我们一直只用了模型三分之一的能力</h1>
+<div class="sub">给 H3 喂产品图的两条路线 · 为什么「参考图」比「首帧锚定」更适合你 · 零 GPU 准备已全部就绪　｜　2026-09-17</div>
+
+<div class="verdict">
+  <p style="margin:0 0 8px"><span class="big">结论：完全可行，是模型原生能力，不需要装任何新东西。</span></p>
+  <p style="margin:0">H3 的权重文件名就叫 <code>minimax_h3_fl2va_*</code>（<b>fl2va = First-Last frame to Video+Audio</b>），
+  而我们一直在用的 <code>MiniMaxH3AudioConditioningT8</code> 节点是<b>六合一统一节点</b>——
+  它同时支持 T2VA / I2VA / FL2VA / L2VA / <b>Ref2VA</b> / Hybrid，靠「你接了哪些输入」自动判断任务类型。
+  片 1 那 20 镜<b>全是纯文生</b>，图条件槽从头到尾空着 —— 这才是「产品的样子不对」的根因，不是参数没调好。</p>
+</div>
+
+<h2>一、先分清两条路线：关键帧 ≠ 参考图</h2>
+
+<p>这是整件事里最容易被混淆、也最关键的一点。两者都能把产品图喂给模型，但机制完全不同：</p>
+
+<table>
+  <tr>
+    <th style="width:20%">对比项</th>
+    <th style="width:40%">FL2VA · 关键帧（first_frame / last_frame）</th>
+    <th style="width:40%">Ref2VA · 参考图（ref_images）</th>
+  </tr>
+  <tr>
+    <td><b>在图里占位置吗</b></td>
+    <td>占。<b>它就是你视频的第 0 帧或末帧</b>，直接成为画面</td>
+    <td>不占。它<b>不成为任何一帧</b>，只「引导身份/外观」</td>
+  </tr>
+  <tr>
+    <td><b>产品能出现在哪些时段</b></td>
+    <td><span class="pill p-red">只能 t=0 或 t=末</span>中间完全没有</td>
+    <td><span class="pill p-green">任意时段</span>开头/中段/结尾都行</td>
+  </tr>
+  <tr>
+    <td><b>分辨率要求</b></td>
+    <td>必须与目标画布同比例（384×672）</td>
+    <td>可用自己的分辨率，节点按 <code>ref_image_size</code> 换算</td>
+  </tr>
+  <tr>
+    <td><b>能喂几张</b></td>
+    <td>最多 2 张（首 + 尾）</td>
+    <td><b>最多 9 张图</b> / 3 视频 / 3 音频</td>
+  </tr>
+  <tr>
+    <td><b>prompt 怎么写</b></td>
+    <td>「从首帧开始，只做以下动作」——端点图管「是什么」</td>
+    <td>「保持 <code>&lt;Picture 1&gt;</code> 的产品身份」——参考图管「是什么」</td>
+  </tr>
+  <tr>
+    <td><b>能力边界</b></td>
+    <td colspan="2" style="background:#fafbfc"><span class="pill p-green">两者可叠加</span> 即 Hybrid：首帧锁死构图 + 参考图管产品身份，节点本身支持，不用额外装东西</td>
+  </tr>
+</table>
+
+<div class="info">
+  <p style="margin:0"><b>为什么这条区别对你的片至关重要：</b>上一轮我判断「镜 15 用不了」——
+  因为那个镜里产品<b>只在 6～10.5 秒的中段出现</b>，而关键帧只能锁第 0 帧或末帧，两头都没有产品。
+  <b>Ref2VA 把这个问题直接消掉了</b>：参考图不占帧位，产品出现在第几秒都不影响，模型照样按参考图渲染。
+  于是从「3 个产品镜只有 1 个能用」变成 <b>全部可用</b>。</p>
+</div>
+
+<h2>二、四条路线，逐个产品镜该怎么走</h2>
+
+<div class="grid2">
+  <div class="route">
+    <h3>① T2VA 纯文生 <span class="pill p-gray">片1 现状</span></h3>
+    <p class="kv">完全不接图。产品长什么样，全靠 prompt 里那句「袋面空白无字」——模型只能自己编一个红壳。
+    <b>这就是当前产品不对的根因。</b></p>
+  </div>
+  <div class="route">
+    <h3>② FL2VA 首帧锚定 <span class="pill p-amber">已就绪 · 镜18</span></h3>
+    <p class="kv">用 <code>make_first_frame.py</code> 把真产品图透视合成进原镜的 t=0 帧，接 <code>first_frame</code> 槽。
+    适合「产品在镜头的开头就出现」的镜。透视/光影/材质天然一致。</p>
+  </div>
+  <div class="route win">
+    <h3>③ Ref2VA 参考图 <span class="pill p-green">正解 · 镜13/15</span></h3>
+    <p class="kv">把产品图接到 <code>ref_images</code> 槽，prompt 用 <code>&lt;Picture 1&gt;</code> 点名。
+    <b>不占帧位 → 产品在任意时段都能锁</b>，且不需要预先合成关键帧（省掉一整道人工标定工序）。
+    这是「拿产品图针对性生成」的标准答案，官方也把 Ref2VA 列为「主体绑定」的推荐模式而非 I2V。</p>
+  </div>
+  <div class="route">
+    <h3>④ Hybrid 混合 <span class="pill p-blue">后续可选</span></h3>
+    <p class="kv">首帧 + 参考图同时接。构图锁死 + 产品身份全程引导，要求最高。
+    同一个节点就支持，等单一机制验证通过后再上。</p>
+  </div>
+</div>
+
+<h3>逐镜路由表（片 1 产品段）</h3>
+<table>
+  <tr><th>镜</th><th>产品在画面里的时段</th><th>本轮选定路线</th><th>为什么</th></tr>
+  <tr>
+    <td><b>13</b></td>
+    <td>0–1s 特写，之后切大厅/厨房</td>
+    <td><span class="pill p-green">Ref2VA</span></td>
+    <td>产品在开头，但该镜中段无产品；参考图不必重写分段结构，改动最小</td>
+  </tr>
+  <tr>
+    <td><b>15</b></td>
+    <td>6–10.5s 中段（开袋倾倒）</td>
+    <td><span class="pill p-green">Ref2VA</span></td>
+    <td><b>首帧锚定做不到</b>——两端都没有产品。这一镜是 Ref2VA 价值的直接证明</td>
+  </tr>
+  <tr>
+    <td><b>18</b></td>
+    <td>t=0 即双手持袋，贯穿全程</td>
+    <td><span class="pill p-amber">FL2VA</span></td>
+    <td>首帧就是产品、且与 prompt 第一段完全一致，零结构冲突；留作两条路线的 A/B 对照</td>
+  </tr>
+  <tr>
+    <td>14 / 16 / 17…</td>
+    <td>袋在画面边缘或背景</td>
+    <td><span class="pill p-gray">暂不动</span></td>
+    <td>等 13/15 跑通后按同一模式批量推广（见第五节）</td>
+  </tr>
+</table>
+
+<h2>三、零 GPU 已完成的准备（实例恢复后可直接跑）</h2>
+
+<table>
+  <tr><th>产出</th><th>路径</th><th>状态</th></tr>
+  <tr>
+    <td>参考图就绪包（3 张）</td>
+    <td class="mono">_refs/prod_P1_front.png<br>_refs/prod_P2_white.png ← 主推<br>_refs/prod_P3_canvas.png</td>
+    <td><span class="pill p-green">已生成</span> 用 grabCut 抠出袋子，去掉详情页的红色背景、顶部金色大字与四角食材</td>
+  </tr>
+  <tr>
+    <td>首帧锚定图（镜18）</td>
+    <td class="mono">_frames/film1_shot18_first.png</td>
+    <td><span class="pill p-green">已生成</span> 384×672，透视贴真产品图</td>
+  </tr>
+  <tr>
+    <td>三个图条件工作流</td>
+    <td class="mono">_remote/i2v/stage1_ref2va_film1_s13.json<br>…_s15.json　…i2v_film1_s18.json</td>
+    <td><span class="pill p-green">已生成 + 双向回指校验通过</span></td>
+  </tr>
+  <tr>
+    <td>生成器支持参考图</td>
+    <td class="mono">build_voice_workflow.py --ref-images a.png,b.png</td>
+    <td><span class="pill p-green">已改造</span> 新增 <code>--ref-images / --ref-size / --task-type</code>，并自动补齐缺失的输入槽</td>
+  </tr>
+  <tr>
+    <td>槽位探测 → 映射表</td>
+    <td class="mono">probe_h3_nodes.py --dump-slots</td>
+    <td><span class="pill p-green">已升级</span> 导出 <code>h3_slots.json</code>，让生成器不必再「猜」槽索引</td>
+  </tr>
+  <tr>
+    <td>prompt 口径改造</td>
+    <td class="mono">p1_data.py：SP_REF / _REF_NOTE / STYLE_REF</td>
+    <td><span class="pill p-green">已改造 + 隔离</span> 只对标记 <code>ref=True</code> 的镜生效，其余 17 镜一字未动</td>
+  </tr>
+  <tr>
+    <td>一键投送脚本</td>
+    <td class="mono">deploy_refs.sh</td>
+    <td><span class="pill p-green">已就绪</span> 上传资产 → probe 复验 → 打印单镜验证命令</td>
+  </tr>
+</table>
+
+<h2>四、发现的一个隐患：那套 &lt;Subject N&gt; 标签从来没生效过</h2>
+
+<div class="danger">
+  <p style="margin:0 0 8px"><b>H3 的媒体标签规范是 <code>&lt;Picture N&gt;</code> / <code>&lt;Video N&gt;</code> / <code>&lt;Audio N&gt;</code>，
+  而我们的 prompt 从头到尾写的是 <code>&lt;Subject 1&gt;</code>～<code>&lt;Subject 5&gt;</code>、<code>&lt;Subject P&gt;</code>。</b></p>
+  <p style="margin:0">这个节点的 <code>strict_prompt_tags</code> 参数为 <b>true</b>，会严格校验媒体标签的编号连续性。
+  <code>&lt;Subject N&gt;</code> 不是 H3 认识的媒体标签，只是普通文本 —— 也就是说，
+  <b>片 1 的角色一致性一直只靠那几段英文外貌描写在撑，标签本身没有起到「绑定某张参考图」的作用。</b>
+  更关键的是：<b>不引用 <code>&lt;Picture 1&gt;</code>，参考图接上了也不会被认领</b>，等于白接。</p>
+</div>
+
+<p>已经在代码层做了三处加固：</p>
+<ol>
+  <li>新增 <code>SP_REF</code> 产品锚定块，用 <code>&lt;Picture 1&gt;</code> 指代产品参考图，并声明「参考图负责产品外观，文字只负责走位与运镜」（对齐官方 R2V 规范）。</li>
+  <li><code>build.py</code> 加了一道 <b>认领校验</b>：标了 <code>ref=True</code> 但 prompt 里没有 <code>&lt;Picture 1&gt;</code>，直接报错拒绝生成。</li>
+  <li>禁字铁律的措辞从「as it appears in the opening frame」泛化为「as it appears in the supplied reference image」，让关键帧与参考图两种来源共用同一版条款，终端校验锚点一字未减。</li>
+</ol>
+
+<h2>五、实例恢复后的执行顺序</h2>
+
+<pre><code># ① 投送：参考图 + 关键帧 + 工作流 + 探测脚本（本地执行）
+export SSHPASS='远端密码'
+bash deploy_refs.sh
+
+# ② 远端核对槽位 —— 这一步不能省！
+#    ref_images 这个槽原本不在模板 JSON 里（未连接的 optional 槽不落盘），
+#    生成器是按预定顺序把它 append 到索引 8 的。节点版本一变，接线就会静默错位。
+ssh -p 23 root@117.50.188.156
+/workspace/venv/bin/python /tmp/probe_h3_nodes.py --dump-slots /workspace/films/douyin-office/h3_slots.json
+
+# ③ 单镜通路验证：先跑镜 15（首选，因为它最能证明 Ref2VA 的价值）
+cd /workspace/films/douyin-office
+/workspace/venv/bin/python 11_run_voice_film.py --film film1 --shots 15
+
+# ④ 拉回本地看效果
+bash pull_final.sh        # 或按 PIPELINE.md 的取片命令</code></pre>
+
+<p><b>为什么第 ③ 步先跑镜 15 而不是镜 18：</b>镜 15 是「首帧锚定根本做不到」的那一镜。
+如果它能出产品，就证明 Ref2VA 通路成立，其余产品镜只是重复劳动；反之若它失败，
+说明问题在通路本身（权重分区 / 槽索引 / 标签），跟具体哪一镜无关 —— 排障路径最短。</p>
+
+<h2>六、仍然待实测的三件事（我不打包票）</h2>
+
+<div class="warn">
+  <p style="margin:0 0 10px"><b>这三条只能等实例恢复后用真实运行来确认，我不做未经实测的承诺：</b></p>
+  <ol style="margin:0">
+    <li><b>Ref2VA 是否需要单独的 <code>ref2va</code> 权重。</b>
+      我们本地只有 <code>minimax_h3_fl2va_pruned_int8_convrot.safetensors</code>。
+      线索是矛盾的：T8 节点文档说「六种任务是同一个联合音视频 latent，只是挂了不同的参考输入」，
+      暗示同一份权重就能跑；但另一个实现（RunningHub）明确按 FL2VA / Ref2VA 分区，说 FL2VA 节点不提供 Ref2VA 权重。
+      <b>缓解</b>：这个节点自带 Preflight 校验，采样前会检查「模型/尺寸/帧数/音频/参考数量/视频时长」契约，
+      不合规会<b>明确报错</b>而不是静默出错。所以最坏情况是「报错要下权重」，不会悄悄跑出废片。</li>
+    <li><b><code>ref_images</code> 的真实槽索引是不是 8。</b> 目前是按模板实测顺序 + 节点文档推出的，probe 一跑就定论。</li>
+    <li><b>多张参考图共用一个槽的行为。</b> 文档说最多 9 图，但 ComfyUI 里「一个输入槽接多条线」的语义需要实跑确认。
+      <b>建议先单图跑通</b>，再加第二张 —— 而且官方也提醒「过多重叠的参考反而会削弱指令跟随」，单张往往更好。</li>
+  </ol>
+</div>
+
+<h2>七、验收标准（拉回片子后逐条过）</h2>
+
+<ul class="check">
+  <li>袋面印刷是<b>「鲍汁红烧酱料 / 佐味纪 / PICC / 建议零售价 8 元/包 / 净含量 80 克」真字</b>，不是乱码也不是空白</li>
+  <li>袋型比例与真产品一致 —— 不再出现后处理贴图那种「偏扁、横向拉伸」</li>
+  <li>产品出现在正确的时段（镜 15 应落在中段 6～10.5s，而不是被挤到开头）</li>
+  <li>画面里<b>没有</b>烧死的字幕带、标题、水印（禁字铁律的终检 + 检测两道门都过）</li>
+  <li>Preflight 无报错；若有「参考数量 / 模型分区」类报错，按第六节第 1 条处理</li>
+  <li>口型仍与中文干声对齐（<code>lock_source</code> 与图条件是同一个节点的两个独立参数，理论上互不干扰，但这条要实跑确认）</li>
+</ul>
+
+<h2>八、成本与后续批量推广</h2>
+
+<div class="grid2">
+  <div class="card" style="margin:0">
+    <h3 style="margin-top:0">本次验证（3 镜）</h3>
+    <p class="kv">按既有耗时口径（端到端 ≈ 3.15 分钟/镜，GPU 占 89%）：<br>
+    <b>约 10 分钟 GPU</b>，单片边际成本 <b>≈ ¥0.3</b>。</p>
+  </div>
+  <div class="card" style="margin:0">
+    <h3 style="margin-top:0">推广到全部产品镜</h3>
+    <p class="kv">验证通过后，给产品镜统一加 <code>ref=True</code> + 复用同一张
+    <code>&lt;Picture 1&gt;</code> 参考图即可。<b>同一张参考图意味着跨镜产品外观会自动趋同</b>，
+    这正是当前「产品每个镜长得都不太一样」的根治办法。</p>
+  </div>
+</div>
+
+<div class="info">
+  <p style="margin:0"><b>一条更值得做的延伸：</b>新开一条<b>「产品特写插入镜」</b>——
+  首帧 = 产品图特写、尾帧 = 另一角度，prompt 只写运镜。产品以最高保真度出现，
+  又完全不牵扯现有分镜结构，正好补上卖货段「产品露出不够」的短板。
+  这条路线用 Hybrid（首帧 + 参考图）能做到最好。</p>
+</div>
+
+<div class="foot">
+  产出文件：<span class="mono">_refs/（参考图包）· _frames/（首帧锚定图）· _remote/i2v/（3 份工作流）·
+  make_product_refs.py · build_voice_workflow.py · probe_h3_nodes.py · deploy_refs.sh · p1_data.py · build.py</span><br>
+  远端 4090（117.50.188.156）仍处失联状态（ping 100% 丢包，22/23/8188 全无响应）——
+  以上所有 GPU 侧验证均以待实例恢复为前置。
+</div>
+
+</div>
+</body>
+</html>

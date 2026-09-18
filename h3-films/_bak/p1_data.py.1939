@@ -1,0 +1,359 @@
+# -*- coding: utf-8 -*-
+"""片 1 分镜数据 · 职场面试 × 食堂红烧（对标「醉锅里」286s 参考片的结构）
+
+角色锚定（写进每镜 prompt，H3 只看单镜）：
+  S1 顾怀山  董事长，装成落魄老人测试面试者
+  S2 林晚晴  面试者，女主
+  S3 男主管  竞争者，冷漠
+  S4 白西装女 竞争者，傲慢
+  S5 食堂厨师 配角
+  SP 产品    醉锅里·鲍汁红烧酱（真实产品，外观取自参考视频抽帧，见 _product/PRODUCT.md）
+"""
+
+S1 = ("<Subject 1> (S1), a 62-year-old East Asian man with thinning silver-grey hair, "
+      "a deeply lined but dignified face and unexpectedly sharp penetrating eyes, wearing a "
+      "worn charcoal wool overcoat over a faded grey knitted vest, carrying a battered leather briefcase")
+S1_SUIT = ("<Subject 1> (S1), the same 62-year-old East Asian man, now in a immaculate dark navy "
+           "bespoke suit with a silver tie, silver-grey hair neatly combed back, calm commanding "
+           "authority in his eyes")
+S2 = ("<Subject 2> (S2), a 26-year-old East Asian woman with a gentle oval face, minimal makeup, "
+      "black hair tied in a low ponytail, wearing a plain light-blue cotton shirt and black slacks, "
+      "holding a paper document folder")
+S2_APRON = ("<Subject 2> (S2), the same 26-year-old East Asian woman, hair tied up for work, wearing "
+            "a clean beige canvas apron over a white shirt, sleeves rolled to the elbow, warm and "
+            "unpretentious")
+S3 = ("<Subject 3> (S3), a 30-year-old East Asian man with slicked-back hair, wearing a tight navy "
+      "business suit and polished black shoes, carrying a hard leather briefcase, arrogant expression")
+S4 = ("<Subject 4> (S4), a 28-year-old East Asian woman with curled hair and heavy makeup, wearing a "
+      "crisp white blazer and high heels, cold dismissive expression")
+SP = ("<Subject P> (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, "
+      "vivid tomato-red metallised front panel with crisp white specular highlights along its folds and "
+      "a faint crinkle across the surface, a narrow ivory header band across the very top carrying a "
+      "round punched hang-hole, and a plain unadorned red label field filling the middle two thirds of "
+      "the front panel - completely empty, smooth, blank and unprinted; only the bottom third carries a "
+      "printed serving photograph of glossy braised pork belly cubes in deep red sauce on a pale dish; "
+      "the pouch surface bears no lettering, no numbers, no symbols, no logo and no barcode")
+
+STYLE = ("cinematic 9:16 vertical widescreen, ARRI Alexa look, shallow depth of field, fine film grain, "
+         "naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, "
+         "no watermark, no logo")
+
+FILM = {
+    "film_title": "良心面试 · 食堂红烧",
+    "director_style": "都市职场剧情片质感 × 电商口播素材，冷调写字楼 + 暖调厨房对照",
+    "theme": "写字楼后门假摔测试面试者 × 三个候选人对照 × 反转揭示董事长身份 × "
+             "食堂厨房口播带货（一包酱 + 电饭锅，核心主张「省事」）× 收尾给出录用结论",
+    "fps": 24,
+    "target_fps": 30,
+    "shot_duration_sec": 15,
+    "h3_length": 362,
+    "refined_frames": 361,
+    "aspect_ratio": "9:16",
+    "resolution_stage1": "384x672",
+    "resolution_stage2": "768x1344",
+    "seed": 20260916,
+    "prompt_schema": "github_minimax_h3_multimodal_envelope_v2",
+}
+
+SHOTS = [
+    {
+        "no": 1, "file": "shot01_lobby_fall", "framing": "全景 (WS)",
+        "character": "S1", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Wide establishing shot of a rain-slicked granite staircase behind a modern glass office tower at dusk, cold blue-grey ambient light, water streaking down the lens. {S1} climbs the wet steps slowly, one hand gripping the handrail, the briefcase heavy at his side.
+[00:05.000 – 00:10.000] His leather sole skids on wet stone. The briefcase bursts open and sheaves of paper spill across the granite, soaking instantly. He drops hard onto his side, breath punched out of him, one hand braced against the step.
+[00:10.000 – 00:15.000] Slow push-in to a low-angle close-up. {S1} lifts his head. For half a second his expression is not that of a frail old man but of someone calmly taking the measure of every person around him. Rain falls harder.
+
+overall_soundscape:
+Heavy rain hammering stone, water gurgling in a drain, the wet slap of scattered paper, distant traffic. No speech.
+
+non_diegetic_music:
+A single low sustained cello note, cold and watchful.""",
+    },
+    {
+        "no": 2, "file": "shot02_manager_passes", "framing": "中景 (MS)",
+        "character": "S3", "dialogue_cn": "我赶时间，别挡道。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Handheld medium shot from the fallen man's low vantage point. Two polished black shoes stride into frame and stop. {S3} looms above, glancing down at the scattered papers with open irritation, checking his watch.
+[00:05.000 – 00:10.000] He steps over the old man's outstretched hand without slowing, one shoe nudging a soaked document aside. He speaks flatly, already walking: <d>[Chinese] 我赶时间，别挡道。</d>
+[00:10.000 – 00:15.000] The camera stays low. His back recedes through the rain toward the glass doors, which swing shut behind him without a pause. The old man's hand slowly withdraws from the wet ground.
+
+overall_soundscape:
+Rain, footsteps on wet granite, a glass door swinging and latching. One short line of flat Chinese dialogue, then only rain.
+
+non_diegetic_music:
+Sparse pizzicato strings, indifferent and ticking.""",
+    },
+    {
+        "no": 3, "file": "shot03_woman_snubs", "framing": "中景 (MS)",
+        "character": "S4", "dialogue_cn": "这年头，谁还管闲事。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot at eye level. {S4} walks briskly across the wet plaza under a black umbrella, high heels clicking, eyes fixed straight ahead on her phone.
+[00:05.000 – 00:10.000] She notices the old man down on the steps. Her stride does not break. Her mouth curls with distaste and she angles her umbrella away so the rain will not splash her shoes, muttering: <d>[Chinese] 这年头，谁还管闲事。</d>
+[00:10.000 – 00:15.000] She steps deliberately around the spilled papers and continues out of frame, leaving the old man isolated at the centre of the wet, empty staircase, rain drumming on the abandoned documents.
+
+overall_soundscape:
+High heels on wet stone, rain on an umbrella canopy, a car passing. One short line of curt Chinese dialogue.
+
+non_diegetic_music:
+A thin, cold sustained string drone.""",
+    },
+    {
+        "no": 4, "file": "shot04_alone_in_rain", "framing": "近景 (CU)",
+        "character": "S1", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Tight close-up, rain beading on the shoulders of a worn charcoal wool overcoat. {S1} sits on the wet step, gathering soaked documents one by one, smoothing them against his knee with slow deliberate hands.
+[00:05.000 – 00:10.000] He pauses and looks up. The camera holds on his eyes: tired, patient, and entirely unsurprised. A faint, almost imperceptible smile of confirmation crosses his face, as though a private theory has just been proven correct.
+[00:10.000 – 00:15.000] He looks down at his bruised palm, opens and closes the hand once, then lifts his eyes toward the office tower windows high above, lit gold against the grey evening. Rain continues.
+
+overall_soundscape:
+Steady rain, wet paper being lifted and smoothed, breath. No speech.
+
+non_diegetic_music:
+A low, patient piano note repeating, unbothered and watchful.""",
+    },
+    {
+        "no": 5, "file": "shot05_lin_stops", "framing": "中景 (MS)",
+        "character": "S2", "dialogue_cn": "大爷，您没事吧？",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] A woman's straight black trousers and worn flat shoes enter frame from the right and stop abruptly. Rack focus up to {S2}, hair damp, an interview document folder clutched against her chest, on her way to the building.
+[00:05.000 – 00:10.000] She looks at the glass doors, then back at the old man on the wet steps. She checks her watch, hesitates for exactly two seconds, then closes the folder and starts down the steps toward him, already reaching out: <d>[Chinese] 大爷，您没事吧？</d>
+[00:10.000 – 00:15.000] She crouches beside him and begins gathering the soaked papers with both hands, not bothering to shield her own white shirt from the rain. The old man watches her face, testing.
+
+overall_soundscape:
+Rain, damp footsteps descending steps, paper being hurriedly collected. One clear line of concerned Chinese dialogue.
+
+non_diegetic_music:
+The piano warms and gains a second, gentler voice.""",
+    },
+    {
+        "no": 6, "file": "shot06_helps_up", "framing": "中近景 (MCU)",
+        "character": "S2 + S1", "dialogue_cn": "大爷，慢点，我扶您。——谢谢你，姑娘。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close two-shot on the wet steps. {S2} hooks her arm under the old man's elbow and takes his weight, bracing one foot against the step. Her folder is now clamped under her chin to keep it dry.
+[00:05.000 – 00:10.000] {S1} rises slowly, one hand on her shoulder, coat dark with rain. He steadies himself and looks at her properly for the first time. She says gently, <d>[Chinese] 大爷，慢点，我扶您。</d> He answers quietly, watching her: <d>[Chinese] 谢谢你，姑娘。</d>
+[00:10.000 – 00:15.000] She hands him back his smoothed documents without being asked, then glances up at the tower and grimaces — she is late. The old man notices the tell-tale glance and files it away.
+
+overall_soundscape:
+Rain on clothing, wet footsteps on granite, rustling damp paper. Two short lines of calm Chinese dialogue.
+
+non_diegetic_music:
+Warm strings entering underneath the piano.""",
+    },
+    {
+        "no": 7, "file": "shot07_lunchbox", "framing": "特写 (CU)",
+        "character": "S2", "dialogue_cn": "我这份饭还热着，您先吃。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Close-up inside a covered walkway out of the rain. An ordinary steel lunchbox is unsnapped and opened: plain rice, braised pork ribs, a few greens, still steaming in the cold air. {S2}'s hands push it across the concrete bench toward the old man.
+[00:05.000 – 00:10.000] {S2} sits down beside him, tucks damp hair behind her ear and nods at the food: <d>[Chinese] 我这份饭还热着，您先吃。</d> There is no performance in her face, only matter-of-factness.
+[00:10.000 – 00:15.000] Close on {S1}'s weathered hand lifting the steel chopsticks. He takes a bite of the rib, chews, and stops. The camera holds on his eyes as something shifts — this is the first honest thing that has happened to him all day.
+
+overall_soundscape:
+Rain on a metal roof, steam, chopsticks on steel, quiet chewing. One short line of gentle Chinese dialogue.
+
+non_diegetic_music:
+A solo erhu phrase, warm and unadorned.""",
+    },
+    {
+        "no": 8, "file": "shot08_reveal", "framing": "中景 (MS)",
+        "character": "S1", "dialogue_cn": "把今天前三个面试者的档案调出来。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Interior, executive floor at night. A floor-to-ceiling window reflects the city. {S1_SUIT} stands with his back to camera, shrugging off the wet overcoat as an assistant takes it and hands him a towel. His posture has changed completely: upright, unhurried, in charge.
+[00:05.000 – 00:10.000] He turns to the window, buttons his cuff, and studies his own reflection — then the rain-streaked building across the street. He says evenly: <d>[Chinese] 把今天前三个面试者的档案调出来。</d>
+[00:10.000 – 00:15.000] He sets the folded, still-damp documents on the desk and smooths them flat with two fingers, right beside a name card on the desk. The camera holds on his composed, unrevealing face as city light moves across it.
+
+overall_soundscape:
+A quiet office at night, air conditioning hum, fabric shifting, a towel being taken. One measured line of Chinese dialogue.
+
+non_diegetic_music:
+Low brass entering, the reveal settling into place.""",
+    },
+    {
+        "no": 9, "file": "shot09_boardroom", "framing": "全景 (WS)",
+        "character": "S1", "dialogue_cn": "能力可以培养，良心不能没有。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Wide shot of a long boardroom table, cold morning light through slatted blinds. Three interview folders lie open in a row. {S1_SUIT} stands at the head of the table, fingertips resting on the polished surface, silver hair immaculate.
+[00:05.000 – 00:10.000] He closes the first two folders and slides them away without opening them. He taps the third folder once, then looks up at the assembled executives and says with quiet finality: <d>[Chinese] 能力可以培养，良心不能没有。</d>
+[00:10.000 – 00:15.000] The executives exchange glances; one begins to speak, and the old man raises a single finger to stop him. The room is silent. The camera drifts slowly along the table toward the one remaining folder.
+
+overall_soundscape:
+A quiet boardroom, papers sliding on wood, a chair creaking. One firm line of Chinese dialogue.
+
+non_diegetic_music:
+Confident low strings with a decisive held note.""",
+    },
+    {
+        "no": 10, "file": "shot10_kitchen_order", "framing": "中景 (MS)",
+        "character": "S1", "dialogue_cn": "去食堂厨房，完整做一次给我看。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot at a corridor junction, warm yellow canteen light spilling from an open service door on the left. {S1_SUIT} walks with a slower, more deliberate step, hands loosely clasped behind his back.
+[00:05.000 – 00:10.000] He stops at the kitchen doorway, looks in at the stainless steel counters and steam, then turns to {S2} walking a half-step behind him in her interview clothes and says: <d>[Chinese] 去食堂厨房，完整做一次给我看。</d>
+[00:10.000 – 00:15.000] {S2} blinks, glances into the kitchen, then back at him. She straightens her folder, nods once, and steps through the service door ahead of him. The camera follows past the doorframe, from cold corridor light into warm kitchen light.
+
+overall_soundscape:
+Corridor footsteps, a canteen kitchen behind a door — clatter of steel trays, extractor fans, running water. One command in Chinese.
+
+non_diegetic_music:
+A warm rhythmic pulse beginning, the story changing gear.""",
+    },
+    {
+        "no": 11, "file": "shot11_apron", "framing": "中近景 (MCU)",
+        "character": "S2", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up in a clean stainless steel canteen kitchen, warm overhead light, steam in the air. {S2_APRON} lifts a beige canvas apron off a wall hook and pulls it over her head, tying it at the waist with a practiced double knot.
+[00:05.000 – 00:10.000] She rolls both sleeves to the elbow, tucks the ponytail back, and surveys the prep counter: a stainless basin, a cutting board, an electric rice cooker, a rack of glass spice jars. She washes her hands under the tap and shakes them dry.
+[00:10.000 – 00:15.000] She plants both palms flat on the steel counter, takes one steadying breath, and looks up. Her expression settles into something focused and unguarded — she is at ease here in a way she never was in the interview room.
+
+overall_soundscape:
+Extractor hood hum, running water, hands shaken dry, steel utensils settling in a rack. No speech.
+
+non_diegetic_music:
+A light, determined acoustic guitar figure.""",
+    },
+    {
+        "no": 12, "file": "shot12_to_camera", "framing": "中景 (MS)",
+        "character": "S2", "dialogue_cn": "我现场做一份给顾客尝。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot, static, camera at chest height. {S2_APRON} stands behind the canteen prep counter, wiping the surface down with a cloth, then tossing the cloth aside and squaring up to the counter.
+[00:05.000 – 00:10.000] She lifts {SP} from the counter and holds it up at shoulder height beside her face, turning it so the light catches it. She glances off-frame at the old man, then speaks: <d>[Chinese] 我现场做一份给顾客尝。</d>
+[00:10.000 – 00:15.000] She sets the packet down deliberately in the centre of the frame and turns to face the counter head-on. The composition settles: she is centred, bright, and ready to teach. Hold steady for a beat.
+
+overall_soundscape:
+Steam, extractor hood, a cloth flicked onto a rail, a foil packet set down on steel. One short confident line of Chinese dialogue.
+
+non_diegetic_music:
+The guitar figure resolves into a clean, upbeat bed that can carry through the following sequence.""",
+    },
+    {
+        "no": 13, "file": "shot13_pain_open", "framing": "中近景 (MCU)",
+        "character": "S2", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up, static, {S2_APRON} centred behind the steel counter, speaking directly down the lens with easy, unhurried confidence. She lifts {SP} and turns it once, letting it catch the warm overhead light.
+[00:05.000 – 00:10.000] Cut to close-up on the prep counter: hands moving a cut of raw pork ribs into a stainless basin under running water, then a cutting board receiving ginger and garlic, a heavy cleaver working with brisk rhythm. Steam rises off the sink.
+[00:10.000 – 00:15.000] Cut to a tight shot of a steel wok over a hard blue gas flame, oil shimmering and beginning to smoke, curls of heat distorting the frame edges. The counter surface is crowded with spice jars and a scorched cloth.
+
+overall_soundscape:
+Canteen kitchen ambience only — extractor hood, running water, cleaver on board, gas burner roaring, oil sizzling. No speech at all.
+
+non_diegetic_music:
+A steady mid-tempo electronic bed, neutral and driving.""",
+    },
+    {
+        "no": 14, "file": "shot14_pain_heat", "framing": "特写 (CU)",
+        "character": "SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Extreme close-up of a wok of caramelising sugar, dark amber syrup bubbling and darkening at the centre. A wooden spatula works it in quick circles, and the syrup begins to smoke in the dry heat.
+[00:05.000 – 00:10.000] A single droplet of the hot syrup spits and a hand jerks back out of frame, knuckles catching the wok rim. Cut wider: an arm recoils, a cloth is grabbed, the burner is knocked down a notch in a hurry.
+[00:10.000 – 00:15.000] Cut to a tight shot of a deep stainless sink stacked with scoured woks, burnt pans and greasy bowls, the tap still running, cold tea-light reflections in the pooled water on the draining board. Nothing here is clean.
+
+overall_soundscape:
+Sugar bubbling and spitting, a sharp hiss, metal rattling, water running over a full sink of dirty cookware. No speech.
+
+non_diegetic_music:
+The bed tightens, adding a low pulse.""",
+    },
+    {
+        "no": 15, "file": "shot15_promise", "framing": "中景 (MS)",
+        "character": "SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot, {S2_APRON} pouring a basin of cleaned ribs out onto a tray, then lifting the stainless lid of a domestic electric rice cooker from the counter and setting it aside with a metallic ring.
+[00:05.000 – 00:10.000] Overhead close-up: the rice cooker's inner pot receives the ribs, which settle against the non-stick base. A hand lays {SP} flat beside the pot on the counter, straightening its label to face camera.
+[00:10.000 – 00:15.000] Handheld shot following a forearm as it sweeps an entire row of glass spice jars, soy and dark-sauce bottles backwards off the counter edge into a crate in one decisive motion. The counter is suddenly, conspicuously bare — only the pot and the packet remain.
+
+overall_soundscape:
+Casserole pot set down on steel, the metallic ring of a rice cooker lid, glass jars being swept into a plastic crate. No speech.
+
+non_diegetic_music:
+The bed brightens, a clean resolving chord.""",
+    },
+    {
+        "no": 16, "file": "shot16_five_steps", "framing": "特写 (CU)",
+        "character": "SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Tight overhead shot: the ribs in the rice cooker pot are covered with cold water from a measuring jug. Steam blurs the lens briefly as the hot inner pot meets cold water. The surface foaming.
+[00:05.000 – 00:10.000] Cut wider to the counter: cleaned ribs are lifted from a colander straight into the dry inner pot in one motion, no searing, no wok. Then a hand takes up {SP} and runs a thumbnail along the tear notch.
+[00:10.000 – 00:15.000] Macro close-up as the packet tears open at the notch mark and the glossy dark sauce is poured in a slow thick ribbon over the raw ribs, coating and pooling around them. The sauce glistens and clings. Hold on the texture.
+
+overall_soundscape:
+Water pouring into a hot pot, the sizzle and hiss of contact, the crisp tear of a foil packet, thick sauce pouring onto raw meat. No speech.
+
+non_diegetic_music:
+The bed keeps a steady measure, no flourish.""",
+    },
+    {
+        "no": 17, "file": "shot17_freedom", "framing": "中景 (MS)",
+        "character": "S2", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Overhead close-up: a hand holds a glass jug and pours a half bowl of clear water around the sauced ribs, then the stainless lid is fitted and rotated home. A forefinger presses the single round cook key; a small amber light comes on.
+[00:05.000 – 00:10.000] Medium shot: {S2_APRON} unties her apron in one pull, drops it on a stool, hangs the cloth on a hook, and walks out of the kitchen through the service door without a backward glance. The camera stays on the lit rice cooker, alone on the counter, quietly working.
+[00:10.000 – 00:15.000] Cut to a bright, tidy sitting room: she drops onto a sofa in fresh house clothes, a sheet mask smoothing onto her face, phone propped up playing a drama, feet curled under her. She is completely unbothered; the kitchen is out of sight and out of mind.
+
+overall_soundscape:
+Water poured, lid seated with a clunk, one soft key press, footsteps leaving, then the quiet hum of a domestic room and faint television dialogue from the phone. No speech from the subject.
+
+non_diegetic_music:
+The bed relaxes into something warm and unhurried.""",
+    },
+    {
+        "no": 18, "file": "shot18_proof_price", "framing": "特写 (CU)",
+        "character": "SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] The rice cooker lid swings open on a plume of steam. Macro shot of glossy, deep-red braised pork ribs inside, the sauce reduced and clinging, a faint shine of rendered fat on every surface. A spoon turns one rib and it yields visibly.
+[00:05.000 – 00:10.000] Close-up: a pair of steel chopsticks presses into the meat and the rib slides clean away from the bone with almost no resistance. The bone comes out pale and bare; the meat stays whole and glistening on the plate.
+[00:10.000 – 00:15.000] Static product frame on a clean steel counter: a hand sets {SP} down and fans out three identical packets in a neat overlapping row, then adds two more slightly behind, forming a clear five-across arrangement lit warmly from the upper left. Hold the composition steady.
+
+overall_soundscape:
+Steam release, sauce spooning onto a plate, chopsticks against ceramic, the soft tap of foil packets being laid in a row. No speech.
+
+non_diegetic_music:
+The bed resolves, warm and confident, settling under the held final frame.""",
+    },
+    {
+        "no": 19, "file": "shot19_verdict", "framing": "中景 (MS)",
+        "character": "S1", "dialogue_cn": "手艺可以慢慢练，良心不能没有。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot in the canteen kitchen, warm evening light. {S1_SUIT} sits on a stool at the end of the steel counter with a plain white plate of the braised ribs in front of him. He picks up the chopsticks and takes a slow, unhurried bite.
+[00:05.000 – 00:10.000] He chews, swallows, sets the chopsticks down precisely parallel, and looks up at {S2_APRON} standing opposite him, hands clasped, waiting. He holds her gaze for a long beat before speaking: <d>[Chinese] 手艺可以慢慢练，良心不能没有。</d>
+[00:10.000 – 00:15.000] He pushes the plate an inch toward the middle of the counter — an invitation, not a judgement — and allows himself a small, genuine smile. She exhales, still uncertain, and nods.
+
+overall_soundscape:
+Quiet kitchen, chopsticks on ceramic, a plate sliding on steel, extractor hood down to a low hum. One quiet line of Chinese dialogue.
+
+non_diegetic_music:
+Warm resolve, strings under a single held piano note.""",
+    },
+    {
+        "no": 20, "file": "shot20_ending", "framing": "全景 (WS)",
+        "character": "S1 + S2", "dialogue_cn": "你明天来上班吧。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Wide shot down the length of the canteen kitchen. {S1_SUIT} rises from the stool, takes his jacket off the back of the chair and folds it over his arm. {S2_APRON} stands across the counter, still in her apron, watching him.
+[00:05.000 – 00:10.000] He pauses at the doorway, half turns, and says it plainly, without ceremony: <d>[Chinese] 你明天来上班吧。</d> Then he walks out into the corridor, unhurried, hands loosely behind his back, and the swing door settles behind him.
+[00:10.000 – 00:15.000] Close on {S2_APRON} alone in the warm kitchen. She looks down at the plate of ribs, then slowly unties her apron, folds it neatly over the counter, and lets out a breath that is half laugh and half relief. Hold on her face as the frame settles.
+
+overall_soundscape:
+Footsteps on a corridor floor, a swing door settling on its hinge, a soft exhale, the low hum of an empty kitchen. One short line of Chinese dialogue.
+
+non_diegetic_music:
+The theme resolves fully, warm and plain, then fades to quiet.""",
+    },
+]

@@ -1,0 +1,404 @@
+########################################################################
+# FILM: 相亲这场 · 一包搞定（原片复刻）
+# shots: 20
+########################################################################
+
+
+########
+# SHOT 01 | shot01_wheelchair_talk | 中景 (MS) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap>
+
+<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>
+
+[00:00.000 – 00:05.000] Medium shot in a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light. S2 sits in the small black wheelchair on the paving, looking up over his shoulder; S1 stands behind the chair with both hands resting on the push handles, bending slightly toward him. Soft afternoon light through yellow ginkgo leaves.
+[00:05.000 – 00:10.000] Reverse over S1's shoulder onto S2, then back onto S1 as he crouches down to the boy's eye level beside the chair and speaks to him gently, one hand on the armrest.
+[00:10.000 – 00:15.000] Medium close-up of S2's face: he listens, then looks down at his own folded hands and swings one foot slightly, the way a child does when he is thinking about something heavy, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Quiet street ambience, a few birds, a light breeze moving the leaves, the faint tick of a wheelchair caster. No speech, no voices.
+
+non_diegetic_music:
+Solo piano, simple and a little sad, over warm strings.
+
+
+########
+# SHOT 02 | shot02_first_meeting | 中景 (MS) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm>
+
+<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>
+
+[00:00.000 – 00:05.000] S1 pushes the chair a few steps along the paving and stops under the ginkgo trees. S2 turns his head up and speaks to his father, who answers without breaking stride.
+[00:05.000 – 00:10.000] S1 stops and crouches again beside the chair, straightening the boy's cardigan collar, and answers him quietly. The boy nods once, unconvinced but willing.
+[00:10.000 – 00:15.000] S3 walks up the paving toward them in her off-white suit, stops two metres short, looks down at the wheelchair and back up at S1. Her polite smile switches off mid-sentence; her handbag swings as she half turns away, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Footsteps on stone paving, leaves shifting, a handbag clasp. No speech, no voices.
+
+non_diegetic_music:
+A colder string line slides under the piano.
+
+
+########
+# SHOT 03 | shot03_candy_and_turn | 中景 (MS) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm>
+
+<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>
+
+[00:00.000 – 00:05.000] Medium shot: S3 bends slightly and holds a wrapped candy out toward the wheelchair at arm's length, the way one handles something unpleasant. Her face is all performance.
+[00:05.000 – 00:10.000] S2 pulls his hands back into his lap and turns his head away. S3 straightens up, retracts the candy, and her expression hardens as she looks at S1 rather than the child.
+[00:10.000 – 00:15.000] Medium shot of the three of them: S3 talks with her handbag hitched up the arm, chin tilted, gesturing at the wheelchair. S1 stands behind it with both hands on the handles, face completely still, letting her finish, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Street ambience, a wrapper crinkling, a handbag shifting. No speech, no voices.
+
+non_diegetic_music:
+The strings thin out, dry and cold.
+
+
+########
+# SHOT 04 | shot04_terms | 中近景 (MCU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm>
+
+<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>
+
+[00:00.000 – 00:05.000] Medium close-up on S1: he answers with two words, without raising his voice or moving his hands off the push handles. Bright afternoon light on his face, leaves moving behind him.
+[00:05.000 – 00:10.000] Reverse on S3: she takes half a step forward, hands rising in protest, her composure cracking into open annoyance.
+[00:10.000 – 00:15.000] Medium shot of the pair: S3 talks with one hand counting off points in the air; S1 stands motionless behind the wheelchair, looking at her the way one looks at weather, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Street ambience, fabric moving, a heel turning on paving. No speech, no voices.
+
+non_diegetic_music:
+A low pulse enters under the string line.
+
+
+########
+# SHOT 05 | shot05_money_talk | 中近景 (MCU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm>
+
+<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>
+
+[00:00.000 – 00:05.000] Medium close-up on S3 talking directly at S1, one hand raised with fingers extended as she lists terms. She is entirely serious; there is no embarrassment in her face at all.
+[00:05.000 – 00:10.000] She keeps going, chin lifting, one finger tapping the air on each clause. S1's shoulder and the wheelchair handle sit in the soft foreground, out of focus.
+[00:10.000 – 00:15.000] Close on S1: he says one flat sentence, then turns his head slightly to look at his son. S3's voice stops and her mouth stays open for a beat, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Street ambience, a distant car, wind in the leaves. No speech, no voices.
+
+non_diegetic_music:
+The strings hold one long note, very quiet.
+
+
+########
+# SHOT 06 | shot06_leaves | 中景 (MS) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>
+
+[00:00.000 – 00:05.000] S3 turns on her heel and walks away down the paving without a backward glance, handbag swinging. S1 watches her go, then puts both hands on the wheelchair handles.
+[00:05.000 – 00:10.000] S1 turns the chair around and pushes it away along the paving, leaning down to say something short to the boy as they reach the step at the shopfronts.
+[00:10.000 – 00:15.000] S4 appears in the doorway of a small warm restaurant, wiping her hands on her apron, and crouches down in front of the wheelchair at eye level with the boy, smiling, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Heels on paving receding, then wheelchair casters rolling over stone, a shop door swinging. No speech, no voices.
+
+non_diegetic_music:
+The piano returns, warmer, as the street empties.
+
+
+########
+# SHOT 07 | shot07_soft_pad | 中近景 (MCU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window>
+
+[00:00.000 – 00:05.000] Medium close-up of S4 crouched at the wheelchair, tucking a folded cushion behind the boy's back and adjusting his collar with a light, practised hand. The boy watches her face the whole time, testing her.
+[00:05.000 – 00:10.000] S2 asks her something quietly and looks down at his knees; S4 laughs and shakes her head at once, then stands and holds the restaurant door open with one hand.
+[00:10.000 – 00:15.000] Medium shot at the doorway: S4 gestures them in; S2 looks up at his father, who hesitates with one hand still on the push handle, then nods. Warm light spills out of the restaurant onto the paving, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+A shop door, cloth being tucked, a wheelchair caster turning, warm kitchen sound leaking out of the doorway. No speech, no voices.
+
+non_diegetic_music:
+The piano turns gentle and open; light strings join.
+
+
+########
+# SHOT 08 | shot08_hinge_to_pitch | 中景 (MS) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject P> (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, vivid tomato-red metallised front panel with crisp white specular highlights along its folds and a faint crinkle across the surface, a narrow ivory header band across the very top carrying a round punched hang-hole, and a plain unadorned red label field filling the middle two thirds of the front panel - completely empty, smooth, blank and unprinted; only the bottom third carries a printed serving photograph of glossy braised pork ribs in deep red sauce on a pale dish; the pouch surface bears no lettering, no numbers, no symbols, no logo and no barcode; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter>
+
+[00:00.000 – 00:05.000] Medium shot in a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter. S4 stands behind the pale wood counter tying her apron, and answers toward the doorway the way one answers a customer - easy, cheerful, direct.
+[00:05.000 – 00:10.000] She turns from the doorway to face the counter and speaks straight down the lens, both hands settling on the wood, and lifts a slim red sauce pouch into frame with one hand.
+[00:10.000 – 00:15.000] Insert on the range and board: chopped ginger, garlic and scallion on a wooden board with a knife resting across it; then raw ribs tipped from a bowl into a pot of cold water with a small burst of spray. Steam and heat haze distort the edges of frame, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Kitchen extractor hum, a knife set down on wood, water running, a pot set on a burner. No speech, no voices.
+
+non_diegetic_music:
+An upbeat mid-tempo bed starts and holds, carrying the pitch.
+
+
+########
+# SHOT 09 | shot09_pain_then_promise | 中景 (MS) + 特写 | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject P> (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, vivid tomato-red metallised front panel with crisp white specular highlights along its folds and a faint crinkle across the surface, a narrow ivory header band across the very top carrying a round punched hang-hole, and a plain unadorned red label field filling the middle two thirds of the front panel - completely empty, smooth, blank and unprinted; only the bottom third carries a printed serving photograph of glossy braised pork ribs in deep red sauce on a pale dish; the pouch surface bears no lettering, no numbers, no symbols, no logo and no barcode; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter>
+
+[00:00.000 – 00:05.000] Close on the range: dark syrup spitting in a hot wok, an arm jerking back; then a tight shot of a stainless sink stacked with scorched pans and greasy bowls, the tap still running.
+[00:05.000 – 00:10.000] Medium shot: S4 speaks to camera with an open, confident face, one hand turning the red pouch over so the light slides across it. A domestic rice cooker with its lid open sits on the counter beside her.
+[00:10.000 – 00:15.000] Insert on the counter: a forearm sweeps three glass jars and two bottles of soy sauce backwards off the counter edge into a crate. The wood is suddenly bare - only the pot and the red pouch remain, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Extractor hum, sugar spitting in a wok, water running over a full sink, glass jars knocking into a crate. No speech, no voices.
+
+non_diegetic_music:
+The bed keeps a steady driving measure.
+
+
+########
+# SHOT 10 | shot10_five_steps | 特写 (CU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject P> (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, vivid tomato-red metallised front panel with crisp white specular highlights along its folds and a faint crinkle across the surface, a narrow ivory header band across the very top carrying a round punched hang-hole, and a plain unadorned red label field filling the middle two thirds of the front panel - completely empty, smooth, blank and unprinted; only the bottom third carries a printed serving photograph of glossy braised pork ribs in deep red sauce on a pale dish; the pouch surface bears no lettering, no numbers, no symbols, no logo and no barcode; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter>
+
+[00:00.000 – 00:05.000] Tight overhead: cleaned ribs are lifted out of a colander with both hands and lowered straight into the dry inner pot of the rice cooker, settling in a pale heap.
+[00:05.000 – 00:10.000] Close on two hands tearing the top off the red pouch; the tear runs clean across the notch and the packet opens wider.
+[00:10.000 – 00:15.000] Macro on the pot: a thick dark-red sauce pours from the pouch in one slow glossy ribbon over the raw ribs, coating each piece and pooling in the gaps. The sauce is heavy enough to hold its shape for a moment before it settles, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Water dripping from ribs, foil tearing, thick sauce pouring and folding over raw meat. No speech, no voices.
+
+non_diegetic_music:
+The bed holds, no flourish, letting the texture carry it.
+
+
+########
+# SHOT 11 | shot11_set_and_wait | 特写 (CU) + 中景 | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter>
+
+[00:00.000 – 00:05.000] Close: a hand tips half a bowl of clean water in around the sauced ribs; the surface rises and red streaks thread into the water. Then the stainless lid seats and rotates home and a thumb presses the cook lever down with a click; the amber lamp lights.
+[00:05.000 – 00:10.000] Medium shot: S4 wipes the counter once, hangs the cloth on a rail and walks out of frame past the left edge. The camera stays on the rice cooker alone on the counter, quietly working.
+[00:10.000 – 00:15.000] The lid lifts on a heavy roll of steam; inside, the ribs are deep red and glossy, the sauce reduced and thick, whole pieces holding their shape on the bone, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Water poured, a lid seating with a clunk, one soft key click, steam venting, a cloth on a steel rail. No speech, no voices.
+
+non_diegetic_music:
+The bed relaxes into something warm and unhurried.
+
+
+########
+# SHOT 12 | shot12_proof_and_ease | 特写 (CU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject P> (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, vivid tomato-red metallised front panel with crisp white specular highlights along its folds and a faint crinkle across the surface, a narrow ivory header band across the very top carrying a round punched hang-hole, and a plain unadorned red label field filling the middle two thirds of the front panel - completely empty, smooth, blank and unprinted; only the bottom third carries a printed serving photograph of glossy braised pork ribs in deep red sauce on a pale dish; the pouch surface bears no lettering, no numbers, no symbols, no logo and no barcode; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter>
+
+[00:00.000 – 00:05.000] Close-up: steel chopsticks press into a rib and the meat slides clean away from the bone with almost no resistance. The bare bone comes out pale; the meat stays whole and glistening.
+[00:05.000 – 00:10.000] Insert: a single rice-cooker inner pot standing alone on the clean counter beside a rack of spotless unused pans - the contrast is the point. Bright even kitchen light.
+[00:10.000 – 00:15.000] Medium shot: S4 lifts the red pouch up beside her face in one hand and speaks down the lens with an easy smile, the clean empty counter behind her, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Chopsticks on ceramic, a single pot set on wood, kitchen room tone. No speech, no voices.
+
+non_diegetic_music:
+The bed keeps a light, confident lilt.
+
+
+########
+# SHOT 13 | shot13_uses_and_price | 中景 (MS) + 特写 | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject P> (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, vivid tomato-red metallised front panel with crisp white specular highlights along its folds and a faint crinkle across the surface, a narrow ivory header band across the very top carrying a round punched hang-hole, and a plain unadorned red label field filling the middle two thirds of the front panel - completely empty, smooth, blank and unprinted; only the bottom third carries a printed serving photograph of glossy braised pork ribs in deep red sauce on a pale dish; the pouch surface bears no lettering, no numbers, no symbols, no logo and no barcode; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter>
+
+[00:00.000 – 00:05.000] Medium shot of the wooden counter: three finished dishes in a row - braised pork belly, braised fish, braised lamb - with S4's open palm sweeping above them left to right.
+[00:05.000 – 00:10.000] Insert close-up filling the frame: the red pouch held square to camera, its blank red front panel catching the light, the ivory header band at the top and the printed serving photograph across the bottom third. No lettering anywhere on it.
+[00:10.000 – 00:15.000] Medium close-up: S4 sets the pouch down, leans both hands on the counter edge and speaks straight down the lens, chin level, entirely at ease in front of a camera, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Kitchen room tone, foil crinkling in a hand, a plate nudged on wood. No speech, no voices.
+
+non_diegetic_music:
+Drive up a step, the bed gaining energy.
+
+
+########
+# SHOT 14 | shot14_bundle_close | 中景 (MS) + 特写 | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small domestic-style restaurant kitchen with white tiled walls, a pale wood counter, a stainless gas range, a range hood and a rice cooker on the counter>
+
+[00:00.000 – 00:05.000] Insert close-up: two extra pouches are laid down on top of the row of five on the wooden counter, and a hand fans them into a neat overlapping spread of seven.
+[00:05.000 – 00:10.000] Medium shot: S4 steps back from the counter and gestures at the arranged pouches with both hands, then folds her arms with a small satisfied shrug.
+[00:10.000 – 00:15.000] Medium close-up: S4 speaks straight down the lens, right index finger raised beside her shoulder, holding the closing look for a beat. Behind her the kitchen is bright and tidy, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Kitchen room tone, foil pouches sliding across wood, a light hand tap on the counter. No speech, no voices.
+
+non_diegetic_music:
+One strong final phrase, then the bed drops away cleanly.
+
+
+########
+# SHOT 15 | shot15_reveal_setup | 中景 (MS) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease; <Subject 5> (S5), a 35-year-old East Asian man in a dark navy suit with a folder in his hand and an apologetic, deferential manner>
+
+<Scene reference — this entire shot takes place in: a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window>
+
+[00:00.000 – 00:05.000] Medium shot in a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window. S4 is back at the table in her apron, serving the plate of ribs to the boy; both of them look relaxed and unguarded. The camera settles and holds on them.
+[00:05.000 – 00:10.000] S5 walks in from the street door in his dark suit with a folder, stops beside the table and bows slightly toward S1, speaking low. The room's warmth drops a degree.
+[00:10.000 – 00:15.000] Wide shot across the restaurant: S3 appears in the doorway behind S5 with her handbag, staring at the table. S4 straightens up with the serving spoon still in her hand. Nobody moves for a beat, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Restaurant room tone, a door swinging, crockery settling, an evening street outside. No speech, no voices.
+
+non_diegetic_music:
+The warm bed cuts out; a single low string takes over.
+
+
+########
+# SHOT 16 | shot16_identity_out | 中近景 (MCU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 2> (S2), the identical cute 6-year-old East Asian boy, same soft black hair, same round clear eyes, same cream knitted cardigan over a navy-and-white striped shirt; now standing upright on his own two legs, healthy and steady; <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window>
+
+[00:00.000 – 00:05.000] Medium close-up on S1 at the table: he answers without heat, one hand resting on the table edge, and does not look at either of the women.
+[00:05.000 – 00:10.000] Medium shot: S4 and S3 both step in toward the table at the same time, hands raised in explanation, voices overlapping, polite faces working hard. S1 simply reaches over and straightens the boy's sleeve.
+[00:10.000 – 00:15.000] The boy puts both hands flat on the arms of the wheelchair, pushes himself up and stands on his own two legs. He takes one steady step and turns to look at S4. Hold on his face, clear and unafraid, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Restaurant room tone, chair legs on wood, a wheelchair frame creaking, then a sudden stillness. No speech, no voices.
+
+non_diegetic_music:
+Tense held strings, one soft accent as the boy stands.
+
+
+########
+# SHOT 17 | shot17_accusation | 中近景 (MCU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 3> (S3), a 30-year-old East Asian woman with long wavy dark hair, full makeup and a sharp appraising expression, wearing an off-white tailored blazer with matching trousers, a designer handbag on her arm; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window>
+
+[00:00.000 – 00:05.000] Medium close-up on S1: he stands, buttons his olive jacket and delivers the line flat and finished. Then he looks down at the wheelchair - now empty - beside the table.
+[00:05.000 – 00:10.000] Medium shot: S3 steps toward the table with both hands out, smile carefully rebuilt. S1 does not turn to her at all; he picks up the boy's cardigan off the chair back and folds it.
+[00:10.000 – 00:15.000] S4 walks around the table, crouches beside the standing boy and puts one hand on his knee without hesitation, checking him the way she checked him at the door. The boy looks up at her, guarded, and asks his question, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Restaurant room tone, a chair moved, quiet footsteps on wood. No speech, no voices.
+
+non_diegetic_music:
+The strings loosen; the piano comes back underneath.
+
+
+########
+# SHOT 18 | shot18_forgiveness | 中近景 (MCU) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window>
+
+[00:00.000 – 00:05.000] Medium close-up of S4 still crouched at the boy's side: she answers him directly, one hand still on his knee, entirely matter-of-fact. The boy's shoulders come down a notch.
+[00:05.000 – 00:10.000] S1 stands a little apart with the folded cardigan over his arm and speaks toward S4; for the first time his expression is not controlled but tired and honest.
+[00:10.000 – 00:15.000] Back onto S4: she stands up slowly and faces S1 across the table, chin up, not softening. The boy stays between them, looking from one to the other, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Restaurant room tone, apron fabric, a table settling, an evening street beyond the window. No speech, no voices.
+
+non_diegetic_music:
+Warm strings return under the piano, low and steady.
+
+
+########
+# SHOT 19 | shot19_moral | 中景 (MS) | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window>
+
+[00:00.000 – 00:05.000] Medium shot: S1 speaks across the table with the folded cardigan over his arm; his voice is low and he does not perform it. S4 listens with her arms folded, absolutely still.
+[00:05.000 – 00:10.000] The boy looks up from the table at S4 and asks his question plainly. S4 crouches back to his eye level and answers at once, without hesitation.
+[00:10.000 – 00:15.000] Warm wide shot: S1 stands, the boy sits back down at the table with the plate of ribs in front of him, and S4 stands between them with one hand on the back of the boy's chair. The evening light through the window has gone gold, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Restaurant room tone, a serving spoon on crockery, quiet warmth in the room. No speech, no voices.
+
+non_diegetic_music:
+The theme opens out, warm and full.
+
+
+########
+# SHOT 20 | shot20_closing | 中景 (MS) + 特写 | 15s
+########
+
+integrated_multimodal_description:
+<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap; <Subject 4> (S4), a strikingly beautiful 22-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair in a loose high bun, slim petite figure; wearing a soft sage-green knit sweater and a beige canvas apron over dark trousers, warm and completely at ease>
+
+<Scene reference — this entire shot takes place in: a small warm neighbourhood restaurant with pale wood tables, rattan chairs, potted plants and paper lanterns, warm afternoon light through the window>
+
+[00:00.000 – 00:05.000] Medium shot at the table: the boy says it without looking up from his plate; S1 answers him from the other side of the table, and for the first time all evening he smiles. S4, carrying a tray past, hears them and keeps walking.
+[00:05.000 – 00:10.000] S1 turns from the table to face the camera position. The restaurant, the boy and S4 fall softly out of focus behind him; the plate of ribs on the table stays bright in the foreground.
+[00:10.000 – 00:15.000] Close-up on S1's face: calm, open, no performance left in it. He speaks straight down the lens, unhurried, and holds the look to the last frame, cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.
+
+overall_soundscape:
+Warm restaurant room tone, a tray set down, quiet evening street outside. No speech, no voices.
+
+non_diegetic_music:
+The theme resolves fully and fades warm into silence.

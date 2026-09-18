@@ -1,0 +1,356 @@
+# -*- coding: utf-8 -*-
+"""片 2 分镜数据 · 相亲歧视 × 家常菜（对标 296.9s 参考片的结构）
+
+角色锚定：
+  S1 顾承洲  男主/父亲，宏盛集团总裁，隐瞒身份
+  S2 小宇    8 岁男孩，坐轮椅（实为与父亲合谋的试探）
+  S3 相亲女  精致势利
+  S4 苏念    女主，温婉
+  SP 产品    酱料包（占位，后期贴自有产品图）
+"""
+
+S1 = ("<Subject 1> (S1), a 38-year-old East Asian man with a composed handsome face, short black "
+      "hair, wearing a well-cut charcoal suit with an open collar and no tie, restrained and watchful")
+S2 = ("<Subject 2> (S2), an 8-year-old East Asian boy with soft dark hair and clear eyes, wearing a "
+      "small navy knit sweater, seated in a compact dark-framed wheelchair")
+S3 = ("<Subject 3> (S3), a 28-year-old East Asian woman with a sleek bob, full makeup, wearing a "
+      "fitted cream dress and statement earrings, a designer handbag on the chair beside her")
+S4 = ("<Subject 4> (S4), a 30-year-old East Asian woman with a soft round face, hair in a loose bun, "
+      "wearing a simple oat-coloured knit top, plain and warm, carrying a canvas tote")
+S4_KITCHEN = ("<Subject 4> (S4), the same 30-year-old East Asian woman, hair up, sleeves pushed to "
+              "the elbow, wearing a soft grey home shirt and a cotton apron, relaxed and easy")
+# 真实产品锚定 —— 醉锅里「鲍汁红烧酱」自立袋（外观取自参考视频抽帧，见 _product/PRODUCT.md）
+# 包装上的中文由后期贴真图（_product/product_front_4x.jpg）提供，prompt 只描述「壳」，
+# 避免生成模型把中文画成乱码残字。
+SP = ("<Subject P> (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, "
+      "vivid tomato-red metallised front panel with crisp white specular highlights along its folds and "
+      "a faint crinkle across the surface, a narrow ivory header band across the very top carrying a "
+      "round punched hang-hole, and a plain unadorned red label field filling the middle two thirds of "
+      "the front panel - completely empty, smooth, blank and unprinted; only the bottom third carries a "
+      "printed serving photograph of glossy braised pork belly cubes in deep red sauce on a pale dish; "
+      "the pouch surface bears no lettering, no numbers, no symbols, no logo and no barcode")
+
+STYLE = ("cinematic 9:16 vertical widescreen, ARRI Alexa look, shallow depth of field, fine film grain, "
+         "naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, "
+         "no watermark, no logo")
+
+FILM = {
+    "film_title": "相亲这场 · 一包搞定",
+    "director_style": "都市情感短剧质感 × 家庭厨房电商口播，暖调餐厅 + 明亮家居对照",
+    "theme": "高档餐厅相亲 × 相亲女见到轮椅上的孩子后态度骤转 × 孩子一句「想吃红烧排骨」成为"
+             "剧情转广告的铰链 × 家庭厨房口播带货（一包酱 + 电饭锅，核心主张「省事」）× "
+             "反转：孩子站起来，这是父亲设的试探",
+    "fps": 24,
+    "target_fps": 30,
+    "shot_duration_sec": 15,
+    "h3_length": 362,
+    "refined_frames": 361,
+    "aspect_ratio": "9:16",
+    "resolution_stage1": "384x672",
+    "resolution_stage2": "768x1344",
+    "seed": 20260917,
+    "prompt_schema": "github_minimax_h3_multimodal_envelope_v2",
+}
+
+SHOTS = [
+    {
+        "no": 1, "file": "shot01_restaurant_arrive", "framing": "全景 (WS)",
+        "character": "S1 + S2 + S3", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Wide establishing shot of an upscale restaurant interior at dusk: warm pendant lights, dark timber panelling, white linen. {S3} sits alone at a window table for two, phone in hand, checking her reflection in the darkened glass, adjusting an earring.
+[00:05.000 – 00:10.000] The brass door swings. {S1} enters, holding the door with one hand while his other hand rests on the grips of a compact dark-framed wheelchair pushed ahead of him. {S2} sits in it, hands folded in his lap, looking around the room with open curiosity.
+[00:10.000 – 00:15.000] {S3} looks up, smiles her practised greeting, and raises a hand to wave — then her eyes travel down to the wheelchair. The smile does not fall so much as freeze in place. She lowers her hand slowly back to the table and her fingers find her napkin.
+
+overall_soundscape:
+Restaurant ambience — low conversation, cutlery on china, a brass door swinging, soft jazz under everything. No speech.
+
+non_diegetic_music:
+A light, elegant piano figure that thins out as the wheelchair comes into view.""",
+    },
+    {
+        "no": 2, "file": "shot02_awkward_seat", "framing": "中景 (MS)",
+        "character": "S1 + S2 + S3", "dialogue_cn": "这个孩子……是？",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium two-shot across the linen table. {S1} folds the wheelchair and parks it at the end of the table, then lifts {S2} easily into the banquette seat, tucking a napkin into his collar with practised care.
+[00:05.000 – 00:10.000] {S3} watches the whole procedure with a fixed smile, her eyes flicking between the boy and the folded chair. She leans in slightly and asks, in a tone pitched for the room rather than the boy: <d>[Chinese] 这个孩子……是？</d>
+[00:10.000 – 00:15.000] {S1} answers without looking up from the napkin. He meets her eyes levelly across the table, one hand still resting on the boy's shoulder. The pause afterwards stretches just a beat too long, and she looks away first.
+
+overall_soundscape:
+Restaurant ambience, a wheelchair frame folding with a metallic click, a napkin being tucked, china settling. One carefully flat line of Chinese dialogue.
+
+non_diegetic_music:
+Sparse, watchful piano, holding a single repeating note.""",
+    },
+    {
+        "no": 3, "file": "shot03_polite_fade", "framing": "中近景 (MCU)",
+        "character": "S3", "dialogue_cn": "哦……那，那挺辛苦的吧。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up on {S3} across the table, shot slightly over the rim of a wine glass. She smiles, stirs her drink with a straw far longer than necessary, and glances past {S1} toward the door.
+[00:05.000 – 00:10.000] She sets both hands flat on the table as if to conclude a meeting, tilts her head with performed sympathy, and says: <d>[Chinese] 哦……那，那挺辛苦的吧。</d> Her eyes are already elsewhere.
+[00:10.000 – 00:15.000] Cut wider: {S2} has quietly stopped looking at her. He lowers his eyes to the table, folds his hands smaller in his lap, and pulls the hem of his sweater straight. {S1} notices — and does not look at {S3} at all.
+
+overall_soundscape:
+Restaurant ambience, a straw stirring in ice, a chair shifting, cutlery elsewhere in the room. One flat line of Chinese dialogue.
+
+non_diegetic_music:
+The piano loses its warmth, dropping to a thin upper register.""",
+    },
+    {
+        "no": 4, "file": "shot04_child_asks", "framing": "特写 (CU)",
+        "character": "S2 + S1", "dialogue_cn": "爸爸，阿姨是不是不喜欢我？",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Close-up on {S2} in the banquette seat, the table edge just below frame. He looks up sideways at his father, then down again, fingers working the corner of his napkin into a tight little roll.
+[00:05.000 – 00:10.000] He tugs once at {S1}'s sleeve and asks in a very small voice, without any accusation in it: <d>[Chinese] 爸爸，阿姨是不是不喜欢我？</d> Then he adds, quickly, as if to let the grown-ups off the hook: he is just hungry tonight.
+[00:10.000 – 00:15.000] Reverse to {S1}: the composed face does not change, but his jaw tightens once. He covers the small hand on his sleeve with his own and answers in a steady, gentle voice, his eyes on the far window: <d>[Chinese] 没有。她只是……还没准备好。</d>
+
+overall_soundscape:
+Restaurant ambience receding, napkin fabric being rolled, one small child's voice and one low adult voice in Chinese.
+
+non_diegetic_music:
+A single warm low cello note under the piano, the first real feeling in the scene.""",
+    },
+    {
+        "no": 5, "file": "shot05_woman_leaves", "framing": "中景 (MS)",
+        "character": "S3", "dialogue_cn": "我突然想起来还有个会，改天再聊。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot. {S3} stands, hooks her designer handbag off the back of the chair with one practised motion, and smooths her dress. She is already angled toward the exit before she has finished speaking.
+[00:05.000 – 00:10.000] She glances at her watch and delivers her exit with blithe politeness, never quite looking at {S2}: <d>[Chinese] 我突然想起来还有个会，改天再聊。</d> She leans in for a half-hearted air-kiss that does not land near {S1}'s cheek.
+[00:10.000 – 00:15.000] The camera stays on the table as she walks out of frame behind the camera. Her heels diminish across the timber floor. Then, in the sudden quiet: {S2} picks up the unused third menu that lay in front of her empty chair and sets it aside neatly, as if tidying a place setting nobody used.
+
+overall_soundscape:
+Chair sliding back, heels crossing a timber floor, a restaurant door opening and falling shut, then relative quiet. One polite line of Chinese dialogue.
+
+non_diegetic_music:
+The piano stops entirely. Only room tone remains under the cello note.""",
+    },
+    {
+        "no": 6, "file": "shot06_su_notices", "framing": "中景 (MS)",
+        "character": "S4 + S2", "dialogue_cn": "小朋友，你在看什么呢？",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot through the restaurant's glass service door: a warm, cluttered staff corridor beyond, pass-through window, jackets on hooks. {S4} comes through carrying two stacked menus against her hip, hair escaping a loose bun, the only person in the building who is not performing anything.
+[00:05.000 – 00:10.000] She reaches the table, notes the empty chair and the folded wheelchair without comment, sets the menus down and crouches to the boy's eye level, resting a forearm on the edge of the table. She smiles and asks with real curiosity: <d>[Chinese] 小朋友，你在看什么呢？</d>
+[00:10.000 – 00:15.000] {S2} points off toward the pass-through window, where a chef is lifting something out of a pan in a flare of orange flame. He answers shyly. {S4} turns her head to look with him, genuinely interested, not down at him but alongside him.
+
+overall_soundscape:
+A glass door swinging, menus set on linen, kitchen sounds bleeding through the service door — a pan flaring, extractor fans, a distant order being called. One warm line of Chinese dialogue.
+
+non_diegetic_music:
+The cello is joined by a soft, plain acoustic guitar.""",
+    },
+    {
+        "no": 7, "file": "shot07_hinge", "framing": "中近景 (MCU)",
+        "character": "S2 + S4", "dialogue_cn": "阿姨，我想吃红烧排骨。——现在做红烧排骨，哪有麻烦。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up, still crouched at the boy's eye level. {S4} follows his gaze toward the kitchen pass-through, where a plate of glossy braised pork ribs is being lifted onto the counter under a heat lamp, sauce dark and glistening.
+[00:05.000 – 00:10.000] {S2} watches the plate travel, swallows, and says it plainly and hopefully, the way a child asks for something he already knows he probably cannot have: <d>[Chinese] 阿姨，我想吃红烧排骨。</d>
+[00:10.000 – 00:15.000] {S4} straightens up, unties the cloth at her waist, tosses it over her shoulder with a grin, and answers without a trace of hesitation, turning the lens-ward movement into a natural settle at the counter: <d>[Chinese] 现在做红烧排骨，哪有麻烦。</d> Hold on her easy, confident face at the finish.
+
+overall_soundscape:
+Kitchen service sounds through the pass-through, a cloth flicked over a shoulder, a plate set on a hot counter. Two short warm lines of Chinese dialogue.
+
+non_diegetic_music:
+The guitar brightens into an upbeat, forward-leaning bed — the transition into the sequence that follows.""",
+    },
+    {
+        "no": 8, "file": "shot08_ad_open", "framing": "中近景 (MCU)",
+        "character": "S4_KITCHEN + SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up, static, clean domestic kitchen with a window over the sink and bright daylight. {S4_KITCHEN} stands behind the counter facing the lens directly, calm and unhurried. She lifts {SP} from the counter and turns it once so the warm key light catches the foil.
+[00:05.000 – 00:10.000] Close-up on the counter: a hand sets down a tray of raw pork ribs glistening under running water. A cutting board receives ginger, garlic and spring onion; a knife works them with brisk, rhythmic, unmistakably everyday strokes.
+[00:10.000 – 00:15.000] Cut to a tight shot of a heavy iron wok settling onto a gas burner, blue flame blooming around its base, a thin film of oil beginning to shimmer and smoke, heat haze softening the edges of the frame.
+
+overall_soundscape:
+Domestic kitchen only — tap running, knife on board, gas burner catching, oil beginning to sizzle, a range hood. No speech at all.
+
+non_diegetic_music:
+A steady, bright, mid-tempo electronic bed, clear and unaffected.""",
+    },
+    {
+        "no": 9, "file": "shot09_pain_chain", "framing": "特写 (CU)",
+        "character": "SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Extreme close-up of the wok: dark amber caramel bubbling and darkening in the centre, a wooden spatula working it in fast circles, smoke beginning to curl off the surface in the dry heat.
+[00:05.000 – 00:10.000] A droplet of hot caramel spits. A forearm jerks back out of frame, knuckles glancing the wok rim; a cloth is grabbed and the burner knocked down a notch in a hurried scramble. The wok rim is scorched.
+[00:10.000 – 00:15.000] Cut to a tight shot of a full stainless sink: scoured woks, burnt pans, greasy bowls stacked at an angle, the tap still running, oil pooling on the surface of the standing water and spreading in rainbow rings.
+
+overall_soundscape:
+Caramel bubbling and spitting sharply, a wok knocking against a burner grate, water running over a sink full of dirty pans. No speech.
+
+non_diegetic_music:
+The bed drops a semitone and adds a low pulse — the pressure building.""",
+    },
+    {
+        "no": 10, "file": "shot10_promise", "framing": "中景 (MS)",
+        "character": "S4_KITCHEN + SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot: {S4_KITCHEN} tips a colander of cleaned ribs out onto a tray, then sets a domestic electric rice cooker on the counter and lifts the stainless lid off with a clean metallic ring.
+[00:05.000 – 00:10.000] Overhead close-up: the inner pot receives the ribs, which settle flat against the non-stick base. A hand lays {SP} down beside the pot and squares its label to the camera with two fingers, unhurried and deliberate.
+[00:10.000 – 00:15.000] A forearm sweeps an entire row of glass spice jars, soy and dark-sauce bottles off the counter edge into a crate in one decisive motion. The counter is suddenly, conspicuously bare: only the pot, the ribs and the single packet remain in the light.
+
+overall_soundscape:
+A colander tipping, a pot set on a stone counter, the metallic ring of a lid, glass jars rattling into a crate. No speech.
+
+non_diegetic_music:
+The bed brightens and opens out, a clean resolving chord.""",
+    },
+    {
+        "no": 11, "file": "shot11_five_steps", "framing": "特写 (CU)",
+        "character": "SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Tight overhead shot: cold water from a measuring jug is poured over the ribs in the pot. Steam blurs the lens for a beat as hot steel meets cold water, then clears on the foaming surface.
+[00:05.000 – 00:10.000] Wider on the counter: cleaned ribs are lifted from a colander straight into the dry inner pot in one motion — no searing, no wok, nothing on the hob. A hand then takes up {SP} and sets a thumbnail into its tear notch.
+[00:10.000 – 00:15.000] Macro close-up as the packet tears along the notch and the glossy dark sauce pours in a slow, heavy ribbon over the raw ribs, coating them and pooling in the gaps between them. The surface catches the window light and holds it. Stay on the texture.
+
+overall_soundscape:
+Water pouring into a hot pot with a rising hiss, the sharp tear of a foil packet, thick sauce landing on raw meat. No speech.
+
+non_diegetic_music:
+The bed holds a steady, even measure — no flourish, all function.""",
+    },
+    {
+        "no": 12, "file": "shot12_freedom", "framing": "中景 (MS)",
+        "character": "S4_KITCHEN", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Overhead close-up: a glass jug pours half a bowl of clear water around the sauced ribs; the stainless lid is fitted and rotated home. A forefinger presses the single round cook key and a small amber light comes on. The pot begins to work quietly on its own.
+[00:05.000 – 00:10.000] Medium shot: {S4_KITCHEN} unties her apron in one pull, drapes it over the back of a chair, wipes her hands and walks out of the kitchen doorway without a backward glance. The camera stays behind on the lit rice cooker, alone on the counter, holding the frame.
+[00:10.000 – 00:15.000] Cut to a bright, tidy living room: she drops into the corner of the sofa in fresh house clothes, smooths a sheet mask onto her face, props her phone against a cushion and lets a drama start playing. Her feet curl up under her; the kitchen is entirely out of sight and out of mind.
+
+overall_soundscape:
+Water poured, a lid seated with a soft clunk, one key press, footsteps leaving the kitchen, then a quiet domestic room with faint television dialogue from a phone. No speech from the subject.
+
+non_diegetic_music:
+The bed relaxes — warmer, slower, relieved.""",
+    },
+    {
+        "no": 13, "file": "shot13_proof", "framing": "特写 (CU)",
+        "character": "SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] The rice cooker lid swings open on a plume of steam. Macro shot of glossy, deep-red braised pork ribs inside, the sauce reduced and clinging to every surface, a faint sheen of rendered fat catching the window light. No dark soy was added anywhere in this kitchen — the colour came with the packet.
+[00:05.000 – 00:10.000] Close-up: steel chopsticks press into one rib and it slides clean off the bone with almost no resistance. The bone comes away pale and bare; the meat stays whole and glistening on the plate, holding its shape and the light.
+[00:10.000 – 00:15.000] Static frame in the sink area: a single inner pot is rinsed under the tap, wiped once with a sponge and set upside down on the drainer. Around it the hob is cold and spotless, the wok is still hanging clean on its hook, and no cloth lies in wait on the counter.
+
+overall_soundscape:
+Steam release, chopsticks against ceramic, one pot being rinsed and set on a drainer, water shutting off. No speech.
+
+non_diegetic_music:
+The bed resolves warmly under the held frames.""",
+    },
+    {
+        "no": 14, "file": "shot14_price_cta", "framing": "中景 (MS)",
+        "character": "S4_KITCHEN + SP", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot at the counter: {S4_KITCHEN} lifts {SP} and turns it toward the light, then sets it down beside a plate of the finished ribs. The camera holds while she gestures once, palm up, toward the packet — the movement easy and conversational.
+[00:05.000 – 00:10.000] Clean overhead product frame on a pale counter: a hand fans three identical packets into a neat overlapping row, then adds two more slightly behind, forming a clear arrangement of five, lit warmly from the upper left and sitting perfectly still.
+[00:10.000 – 00:15.000] Cut back to a medium shot: {S4_KITCHEN} at the counter, both hands resting flat on either side of the finished plate, facing the lens squarely. She holds the pose steady and relaxed, no gesture, no movement, letting the frame sit for a beat.
+
+overall_soundscape:
+A foil packet set down on stone, a plate nudged into place, packets being laid out in a row, a quiet domestic kitchen otherwise. No speech.
+
+non_diegetic_music:
+The bed lifts, confident and clean, carrying the sequence to a close.""",
+    },
+    {
+        "no": 15, "file": "shot15_child_stands", "framing": "全景 (WS)",
+        "character": "S2 + S1", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Wide shot back in the restaurant, the window table now cleared. {S2} sits alone in the banquette, watching the door where {S3} left. {S1} is standing at the bar, settling the bill, half turned away.
+[00:05.000 – 00:10.000] {S2} looks around the room once — nobody is watching — plants both hands on the table edge, and pushes himself up out of the seat. He stands straight. He takes two unsteady, entirely functional steps along the banquette and straightens his sweater, unassisted.
+[00:10.000 – 00:15.000] The camera holds on his feet, then tilts up his legs to his face. He looks down at his own legs with a small, quietly pleased expression, then up at his father across the room, checking whether he was seen. Hold on his face.
+
+overall_soundscape:
+An almost empty restaurant, a cloth wiping a table, glasses being stacked at the bar, soft jazz. No speech.
+
+non_diegetic_music:
+The music stops dead at the first step — then a single held piano note returns alone.""",
+    },
+    {
+        "no": 16, "file": "shot16_the_truth", "framing": "中近景 (MCU)",
+        "character": "S2 + S1", "dialogue_cn": "是爸爸想看看，谁真心喜欢我。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close two-shot at the table. {S1} has crossed back and crouches to his son's height, one hand on the boy's shoulder, no anger in him at all. The folded wheelchair stands empty and untouched against the wall.
+[00:05.000 – 00:10.000] {S2} looks at his father, then at the empty chair where {S3} had sat, and says it simply, without triumph, the way a child reports a fact: <d>[Chinese] 是爸爸想看看，谁真心喜欢我。</d>
+[00:10.000 – 00:15.000] {S1} looks at the boy for a long beat, then down at the empty third place setting. He smooths the boy's hair back from his forehead and answers quietly, almost to himself: <d>[Chinese] 嗯。这次看到了。</d> Hold on the two of them at the table.
+
+overall_soundscape:
+Near-empty restaurant room tone, a chair creaking as the adult crouches, two quiet voices in Chinese.
+
+non_diegetic_music:
+The piano returns warm and low, the cello underneath it.""",
+    },
+    {
+        "no": 17, "file": "shot17_regret", "framing": "中景 (MS)",
+        "character": "S3", "dialogue_cn": "",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot on the restaurant's timber threshold, half inside and half out of the evening light. {S3} is standing frozen just outside the glass with her handbag still in her hand and her phone pressed to her ear — she never actually left.
+[00:05.000 – 00:10.000] Through the glass, in focus beyond her: the boy standing on his own feet at the table, the father crouched beside him. {S3} lowers the phone slowly from her ear. She takes half a step back toward the door, then stops, and her free hand comes up to grip the strap of her bag.
+[00:10.000 – 00:15.000] She turns and walks away down the pavement, heels unsteady for the first time all evening. The camera stays on the glass, her reflection sliding off it, leaving the warm interior and the two figures at the table behind.
+
+overall_soundscape:
+Street noise, an engine idling at the kerb, a phone call ending, heels on pavement. No intelligible speech.
+
+non_diegetic_music:
+A short, dry descending phrase — understated, not gloating.""",
+    },
+    {
+        "no": 18, "file": "shot18_identity", "framing": "中景 (MS)",
+        "character": "S1", "dialogue_cn": "顾总，车到了。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot at the restaurant entrance. A black car idles at the kerb outside. A young assistant in a plain suit steps in through the brass door, stops at a respectful distance and addresses {S1}, who is helping {S2} back into the wheelchair.
+[00:05.000 – 00:10.000] The assistant says evenly, with the flat deference of routine: <d>[Chinese] 顾总，车到了。</d> {S1} nods without looking up, finishes settling the boy's blanket, and only then straightens and takes his coat.
+[00:10.000 – 00:15.000] A passing waiter, carrying a tray, hears the title and stops mid-stride to look back at the man folding a wheelchair in the doorway. The camera holds on {S1} — he registers the attention and does nothing about it at all, simply pushes the chair out into the evening air.
+
+overall_soundscape:
+Restaurant ambience, a car idling outside, the brass door, a tray shifting in a waiter's hands. One short, formal line of Chinese dialogue.
+
+non_diegetic_music:
+A low, confident string swell — the reveal landing without comment.""",
+    },
+    {
+        "no": 19, "file": "shot19_kitchen_home", "framing": "中景 (MS)",
+        "character": "S4_KITCHEN + S2", "dialogue_cn": "阿姨，还要！",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot in a warm home kitchen at night, the window black with reflection. {S4_KITCHEN} lifts the lid off the rice cooker and steam rolls out into the overhead light. A plate is already on the counter with a few picked-clean bones on it.
+[00:05.000 – 00:10.000] She spoons ribs onto a fresh plate. Off-frame a small boy's voice, bright and insistent, calls out: <d>[Chinese] 阿姨，还要！</d> She laughs, shakes her head at the empty plate on the counter, and spoons out more without hesitation.
+[00:10.000 – 00:15.000] She carries the plate out of the kitchen toward the sound of the voice. The camera lingers on the counter: the rice cooker still working, the used plate, and {SP} lying empty beside the pot — one packet, one pot, one plate, and a hob that was never lit.
+
+overall_soundscape:
+A rice cooker hissing softly, steam, a lid being set down, a child's bright voice in Chinese off-frame, a woman's laugh, kitchen room tone.
+
+non_diegetic_music:
+Warm, plain strings and guitar together — the theme at its most settled.""",
+    },
+    {
+        "no": 20, "file": "shot20_ending", "framing": "中近景 (MCU)",
+        "character": "S1 + S4_KITCHEN", "dialogue_cn": "这顿饭，比相亲重要。",
+        "prompt":
+f"""integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up at a dining table set for three, warm lamp light, plates of braised ribs in the centre. {S1} sits across from {S4_KITCHEN}, sleeves rolled up, no jacket, entirely out of his suit's authority. Between them the boy's chair is pulled close to the table, occupied and out of frame.
+[00:05.000 – 00:10.000] {S1} sets his chopsticks down, looks across at her and says it plainly, with the first unguarded expression he has worn all film: <d>[Chinese] 这顿饭，比相亲重要。</d> She meets his eyes and lets out a small, real laugh.
+[00:10.000 – 00:15.000] She reaches across and takes one more rib from the plate, drops it into the boy's bowl off-frame, and settles back. The camera pulls back slowly on the lit table — three places, one pot, no performance left in the room. Hold and settle.
+
+overall_soundscape:
+A quiet home at night, cutlery on ceramic, a chair shifting, a child's satisfied noise off-frame, warm room tone. Two short lines of Chinese dialogue and a laugh.
+
+non_diegetic_music:
+The theme in full, warm and unadorned, resolving and fading to nothing.""",
+    },
+]

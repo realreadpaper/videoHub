@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>抖音原片复刻 · 锁音轨链路验证报告</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1c2024; --ink2:#4a5259; --ink3:#818a92;
+    --line:#e3e7eb; --accent:#1f6feb; --ok:#1a7f45; --warn:#b7791f; --bad:#c0392b;
+    --okbg:#eaf7ef; --warnbg:#fdf6e7; --badbg:#fdeceb; --accentbg:#eef4fe;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.72 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 26px 90px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:36px}
+  h1{font-size:27px;margin:0 0 10px;letter-spacing:.2px}
+  .sub{color:var(--ink2);font-size:14px}
+  .sub b{color:var(--accent)}
+  h2{font-size:19px;margin:44px 0 14px;padding-left:12px;border-left:4px solid var(--accent)}
+  h3{font-size:15.5px;margin:24px 0 8px;color:var(--ink)}
+  p{margin:10px 0;color:var(--ink2)}
+  ul,ol{color:var(--ink2);padding-left:22px;margin:10px 0}
+  li{margin:5px 0}
+  code{background:#eef1f4;padding:1.5px 5px;border-radius:4px;font-size:12.5px;
+       font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#31404d}
+  pre{background:#20262d;color:#dfe6ec;padding:14px 16px;border-radius:8px;overflow:auto;
+      font-size:12.5px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;background:var(--card);
+        border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f0f3f6;font-weight:600;color:var(--ink);font-size:13px}
+  tr:last-child td{border-bottom:none}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px;margin:20px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .kpi .n{font-size:24px;font-weight:700;letter-spacing:-.5px}
+  .kpi .l{font-size:12.5px;color:var(--ink3);margin-top:5px}
+  .kpi.ok .n{color:var(--ok)} .kpi.warn .n{color:var(--warn)} .kpi.bad .n{color:var(--bad)}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin:16px 0}
+  .box.ok{background:var(--okbg);border-color:#bfe3cc}
+  .box.warn{background:var(--warnbg);border-color:#efdca8}
+  .box.bad{background:var(--badbg);border-color:#f2c4c0}
+  .box.accent{background:var(--accentbg);border-color:#c5d9f8}
+  .box h3{margin-top:0}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:20px;font-weight:600;
+       vertical-align:middle;margin-left:6px}
+  .tag.ok{background:#d6efdf;color:#146c39}
+  .tag.warn{background:#f7e8c3;color:#8a5d13}
+  .tag.bad{background:#f7d9d6;color:#a5301f}
+  .tag.new{background:#d8e6fb;color:#1a52a8}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:720px){.two{grid-template-columns:1fr}}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+  .dim{color:var(--ink3);font-size:12.5px}
+  figure{margin:16px 0}
+  figure img{width:100%;border:1px solid var(--line);border-radius:8px;display:block}
+  figcaption{font-size:12.5px;color:var(--ink3);margin-top:7px;text-align:center}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0;font-size:13px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;color:var(--ink2)}
+  .step b{color:var(--ink)}
+  .arrow{color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>抖音原片复刻 · 锁音轨链路验证报告</h1>
+  <div class="sub">
+    H3 audio-lock × 100% 抄写 × 角色锚定 ｜ 两片 40 镜 ｜ 远端 RTX 4090 ｜
+    <b>2026-09-16 晚</b>
+  </div>
+</header>
+
+<h2>一、一页结论</h2>
+
+<div class="box ok">
+  <h3>链路已打通，且中文 100% 可控 <span class="tag ok">已验证</span></h3>
+  <ul>
+    <li><b>中文语音</b>：放弃「让 H3 自己说中文」（实测部分镜头说非中文），改走
+      <b>Edge TTS 合成原文 → audio-lock 锁音轨驱动口型</b>。成片音轨抽出转写，
+      <b>逐字等于该镜原文台词</b>。</li>
+    <li><b>台词</b>：两片按原片逐词转写 <b>100% 抄写</b>，拼接等于原转写全文，相似度
+      <b>0.9817 / 0.9836</b>，差异全部为 ASR 错听订正，无一处臆造。</li>
+    <li><b>画面</b>：单镜全链路（锁音轨草稿 → LTX 精修）跑通，规格
+      <b>768×1344 / 361 帧 / 15.0417 s / 双声道 AAC</b>，场景与动作语义正确。</li>
+    <li><b>三处关键缺陷已修，并已实测验证</b>：
+      ① 角色只以裸标签出现 → 跨镜人脸漂移、主角身份错；
+      ② 台词说话人未被锚定 → 有台词却不在画面里（顾董整镜消失）；
+      ③ 语音超出 15.08 s 窗 → 尾巴盖到下一镜。</li>
+  </ul>
+</div>
+
+<div class="kpis">
+  <div class="kpi ok"><div class="n">76.5 s</div><div class="l">锁音轨草稿（384×672 / 362 帧）</div></div>
+  <div class="kpi"><div class="n">137.3 s</div><div class="l">LTX 精修（768×1344 / 361 帧）</div></div>
+  <div class="kpi ok"><div class="n">23.2 GiB</div><div class="l">显存峰值 / 24 GiB（无 OOM）</div></div>
+  <div class="kpi"><div class="n">0.983</div><div class="l">台词抄写相似度（两片均值）</div></div>
+</div>
+
+<h2>二、台词 100% 抄写核对</h2>
+
+<p>判定标准：<b>全片台词拼接 = 参考视频逐词转写原文</b>（去标点后逐字比对）。
+管道：原片 <code>whisper.cpp large-v3-turbo</code> 逐词 srt → 按 20 镜时间窗（词中心点归属）
+对齐 → 写回分镜 → 机械核对。</p>
+
+<table>
+  <tr><th>片</th><th>原片转写</th><th>抄写稿</th><th>相似度</th><th>差异</th><th>结论</th></tr>
+  <tr>
+    <td>片1 · 良心面试</td><td>1696 字</td><td>1700 字</td>
+    <td><b>0.9817</b></td><td>25 处</td><td>无整句增删</td>
+  </tr>
+  <tr>
+    <td>片2 · 相亲这场</td><td>1679 字</td><td>1678 字</td>
+    <td><b>0.9836</b></td><td>25 处</td><td>无整句增删</td>
+  </tr>
+</table>
+
+<h3>差异逐处定性（<code>review_diff.py</code> 打印上下文后人工判定）</h3>
+
+<div class="two">
+  <div class="box">
+    <h3>等长同音替换（绝大多数）</h3>
+    <p class="dim">字数不变，仅订正 ASR 错听</p>
+    <p class="mono">主管港→主管岗 ｜ 电饭波→电饭锅<br>
+    灵测糖→0蔗糖 ｜ 故事食品→顾氏食品<br>
+    极具→集剧 ｜ 光心扇→光心善 ｜ 八角鬼皮→八角桂皮<br>
+    林婉晴→林晚晴 ｜ 散着→散架 ｜ 炒汤色→炒糖色<br>
+    内躺→内胆 ｜ 顾晨舟→顾承舟 ｜ 红盛→宏盛</p>
+  </div>
+  <div class="box">
+    <h3>补字 / 删字（少数，均为 ASR 边界问题）</h3>
+    <p class="dim">方向都是「还原原片真实说的台词」</p>
+    <p class="mono"><b>补漏字</b>：公司不是救助→救助<b>站</b><br>
+    点击左→左<b>下</b>角 ｜ 电→电<b>饭</b>锅内胆<br>
+    红烧鱼、炖羊肉→补<b>牛肉</b><br>
+    <b>删幻觉重复</b>：不用了<b>了</b>→不用了<br>
+    补偿我了<b>了</b>→补偿我了<br>
+    <b>唯一主动优化</b>：镜06 补回「垫<b>垫</b>」（ASR 误识「电点」）</p>
+  </div>
+</div>
+
+<h2>三、角色锚定 —— 本轮最重要的修复</h2>
+
+<div class="box bad">
+  <h3>症状 <span class="tag bad">已定位</span></h3>
+  <p>跨镜人脸漂移；实测镜 05 里 <b>65 岁的顾董被画成了年轻西装男</b>。</p>
+</div>
+
+<div class="box warn">
+  <h3>根因</h3>
+  <p>H3 是<b>单镜生成</b>。而 40 镜里最初只有 2 镜（片1 镜01、片2 镜16）的 prompt 带了角色外貌描述，
+  其余镜里角色只以<b>裸标签</b> <code>S1</code>/<code>S2</code>/<code>S3</code> 出现 ——
+  模型每镜都在自由发挥。<b>这正是「角色没保持一致」的根因。</b></p>
+</div>
+
+<div class="box ok">
+  <h3>处置 <span class="tag new">已实施</span></h3>
+  <p>在 <code>pN_data.py</code> 的 <code>_prompt()</code> 里自动注入「角色锚定块」：</p>
+  <ul>
+    <li>从 <code>beats + sound</code> 文本按词边界识别出场标签
+      （<code>S2K</code> / <code>S2_STAND</code> 优先于 <code>S2</code>，避免前缀误配）；</li>
+    <li>在 <code>integrated_multimodal_description:</code> 之后插入一整行角色定义；</li>
+    <li>画面里出现 <code>pouch / packet / sachet</code> 时自动补锚产品 <code>SP</code>
+      → 跨镜产品外观一致；</li>
+    <li><code>_shot(..., cast=[...])</code> 可显式指定（片2 镜16 男孩站起来用 <code>S2_STAND</code>）。</li>
+  </ul>
+  <pre>&lt;Character reference — every subject below keeps exactly the same
+face, hair, age, build and clothing in every shot of this film:
+&lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man … ;
+&lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old …&gt;</pre>
+  <p><b>验证</b>：两片 40 镜中 <b>38 镜带完整锚定</b>；余 2 镜（片1 镜16、片2 镜10）是纯手部/锅内特写，
+  无人脸、无产品袋入画，按设计不需要锚定。</p>
+</div>
+
+<h3>修复前 / 修复后（片1 · 镜05 同一镜对比）</h3>
+
+<figure>
+  <img src="_out/s05_frames.jpg" alt="修复前">
+  <figcaption><b>修复前</b>（prompt 无角色锚定）：场景/动作对，但摔倒者被画成
+  <b>年轻西装男</b>，且<b>轮椅未出现</b> —— 应为 65 岁顾董</figcaption>
+</figure>
+
+<figure>
+  <img src="_out/s05_v3_grid.jpg" alt="修复后">
+  <figcaption><b>修复后</b>（角色锚定 + 场景锚定 + 台词说话人补锚）：
+  <b>顾董出现</b>（银白头发 / 深灰夹克 / 65 岁）、<b>轮椅在画面里</b>、
+  女主形象与场景正确，且 <b>8 帧里两个角色都是同一张脸</b> —— 跨镜一致性成立</figcaption>
+</figure>
+
+<div class="box ok">
+  <h3>修复为何生效 <span class="tag ok">三点叠加</span></h3>
+  <ol>
+    <li><b>角色锚定块</b>：每镜 prompt 带出场角色的完整外貌描述；</li>
+    <li><b>台词说话人补锚（关键）</b>：镜05 的 beats 只写「the man on the ground」、
+      从未引用 <code>S1</code>，所以锚定列表最初漏掉了躺在地上的顾董。
+      改为「<b>beats 标签 ∪ 台词说话人</b>」后，顾董才被锚定 —— 他才出现在画面里；</li>
+    <li><b>场景锚定块</b>：把中文场景标签映射到英文场景常量注入 prompt，
+      否则模型只凭 beats 里的零碎词猜环境（实测把「后门」画成了正门台阶）。</li>
+  </ol>
+</div>
+
+<h2>四、中文语音：为什么放弃「让模型自己说」</h2>
+
+<table>
+  <tr><th>路线</th><th>做法</th><th>结果</th></tr>
+  <tr>
+    <td>旧 · 提示词驱动</td>
+    <td>prompt 里写 <code>&lt;d&gt;[Chinese]</code>，让 H3 自己按台词生成语音</td>
+    <td><span class="tag bad">不可控</span> 实测部分镜头说的是非中文；音色/语气随机</td>
+  </tr>
+  <tr>
+    <td><b>新 · audio-lock</b></td>
+    <td>Edge TTS 逐字合成原文干声 → 作为音轨锁定输入（<code>lock_source</code>）驱动口型</td>
+    <td><span class="tag ok">已验证</span> 成片音轨 = 干声，语音 100% 中文、音色可按角色分配</td>
+  </tr>
+</table>
+
+<p><b>实测验证</b>：把 <code>final/shot05.mp4</code> 的音轨抽出转写，输出与镜 05 原文台词
+<b>逐字一致</b>。每镜干声按角色分配音色（顾董沉稳老年男声 / 林晚晴年轻女声 / 男孩童声…）。</p>
+
+<h2>五、TTS 时长布局（make_tts v3 · 当前口径）</h2>
+
+<div class="box bad">
+  <h3>症状</h3>
+  <p>40 镜里 <b>38 镜语音超出 15.0833 s 窗</b>（最长 16.67 s），干声尾巴会盖到下一镜 → 台词听不全。</p>
+</div>
+
+<div class="box warn">
+  <h3>v2 的错误假设（已被 v3 实测推翻）</h3>
+  <p>先入为主地认为「溢出 = TTS 语速太慢」，于是写了一套「迭代加速到 +90% / +150%」。
+  实测证明<b>跟语速基本无关</b>，真正的两个根因是：</p>
+  <ol>
+    <li><b>edge-tts 的 <code>rate</code> 在 <code>+50%</code> 处封顶</b> —— 同一句
+      <code>+50% / +100% / +200%</code> 时长<b>完全一致</b>（都是 1.872 s）。
+      所以 <code>MAX_RATE=150</code> 是假的，那几轮「加速」全是无效空转。</li>
+    <li><b>每句 TTS 产物的首尾都垫着 0.4–0.9 s 静音</b> —— 实测「束一半了。」总长 1.872 s，
+      真实语音只占 <code>0.184 s → 0.995 s</code>（<b>0.81 s</b>），尾部 0.88 s 全是静音。
+      8 句一镜就白扔 5–7 s。<b>这才是 38 镜超窗的真凶。</b></li>
+  </ol>
+</div>
+
+<div class="box ok">
+  <h3>v3 处置 <span class="tag new">已实施</span></h3>
+  <ol>
+    <li><b>合成</b>：默认 <code>rate=+40%</code>（edge-tts 有效区间内，听感比 atempo 更干净）；</li>
+    <li><b>裁静音</b>：<code>silencedetect</code>（-45 dB / 0.05 s）定位语音区间 →
+      <code>atrim</code> 裁掉首尾静音，仅保留 0.03 / 0.06 s 呼吸；</li>
+    <li><b>排布</b>：按裁剪后<b>实测时长</b>首尾相接，句间留白均分，落在 <code>[0.06, 0.75] s</code>；</li>
+    <li><b>atempo 兜底</b>：若裁剪后仍塞不下，用 ffmpeg <code>atempo</code> 变速
+      （<b>不受 edge-tts 限制、不改音高</b>），数学上保证 <code>end ≤ 窗长</code>。</li>
+  </ol>
+</div>
+
+<table>
+  <tr><th>镜</th><th>句数</th><th>修正前</th><th>v3 修正后</th></tr>
+  <tr><td>片1 镜05（台词密度最高）</td><td>8 句</td>
+      <td><span class="tag bad">15.96 s</span> +150% 仍超 0.88 s</td>
+      <td><span class="tag ok">14.82 s</span> 且 <b>无需任何变速</b></td></tr>
+  <tr><td>片1 镜06</td><td>5 句</td>
+      <td><span class="tag bad">16.37 s</span> +19% 仍超</td>
+      <td><span class="tag ok">14.78 s</span></td></tr>
+</table>
+
+<p>全片语速从 v2 的「顶到 +90%」回落到统一 <code>+40%</code>，听感自然得多。
+两个配套工具：<code>check_tts_len.py</code>（读 lines.json 实测 <code>dur</code> 校验 40 镜，
+⚠ 旧版量原始 mp3 含静音会误判）、<code>verify_tts.py</code>（whisper 反写逐字比对原文）。</p>
+
+<h2>六、单镜全链路验证（片1 · 镜05）</h2>
+
+<div class="flow">
+  <span class="step"><b>干声</b> shot05_dry.wav</span><span class="arrow">→</span>
+  <span class="step"><b>草稿</b> 384×672 × 362 帧 <span class="dim">76.5 s</span></span><span class="arrow">→</span>
+  <span class="step"><b>精修</b> 768×1344 × 361 帧 <span class="dim">137.3 s</span></span><span class="arrow">→</span>
+  <span class="step"><b>成片</b> final/shot05.mp4</span>
+</div>
+
+<table>
+  <tr><th>项</th><th>实测</th></tr>
+  <tr><td>分辨率 / 帧数 / 时长</td><td><b>768×1344</b> ｜ 361 帧 ｜ <b>15.0417 s</b>（24 fps）</td></tr>
+  <tr><td>音轨</td><td>双声道 AAC ｜ 转写结果 = 该镜原文台词（逐字一致）</td></tr>
+  <tr><td>显存峰值</td><td>草稿 23.19 GiB ｜ 精修 22.49 GiB（上限 24 GiB）</td></tr>
+  <tr><td>竖版构图</td><td>成立，人物比例正常 → 不启用「回退横版裁切」备选</td></tr>
+</table>
+
+<h2>七、坑清单（本轮新增）</h2>
+
+<table>
+  <tr><th>坑</th><th>现象</th><th>处置</th></tr>
+  <tr>
+    <td>角色只以裸标签出现</td>
+    <td>跨镜人脸漂移、主角年龄身份错</td>
+    <td>每镜自动注入角色锚定块（见 §三）</td>
+  </tr>
+  <tr>
+    <td>台词说话人未纳入锚定</td>
+    <td>镜05 的 beats 只写「the man on the ground」，<b>躺在地上的顾董整镜消失</b>，被换成穿条纹衫的路人</td>
+    <td>锚定来源改为「beats 标签 <b>∪</b> 台词说话人」</td>
+  </tr>
+  <tr>
+    <td>场景未进 prompt</td>
+    <td>模型凭零碎词猜环境：该是「公司后门」被画成正门台阶</td>
+    <td>中文场景标签映射英文场景常量，注入 <code>&lt;Scene reference …&gt;</code></td>
+  </tr>
+  <tr>
+    <td><b>edge-tts 语速 +50% 封顶</b></td>
+    <td>同句 <code>+50%/+100%/+200%</code> 时长完全一致，迭代「加速」全是无效空转</td>
+    <td>把上限收到有效区间 <code>+50%</code>，超出部分改走 ffmpeg <code>atempo</code></td>
+  </tr>
+  <tr>
+    <td><b>TTS 每句首尾垫 0.4–0.9 s 静音</b></td>
+    <td>「束一半了。」总长 1.872 s，真实语音仅 0.81 s；8 句白扔 5–7 s → 38/40 镜超窗</td>
+    <td><code>silencedetect</code> + <code>atrim</code> 裁首尾静音后再排布（见 §五）</td>
+  </tr>
+  <tr>
+    <td>时长校验量错了对象</td>
+    <td><code>check_tts_len.py</code> 量原始 mp3（含静音）→ 误报超窗</td>
+    <td>改读 <code>lines.json</code> 里落盘的实测 <code>dur</code></td>
+  </tr>
+  <tr>
+    <td>旧产物被当新草稿复用</td>
+    <td>prompt / 干声变了，<code>find_draft()</code> 仍捞上一版 <code>voice_shotNN_*</code></td>
+    <td><code>deploy_voice.sh</code> 投送前清空远端 <code>output/</code>、<code>final/</code>、<code>logs/</code></td>
+  </tr>
+  <tr>
+    <td>ComfyUI 产物序号递加</td>
+    <td>产物是 <code>voice_shot05_00002_.mp4</code>，驱动脚本写死 <code>_00001_</code> → 报「找不到草稿」</td>
+    <td>按 <code>voice_shotNN_\d+_</code> 扫描取最新</td>
+  </tr>
+  <tr>
+    <td><code>clip_name</code> 缺目录前缀</td>
+    <td><code>/prompt</code> 报 400 <code>value_not_in_list</code></td>
+    <td>设 <code>minimax_h3/qwen3vl_…safetensors</code>（UNET 在根目录，不能加前缀）</td>
+  </tr>
+  <tr>
+    <td>两片干声同名互相覆盖</td>
+    <td><code>shot05_dry.wav</code> 冲突</td>
+    <td>上传到分片目录 <code>tts_dry/film1/</code>、<code>tts_dry/film2/</code></td>
+  </tr>
+  <tr>
+    <td>同文件多个 Edit 并行</td>
+    <td>后写吞先写，改动静默丢失</td>
+    <td>同一文件的编辑必须串行逐个执行</td>
+  </tr>
+</table>
+
+<h2>八、当前进度与下一步</h2>
+
+<table>
+  <tr><th>环节</th><th>状态</th><th>实测</th></tr>
+  <tr><td>两片干声（40 镜）</td><td><span class="tag ok">完成</span></td>
+      <td><code>rate=+40%</code> + 裁静音；超窗 <b>0</b> / 空表 <b>0</b></td></tr>
+  <tr><td>干声内容质检</td><td><span class="tag ok">完成</span></td>
+      <td>whisper 反写逐字比对：40 镜相似度 <b>0.922–1.000</b>，全 ✔</td></tr>
+  <tr><td>句级外挂字幕</td><td><span class="tag ok">完成</span></td>
+      <td>片1 <b>83</b> 条（5:00.83）／片2 <b>90</b> 条（300.83 s）</td></tr>
+  <tr><td>片1 远端渲染</td><td><span class="tag new">进行中</span></td>
+      <td>草稿单镜 <b>77–78 s</b>、峰值显存 <b>23.15 GiB</b></td></tr>
+  <tr><td>片2 排队</td><td><span class="tag new">已挂</span></td>
+      <td>轮询等片1 释放 GPU 自动接棒（单卡必须串行）</td></tr>
+</table>
+
+<ol>
+  <li><b>抢先预览</b>：20 镜草稿齐（约 26 分钟）→ <code>concat_drafts.sh</code> 用 <code>-c copy</code>
+      零转码拼 <b>384×672 低清预览</b>（语义与音轨同成片，可提前约 50 分钟看内容/听语音/查一致性）；</li>
+  <li><b>正片</b>：片1 draft→refine→concat 跑完 → <code>pack_delivery.sh</code> 取回并配
+      <b>同名同目录外挂字幕</b>（<code>.mp4</code> + <code>.srt</code> + <code>.vtt</code>，绝不烧画面）；</li>
+  <li><b>片2</b>：自动接棒跑完同样交付；</li>
+  <li>扫残字/伪字，做后期图形层与免责声明（H3 自造文字压不住，原片本身也带水印，本就要重做）。</li>
+</ol>
+
+<hr>
+<p class="dim">本报告由 WorkBuddy 生成 ｜ 工程目录 <code>h3-films/</code> ｜
+权威口径见 <code>PIPELINE.md</code> 第十一节</p>
+
+</div>
+</body>
+</html>

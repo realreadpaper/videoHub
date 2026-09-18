@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>768×1344 加速实测 —— 631 s 从哪来、还能砍哪</title>
+<style>
+  :root{
+    --bg:#f7f7f8; --card:#ffffff; --ink:#1a1a1a; --ink2:#555555; --ink3:#8a8a8a;
+    --line:#e4e4e7; --blue:#1e6fbf; --green:#1e8449; --red:#c0392b; --amber:#d68910;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 28px 72px}
+  h1{font-size:27px;margin:0 0 6px;letter-spacing:-.3px}
+  .sub{color:var(--ink3);font-size:14px;margin-bottom:34px}
+  h2{font-size:19px;margin:44px 0 14px;padding-bottom:9px;border-bottom:2px solid var(--line)}
+  h3{font-size:16px;margin:26px 0 10px;color:var(--ink)}
+  p{margin:10px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin:16px 0}
+  .lead{background:#eef5fc;border-left:4px solid var(--blue)}
+  .warn{background:#fdf2f0;border-left:4px solid var(--red)}
+  .good{background:#eef8f1;border-left:4px solid var(--green)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:#f2f2f4;font-weight:600;font-size:13px}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  code{background:#f0f0f2;padding:2px 6px;border-radius:4px;font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre{background:#1e1f22;color:#e6e6e6;padding:16px 18px;border-radius:8px;overflow-x:auto;
+    font-size:13px;line-height:1.65;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre .c{color:#7f8c9b}
+  .kpi{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0}
+  .kpi div{flex:1;min-width:170px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:16px 18px}
+  .kpi b{display:block;font-size:23px;letter-spacing:-.5px;margin-bottom:3px}
+  .kpi span{color:var(--ink3);font-size:13px}
+  .ok{color:var(--green);font-weight:600}
+  .bad{color:var(--red);font-weight:600}
+  .mid{color:var(--amber);font-weight:600}
+  ul,ol{margin:10px 0 10px 4px;padding-left:22px}
+  li{margin:6px 0}
+  footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--ink3);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>768×1344 加速实测 —— 631 s 从哪来、还能砍哪</h1>
+  <div class="sub">A100 40GB · Ref2VA reprod int8_convrot · shot13 同镜对照 · 2026-09-17 20:00–20:30</div>
+
+  <div class="card lead">
+    <h3 style="margin-top:0">一句话结论</h3>
+    <p><b>先让 20 镜在同一进程里连续跑——这一项就省 195 s/镜。</b>剩下的 631 s 里 88% 是 4 步采样，
+    而采样这条路已经被三条实测堵死（换 attention 出 NaN、官方加速包不覆盖 Ref2VA、4 步已是最低档）。</p>
+  </div>
+
+  <div class="kpi">
+    <div><b class="bad">826 s</b><span>冷态首镜（上一件事是别的模型）</span></div>
+    <div><b class="ok">631 s</b><span>热态连跑（紧接同配置第二镜）</span></div>
+    <div><b class="mid">−195 s</b><span>差值 = 零成本可省</span></div>
+    <div><b>3.56 h</b><span>20 镜全 768 连跑总工期</span></div>
+  </div>
+
+  <h2>一、三组同镜对照（同权重 / 同 seed / 同参考图 / 同分辨率）</h2>
+
+  <p>唯一变量是「上一件事是什么」。同一份 768×1344 工作流，跑出来的时间差了一倍还多。</p>
+
+  <table>
+    <tr><th>组</th><th>跑之前发生了什么</th><th>耗时</th><th>结果</th></tr>
+    <tr>
+      <td>C1</td><td>上一件事是 Stage2 的 LTX 精修（换过模型）</td>
+      <td class="num bad">825.9 s</td><td>正常</td>
+    </tr>
+    <tr>
+      <td><b>C2</b></td><td><b>紧接着 C1 再跑一次，同一进程、配置不变</b></td>
+      <td class="num ok">630.6 s</td><td>正常</td>
+    </tr>
+    <tr>
+      <td>B 组</td><td>上一组刚跑完 384×672</td>
+      <td class="num ok">627 s</td><td>正常</td>
+    </tr>
+    <tr>
+      <td>base</td><td>排在 C2 后面（含 219 s 排队）</td>
+      <td class="num">实际约 651 s</td><td>正常</td>
+    </tr>
+    <tr>
+      <td>sage</td><td><code>--use-sage-attention</code></td>
+      <td class="num">791 s</td><td class="bad">输出全 NaN，报废</td>
+    </tr>
+  </table>
+
+  <div class="card good">
+    <b>读数：</b>C1 和 C2 是<b>同一个配置、同一个 seed、同一个参考图</b>，唯一差别就是
+    「上一件事是不是同一个模型」。差出的 <b>195 s 全在权重装卸上</b>——跨模型切换后首镜要把
+    H3 全家桶（TE 25.9 GB + UNET 20.0 GB）重新搬回来，同模型连跑则直接复用。
+  </div>
+
+  <h2>二、先纠正一个误读：没有「131 s Model Initializing」</h2>
+
+  <p>日志里每次采样都刷一行 <code>Model Initializing ...</code> 再跳 <code>Model Initialization complete!</code>，
+    很容易读成"有个 131 s 的初始化阶段"。<b>不是的。</b></p>
+
+  <p>它的出处是 <code>comfy/utils.py</code> 的 <code>model_trange()</code>：这只是给采样进度条
+    <b>第一步</b>贴的标签（内部计数 <code>_i==1</code> 时显示 complete），顺手把第一步的耗时从速率估计里剔掉。
+    它不占用任何独立时间。</p>
+
+  <table>
+    <tr><th>采样步</th><th>第一步</th><th>第二步</th><th>第三步</th><th>第四步</th><th>合计</th></tr>
+    <tr><td>实测</td><td class="num">134.5 s</td><td class="num">137.5 s</td><td class="num">143.9 s</td><td class="num">141.0 s</td><td class="num">≈ 557 s</td></tr>
+  </table>
+
+  <p>四步几乎一样长 —— 第一步没有任何额外开销。</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">631 s 的真实结构</h3>
+    <table style="margin-bottom:4px">
+      <tr><th>环节</th><th>耗时</th><th>占比</th><th>能不能动</th></tr>
+      <tr><td>4 步采样</td><td class="num">≈ 557 s</td><td class="num">88%</td>
+          <td>见第四节，三条路都堵死</td></tr>
+      <tr><td>TE 编码 + VAE 解码 + 保存</td><td class="num">≈ 74 s</td><td class="num">12%</td>
+          <td>TRT VAE 官方自测整流程无收益</td></tr>
+    </table>
+    <p style="margin-bottom:0">单步耗时随分辨率的变化：<b>384×672 = 12.4 s/步</b>，
+      <b>768×1344 = 138.5 s/步</b>。像素只多 4 倍，耗时多 11 倍 —— 说明 <b>attention 主导</b>，不是卷积。</p>
+  </div>
+
+  <h2>三、SageAttention 实测失败（已回滚）</h2>
+
+  <div class="card warn">
+    <p style="margin-top:0"><b>结论：这条 int8_convrot 管线不能换 attention 后端。</b></p>
+    <p>过程：<code>pip install sageattention</code>（1.0.6 是纯 Python + Triton 实现，20 KB wheel，
+      <b>不需要 nvcc 编译</b>，装得很顺）→ 加 <code>--use-sage-attention</code> 重启 →
+      日志确实出现 <code>Using sage attention</code> → 但采样输出<b>整段 NaN</b>，
+      交付节点直接抛错：</p>
+    <pre><span class="c"># h3_t8/h3_av_delivery.py:43</span>
+raise ValueError("nonfinite IMAGE")
+
+<span class="c"># ComfyUI 报错</span>
+exception_type: ValueError
+exception_message: "nonfinite IMAGE"
+current_inputs.images: tensor([[[[nan, nan, nan], ... </pre>
+    <p style="margin-bottom:0">已 <code>pip uninstall sageattention</code>，ComfyUI 恢复
+      <code>--listen 0.0.0.0 --port 8188 --disable-auto-launch</code> 干净启动。
+      <b>不要在这条管线上再试 attention 替换</b>——INT8 量化权重对 attention 数值精度很敏感。</p>
+  </div>
+
+  <h2>四、官方自带的加速包，我们一个都用不了</h2>
+
+  <p>节点包 <code>comfyui-minimax-h3-audio-T8</code> 自带一整套加速方案（<code>examples/workflows/10-speed/</code>、
+    <code>FastH3_V2</code>、TRT VAE），逐个核对后全部不适用：</p>
+
+  <table>
+    <tr><th>方案</th><th>官方自测</th><th>为什么不适用</th></tr>
+    <tr>
+      <td>FastH3 V2 学生模型</td>
+      <td class="ok">103.35 → 78.20 s（−24%）</td>
+      <td class="bad">README 明写「<b>不要套旧 EMA/Turbo 加速 LoRA</b>」；我们用的正是 <code>ref2v_turbo_4step</code></td>
+    </tr>
+    <tr>
+      <td>FastH3 VSA 稀疏注意力</td>
+      <td>—</td>
+      <td class="bad">「只覆盖普通 T2VA、4 NFE；<b>FL2VA、Ref2VA 和混合参考不在本预览模型合同内</b>」</td>
+    </tr>
+    <tr>
+      <td>SPEED</td>
+      <td class="bad">248.7 s，弱于基线 243.2 s</td>
+      <td class="bad">官方盲评也选了基线，未通过质量门</td>
+    </tr>
+    <tr>
+      <td>TRT VAE</td>
+      <td class="bad">31.33 s vs 原生 30.54 s</td>
+      <td class="bad">「<b>不能把裸解码提速当成整条生成提速</b>」；我们解码只占 12%</td>
+    </tr>
+    <tr>
+      <td>OpenVDN DMD8</td>
+      <td>8 步</td>
+      <td class="bad">我们现在 4 步，更慢</td>
+    </tr>
+  </table>
+
+  <h2>五、那到底还能砍哪</h2>
+
+  <h3>① 20 镜连跑（已实测，零成本，−195 s/镜）</h3>
+  <div class="card good">
+    <p style="margin-top:0"><b>做法：20 镜在同一 ComfyUI 进程里连续提交，中途不插别的模型、不调 <code>/free</code>。</b></p>
+    <p style="margin-bottom:0">最容易踩的坑：<b>不要边生成边做 Stage2 精修</b>。S1 跑着跑着插一批 LTX 精修，
+      下一镜就退化成 826 s。<b>把 S1 批完再统一进 S2</b>，这正是两阶段批处理的价值所在。</p>
+  </div>
+
+  <h3>② 只对产品特写镜提分辨率（结构性，收益最大）</h3>
+  <p>384×672 单步 12.4 s、768×1344 单步 138.5 s，<b>差 11 倍</b>。若 20 镜里有 14 镜不是产品特写，
+    让它们留在 384，只对 6 镜产品特写提分辨率，理论上限约 <b>2.4 h</b>（对比全 768 的 3.56 h）。</p>
+  <p class="mid">⚠ 混跑会引入 shape 切换，是否触发重新 staging 需要实测确认，别按理论值排期。</p>
+
+  <h3>③ 剩下的边角料（收益都很有限）</h3>
+  <ul>
+    <li class="bad"><code>--fast</code> 全开（<code>fp16_accumulation cublas_ops autotune</code>）——
+      <b>已在 Stage2 上实测无效</b>：热态 73.9 s vs 基线 74.3 s，在噪声内；
+      而且 <code>autotune</code> 让冷启更慢（+90 s）。<b>别开。</b></li>
+    <li class="bad"><code>fp8_matrix_mult</code> —— A100 是 SM 8.0，没有原生 FP8，
+      日志已显示这批算子走 <code>emulated ops</code>，有和 SageAttention 同样的 NaN 风险</li>
+    <li><code>--disable-smart-memory</code> —— 强制卸载 TE(25.9 GB) 给 UNET 让位。<b>预期收益很小</b>：
+      显存压力影响的是 kernel 效率，不是搬运（20 GB 走 PCIe 只要约 1 s）</li>
+    <li><code>--fast-disk</code> —— 在 Linux 上是空操作：<code>comfy_aimdo/storage.py</code> 里
+      <code>lib = control.lib if os.name == "nt" else None</code>，非 Windows 直接 return None</li>
+  </ul>
+
+  <h3>④ 换卡帮不上忙</h3>
+  <p>瓶颈是 attention 的<b>算力 + 带宽</b>，不是显存容量（我们已经确认显存压力不是主因）。
+    RTX 4090 48G 的显存带宽 1008 GB/s <b>低于</b> A100 的 1555 GB/s，换过去大概率更慢。
+    换卡的唯一意义是"同架构零改动 + 成本低"，不是提速。</p>
+
+  <h2>六、20 镜工期</h2>
+
+  <table>
+    <tr><th>打法</th><th>算式</th><th>总工期</th></tr>
+    <tr style="background:#f4f6f9">
+      <td><b>旧两步走：S1 384 草稿 → S2 精修抬到 768</b><br>
+        <span style="font-size:12.5px;color:#5F5E5A">这条不是 768 直接生成，是本节所有数字的对照基准</span></td>
+      <td class="num">A100 热态批处理：<br>
+        （353 + 19×74.3）+（271.6 + 19×75.3）<br>= 3 467 s<br>
+        <span style="font-size:12.5px">（4090 逐镜交替口径才是 20 × 248 s）</span></td>
+      <td class="num ok"><b>0.96 h</b><br><span style="font-size:12.5px">57.8 min</span></td>
+    </tr>
+    <tr>
+      <td>断断续续跑（穿插 Stage2）</td>
+      <td class="num">20 × 826 s</td><td class="num bad">4.59 h</td>
+    </tr>
+    <tr>
+      <td><b>全 768×1344 连跑</b></td>
+      <td class="num">826 + 19 × 631 s</td><td class="num ok">3.56 h</td>
+    </tr>
+    <tr>
+      <td>产品镜才提分辨率（理论）</td>
+      <td class="num">混合</td><td class="num mid">≈ 2.4 h（待验证混跑开销）</td>
+    </tr>
+  </table>
+
+  <div class="card lead">
+    <b>下一步建议：</b>如果执意走「全 768 连跑」，就要接受 <b>3.56 h</b> 无人值守，
+    期间<b>不要动这台实例</b>；S1 全批完再统一进 Stage2 精修。<br>
+    <b style="color:#A32D2D">⚠ 开跑前请先看第七节</b> —— 统一口径后两步走只要 <b>0.96 h</b>，
+    比全 768 <b>快 3.7 倍</b>，而且不顶显存、能挂参考图与保脸档。
+  </div>
+
+  <h2>七、统一口径：一步到位 vs 两步走 = 3.7 倍</h2>
+
+  <p>把两条路都放到<b>同一台 A100、同一个「热态批处理」口径</b>下算 —— 冷启只在批次首镜付一次、
+  条件编码计入 —— 倍数就只剩一个值：</p>
+
+  <table>
+    <tr><th>路线</th><th>20 镜算式（A100 实测值 · 热态批处理口径）</th><th class="num">20 镜</th></tr>
+    <tr>
+      <td><b>一步到位 · 全 768</b><br>
+        <span style="font-size:12.5px;color:#5F5E5A">S1 直接从噪声生成，不走 S2</span></td>
+      <td class="num">冷启首镜 826 + 19 × 631 = 12 815 s</td>
+      <td class="num bad"><b>3.56 h</b></td>
+    </tr>
+    <tr>
+      <td><b>两步走 · 384 草稿 → S2 精修 768</b><br>
+        <span style="font-size:12.5px;color:#5F5E5A">S1 批完再统一 S2，不逐镜交替</span></td>
+      <td class="num">S1 批：353 + 19 × 74.3 = 1 765 s<br>
+        S2 批：271.6 + 19 × 75.3 = 1 702 s</td>
+      <td class="num ok"><b>0.96 h</b><br><span style="font-size:12.5px">57.8 min</span></td>
+    </tr>
+    <tr style="background:#f4f6f9">
+      <td><b>倍数</b></td><td class="num">12 815 ÷ 3 467</td>
+      <td class="num ok"><b>3.7×</b></td>
+    </tr>
+  </table>
+
+  <p style="font-size:13.5px;color:#5F5E5A">★ <b>为什么是 3.7 而不是之前写的 3.6</b>：早前把两步走的
+  0.96 h 四舍五入写成了 1.0 h，于是 <code>3.56 ÷ 1.0 = 3.56 → 3.6</code>。
+  精确算是 <code>12 815 ÷ 3 467 = 3.70</code>。口径一旦统一，这个数就只该有一个写法：<b>3.7 倍</b>。</p>
+
+  <div class="card warn">
+    <h3 style="margin-top:0">附录：「2.5 倍」的来历 —— 它是五个口径里最保守的一个</h3>
+    <p>那个 2.5 倍的算式只有一行：<code>3.56 h ÷ 1.4 h = 2.5</code>。其中</p>
+    <ul style="margin-bottom:6px">
+      <li><b>分子 3.56 h</b> = A100 实测，「全 768 一步到位」20 镜 = 冷启首镜 826 s + 19 × 631 s</li>
+      <li><b>分母 1.4 h</b> = 20 × <b>248 s</b>，2026-09-16 在 <b>4090（24 GiB）</b>上的
+        「单镜连跑」记录（草稿 + 精修）—— 镜2 = 107.4 + 139.4 s、镜13 = 107.0 + 142.1 s、
+        冷启首镜 268 s。原始出处见 <code>单镜验证报告.html</code> 与 <code>PIPELINE.md</code> 第十三节</li>
+    </ul>
+    <p><b>问题在于：分子来自 A100，分母来自 4090 —— 跨了卡。</b>而且 248 s 是
+    <b>「逐镜两阶段」</b>口径（每一镜都要在 S1 与 S2 之间切一次权重），并非最优排期。
+    同一台 4090 用「批次热跑」口径只有 72.5 + 90.6 = <b>163 s/镜</b>（见
+    <code>换卡选型_V100_A100_4090.html</code>）。</p>
+    <table style="margin-bottom:8px">
+      <tr><th>口径</th><th class="num">两步走 / 20 镜</th><th class="num">一步到位 / 20 镜</th><th class="num">倍数</th><th>说明</th></tr>
+      <tr>
+        <td><b>跨卡（旧）</b><br><span style="font-size:12.5px;color:#5F5E5A">2.5 倍就是这个</span></td>
+        <td class="num">20 × 248 s = <b>1.38 h</b></td><td class="num">3.56 h</td>
+        <td class="num mid"><b>2.6×</b></td><td>分子 A100、分母 4090，且分母是逐镜切换口径</td>
+      </tr>
+      <tr>
+        <td>同卡（4090 批次热跑）</td>
+        <td class="num">20 × 163 s = <b>0.91 h</b></td><td class="num">3.56 h</td><td class="num ok"><b>3.9×</b></td>
+        <td>分母同样来自 4090，但换成批处理口径</td>
+      </tr>
+      <tr>
+        <td>同卡 · 单镜热态</td>
+        <td class="num">74 + 75 = <b>149 s</b></td><td class="num">631 s</td>
+        <td class="num ok"><b>4.2×</b></td><td>两边都是 A100，最纯，不含装载摊销</td>
+      </tr>
+      <tr>
+        <td>同卡 · <b>两步各自冷启</b><br><span style="font-size:12.5px;color:#5F5E5A">像素门槛表里的 360+280</span></td>
+        <td class="num bad">353 + 271 = <b>≈624 s</b></td><td class="num">631 s</td>
+        <td class="num mid">≈1.0×</td>
+        <td>⚠ <b>这是最差的一个口径</b>：S1 与 S2 各自付一次冷启。<br>
+          S1 那 353 s 里只有 <b>49 s</b> 是采样，其余 304 s 是装载 + 首次编译</td>
+      </tr>
+      <tr style="background:#f4f6f9">
+        <td><b>★ 统一口径（定稿）</b><br>
+          <span style="font-size:12.5px;color:#5F5E5A">同卡 A100 · 全 A 口径</span></td>
+        <td class="num ok">3 467 s = <b>0.96 h</b><br>
+          <span style="font-size:12.5px">S1 批 1 765 + S2 批 1 702</span></td>
+        <td class="num">3.56 h</td>
+        <td class="num ok"><b>3.7×</b></td>
+        <td>分子分母同一张卡、同一口径，冷启各付一次 —— <b>以此为准</b></td>
+      </tr>
+    </table>
+    <p style="margin-bottom:0"><b>结论：五个数里 2.5 最保守、3.7 最准。</b>
+    248 s 与 149 s 的差（约 100 s/镜）<b>不是两张卡的性能差</b>
+    （草稿环节 72.5 vs 74 s 本就同档），而是<b>流程差</b>：逐镜切换 vs 分批切换。</p>
+    <p style="margin-bottom:0">⚠ <b>别拿「两步各自冷启」的 ≈624 s 去比 631 s</b> —— 那个「打平」是
+    冷启账撞冷启账的巧合。乘 20 会得到 3.5 h，把两步走的优势完全抹掉。</p>
+  </div>
+
+  <h3>为什么一步到位贵这么多：三件事叠在一起</h3>
+  <ol style="font-size:13.5px;line-height:1.7">
+    <li><b>像素只多 4 倍，单步多 11 倍。</b>384×672 = <code>12.4 s/步</code>，768×1344 =
+      <code>138.5 s/步</code>。耗时随像素按 <b>N<sup>1.76</sup></b> 增长 —— 这是 attention 复杂度
+      主导的特征，不是卷积。</li>
+    <li><b>贵的不是「分辨率高」，是「从噪声开始」。</b>768 直接生成要从 sigma=1.0 全噪声去噪 4 步；
+      S2 精修只从 <code>sigma=0.5</code> 起步走 3 步低噪声，做的是「放大 + 补细节」，
+      <b>不承担「从零造内容」</b>。同样产出 768×1344，精修那一段只花约 50 s 采样。</li>
+    <li><b>而最贵的那步被放在了最贵的模型上。</b>S1 是 H3（20 GB UNET + 25.9 GB 文本编码器），
+      S2 是 LTX-2.5 融合版（22B distilled，本身为精修蒸馏过）。「直接提分辨率」等于把 768 全噪声
+      去噪从轻模型搬到了重模型，同时废掉了 384 这条便宜通道。</li>
+  </ol>
+
+  <div class="card warn">
+    <p style="margin-top:0"><b>之前这里写过一个「例外：产品镜」 —— 现在撤回，它是记账错误。</b></p>
+    <p>旧写法：产品镜走 <code>ref2va</code> + 参考图，草稿是「冷启 327–360 s」，
+    加上 S2 冷启 280 s 得 <b>≈640 s</b>，于是得出「产品镜上两步走与一步到位打平」。</p>
+    <p style="margin-bottom:0"><b>这 640 s 是把两次冷启当成单镜成本。</b>按热态批处理口径，产品镜 =
+    S1 <code>ref2va</code> <b>~77 s</b> + S2 <code>identity</code> <b>75 s</b> = <b>≈152 s</b>，
+    与普通镜的 149 s <b>只差 3 s</b>（ref2va 采样 12.21 vs 11.4 s/it，噪声量级）。
+    → <b>「两步走快 3.7 倍」对全部 20 镜成立，产品镜不是例外。</b>
+    产品镜唯一要多花心思的地方是<b>画质侧</b>：S1 必须用特写构图（产品占画面 ≥70%），不是靠换路线。</p>
+  </div>
+
+  <div class="card lead">
+    <b>差别不在卡。</b>4090 草稿实测 72.5 s、A100 热态 73.9–74.3 s —— <b>两张卡同档</b>，
+    差距 100% 来自路线选择。三条路按需挑：<br>
+    · <b>最快</b>：两步走批处理（<b>0.96 h</b>），比全 768 <b>快 3.7 倍</b>（统一口径，见第七节），
+    还能挂 <code>--guide</code> 参考图与 <code>--preset identity</code> 保脸，S1 显存也不用顶到 98.5%；<br>
+    · <b>单阶段最省事</b>：全 768 一步到位（<b>3.56 h</b>），代价就是那 3.7 倍算力；<br>
+    · <b>中间档</b>：非产品镜留 384、产品镜提 768（≈2.4 h，待验证混跑开销）。
+  </div>
+
+  <h2>八、显存不是「没用上的算力」—— 实测曲线 + 官方加速件全盘点</h2>
+
+  <p>「20 GB UNET 是主要时间，能不能用 40 G 显存加速它」—— 这个推断有两处要掰开：</p>
+  <ol style="font-size:13.5px;line-height:1.7">
+    <li><b>吃时间的是 UNET 的 4 次前向计算，不是 UNET 那 20 GB 的体积。</b>
+      20 GB 权重走 PCIe 搬一遍只要约 <b>1.7 s</b>，占 631 s 的 <b>0.27%</b>。</li>
+    <li><b>40 G 显存并没有闲着。</b>下面是本机单镜 768×1344 全程、2 秒粒度的实测。</li>
+  </ol>
+
+  <div class="kpi">
+    <div><b class="bad">98.4%</b><span>采样期显存峰值 40293 / 40960 MiB</span></div>
+    <div><b class="bad">100%</b><span>采样期 SM 利用率</span></div>
+    <div><b class="bad">234 W</b><span>采样期平均功耗（上限 250 W）</span></div>
+    <div><b class="ok">~1.7 s</b><span>20 GB 权重走 PCIe 的搬运时间</span></div>
+  </div>
+
+  <table>
+    <tr><th>阶段</th><th class="num">时段</th><th class="num">显存</th><th class="num">SM</th><th class="num">功耗</th></tr>
+    <tr><td>装载（TE + UNET 上卡）</td><td class="num">0 – 184 s</td>
+      <td class="num">0.4 → 28.8 GB</td><td class="num">0 – 46%</td><td class="num">35 – 56 W</td></tr>
+    <tr style="background:#FCEBEB"><td><b>采样（4 步）</b></td><td class="num"><b>184 – 734 s</b></td>
+      <td class="num bad"><b>40.2 GB（98.4%）</b></td><td class="num bad"><b>100%</b></td>
+      <td class="num bad"><b>234 W（94%）</b></td></tr>
+    <tr><td>释放 UNET + 解码保存</td><td class="num">734 – 795 s</td>
+      <td class="num">40.2 → 20 GB</td><td class="num">18 – 100%</td><td class="num">52 – 249 W</td></tr>
+  </table>
+
+  <div class="card warn">
+    <p style="margin-top:0"><b>三条读数：</b></p>
+    <ul style="margin:6px 0;font-size:13.5px">
+      <li>采样期<b>显存 98.4% / SM 100% / 功耗 94%</b> —— 三项同时贴满。
+        <b>不存在「闲置的 40 G 显存」可用来换速度。</b></li>
+      <li>而且显存是<b>紧</b>的：TE 25.9 GB + UNET 20 GB = <b>45.9 GB &gt; 40 GB</b>，
+        两者不能同时在场 —— 这正是冷态 826 s 与热态 631 s 差 195 s 的来源。</li>
+      <li>换更大显存的卡（80 GB）唯一的意义是<b>让 TE 和 UNET 同时常驻</b>、省掉模型切换的装载；
+        <b>不会让采样本身变快一秒</b>。</li>
+    </ul>
+  </div>
+
+  <h3>官方加速件全盘点（节点包 339 个节点逐个扫过）</h3>
+  <table>
+    <tr><th>加速件</th><th>官方实测收益</th><th>我们能不能用</th></tr>
+    <tr><td><b>Sage · 全局</b>（<code>--use-sage-attention</code>）</td><td>—</td>
+      <td class="bad">已实测：输出全 NaN。根因是节点包 H3 内核对 <code>_sageattn_int8_fp8_nhd</code>
+        的依赖 —— INT8 QK + <b>FP8 PV</b>，而 A100 是 SM 8.0，没有原生 FP8</td></tr>
+    <tr><td><b>Sage · MODEL 分支</b>（<code>PathchSageAttentionKJ</code>）</td>
+      <td class="ok">渐进采样配方内 106.70 → 74.71 s（<b>−30%</b>）</td>
+      <td class="mid">理论可行但未验证：需装 KJNodes；且同样要绕开 FP8 内核换 fp16 变体</td></tr>
+    <tr><td><b>SLA 稀疏注意力</b>（LightX2V Turbo-SLA）</td>
+      <td class="mid">736×416×124：端到端 −12.4%、采样 −18.8%</td>
+      <td class="bad">高风险：需另下 SLA 专用 LoRA；官方原文「<b>没有证据覆盖本地 INT8 ConvRot + SLA</b>，
+        不能推荐当前 INT8 标准 weight-patch SLA」，且其真实盲评里 SLA 候选被标为<b>硬失败</b></td></tr>
+    <tr><td><b>Progressive 渐进首采</b>（小画幅 6 步 → 放大 → 再 2 步）</td>
+      <td class="ok">1024×512：端到端 <b>−37%</b>（T2VA / I2VA）</td>
+      <td class="bad">官方明写「<b>不支持多参考、尾帧</b>」，且音频会重新联合采样。
+        我们 18 镜 fl2va + 2 镜 ref2va + 全程锁音轨 —— 三条全踩</td></tr>
+    <tr><td><b>PDD 8 步加速</b></td><td>—</td>
+      <td class="bad">要求 <b>non-pruned</b> 底模；我们是 pruned INT8</td></tr>
+    <tr><td><b>FastH3 VSA 稀疏注意力</b></td><td>832×480×124：111.6 s（T2VA）</td>
+      <td class="bad">官方明写「FL2VA、Ref2VA <b>回退 dense</b>」</td></tr>
+    <tr><td><code>--fast</code> 系列</td><td>—</td>
+      <td class="bad">已实测无收益（73.9 vs 74.3 s，噪声内）</td></tr>
+    <tr><td>TRT VAE</td><td class="bad">31.33 vs 原生 30.54 s</td>
+      <td class="bad">净负收益；解码本就只占 12%</td></tr>
+    <tr><td>VRAM Policy（VBAR）节点</td><td>—</td>
+      <td class="mid">只管显存预留防 OOM，默认 report-only，<b>与速度无关</b></td></tr>
+    <tr><td><b>混合分辨率</b>（非产品镜留 384）</td><td>—</td>
+      <td class="ok">唯一零风险杠杆，≈2.4 h</td></tr>
+  </table>
+
+  <div class="card lead">
+    <b>结论：能砍的只有「少算」。</b>没有「把闲置显存变成算力」这条路 —— 显存本来就占满了。
+    而「少算 attention」的两条路（Sage MODEL 分支、SLA）都需要额外装件 / 下权重，
+    且都踩在 A100 无 FP8 或官方画质红线上。<b>相比之下，回到两步走省下的 <span style="color:#1e8449">3.7 倍</span>（统一口径，见第七节），是零风险的。</b>
+  </div>
+
+  <footer>
+    脚本留档：<code>/root/bench_run.sh</code>（提交 + 计时）、<code>/root/start_comfy_bench.sh</code>（带参重启 + 就绪探测）、
+    <code>/root/bench_all.sh</code>、<code>/root/bench/bench_b768.json</code>（基准工作流）。<br>
+    归档：<code>h3-films/768高清加速实测.html</code> ·
+    技能库 <code>scripts/pixel-gate/</code>（像素门槛）与 <code>scripts/stage2/</code>（精修）。
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderBypassModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+   "strength_model": 1.0,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "5": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "6": {
+  "class_type": "MiniMaxH3AudioConditioningT8",
+  "inputs": {
+   "prompt": "<Audio 1> holds the voice of the person speaking on screen: a clear Mandarin Chinese line. Keep the visual timing, phrasing and rhythm locked to <Audio 1>, with natural matching mouth movement and body performance. Follow the shot description below exactly.\n\nintegrated_multimodal_description:\n<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Subject 1> (S1), a 32-year-old handsome East Asian man with short neat black hair, a clean-shaven face and steady, quietly worried eyes, wearing an olive-green casual jacket over a dark knit sweater and dark trousers; he stands behind a small black wheelchair; <Subject 2> (S2), a cute 6-year-old East Asian boy with soft black hair and round clear eyes, wearing a cream knitted cardigan over a navy-and-white striped shirt and dark trousers, sitting in a small black wheelchair with his hands folded in his lap>\n\n<Scene reference — this entire shot takes place in: a tidy modern residential street in autumn with pale stone paving, low green hedges and ginkgo trees turning yellow in soft afternoon light>\n\n[00:00.000 – 00:05.440] Reverse over S1's shoulder onto S2, then back onto S1 as he crouches down to the boy's eye level beside the chair and speaks to him gently, one hand on the armrest. Then, still in the same continuous take, medium close-up of S2's face: he listens, then looks down at his own folded hands and swings one foot slightly, the way a child does when he is thinking about something heavy. One single continuous take, no cuts; the shot runs about 5.4 seconds. Gentle handheld feel or slow drift, subtle motion only. cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not draw letterforms of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge; any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos\n\noverall_soundscape:\nQuiet street ambience, a few birds, a light breeze moving the leaves, the faint tick of a wheelchair caster. No speech, no voices.\n\nnon_diegetic_music:\nSolo piano, simple and a little sad, over warm strings.",
+   "width": 768,
+   "height": 1344,
+   "length": [
+    "14",
+    1
+   ],
+   "task_type": "auto",
+   "audio_mode": "lock_source",
+   "audio_denoise_strength": 0.0,
+   "add_source_as_reference": true,
+   "prompt_primary_audio_ordinal": 1,
+   "strict_prompt_tags": true,
+   "ref_image_size": "match",
+   "reference_video_policy": "official_2_to_15s",
+   "clip": [
+    "3",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ],
+   "drive_audio": [
+    "14",
+    0
+   ]
+  }
+ },
+ "7": {
+  "class_type": "MiniMaxH3DualClockSamplerT8",
+  "inputs": {
+   "steps": 4,
+   "shift_video": 12.0,
+   "shift_audio": 3.0,
+   "sampler_name": "dual_clock_euler",
+   "scheduler": "native_flow",
+   "model": [
+    "2",
+    0
+   ],
+   "av_latent": [
+    "6",
+    1
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "7",
+    0
+   ],
+   "conditioning": [
+    "6",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20267922
+  }
+ },
+ "10": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "9",
+    0
+   ],
+   "guider": [
+    "8",
+    0
+   ],
+   "sampler": [
+    "7",
+    1
+   ],
+   "sigmas": [
+    "7",
+    2
+   ],
+   "latent_image": [
+    "6",
+    1
+   ]
+  }
+ },
+ "11": {
+  "class_type": "MiniMaxH3AVDecodeT8",
+  "inputs": {
+   "av_latent": [
+    "10",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ],
+   "audio": [
+    "15",
+    1
+   ],
+   "filename_prefix": "MiniMaxH3/v2prev/f2s03_direct768",
+   "crf": 19
+  }
+ },
+ "13": {
+  "class_type": "LoadAudio",
+  "inputs": {
+   "audio": "tts_dry/v2prev/f2s03_dry.wav"
+  }
+ },
+ "14": {
+  "class_type": "MiniMaxH3AudioWindowT8",
+  "inputs": {
+   "scene_start_seconds": 0.0,
+   "scene_duration_seconds": 15.0833,
+   "warmup_seconds": 0.0,
+   "cooldown_seconds": 0.0,
+   "ensure_minimum_context": true,
+   "audio": [
+    "13",
+    0
+   ]
+  }
+ },
+ "15": {
+  "class_type": "MiniMaxH3OutputTrimT8",
+  "inputs": {
+   "start_seconds": [
+    "14",
+    2
+   ],
+   "duration_seconds": [
+    "14",
+    3
+   ],
+   "fps": 24,
+   "frames": [
+    "11",
+    0
+   ],
+   "audio": [
+    "6",
+    2
+   ]
+  }
+ }
+}

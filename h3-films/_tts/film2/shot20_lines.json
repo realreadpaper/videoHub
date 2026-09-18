@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S4",
+  "text": "热饭。",
+  "mp3": "s20_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 0.461
+ },
+ {
+  "speaker": "S2",
+  "text": "爸爸，我喜欢这个阿姨。",
+  "mp3": "s20_1.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f01.wav",
+  "t": 0.91,
+  "dur": 1.517
+ },
+ {
+  "speaker": "S1",
+  "text": "爸爸也喜欢。",
+  "mp3": "s20_2.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f02.wav",
+  "t": 2.675,
+  "dur": 0.602
+ },
+ {
+  "speaker": "S1",
+  "text": "屏幕前的家人们，钱能试出贪心，落魄能试出真心，孩子最能试出一个人骨子里的善良。",
+  "mp3": "s20_3.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f03.wav",
+  "t": 3.526,
+  "dur": 4.78
+ },
+ {
+  "speaker": "S1",
+  "text": "真正能走进一个家的，不是最会算条件的人，而是在孩子最需要温暖的时候，愿意给他一碗热饭的人。你们说对吗？",
+  "mp3": "s20_4.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f04.wav",
+  "t": 8.554,
+  "dur": 6.269
+ }
+]

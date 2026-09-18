@@ -1,0 +1,56 @@
+[
+ {
+  "speaker": "S3",
+  "text": "高，经验也足，我真的适合这个岗位。",
+  "mp3": "s11_0.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 2.248
+ },
+ {
+  "speaker": "S1",
+  "text": "我们公司不缺会写简历的人，缺的是有良心的人。",
+  "mp3": "s11_1.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "a01.wav",
+  "t": 2.508,
+  "dur": 2.558
+ },
+ {
+  "speaker": "S2",
+  "text": "顾董，我刚才真的不知道你是董事长。",
+  "mp3": "s11_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 5.126,
+  "dur": 2.22
+ },
+ {
+  "speaker": "S1",
+  "text": "我知道。你如果知道，也就测不出真心了。",
+  "mp3": "s11_3.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "a03.wav",
+  "t": 7.406,
+  "dur": 2.73
+ },
+ {
+  "speaker": "S2",
+  "text": "那我刚才把自己的饭给您吃，会不会不太礼貌？",
+  "mp3": "s11_4.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a04.wav",
+  "t": 10.196,
+  "dur": 2.383
+ },
+ {
+  "speaker": "S1",
+  "text": "那不是不礼貌，那是你愿意把自己的午",
+  "mp3": "s11_5.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "a05.wav",
+  "t": 12.639,
+  "dur": 2.26
+ }
+]

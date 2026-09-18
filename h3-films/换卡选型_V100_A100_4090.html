@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>换卡选型 · V100 32G / A100 40G / 4090 能不能跑 H3</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --line:#e3e6ea; --line2:#eef0f3;
+    --tx:#1f2937; --tx2:#5b6472; --tx3:#8b94a3;
+    --blue:#1a56db; --blue-bg:#eef4ff;
+    --ok:#0f7b3f; --ok-bg:#eaf7ef;
+    --warn:#b45309; --warn-bg:#fef6e7;
+    --bad:#b91c1c; --bad-bg:#fdeeee;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:44px 24px 80px}
+  header{border-bottom:2px solid var(--line); padding-bottom:22px; margin-bottom:30px}
+  h1{margin:0 0 10px; font-size:27px; font-weight:700; letter-spacing:-.3px}
+  .sub{color:var(--tx2); font-size:14px}
+  .meta{margin-top:12px; font-size:12.5px; color:var(--tx3)}
+  .meta code{background:#eceff3; padding:1px 5px; border-radius:3px; font-family:var(--mono); font-size:12px}
+
+  h2{font-size:19px; margin:38px 0 14px; padding-left:11px; border-left:4px solid var(--blue); font-weight:650}
+  h3{font-size:15.5px; margin:22px 0 9px; font-weight:650; color:var(--tx)}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:20px 22px; margin:14px 0}
+
+  /* 结论双卡 */
+  .verdict{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:20px 0 8px}
+  .vc{background:var(--card); border-radius:10px; padding:20px; border:1px solid var(--line); position:relative; overflow:hidden}
+  .vc::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px}
+  .vc.no::before{background:var(--bad)}
+  .vc.yes::before{background:var(--warn)}
+  .vc .tag{font-size:11.5px; font-weight:700; letter-spacing:.6px; padding:3px 9px; border-radius:20px; display:inline-block}
+  .vc.no .tag{background:var(--bad-bg); color:var(--bad)}
+  .vc.yes .tag{background:var(--warn-bg); color:var(--warn)}
+  .vc h3{margin:11px 0 4px; font-size:17px}
+  .vc p{margin:5px 0 0; font-size:13.5px; color:var(--tx2); line-height:1.65}
+
+  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:13.5px}
+  th,td{text-align:left; padding:9px 11px; border-bottom:1px solid var(--line2); vertical-align:top}
+  th{background:#f1f3f6; font-weight:650; font-size:12.5px; color:var(--tx2); white-space:nowrap}
+  tbody tr:hover{background:#fafbfc}
+  td code,p code,li code{font-family:var(--mono); font-size:12.3px; background:#eef1f5; padding:1px 5px; border-radius:3px; color:#334}
+  .mk{font-weight:700; font-size:15px; line-height:1.2}
+  .mok{color:var(--ok)} .mwarn{color:var(--warn)} .mbad{color:var(--bad)}
+
+  pre{background:#1e2430; color:#dfe6f0; padding:15px 17px; border-radius:8px; overflow-x:auto;
+      font-family:var(--mono); font-size:12.4px; line-height:1.62; margin:11px 0}
+  pre .c{color:#7d8b9e}
+  pre .k{color:#8fd3ff}
+
+  .callout{border-radius:9px; padding:15px 18px; margin:16px 0; font-size:13.8px; line-height:1.72}
+  .callout .ct{font-weight:700; margin-bottom:5px; font-size:14px}
+  .c-blue{background:var(--blue-bg); border:1px solid #cddffb}
+  .c-warn{background:var(--warn-bg); border:1px solid #f5dfb5}
+  .c-bad{background:var(--bad-bg); border:1px solid #f5cfcf}
+  .c-ok{background:var(--ok-bg); border:1px solid #c9e8d5}
+
+  ul,ol{margin:9px 0; padding-left:22px}
+  li{margin:5px 0}
+  .tight li{margin:3px 0}
+
+  .kv{display:grid; grid-template-columns:auto 1fr; gap:6px 16px; font-size:13.5px; margin:10px 0}
+  .kv dt{color:var(--tx2); white-space:nowrap}
+  .kv dd{margin:0}
+
+  .chain{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:14px 0; font-size:13px}
+  .chain .n{background:#fff; border:1px solid var(--line); border-radius:7px; padding:7px 12px}
+  .chain .n.dead{background:var(--bad-bg); border-color:#f0c5c5; color:var(--bad); font-weight:600}
+  .chain .n.pass{background:var(--ok-bg); border-color:#c9e8d5; color:var(--ok); font-weight:600}
+  .chain .a{color:var(--tx3)}
+
+  footer{margin-top:44px; padding-top:18px; border-top:1px solid var(--line); font-size:12.5px; color:var(--tx3)}
+  .src{font-size:12.3px; color:var(--tx3); margin-top:7px; line-height:1.6}
+  @media(max-width:720px){
+    .verdict{grid-template-columns:1fr}
+    .wrap{padding:28px 15px 60px}
+    h1{font-size:22px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>换卡选型：V100 32G / A100 40G 能不能跑 H3 两阶段管线</h1>
+  <div class="sub">结论先说：<b>A100 40G 能跑</b>（需换一个权重文件）；<b>V100 32G 跑不了</b>——而且不是因为显存。</div>
+  <div class="meta">2026-09-17 · 依据 MiniMax H3 权重清单 + comfy-kitchen CUDA 后端门控 + CUDA 13.0 架构支持范围 · 自检脚本 <code>check_gpu_compat.py</code></div>
+</header>
+
+<div class="verdict">
+  <div class="vc no">
+    <span class="tag">不可行 · 退出码 3</span>
+    <h3>V100 32G</h3>
+    <p>Volta（SM 7.0）。CUDA 13.0 已移除该架构，comfy-kitchen 默认最低只编译到 SM 7.5，且它没有 INT8 tensor core、没有原生 bf16。<b>三项硬条件同时不满足</b>，32GB 显存完全用不上。</p>
+  </div>
+  <div class="vc yes">
+    <span class="tag">可跑 · 有降级 · 退出码 2</span>
+    <h3>A100 40G</h3>
+    <p>Ampere（SM 8.0）。三条硬条件全部通过，是合格的生产卡。唯一要动的是把文本编码器从 <code>nvfp4_awq</code> 换成 <code>int8_convrot</code> 版——因为 A100 没有 FP4 硬件。40GB 显存比 4090 宽裕，offload 压力反而更小。</p>
+  </div>
+</div>
+
+<h2>一、先纠正一个前提：64G「内存」和「显存」不是一回事</h2>
+<div class="callout c-blue">
+  <div class="ct">你说的「内存 64G，比 4090 显存大」——这两个是不同的池子，不能互相顶替</div>
+  <table style="margin:9px 0 0">
+    <thead><tr><th>名称</th><th>容量</th><th>在这条管线里决定什么</th></tr></thead>
+    <tbody>
+      <tr><td><b>显存 VRAM</b></td><td>A100 40G / V100 32G / 4090 24G</td><td>模型权重能不能<b>驻留</b>。UNET <code>pruned_int8_convrot</code> 是 20.97GB，低于它就必须全程搬来搬去</td></tr>
+      <tr><td><b>系统内存 RAM</b></td><td>你说的 64G</td><td><b>CPU offload 的中转仓库</b>。显存放不下的层临时搁这儿，算到哪层搬哪层</td></tr>
+    </tbody>
+  </table>
+  <p style="margin:9px 0 0">64G 系统内存是<b>够用且合适</b>的（社区口径：offload 模式建议 64GB，32GB 偏紧），但它不会让「显存不够」变成「够」。</p>
+</div>
+
+<h2>二、四条决定生死的硬约束</h2>
+<p>我们这套工作流不是「随便一张卡都能跑」的通用模型，它用了三种带硬件门控的量化格式。判断依据不是显存容量，而是下面四条：</p>
+
+<table>
+  <thead>
+    <tr><th>#</th><th>硬约束</th><th>被它卡住的东西</th><th>V100</th><th>A100</th><th>4090</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><b>CUDA 13 工具链覆盖</b><br><span style="color:var(--tx3);font-size:12.3px">comfy-kitchen 预编译 wheel 要求 CUDA Runtime ≥ 13.0</span></td>
+      <td>整个量化 kernel 库</td>
+      <td class="mk mbad">✘ 移除</td>
+      <td class="mk mok">✔</td>
+      <td class="mk mok">✔</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><b>INT8 tensor core</b><br><span style="color:var(--tx3);font-size:12.3px">comfy-kitchen 的 int8/convrot kernel 起于 SM 7.5</span></td>
+      <td>UNET 主力权重<br><code>fl2va_pruned_int8_convrot</code></td>
+      <td class="mk mbad">✘ 仅 DP4A</td>
+      <td class="mk mok">✔</td>
+      <td class="mk mok">✔</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><b>原生 bf16</b><br><span style="color:var(--tx3);font-size:12.3px">Ampere 8.0 起；同时决定 FlashAttention-2 可用性</span></td>
+      <td>Stage2 的 LTX-2.5 VAE<br><code>ltx-2.5-video-vae-conv-bf16</code></td>
+      <td class="mk mbad">✘ 无</td>
+      <td class="mk mok">✔</td>
+      <td class="mk mok">✔</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><b>显存 ≥ 21GB</b><br><span style="color:var(--tx3);font-size:12.3px">UNET 必须能驻留</span></td>
+      <td>UNET 常驻</td>
+      <td class="mk mok">✔ 32G</td>
+      <td class="mk mok">✔ 40G</td>
+      <td class="mk mok">✔ 24G</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin-top:16px">另有两条<b>软降级项</b>——不阻断，但会让某一环变慢：</p>
+<div class="card">
+  <div class="kv">
+    <dt><b>NVFP4 原生</b></dt>
+    <dd>需 SM ≥ 10.0（Blackwell）。<b>V100、A100、4090 都没有</b>。我们的文本编码器正好是 <code>nvfp4_awq</code> 版，在这三张卡上都走 eager fallback。<br>
+      <span style="color:var(--ok)">▸ 这不是问题</span>——当前 20 镜基线就是在 4090 上、在这个 fallback 下跑通的。文本编码器每镜只跑一次就卸载，占不到瓶颈。</dd>
+    <dt><b>FP8 原生</b></dt>
+    <dd>需 SM ≥ 8.9（Ada）。<b>A100 和 V100 都没有</b>（4090 有）。我们当前用的是 int8 权重而不是 fp8，所以暂时不受影响；但将来若想换 <code>fp8_scaled</code> 权重提速，A100 上拿不到那份加速。</dd>
+  </div>
+</div>
+
+<h2>三、为什么 V100 是「跑不了」而不是「慢一点」</h2>
+<p>三条硬约束同时不满足，且它们不是同一个环节——是三道独立的门，每一道单独存在都足以否决：</p>
+
+<div class="chain">
+  <span class="n pass">装 comfy-kitchen</span><span class="a">→</span>
+  <span class="n dead">CUDA 13 不支持 Volta，预编译 wheel 装不上</span><span class="a">→</span>
+  <span class="n dead">即便降到 CUDA 12.9 自编译，默认 arch 列表里没有 70</span>
+</div>
+<div class="chain">
+  <span class="n pass">跑 UNET int8_convrot</span><span class="a">→</span>
+  <span class="n dead">Volta 只有 DP4A，没有 INT8 tensor core，int8 kernel 路径不启用</span>
+</div>
+<div class="chain">
+  <span class="n pass">跑 Stage2 LTX VAE</span><span class="a">→</span>
+  <span class="n dead">Volta 无原生 bf16，bf16 权重走模拟；且无 FlashAttention-2</span>
+</div>
+
+<div class="callout c-bad">
+  <div class="ct">核心结论：显存不是这道题的自变量</div>
+  <p style="margin:0">V100 的 32GB 比 4090 的 24GB 大 33%，但这个优势<b>一次都用不上</b>——因为模型根本加载不起来。这是 <b>CUDA 工具链世代 + GPU 架构</b> 的问题。<br>
+  换个说法：把 V100 换成 32GB 的显存，等价于给一台没法装驱动的机器加了个更大的硬盘。</p>
+</div>
+
+<h2>四、A100 40G 能跑，但要改一个文件</h2>
+<p>三条硬约束全过，问题只在那个 NVFP4 文本编码器。官方对 Qwen3-VL-32B 文本编码器提供三种格式，按你的显存选：</p>
+
+<table>
+  <thead><tr><th>文件</th><th>大小</th><th>官方定位</th><th>A100 40G 上</th></tr></thead>
+  <tbody>
+    <tr><td><code>qwen3vl_32b_minimax_h3_nvfp4_awq</code></td><td>15.69 GB</td><td>Blackwell 16GB 档</td><td class="mbad">走 fallback，无加速</td></tr>
+    <tr style="background:var(--ok-bg)"><td><code>qwen3vl_32b_minimax_h3_int8_convrot</code></td><td>27.14 GB</td><td><b>推荐 24GB+ 档</b></td><td class="mok"><b>✔ 首选，原生跑</b></td></tr>
+    <tr><td><code>qwen3vl_32b_minimax_h3_bf16</code></td><td>51.51 GB</td><td>32GB 显存档</td><td class="mwarn">40G 装不下全部，需 offload</td></tr>
+  </tbody>
+</table>
+
+<p>选中间那行：<b>27.14GB，40GB 显存装得下</b>，而且它走的是 SM≥7.5 就有的 int8 kernel，A100 原生支持。</p>
+
+<h4 style="margin:18px 0 4px; font-size:14px">要执行的命令（在 A100 实例上）</h4>
+<pre><span class="c"># 1. 先自检,确认判决 —— 5 秒出结论,不占 GPU</span>
+python3 check_gpu_compat.py
+
+<span class="c"># 2. 拉 int8 版文本编码器(27.14GB,建议走 hf-mirror)</span>
+hf download Comfy-Org/MiniMax-H3 \
+  text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors \
+  --local-dir ComfyUI/models
+
+<span class="c"># 3. 把 20 份工作流的 CLIPLoader 指向新文件</span>
+cd /workspace/films/douyin-office && python3 - &lt;&lt;'PY'
+import json, glob, os
+NEW = "qwen3vl_32b_minimax_h3_int8_convrot.safetensors"
+n = 0
+for f in glob.glob(os.path.expanduser("~/stage1_voice_*.json")) + ["stage1_audio_lock.json"]:
+    if not os.path.exists(f): continue
+    d = json.load(open(f))
+    hit = False
+    for node in d.get("nodes", []):
+        if node.get("type") == "CLIPLoader" and node.get("widgets_values"):
+            node["widgets_values"][0] = NEW
+            hit = True
+    if hit:
+        json.dump(d, open(f, "w"), ensure_ascii=False, indent=2); n += 1
+print("已改写 %d 个工作流" % n)
+PY
+
+<span class="c"># 4. 强制走 native flow,先跑一镜验证(镜1即可)</span>
+python3 10_run_film.py --shots 1 --stage draft --force</pre>
+
+<div class="callout c-ok">
+  <div class="ct">验收标准（跑完这一镜看什么）</div>
+  <ol class="tight" style="margin:6px 0 0">
+    <li>日志里出现 <code>峰值显存</code> 且数值 <b>明显低于 24GB</b> —— 说明 A100 的余量吃到了，offload 变少</li>
+    <li>单镜草稿耗时 <b>不超过 4090 基线 72.5s 的 1.3 倍</b>（即 < 95s），热跑第二镜应回到 60–80s</li>
+    <li>没有任何 <code>NoCapableBackendError</code> / <code>CUDA error: no kernel image</code> —— 这两个是量化 kernel 落不到硬件上的典型报错</li>
+  </ol>
+</div>
+
+<h3>⚠️ 有一条我没有实测，交给你时说明白</h3>
+<p>comfy-kitchen 的 wheel 是否覆盖 <b>SM 8.0 上的 convrot 变体</b>，我只拿到默认编译 arch 列表（含 <code>80-real</code>）和「SM 7.5 起支持 int8/int4 kernel」这两条间接证据，<b>没有 A100 实机验证记录</b>。所以上面第 4 步「先跑一镜」不是走过场——它是这条结论的实证环节。跑通了就是全通；报 <code>NoCapableBackendError</code> 则说明该变体在 Ampere 上没编进去，需要从源码重编，那时候我再帮你查（源码编译路径是有的：<code>--cuda-archs="80"</code>）。</p>
+
+<h2>五、价格与性价比</h2>
+<p>国内算力租赁价格指数（2026-09 更新，单卡包月档 / 元·卡·时）：</p>
+
+<table>
+  <thead><tr><th>卡</th><th>显存</th><th>架构</th><th>包月价</th><th>按需价</th><th>对本管线</th></tr></thead>
+  <tbody>
+    <tr><td>RTX 4090 24G</td><td>24G</td><td>Ada</td><td>1.72</td><td>1.96</td><td class="mok">✔ 当前基线，已验证跑通</td></tr>
+    <tr style="background:var(--ok-bg)"><td><b>RTX 4090 48G</b></td><td>48G</td><td>Ada</td><td><b>2.27</b></td><td><b>2.62</b></td><td class="mok"><b>✔ 同架构，零改动，显存翻倍</b></td></tr>
+    <tr><td>A100 40G</td><td>40G</td><td>Ampere</td><td>2.60</td><td>—</td><td class="mwarn">✔ 需换文本编码器</td></tr>
+    <tr><td>RTX 5090 32G</td><td>32G</td><td>Blackwell</td><td>—</td><td>2.83</td><td class="mok">✔ 唯一能原生跑 NVFP4 的</td></tr>
+    <tr><td>A100 80G</td><td>80G</td><td>Ampere</td><td>5.90</td><td>—</td><td class="mok">✔ 宽裕，但贵一倍</td></tr>
+    <tr><td>V100 32G</td><td>32G</td><td>Volta</td><td>—</td><td>—</td><td class="mbad">✘ 不可行</td></tr>
+  </tbody>
+</table>
+
+<h3>折算到单片成本</h3>
+<p>4090 基线实测：单镜草稿 72.5s + 精修 90.6s（热跑值），20 镜 ≈ 0.91 GPU 小时/片。</p>
+<table>
+  <thead><tr><th>方案</th><th>单价</th><th>单片 GPU 成本</th><th>相对基准</th></tr></thead>
+  <tbody>
+    <tr><td>4090 24G</td><td>1.96 元/时</td><td>≈ ¥1.78</td><td>基准</td></tr>
+    <tr style="background:var(--ok-bg)"><td><b>4090 48G</b></td><td>2.62 元/时</td><td>≈ ¥2.37（速度持平）</td><td><b>+33% 价钱，+100% 显存，0 改动</b></td></tr>
+    <tr><td>A100 40G</td><td>2.60 元/时</td><td>≈ ¥2.36（速度持平）<br>≈ ¥2.00（若快 15%）</td><td>价钱几乎与 4090 48G 相同</td></tr>
+  </tbody>
+</table>
+
+<div class="callout c-blue">
+  <div class="ct">性价比判断：如果只是要「换台机器把片 2 跑完」，最优解不是 A100</div>
+  <p style="margin:0 0 6px"><b>RTX 4090 48G 与 A100 40G 价格几乎一样（2.27 vs 2.60 包月），但前者是同架构（Ada）——镜像、comfy-kitchen、20 份工作流、全部脚本，一个字都不用改，开起来直接跑。</b></p>
+  <p style="margin:0">A100 要多做一件事（换 CLIP 权重 + 重验一镜），还要接受没有 FP8 快路。它的真实优势在别处：<b>数据中心卡、带 ECC、HBM2 带宽 1555GB/s（比 4090 的 GDDR6X 1008GB/s 高 54%）、长时间批量更稳</b>。如果你要的是「无人值守连跑几十片」，A100 的稳定性值这个溢价；如果只是「今晚把片 2 出了」，4090 48G 更省事。</p>
+</div>
+
+<h2>六、推荐顺序</h2>
+<ol>
+  <li><b>RTX 4090 48G</b> —— 同架构零改动，显存翻倍解掉 offload，性价比最好。<span style="color:var(--tx3)">（国内云常见的改装卡；同架构的还有 L20 48G，也是 Ada，同样零改动）</span></li>
+  <li><b>A100 40G</b> —— 能跑，换一个 CLIP 权重即可。适合要长期无人值守跑批量。</li>
+  <li><b>RTX 5090 32G</b> —— 唯一能原生吃 NVFP4 的（Blackwell SM 12.0），32G 显存，按需 2.83 元/时。但要确认镜像里 comfy-kitchen 的 <code>120f</code> arch 编进去了。</li>
+  <li><b>A100 80G / A800 80G</b> —— 宽裕，5.9–6.25 元/时，除非要跑更高分辨率否则没必要。</li>
+  <li class="mbad"><b>V100 32G</b> —— 不要买。便宜但跑不了，省下的钱会变成排查时间。</li>
+</ol>
+
+<h2>七、开完新实例，第一件事跑自检</h2>
+<p>命令我已经写好了，在任何 Linux/macOS 机器上都能跑，<b>只做能力查询、不占 GPU 算力、5 秒出结论</b>：</p>
+<pre><span class="c"># 完整报告</span>
+python3 check_gpu_compat.py
+
+<span class="c"># 只想要一句话结论(给脚本消费)</span>
+python3 check_gpu_compat.py --quiet
+
+<span class="c"># 机器可读</span>
+python3 check_gpu_compat.py --json</pre>
+
+<p>它会逐项打印上面那四条硬约束 + 软降级项的通过情况，并给出退出码：</p>
+<div class="kv">
+  <dt><code>0</code></dt><dd>可跑（原生）—— 全部路径原生支持</dd>
+  <dt><code>2</code></dt><dd>可跑（有降级）—— 能出片，降级项有提示</dd>
+  <dt><code>3</code></dt><dd>不可行 —— 并会明确告诉你卡在哪条硬约束上</dd>
+</div>
+
+<h2>八、排错表</h2>
+<table>
+  <thead><tr><th>现象</th><th>含义</th><th>处置</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>NoCapableBackendError</code></td>
+      <td>量化格式在本卡上找不到可用 kernel —— 最典型的架构不支持</td>
+      <td>先跑 <code>check_gpu_compat.py</code> 确认架构档位；SM≥7.5 的话从源码重编 <code>--cuda-archs="80"</code></td>
+    </tr>
+    <tr>
+      <td><code>CUDA error: no kernel image is available</code></td>
+      <td>torch 编译的 arch 与实卡不匹配</td>
+      <td>装对应架构的 torch；查 <code>torch.cuda.get_arch_list()</code>（自检脚本会打印）</td>
+    </tr>
+    <tr>
+      <td>加载 CLIP 时极慢 / 卡住</td>
+      <td>NVFP4 走了 eager fallback（A100 / 4090 的正常表现）</td>
+      <td>换 <code>int8_convrot</code> 版文本编码器，见第四节</td>
+    </tr>
+    <tr>
+      <td>爆显存 OOM</td>
+      <td>offload 不足</td>
+      <td>加 <code>--lowvram</code>；确认系统内存 ≥64G；<code>PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True</code></td>
+    </tr>
+    <tr>
+      <td>能跑但单镜 > 200s</td>
+      <td>在走模拟路径（bf16/FP32 回退）</td>
+      <td>这就是 V100 上会发生的事——换卡，别调参</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout c-warn" style="margin-top:26px">
+  <div class="ct">一句话总结</div>
+  <p style="margin:0"><b>A100 40G：能跑，换一个 CLIP 权重文件（27.14GB 的 int8_convrot 版）；V100 32G：跑不了，换卡。</b>要换就优先考虑 <b>4090 48G</b>——同样的钱、同架构、零改动。</p>
+</div>
+
+<footer>
+  <div>生成于 2026-09-17 · 项目 videoHub / h3-films · 自检脚本 <code>check_gpu_compat.py</code>（已归档到 skill <code>h3-film-production/scripts/</code>）</div>
+  <div class="src">
+    依据：① comfy-kitchen CUDA 后端硬件要求（SM7.5 int8/int4、SM8.9 FP8、SM10.0 FP4）与默认编译 arch 列表
+    <code>75-real;80-real;89;90a-real;100f;120f</code>；② CUDA 13.0 支持范围为 Turing(7.5)–Grace Blackwell，Volta(7.0) 移除离线编译与库支持；
+    ③ Comfy-Org/MiniMax-H3 权重清单与文件大小（UNET pruned_int8_convrot 20.97GB、CLIP nvfp4_awq 15.69GB / int8_convrot 27.14GB / bf16 51.51GB）；
+    ④ 国内算力租赁价格指数 2026-09 档位。<b>A100 SM8.0 上 convrot 变体的实证未做，以实机自检为准。</b>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S1",
+  "text": "嫌弃他的人。",
+  "mp3": "s19_0.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 0.731
+ },
+ {
+  "speaker": "S2",
+  "text": "阿姨，那你会疼我吗？",
+  "mp3": "s19_1.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "a01.wav",
+  "t": 0.991,
+  "dur": 1.295
+ },
+ {
+  "speaker": "S4",
+  "text": "会。小孩不是负担，是应该被好好照顾的人。",
+  "mp3": "s19_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 2.346,
+  "dur": 2.875
+ },
+ {
+  "speaker": "S1",
+  "text": "今天我看清了，有人看见轮椅只觉得丢人，有人看见孩子只想分财产，只有你先问他冷不冷、饿不饿。",
+  "mp3": "s19_3.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "a03.wav",
+  "t": 5.281,
+  "dur": 5.723
+ },
+ {
+  "speaker": "S4",
+  "text": "我不懂你们有钱人的规矩，我只知道孩子进了我的店，就得吃上一口",
+  "mp3": "s19_4.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a04.wav",
+  "t": 11.064,
+  "dur": 3.76
+ }
+]

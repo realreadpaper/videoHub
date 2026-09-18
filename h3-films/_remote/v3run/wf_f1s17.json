@@ -1,0 +1,222 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderBypassModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors",
+   "strength_model": 1.0,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "5": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "6": {
+  "class_type": "MiniMaxH3AudioConditioningT8",
+  "inputs": {
+   "prompt": "<Audio 1> carries the original soundtrack of this scene: the actors' real voices, ambience and music. Keep the visual timing, phrasing, lip movement and performance locked to <Audio 1> exactly. Follow the shot description below exactly.\n\nintegrated_multimodal_description:\n<Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: <Picture 1> is the authoritative reference for the product SP: a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette with a vivid tomato-red metallised front panel and a narrow ivory header band carrying a round punched hang-hole. Whenever the pouch is on screen, keep its identity, silhouette, proportions, colour, material and its own printed packaging design exactly as shown in <Picture 1> - do not invent, restyle, re-letter or recolour the packaging, and do not replace it with a different bag or a box; <Subject 2> (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm>\n\n<Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter>\n\nThe supplied <Picture 1> reference fixes what the product is and how its packaging looks; the description below only covers staging, action, camera and timing. Do not re-describe or re-draw the packaging design beyond what <Picture 1> already shows.\n\n[00:00.000 – 00:12.140] Close on the range: a wok of dark sugar syrup bubbling and smoking slightly, then cut to a stainless sink stacked with scorched pans and greasy bowls, the tap still running. The overhead extractor shadows the steel. Then, still in the same continuous take, medium shot: S2 speaks to camera with growing energy, both hands moving. The extractor hood and tiled wall frame her; the rice cooker lid is open on the counter behind her. The take then continues with insert on the counter: a forearm sweeps two glass bottles and a small jar out of frame past the right edge; the red pouch is left alone in the centre of the clean steel, catching a specular highlight. One single continuous take, no cuts; the shot runs about 12.1 seconds. Visible camera or subject movement carries through the take. cinematic 9:16 vertical, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage, no subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text overlay, no watermark, no timestamp, no UI overlay; never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame, especially in the lower half and along the bottom edge; the only lettering allowed is the printing that is physically part of an object's own surface, and it must stay flat, matte, slightly out of focus and exactly as it appears in the supplied reference image - never sharpened, never glowing, never larger, bolder or more legible than the physical print\n\noverall_soundscape:\nExtractor hum, glass bottles pushed aside on steel, foil tearing, thick sauce pouring and settling. All voices, ambience and music are carried by <Audio 1>.\n\nnon_diegetic_music:\nThe pulse opens out, more confident.",
+   "width": 768,
+   "height": 1344,
+   "length": [
+    "14",
+    1
+   ],
+   "task_type": "auto",
+   "audio_mode": "lock_source",
+   "audio_denoise_strength": 0.0,
+   "add_source_as_reference": true,
+   "prompt_primary_audio_ordinal": 1,
+   "strict_prompt_tags": true,
+   "ref_image_size": "match",
+   "reference_video_policy": "official_2_to_15s",
+   "clip": [
+    "3",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ],
+   "drive_audio": [
+    "14",
+    0
+   ],
+   "ref_images.ref_image_0": [
+    "17",
+    0
+   ]
+  }
+ },
+ "7": {
+  "class_type": "MiniMaxH3DualClockSamplerT8",
+  "inputs": {
+   "steps": 4,
+   "shift_video": 12.0,
+   "shift_audio": 3.0,
+   "sampler_name": "dual_clock_euler",
+   "scheduler": "native_flow",
+   "model": [
+    "2",
+    0
+   ],
+   "av_latent": [
+    "6",
+    1
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "7",
+    0
+   ],
+   "conditioning": [
+    "6",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20260935
+  }
+ },
+ "10": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "9",
+    0
+   ],
+   "guider": [
+    "8",
+    0
+   ],
+   "sampler": [
+    "7",
+    1
+   ],
+   "sigmas": [
+    "7",
+    2
+   ],
+   "latent_image": [
+    "6",
+    1
+   ]
+  }
+ },
+ "11": {
+  "class_type": "MiniMaxH3AVDecodeT8",
+  "inputs": {
+   "av_latent": [
+    "10",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ],
+   "audio": [
+    "15",
+    1
+   ],
+   "filename_prefix": "MiniMaxH3/v3run/f1s17",
+   "crf": 19
+  }
+ },
+ "13": {
+  "class_type": "LoadAudio",
+  "inputs": {
+   "audio": "orig_audio/film1/shot17.wav"
+  }
+ },
+ "14": {
+  "class_type": "MiniMaxH3AudioWindowT8",
+  "inputs": {
+   "scene_start_seconds": 0.0,
+   "scene_duration_seconds": 12.125,
+   "warmup_seconds": 0.0,
+   "cooldown_seconds": 0.0,
+   "ensure_minimum_context": true,
+   "audio": [
+    "13",
+    0
+   ]
+  }
+ },
+ "15": {
+  "class_type": "MiniMaxH3OutputTrimT8",
+  "inputs": {
+   "start_seconds": [
+    "14",
+    2
+   ],
+   "duration_seconds": [
+    "14",
+    3
+   ],
+   "fps": 24,
+   "frames": [
+    "11",
+    0
+   ],
+   "audio": [
+    "6",
+    2
+   ]
+  }
+ },
+ "17": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "refs/prod_P2_white.png"
+  }
+ }
+}

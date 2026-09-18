@@ -1,0 +1,56 @@
+[
+ {
+  "speaker": "S3",
+  "text": "的大爷，所以耽误了几分钟。",
+  "mp3": "s09_0.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 1.437
+ },
+ {
+  "speaker": "S4",
+  "text": "来面试还多管闲事，难怪迟到。",
+  "mp3": "s09_1.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f01.wav",
+  "t": 2.134,
+  "dur": 1.935
+ },
+ {
+  "speaker": "S2",
+  "text": "老人摔倒了不先确认情况，难道看着他躺在地上吗？",
+  "mp3": "s09_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 4.566,
+  "dur": 3.134
+ },
+ {
+  "speaker": "S4",
+  "text": "他怎么进来了？",
+  "mp3": "s09_3.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f03.wav",
+  "t": 8.197,
+  "dur": 0.694
+ },
+ {
+  "speaker": "S5",
+  "text": "各位，这位是顾氏食品集团董事长顾怀山，顾董。",
+  "mp3": "s09_4.mp3",
+  "voice": "zh-CN-YunyangNeural",
+  "clip": "f04.wav",
+  "t": 9.388,
+  "dur": 2.839
+ },
+ {
+  "speaker": "S4",
+  "text": "董事长？顾董，我刚才不知道",
+  "mp3": "s09_5.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f05.wav",
+  "t": 12.723,
+  "dur": 2.1
+ }
+]

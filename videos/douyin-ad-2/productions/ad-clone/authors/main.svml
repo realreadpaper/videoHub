@@ -1,0 +1,205 @@
+<?svml using="@hypit/markup@1"?>
+
+<!--
+  复刻：抖音「短剧 + 家常菜」带货片 · 广告卖货段
+  参考片：references/homecook/source.mp4（原片 296.93s）
+  卖货段：106.0s – 211.0s（105.0s），已切为 assets/ad-segment.mp4 作 A-roll
+  本片：在原片卖货段之上叠加原片没有的五层图形（痛点链 / 承诺 / 五步 / 省事证明 / 安全多用途 / 价格 / CTA）。
+        原片自带三层烧死元素（底部字幕、右下免责声明、指向产品的红色箭头）不重复建设。
+  换产品、换文案、换素材都发生在这一层。
+-->
+<svml>
+  <import as="media" from="@hypit/media@1"/>
+  <import as="pipeline" from="@hypit/media-pipeline@1"/>
+  <import as="media-track" from="@hypit/media-track@1"/>
+  <import as="audio-track" from="@hypit/audio-track@1"/>
+  <import as="text" from="@hypit/typography-track@1"/>
+  <import as="time" from="@hypit/timeline-author@1"/>
+  <import as="space" from="@hypit/spatial@1"/>
+  <import as="program" from="@hypit/program-space@1"/>
+  <import as="fonts" from="@hypit/fonts-open@1"/>
+  <import as="film" from="@hypit/film@1"/>
+  <import as="render" from="@hypit/render-hyperframes@1"/>
+  <import as="recipes" source="./recipes.svs"/>
+
+  <program:Clock id="clock" frame-rate="30"/>
+  <time:Timeline id="film-time" clock={clock} end="105s"/>
+
+  <space:Canvas id="vertical" width="720" height="1280"/>
+  <space:Frame id="full" within={vertical}
+    left="0%" top="0%" right="100%" bottom="100%"/>
+  <!-- 顶部通栏：原片全程空闲区（天花板/背景墙），不与底部字幕、面部落位冲突 -->
+  <space:Frame id="banner-frame" within={vertical}
+    left="3%" top="2.2%" right="97%" bottom="11.8%"/>
+  <!-- 价格区：紧贴通栏下方，仍是背景区，避开面部(约15%–40%)与产品(约45%–70%) -->
+  <space:Frame id="price-frame" within={vertical}
+    left="6%" top="13.0%" right="94%" bottom="27.0%"/>
+
+  <fonts:Stack id="cn-sans" family="noto-sans-sc" weight="900" style="normal"/>
+  <fonts:Stack id="cn-display" family="zcool-qingke-huangyou" weight="400" style="normal"/>
+
+  <!-- ═══ 样式：白字红底卖点条 ═══ -->
+  <text:Style id="banner-style" recipe={recipes.banner.text} font={cn-sans}>
+    <text:Fill color="#FFFFFF"/>
+    <text:Stroke color="#1A1208" width="6" placement="outside"/>
+    <text:Box target="paragraph" color="#C8102E" padding="16 26" radius="14"/>
+  </text:Style>
+
+  <!-- ═══ 样式：黄字黑底步骤条 ═══ -->
+  <text:Style id="step-style" recipe={recipes.step.text} font={cn-sans}>
+    <text:Fill color="#FFE14D"/>
+    <text:Stroke color="#1A1208" width="6" placement="outside"/>
+    <text:Box target="paragraph" color="#12100CEB" padding="16 26" radius="14"/>
+  </text:Style>
+
+  <!-- ═══ 样式：黄字红十字价格卡 ═══ -->
+  <text:Style id="price-style" recipe={recipes.price.text} font={cn-display}>
+    <text:Fill color="#FFE14D"/>
+    <text:Stroke color="#8A0C14" width="8" placement="outside"/>
+    <text:Box target="paragraph" color="#C8102EF2" padding="20 32" radius="22"/>
+  </text:Style>
+
+  <!-- ═══ 样式：白字黑底 CTA ═══ -->
+  <text:Style id="cta-style" recipe={recipes.cta.text} font={cn-display}>
+    <text:Fill color="#FFFFFF"/>
+    <text:Stroke color="#000000" width="4" placement="outside"/>
+    <text:Box target="paragraph" color="#0F0F0FE8" padding="16 28" radius="14"/>
+  </text:Style>
+
+  <!-- ═══ 素材：卖货段切片（106.0s–211.0s，105.0s）═══ -->
+  <media:Video id="aroll" src="../assets/ad-segment.mp4"/>
+  <pipeline:Normalize id="aroll-media" source={aroll}
+    video="primary-moving" audio="default" span-authority="video" clock={clock}/>
+
+  <media-track:Track id="picture" timeline={film-time.timeline} canvas={vertical}>
+    <media-track:Item id="base" media={aroll-media.media} during="program"
+      frame={full} appearance={recipes.media.base}/>
+  </media-track:Track>
+
+  <!-- A-roll 原声：画面归 media-track，声音必须走独立的 audio-track。
+       官方范式见 hypit 仓库 examples/podcast/reference.svml。 -->
+  <audio-track:Track id="aroll-sound" timeline={film-time.timeline}>
+    <audio-track:Item source={aroll-media.media} during="program"
+      playback="once-start" gain="1"/>
+  </audio-track:Track>
+
+  <!-- ═══ 图形层 1：痛点链 → 承诺 → 省事证明（白字红底）═══ -->
+  <text:Track id="ask" timeline={film-time.timeline}>
+    <!-- 痛点链：5 拍，与口播逐句对齐 -->
+    <text:Area id="pain0" placement={banner-frame} style={banner-style} at="5.8s" for="2.7s">
+      上班累到骨头散架
+    </text:Area>
+    <text:Area id="pain1" placement={banner-frame} style={banner-style} at="8.5s" for="3.2s">
+      切葱姜蒜 · 忍油烟 · 炒糖色
+    </text:Area>
+    <text:Area id="pain2" placement={banner-frame} style={banner-style} at="11.7s" for="2.4s">
+      油花四溅 · 烫到手
+    </text:Area>
+    <text:Area id="pain3" placement={banner-frame} style={banner-style} at="14.1s" for="2.6s">
+      还得刷油腻腻的炒锅灶台
+    </text:Area>
+    <text:Area id="pain4" placement={banner-frame} style={banner-style} at="16.7s" for="3.0s">
+      于是 你点了外卖
+    </text:Area>
+    <!-- 承诺 + 排除旧方案 -->
+    <text:Area id="claim" placement={banner-frame} style={banner-style} at="19.7s" for="4.9s">
+      一个电饭锅 = 饭店级排骨
+    </text:Area>
+    <text:Area id="drop" placement={banner-frame} style={banner-style} at="24.6s" for="2.7s">
+      八角桂皮酱油老抽 靠边站
+    </text:Area>
+    <!-- 省事证明：这条片子举证最重的一段（≈24s） -->
+    <text:Area id="free1" placement={banner-frame} style={banner-style} at="46.1s" for="5.0s">
+      不用吸油烟 不用守着火
+    </text:Area>
+    <text:Area id="free2" placement={banner-frame} style={banner-style} at="51.1s" for="2.8s">
+      洗澡 · 敷面膜 · 刷两集
+    </text:Area>
+    <text:Area id="free3" placement={banner-frame} style={banner-style} at="53.9s" for="3.4s">
+      叮一声 直接开饭
+    </text:Area>
+    <text:Area id="proof1" placement={banner-frame} style={banner-style} at="57.3s" for="5.4s">
+      红亮诱人 · 一戳脱骨
+    </text:Area>
+    <text:Area id="free4" placement={banner-frame} style={banner-style} at="62.7s" for="2.4s">
+      只洗一个内胆
+    </text:Area>
+    <text:Area id="free5" placement={banner-frame} style={banner-style} at="65.1s" for="2.5s">
+      不刷炒锅 · 不擦灶台
+    </text:Area>
+    <text:Area id="free6" placement={banner-frame} style={banner-style} at="67.6s" for="2.3s">
+      懒人与上班族之光
+    </text:Area>
+  </text:Track>
+
+  <!-- ═══ 图形层 2：五步做法（黄字黑底）═══ -->
+  <text:Track id="how" timeline={film-time.timeline}>
+    <text:Area id="s1" placement={banner-frame} style={step-style} at="27.3s" for="5.5s">
+      ① 排骨焯水 温水洗净
+    </text:Area>
+    <text:Area id="s2" placement={banner-frame} style={step-style} at="32.8s" for="3.0s">
+      ② 丢进电饭锅
+    </text:Area>
+    <text:Area id="s3" placement={banner-frame} style={step-style} at="35.8s" for="5.2s">
+      ③ 撕一包 倒进去
+    </text:Area>
+    <text:Area id="s4" placement={banner-frame} style={step-style} at="41.0s" for="2.6s">
+      ④ 加半碗清水
+    </text:Area>
+    <text:Area id="s5" placement={banner-frame} style={step-style} at="43.6s" for="2.5s">
+      ⑤ 按下煮饭键
+    </text:Area>
+  </text:Track>
+
+  <!-- ═══ 图形层 3：配料与多用途（黄字黑底）═══ -->
+  <text:Track id="safe" timeline={film-time.timeline}>
+    <text:Area id="clean" placement={banner-frame} style={step-style} at="69.9s" for="2.5s">
+      配料表干净 · 0 蔗糖
+    </text:Area>
+    <text:Area id="family" placement={banner-frame} style={step-style} at="72.4s" for="2.8s">
+      老人小孩 都能吃
+    </text:Area>
+    <text:Area id="multi" placement={banner-frame} style={step-style} at="75.2s" for="2.7s">
+      红烧肉 鱼 牛羊肉 都行
+    </text:Area>
+  </text:Track>
+
+  <!-- ═══ 图形层 4：价格锚点与报价 ═══ -->
+  <text:Track id="price" timeline={film-time.timeline}>
+    <text:Area id="anchor" placement={price-frame} style={price-style} at="77.9s" for="3.1s">
+      超市一包 7-8 元
+    </text:Area>
+    <text:Area id="deal" placement={price-frame} style={price-style} at="81.0s" for="5.1s">
+      9.9 元 5 包
+    </text:Area>
+    <text:Area id="bonus" placement={price-frame} style={price-style} at="86.1s" for="4.9s">
+      再送 2 包
+    </text:Area>
+    <text:Area id="total" placement={price-frame} style={price-style} at="91.0s" for="5.6s">
+      9.9 元 = 7 包包邮
+    </text:Area>
+  </text:Track>
+
+  <!-- ═══ 图形层 5：成交指令 ═══ -->
+  <text:Track id="cta" timeline={film-time.timeline}>
+    <text:Area id="go" placement={banner-frame} style={cta-style} at="96.6s" for="2.7s">
+      零厨艺 也能出大厨味
+    </text:Area>
+    <text:Area id="now" placement={banner-frame} style={cta-style} at="99.3s" for="5.7s">
+      点击左下角 · 现货见底
+    </text:Area>
+  </text:Track>
+
+  <film:Film id="main" canvas={vertical} timeline={film-time.timeline}
+    appearance={recipes.film.vertical}>
+    <film:Track source={picture.visual}/>
+    <film:Track source={ask.track}/>
+    <film:Track source={how.track}/>
+    <film:Track source={safe.track}/>
+    <film:Track source={price.track}/>
+    <film:Track source={cta.track}/>
+    <film:Track source={aroll-sound.audio}/>
+  </film:Film>
+
+  <render:Video id="final" composition={main.composition} timeline={film-time.timeline}/>
+</svml>

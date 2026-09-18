@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品图怎么在「生成阶段」用上 —— FL2VA 首帧锚定方案</title>
+<style>
+  :root{
+    --bg:#f7f7f8; --card:#ffffff; --ink:#1c1d21; --ink2:#4a4d55; --ink3:#8a8f99;
+    --line:#e6e8ec; --red:#c62828; --red-bg:#fdf2f2; --blue:#1a56a8; --blue-bg:#f1f6fd;
+    --green:#0f7b3f; --green-bg:#f1faf5; --amber:#a06400; --amber-bg:#fdf7ea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px 80px}
+  header{padding:44px 0 26px;border-bottom:1px solid var(--line);margin-bottom:26px}
+  h1{font-size:27px;line-height:1.35;margin:0 0 10px;letter-spacing:-.2px}
+  .sub{color:var(--ink2);font-size:14px}
+  .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600;
+    background:var(--red-bg);color:var(--red);margin-right:7px;vertical-align:2px}
+  h2{font-size:19px;margin:38px 0 12px;padding-left:11px;border-left:4px solid var(--red)}
+  h3{font-size:15.5px;margin:24px 0 8px;color:var(--ink)}
+  p{margin:9px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:14px 0}
+  .card.tight{padding:14px 16px}
+  .lead{background:linear-gradient(180deg,#fff 0%,#fdfdfd 100%);border-left:4px solid var(--red)}
+  code{font:13px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#f2f3f5;padding:1.5px 6px;border-radius:5px;color:#b3251f}
+  pre{background:#1e2026;color:#e8eaee;padding:14px 16px;border-radius:9px;overflow-x:auto;
+    font:12.5px/1.65 ui-monospace,Menlo,Consolas,monospace;margin:12px 0}
+  pre .c{color:#8b93a3}
+  pre .k{color:#ffb86c}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#fafbfc;font-weight:600;color:var(--ink2);white-space:nowrap}
+  td.ok{color:var(--green);font-weight:600}
+  td.no{color:var(--red);font-weight:600}
+  td.mid{color:var(--amber);font-weight:600}
+  .pill{display:inline-block;padding:1px 8px;border-radius:6px;font-size:12px;font-weight:600}
+  .p-ok{background:var(--green-bg);color:var(--green)}
+  .p-no{background:var(--red-bg);color:var(--red)}
+  .p-mid{background:var(--amber-bg);color:var(--amber)}
+  .p-info{background:var(--blue-bg);color:var(--blue)}
+  ul,ol{margin:9px 0 9px 4px;padding-left:20px}
+  li{margin:5px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .kv{display:grid;grid-template-columns:118px 1fr;gap:6px 14px;font-size:13.5px}
+  .kv b{color:var(--ink2);font-weight:600}
+  .note{font-size:13px;color:var(--ink2)}
+  .warn{background:var(--amber-bg);border:1px solid #f0dfb8;border-radius:10px;padding:13px 16px;margin:13px 0;font-size:13.5px}
+  .good{background:var(--green-bg);border:1px solid #cbead9;border-radius:10px;padding:13px 16px;margin:13px 0;font-size:13.5px}
+  .bad{background:var(--red-bg);border:1px solid #f3d2d2;border-radius:10px;padding:13px 16px;margin:13px 0;font-size:13.5px}
+  .flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:14px 0;font-size:13px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+  .step.on{border-color:var(--red);background:var(--red-bg);color:var(--red);font-weight:600}
+  .arrow{color:var(--ink3)}
+  hr{border:0;border-top:1px solid var(--line);margin:30px 0}
+  footer{color:var(--ink3);font-size:12.5px;margin-top:34px;padding-top:16px;border-top:1px solid var(--line)}
+  .toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 20px;font-size:13.5px}
+  .toc a{color:var(--blue);text-decoration:none;margin-right:14px}
+  .toc a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>产品图怎么在「生成阶段」用上<br>—— FL2VA 首帧锚定方案</h1>
+  <div class="sub">
+    <span class="badge">结论：能用</span>
+    片1 · 良心面试食堂红烧 ｜ 产品：佐味纪 鲍汁红烧酱料（80克）
+  </div>
+</header>
+
+<div class="toc">
+  <a href="#s1">一、结论</a><a href="#s2">二、机制</a><a href="#s3">三、关键帧从哪来</a>
+  <a href="#s4">四、哪些镜能用</a><a href="#s5">五、三条路线对比</a><a href="#s6">六、prompt 必须同步改</a>
+  <a href="#s7">七、重跑步骤</a><a href="#s8">八、风险与验收</a><a href="#s9">九、还差什么</a>
+</div>
+
+<h2 id="s1">一、结论：能用，而且不用改管线架构</h2>
+
+<div class="card lead">
+  <p><b>你手上这个模型本身就是为这件事设计的 —— 图条件能力一直没被打开过。</b></p>
+  <p>片1 那 20 个镜全部是「纯文生视频 + 音频锁定」（T2VA）：只喂文字 prompt 和中文干声，
+  模型对产品长什么样<b>一无所知</b>，只能按 prompt 里那句「袋面空白无字」画一个<b>纯红空壳</b>。
+  这就是「产品样子不对」的根因，而不是参数没调好。</p>
+  <p>而现有工作流里的 <code>MiniMaxH3AudioConditioningT8</code> 节点，
+  <b>input 列表里一直躺着 <code>first_frame</code> 和 <code>last_frame</code> 两个图像槽，从来没有接线</b>
+  （<code>link = None</code>）。把真产品图合成进关键帧、接上这两个槽，
+  生成出来的袋面就<b>天生是那张产品图</b> —— 透视、光影、材质由模型自己渲染，
+  不再需要事后逐帧抠图。</p>
+</div>
+
+<h2 id="s2">二、机制：这不是外挂技巧，是模型的原生能力</h2>
+
+<div class="card">
+  <h3>证据链（都在你自己的仓库里，可逐条复核）</h3>
+  <div class="kv">
+    <b>权重文件名</b>
+    <span><code>minimax_h3_fl2va_pruned_int8_convrot.safetensors</code><br>
+      <span class="note">fl2va = <b>F</b>irst-<b>L</b>ast frame <b>to</b> <b>V</b>ideo + <b>A</b>udio。
+      这个权重的作用域就是「首/尾帧 → 视频+音频」。</span></span>
+
+    <b>节点输入槽</b>
+    <span><code>_remote/stage1_voice_film1_s13.json</code> 节点 6 的 inputs：
+      <code>… / 5 final_audio / <b>6 first_frame</b> / <b>7 last_frame</b></code>，
+      后两个 <code>link: None</code> —— 官方模板留的接口，一直空着。</span>
+
+    <b>官方规范</b>
+    <span>FLF2V 提示词写法明确要求：端点图像已经回答了「呈现什么内容」，
+      提示词只需说明中间「<b>如何运动</b>」，<b>不要重复描述视觉细节，否则会与固定帧冲突</b>。
+      ——这条直接决定了 prompt 要怎么改（见第六节）。</span>
+  </div>
+</div>
+
+<div class="flow">
+  <span class="step on">真产品图</span><span class="arrow">→</span>
+  <span class="step on">合成进关键帧</span><span class="arrow">→</span>
+  <span class="step on">接 first_frame 槽</span><span class="arrow">→</span>
+  <span class="step">H3 生成（模型自己渲染袋面）</span><span class="arrow">→</span>
+  <span class="step">成片里袋面就是真包装</span>
+</div>
+
+<h2 id="s3">三、关键帧从哪来 —— 工具已做好，样张已出</h2>
+
+<p>新增 <code>make_first_frame.py</code>：抽原镜关键帧 → 自动定位袋面四边形 → 透视贴真产品图
+→ 输出 H3 要求的 384×672 锚定图。零 GPU，本地就能跑。</p>
+
+<pre><span class="c"># 自动定位（袋面完整清晰时首选）</span>
+python3 make_first_frame.py \
+  --shot-video _deliver/shots_film1/shot18.mp4 --at 0.0 \
+  --product _product/mine/product_鲍汁红烧酱料_原图.jpg --crop 62,78,712,1022 \
+  --out _frames/film1_shot18_first.png --preview _frames/film1_shot18_first_预览.jpg
+
+<span class="c"># 袋被手挡 / 角度偏时 → 手标四角（TL TR BR BL），别硬贴</span>
+python3 make_first_frame.py ... --quad 222,652 357,650 355,875 224,870</pre>
+
+<div class="good">
+  <b>已出的两张首帧样张</b>：<code>_frames/film1_shot13_first.png</code>、<code>_frames/film1_shot18_first.png</code>
+  （同名 <code>_预览.jpg</code> 是左右对比图）。实测细节：
+  <ul>
+    <li><b>镜13</b>：t=0 是整屏产品特写、袋面正是那块纯红空壳，<b>自动定位即成功</b>（quad_err=0.0187）。</li>
+    <li><b>镜18</b>：t=0 女生手持袋，但袋被手指/文件夹分割，自动定位给出的框偏小偏歪
+      （只覆盖了袋面下半段）→ 改为手标四角才贴合。<b>这就是「自动不准就手标」的典型场景。</b></li>
+    <li><b>产品图裁切框从 <code>62,78,752,1022</code> 收紧到 <code>62,78,712,1022</code></b>：
+      原值右侧多带了 40px 背景，贴上去会在袋子右边露出一道白边。</li>
+  </ul>
+</div>
+
+<h2 id="s4">四、哪些镜能用 —— 可行性由素材决定，不由配置决定</h2>
+
+<p>关键帧只能是 <b>t=0（首帧）或 t=14.9（尾帧）</b>，所以判断依据很硬：
+<b>那一帧画面里有没有袋子</b>。逐帧核过片1 三个产品镜：</p>
+
+<table>
+  <tr><th>镜</th><th>t=0 帧</th><th>t=15 帧</th><th>能否锚定</th><th>说明</th></tr>
+  <tr>
+    <td><b>13</b></td>
+    <td>整屏产品特写（红壳）</td>
+    <td>厨房场景，无袋</td>
+    <td class="mid">△ 机制上可，但<b>不建议</b></td>
+    <td>这个「镜」内部 0–1s 是产品特写、1s 后切大厅、9s 后切厨房。
+      <b>首帧锚定会与分段描述直接打架</b>（首帧是产品，prompt 说这 5 秒在拍人物对话），
+      模型有把整镜都画成产品特写的风险。要用就得重写分段。</td>
+  </tr>
+  <tr>
+    <td><b>15</b></td>
+    <td>女生站立说话，<b>无袋</b></td>
+    <td>锅里炖肉，<b>无袋</b></td>
+    <td class="no">✗ 不可</td>
+    <td>袋只在镜中段 6.0–10.5s 出现（这是后处理贴图实测出来的）。
+      H3 只有首/尾两个锚点，<b>没有中间帧锚定</b> → 保持后处理贴图。</td>
+  </tr>
+  <tr>
+    <td><b>18</b></td>
+    <td><b>双手持袋</b>、袋面可见</td>
+    <td>手持袋、袋在下方</td>
+    <td class="ok">✓ 建议首锚</td>
+    <td><b>最干净的验证案例</b>：t=0 就是手持产品，与 prompt 第一段
+      （“S2 holds the red pouch up in both hands”）完全一致，没有结构冲突。</td>
+  </tr>
+</table>
+
+<div class="warn">
+  <b>比「改造现有镜」更值得做的一件事：新增一条「产品特写插入镜」。</b><br>
+  用真产品图特写当 <code>first_frame</code>、另一个角度当 <code>last_frame</code>，
+  prompt 只写运镜（官方推荐的产品展示写法：<i>缓慢匀速 30 度环绕，高光沿表面滑过，全程无剪辑</i>）。
+  这样产品以<b>最高保真</b>出现，又完全不牵扯原有分镜结构 ——
+  放在卖货段（镜18 附近）正好补足「产品露出不够」的短板。
+</div>
+
+<h2 id="s5">五、三条路线对比 —— 不是替代，是分工</h2>
+
+<table>
+  <tr><th>路线</th><th>做法</th><th>产品保真</th><th>乱码风险</th><th>现状</th></tr>
+  <tr>
+    <td><b>A 首帧锚定</b><br><span class="note">FL2VA</span></td>
+    <td>真产品图合成进首/尾帧 → 接 first_frame / last_frame 槽</td>
+    <td class="ok">高<br><span class="note">模型自己渲染，透视光影天然一致</span></td>
+    <td class="mid">中<br><span class="note">袋上印字会被临摹，需按第六节改 prompt</span></td>
+    <td><span class="pill p-ok">已就绪</span></td>
+  </tr>
+  <tr>
+    <td><b>B 参考图</b><br><span class="note">R2V / ref2va</span></td>
+    <td>换 ref2va 权重 + ref_image 参考图，全时段影响外观</td>
+    <td class="mid">中<br><span class="note">是「参考」不是「锁死」</span></td>
+    <td class="ok">低</td>
+    <td><span class="pill p-mid">待确认权重</span><br><span class="note">需远端有 minimax_h3_ref2va 权重，且节点要换</span></td>
+  </tr>
+  <tr>
+    <td><b>C 后处理贴图</b></td>
+    <td>生成后逐帧检测袋面 + 透视贴真图</td>
+    <td class="ok">最高<br><span class="note">真图像素直接上</span></td>
+    <td class="ok">零</td>
+    <td><span class="pill p-ok">已交付</span><br><span class="note">片1 三镜已贴，覆盖率实测 16/81/80 帧</span></td>
+  </tr>
+</table>
+
+<div class="good">
+  <b>建议分工</b>：<b>A 打底 + C 兜底</b>。
+  锚定让袋面「天生正确」（袋子随身动、被手挡、翻面都自然），
+  贴图退居「像素级校准 / 锚定失败的镜兜底」。
+  B 路线等确认远端权重后再谈，优先级最低。
+</div>
+
+<h2 id="s6">六、prompt 必须同步改 —— 这是最容易翻车的一步</h2>
+
+<div class="bad">
+  <b>硬矛盾</b>：现有 prompt 的 STYLE 尾巴里写着
+  <code>completely empty, smooth, blank and unprinted</code> 和
+  <code>no lettering, no numbers, no symbols, no logo and no barcode</code>，
+  还要求「画面里任何包装/印刷面都是空白」。
+  <b>而锚定用的首帧里，袋面本来就有真包装印刷</b> —— 两条指令直接打架，
+  结果是模型要么把印刷抹掉（退回空壳），要么画出混乱的字。
+</div>
+
+<p>按官方 FLF2V 规范（端点图像负责「是什么」，提示词负责「怎么动」），做了<b>隔离式</b>改造：</p>
+
+<table>
+  <tr><th>新增常量</th><th>作用</th><th>只对谁生效</th></tr>
+  <tr><td><code>SP_ANCHORED</code></td>
+      <td>产品锚定不再描述「红区空白无字」，改为「袋面带有自己的印刷包装，结构与首帧一致，整镜保持不变」</td>
+      <td rowspan="4">仅 <code>anchored=True</code> 的镜<br>
+        <span class="note">片1 目前只有<b>镜18</b>；其余 19 镜的 prompt <b>一字未动</b></span></td></tr>
+  <tr><td><code>NO_TEXT_CLAUSE_ANCHORED</code></td>
+      <td>把「实物包装必须空白」和 <code>no logo</code> 两条豁免掉；
+        <b>禁字幕条 / 标题 / 角标 / 卡拉OK / 水印 / 时间码 / UI / 任何悬浮叠字 —— 一字不动全保留</b>，
+        并要求包装印刷保持「平、哑光、略虚，不许比实物更亮更粗」</td></tr>
+  <tr><td><code>STYLE_ANCHORED</code></td>
+      <td>风格尾巴的锚定版，由 <code>build.py</code> 按镜自动选用</td></tr>
+  <tr><td><code>_ANCHOR_NOTE</code></td>
+      <td>在 prompt 里加一句「从给定首帧开始，保持构图/光线/色彩/袋面印刷，只演化描述的动作，不要重演开场」</td></tr>
+</table>
+
+<p class="note">禁字铁律的<b>终检依然生效</b>且已验证：<code>build.py</code> 的
+<code>NO_TEXT_ANCHORS</code>（no subtitles / no captions / no on-screen text /
+never imitate or reproduce a subtitle strip）在锚定版里全部保留，缺一即拒绝生成。
+即：<b>豁免的只是「实物自带印刷」，不是「画面叠加字幕」。</b></p>
+
+<pre><span class="c"># 已重跑并通过终检（镜18 实测）</span>
+$ python3 build.py
+✓ film1-office  20 镜 / 300 秒 / 台词 83 句 1928 字
+<span class="c"># 校验结果</span>
+镜18  anchored=True ｜ SP_ANCHORED 生效 ｜ 锚定起始句在
+      strict「completely empty, smooth, blank and unprinted」已消失 ｜ no logo 已消失
+      禁字锚点齐备：True
+镜13  anchored=False ｜ 仍为严格版（保持不变）</pre>
+
+<h2 id="s7">七、重跑步骤（实例恢复后照做即可）</h2>
+
+<div class="card tight">
+  <p><b>工作流构造已改造并验证通过</b>：<code>build_voice_workflow.py</code> 新增
+  <code>--first-frame</code> / <code>--last-frame</code> / <code>--out</code>，
+  会自动往图里插一个 <code>LoadImage</code> 节点、连到节点 6 的对应槽，
+  并同步维护 <code>links</code> / <code>last_node_id</code> / <code>last_link_id</code>。
+  实测生成结果：</p>
+  <pre>✔ 锚定 frames/film1_shot18_first.png → 节点6.first_frame (slot 6, link 26)
+node6 输入槽：… 6 first_frame link=26  /  7 last_frame link=None
+links 尾部：[26, <b>17</b>, 0, <b>6</b>, <b>6</b>, 'IMAGE']   <span class="c">← 节点17(LoadImage) slot0 → 节点6 slot6</span>
+last_node_id=17  last_link_id=26  节点总数 17</pre>
+</div>
+
+<ol>
+  <li><b>传图</b>：<code>scp _frames/film1_shot18_first.png root@&lt;实例IP&gt;:/workspace/ComfyUI/input/frames/</code></li>
+  <li><b>造工作流</b>：
+    <pre>python3 build_voice_workflow.py --shot 18 --film film1 \
+  --first-frame frames/film1_shot18_first.png \
+  --out _remote/i2v/stage1_i2v_film1_s18.json</pre></li>
+  <li><b>先探针、再提交</b>（消除参数索引不确定性）：
+    <pre>ssh &lt;实例&gt; "cd /workspace && python3 probe_h3_nodes.py --url http://127.0.0.1:8188"</pre>
+    拿到的 <code>required/optional</code> 顺序，与 <code>build_voice_workflow.py</code> 里
+    「slot 6=first_frame / 7=last_frame」的注释核一遍，再提交。</li>
+  <li><b>提交 /prompt</b> → 出片 → 拉回本地。</li>
+  <li><b>后处理</b>：<code>bash post_produce.sh film1</code>。
+    已锚定的镜在 S1 里应<b>从贴图轨里移除</b>（否则会二次贴图，重复覆盖）。</li>
+</ol>
+
+<p class="note">GPU 成本参考：单镜 stage1 约 161 秒（实测），锚定<b>不增加</b>采样步数
+—— 只是多送一张图进去，耗时基本持平。</p>
+
+<h2 id="s8">八、风险与验收</h2>
+
+<div class="grid2">
+  <div class="card tight">
+    <h3 style="margin-top:0">风险清单（按严重度）</h3>
+    <ol style="padding-left:18px">
+      <li><b>袋面印字被临摹成乱码</b> —— 这是新引入的主要风险。
+        缓解：锚定版条款已要求印刷「平、哑光、略虚、不许更亮更粗」；
+        验收时看袋面字是否成行可读。观众对<b>包装上的字</b>容忍度远高于
+        「画面中飘一行字幕」，量级不同。</li>
+      <li><b>首帧锚得过死</b>：模型可能整镜都保持首帧构图、不动。
+        缓解：<code>_ANCHOR_NOTE</code> 已明确「只演化描述的动作」；
+        镜18 的首帧正好是 prompt 第一段的姿态，风险最低。</li>
+      <li><b>widget 索引错位</b>（未经实测的部分）→ 用 <code>probe_h3_nodes.py</code> 先核。</li>
+      <li><b>lock_source 与图条件并用是否互斥</b> —— 文档未明确，需实测一镜确认。</li>
+    </ol>
+  </div>
+  <div class="card tight">
+    <h3 style="margin-top:0">验收标准</h3>
+    <ul>
+      <li>袋面文字是<b>真品牌/品名/价格</b>，无成行乱码</li>
+      <li>无新增<b>叠加型</b>字幕/标题/水印（沿用 <code>scan_text_band.py</code> 接触表逐格扫）</li>
+      <li>物体运动正常，没有「冻结在首帧」的僵硬感</li>
+      <li>与未锚定镜拼接后，产品外观在同一片里一致</li>
+      <li>目标时长不变（锚定不改帧数，仍是 362 帧 / 15.0833s）</li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="s9">九、还差什么（诚实清单）</h2>
+
+<table>
+  <tr><th>事项</th><th>状态</th><th>卡在哪</th></tr>
+  <tr><td>远端 4090 实例</td><td class="no">失联中</td>
+      <td>ping / 22 / 23 / 8188 全不通（本地网络已排除）。<b>需要去控制台开机并给新 IP</b>
+        —— 这是所有 GPU 侧验证的共同前置。</td></tr>
+  <tr><td>节点 widget 顺序实测</td><td class="mid">脚本已就绪</td>
+      <td>实例恢复后跑 <code>probe_h3_nodes.py</code></td></tr>
+  <tr><td>lock_source + 图条件并用</td><td class="mid">待实测</td><td>同上，先跑镜18 一镜验证</td></tr>
+  <tr><td>片2 的锚定支持</td><td class="mid">未做</td>
+      <td>片2 的产品镜是 8/9/10/12/13。要用锚定时，把 <code>p1_data.py</code> 的 4 处改动
+        同步到 <code>p2_data.py</code> 即可（<code>build.py</code> 已用 <code>getattr</code> 兜底，无需再改）</td></tr>
+  <tr><td>镜13 的锚定</td><td class="mid">可选</td>
+      <td>要用必须先重写分段（0–1s 产品特写 / 1–6s 大厅 / 6–15s 厨房），否则与首帧冲突</td></tr>
+</table>
+
+<hr>
+
+<h2>附：本轮新增/改动文件</h2>
+<table>
+  <tr><th>文件</th><th>说明</th></tr>
+  <tr><td><code>make_first_frame.py</code> <span class="pill p-ok">新增</span></td>
+      <td>关键帧锚定图生成器（自动定位 / 手标四角 / 预览对比）</td></tr>
+  <tr><td><code>probe_h3_nodes.py</code> <span class="pill p-ok">新增</span></td>
+      <td>探测 ComfyUI 节点真实输入定义，核对 slot/widget 顺序</td></tr>
+  <tr><td><code>build_voice_workflow.py</code> <span class="pill p-info">改</span></td>
+      <td>新增 <code>--first-frame</code> / <code>--last-frame</code> / <code>--out</code>
+        + <code>attach_image()</code>（自动插 LoadImage 并连线）</td></tr>
+  <tr><td><code>p1_data.py</code> <span class="pill p-info">改</span></td>
+      <td>新增 <code>SP_ANCHORED</code> / <code>NO_TEXT_CLAUSE_ANCHORED</code> /
+        <code>STYLE_ANCHORED</code> / <code>_ANCHOR_NOTE</code>；<code>_prompt</code> /
+        <code>_shot</code> 增加 <code>anchored</code>；镜18 标 <code>anchored=True</code></td></tr>
+  <tr><td><code>build.py</code> <span class="pill p-info">改</span></td>
+      <td>按镜选用 <code>STYLE</code> / <code>STYLE_ANCHORED</code></td></tr>
+  <tr><td><code>_frames/*.png</code> <span class="pill p-ok">新增</span></td>
+      <td>镜13 / 镜18 首帧锚定图 + 左右对比预览</td></tr>
+</table>
+
+<footer>
+  片1 · 良心面试食堂红烧（原片复刻）｜ 产品：佐味纪 鲍汁红烧酱料 80g ｜
+  生成模型 MiniMax H3 (fl2va) → LTX 精修 ｜ 本方案全程零 GPU 准备，待实例恢复后实测
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+# FastVideo 推理配置模板（单卡最简入门）
+# 运行：
+#   FASTVIDEO_ATTENTION_BACKEND=FLASH_ATTN fastvideo generate --config wan_1.3b.yaml
+# （未装 flash-attn 时把上面换成 FASTVIDEO_ATTENTION_BACKEND=TORCH_SDPA）
+#
+# 覆盖单个值（不改本文件）：
+#   fastvideo generate --config wan_1.3b.yaml --request.sampling.seed 42
+
+generator:
+  model_path: Wan-AI/Wan2.1-T2V-1.3B-Diffusers
+  engine:
+    num_gpus: 1
+    execution_backend: mp        # 单机多进程；跨机才改 ray
+    parallelism:
+      tp_size: 1
+      sp_size: 1
+    offload:
+      dit: false                 # 单卡不用 FSDP，无需这个卸载
+      vae: false
+      pin_cpu_memory: false
+    compile:
+      enabled: false             # 首次测速前别开；开了必须丢掉第一次生成
+  pipeline:
+    experimental:
+      flow_shift: 8.0            # 整流流时间步平移
+
+request:
+  prompt: >-
+    A curious raccoon peers through a vibrant field of yellow sunflowers,
+    its eyes wide with interest, shallow depth of field.
+  sampling:
+    seed: 1024
+    num_frames: 77
+    height: 480
+    width: 832
+    fps: 16
+    num_inference_steps: 50      # 越高越清晰，越慢
+    guidance_scale: 6.0          # CFG 强度
+  output:
+    output_path: outputs/wan_1.3b/
+    save_video: true
+    return_frames: false         # 注意：CLI 上默认就是 false，要帧需显式 true

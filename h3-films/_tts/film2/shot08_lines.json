@@ -1,0 +1,29 @@
+[
+ {
+  "speaker": "S4",
+  "text": "骨？又要焯水、炒糖色、看火，太费事了。",
+  "mp3": "s08_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 3.035
+ },
+ {
+  "speaker": "S4",
+  "text": "现在做红烧排骨哪有麻烦？别再用老一套方法做红烧排骨了。",
+  "mp3": "s08_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a01.wav",
+  "t": 3.304,
+  "dur": 3.818
+ },
+ {
+  "speaker": "S4",
+  "text": "每天上班累得骨头都快散架，回家想吃口硬菜，一想到还要在闷热厨房里切葱姜蒜，忍着油烟炒糖色，稍不注意油花四溅。",
+  "mp3": "s08_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 7.19,
+  "dur": 7.633
+ }
+]

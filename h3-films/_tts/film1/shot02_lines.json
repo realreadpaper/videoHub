@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S1",
+  "text": "你干什么呢年轻人？我轮椅翻了，能不能扶我一把。",
+  "mp3": "s02_0.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 3.379
+ },
+ {
+  "speaker": "S3",
+  "text": "我今天来面试主管岗，你别挡我前途，帮我叫一下保安也行。",
+  "mp3": "s02_1.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f01.wav",
+  "t": 3.943,
+  "dur": 2.813
+ },
+ {
+  "speaker": "S3",
+  "text": "你这种老人我见多了，我要是因为你错过面试，你赔得起吗？",
+  "mp3": "s02_2.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f02.wav",
+  "t": 7.121,
+  "dur": 3.048
+ },
+ {
+  "speaker": "S5",
+  "text": "顾董，第一个还要让他进面试吗？",
+  "mp3": "s02_3.mp3",
+  "voice": "zh-CN-YunyangNeural",
+  "clip": "f03.wav",
+  "t": 10.533,
+  "dur": 1.624
+ },
+ {
+  "speaker": "S1",
+  "text": "不用了。怕担责可以理解，但",
+  "mp3": "s02_4.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f04.wav",
+  "t": 12.521,
+  "dur": 2.302
+ }
+]

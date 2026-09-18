@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>用自己服务器部署的模型生成视频 — Hypit 接入说明</title>
+<style>
+  :root {
+    --bg: #f7f8fa;
+    --surface: #ffffff;
+    --border: #e3e6ec;
+    --border-strong: #cfd4dd;
+    --text: #1a1d24;
+    --text-soft: #5a6172;
+    --text-faint: #878e9e;
+    --accent: #1d63d2;
+    --accent-soft: #eaf1fd;
+    --accent-line: #b9d0f5;
+    --ok: #0f7b5f;
+    --ok-soft: #e6f4ef;
+    --warn: #a8620a;
+    --warn-soft: #fdf3e4;
+    --stop: #b32d2d;
+    --stop-soft: #fbeceb;
+    --code-bg: #f4f6f9;
+    --code-border: #e1e5ec;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+                 "Microsoft YaHei", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 32px 96px; }
+
+  header.top { margin-bottom: 44px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: .12em;
+    color: var(--text-faint); text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 { font-size: 30px; line-height: 1.35; margin: 0 0 16px; letter-spacing: -.01em; }
+  .lede {
+    font-size: 16px; color: var(--text-soft); margin: 0;
+    padding-left: 16px; border-left: 3px solid var(--accent-line);
+  }
+
+  h2 {
+    font-size: 21px; margin: 56px 0 18px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-strong); letter-spacing: -.005em;
+  }
+  h3 { font-size: 16px; margin: 32px 0 12px; color: var(--text); }
+  h4 { font-size: 14px; margin: 22px 0 8px; color: var(--text-soft); font-weight: 600; }
+  p { margin: 0 0 14px; }
+  ul, ol { margin: 0 0 16px; padding-left: 22px; }
+  li { margin-bottom: 7px; }
+  strong { font-weight: 600; }
+  em { font-style: normal; background: var(--accent-soft); padding: 1px 5px; border-radius: 3px; }
+
+  code {
+    font-family: var(--mono); font-size: 13px;
+    background: var(--code-bg); border: 1px solid var(--code-border);
+    padding: 1.5px 5px; border-radius: 4px; color: #24303f;
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--code-border);
+    border-radius: 8px; padding: 16px 18px; overflow-x: auto; margin: 0 0 18px;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: 12.5px; line-height: 1.7; }
+  .filename {
+    font-family: var(--mono); font-size: 11.5px; color: var(--text-faint);
+    margin: -12px 0 6px; display: block;
+  }
+
+  table {
+    width: 100%; border-collapse: collapse; margin: 0 0 20px;
+    font-size: 13.5px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  th, td { padding: 10px 13px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { background: #f0f2f6; font-weight: 600; font-size: 12.5px; color: var(--text-soft); white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  td code { font-size: 12px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px 24px; margin: 0 0 20px;
+  }
+  .note {
+    border-radius: 8px; padding: 14px 18px; margin: 0 0 20px;
+    font-size: 14px; border-left: 3px solid;
+  }
+  .note-ok { background: var(--ok-soft); border-color: var(--ok); }
+  .note-warn { background: var(--warn-soft); border-color: var(--warn); }
+  .note-stop { background: var(--stop-soft); border-color: var(--stop); }
+  .note .tag {
+    display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .06em;
+    margin-bottom: 6px; text-transform: uppercase;
+  }
+  .note-ok .tag { color: var(--ok); }
+  .note-warn .tag { color: var(--warn); }
+  .note-stop .tag { color: var(--stop); }
+  .note p:last-child { margin-bottom: 0; }
+
+  .toc {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 24px; margin-bottom: 44px;
+  }
+  .toc-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--text-faint); margin-bottom: 12px; }
+  .toc ol { margin: 0; padding-left: 20px; }
+  .toc li { margin-bottom: 5px; font-size: 14px; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  .paths { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
+  .path {
+    background: var(--surface); border: 1px solid var(--border);
+    border-top: 3px solid var(--accent); border-radius: 8px; padding: 16px 18px;
+  }
+  .path.p2 { border-top-color: var(--ok); }
+  .path.p3 { border-top-color: var(--text-faint); }
+  .path .pn { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: var(--text-faint); }
+  .path .pt { font-size: 15px; font-weight: 600; margin: 4px 0 8px; }
+  .path .pd { font-size: 13px; color: var(--text-soft); line-height: 1.6; }
+
+  .pill {
+    display: inline-block; font-size: 11.5px; font-weight: 600;
+    padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+  }
+  .pill-y { background: var(--ok-soft); color: var(--ok); }
+  .pill-n { background: var(--stop-soft); color: var(--stop); }
+  .pill-m { background: var(--warn-soft); color: var(--warn); }
+
+  .kbd {
+    font-family: var(--mono); font-size: 12px;
+    background: #fff; border: 1px solid var(--border-strong);
+    border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px;
+  }
+
+  figure { margin: 0 0 24px; }
+  figure svg { display: block; width: 100%; height: auto; }
+  figcaption { font-size: 13px; color: var(--text-faint); margin-top: 10px; text-align: center; }
+
+  .step { display: flex; gap: 14px; margin-bottom: 18px; }
+  .step .n {
+    flex: 0 0 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .step .b { flex: 1; }
+  .step .b p:last-child { margin-bottom: 0; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
+
+  footer {
+    margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-faint);
+  }
+  footer code { font-size: 12px; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 36px 18px 64px; }
+    .paths { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+    table { font-size: 12.5px; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">Hypit · 自部署模型接入</div>
+  <h1>能不能用自己服务器部署的模型生成视频？</h1>
+  <p class="lede">能。这是官方文档里明确列出的第一等扩展场景，不是绕路。<br>
+  但真正决定成本的是<strong>你的推理服务长什么样</strong> —— 协议像不像、能力对不对得上、机器扛不扛得住。这份说明把三条路径、硬约束和现实门槛讲清楚。</p>
+</header>
+
+<nav class="toc">
+  <div class="toc-title">目录</div>
+  <ol>
+    <li><a href="#why">为什么能接：capability 是模型身份，不是服务商</a></li>
+    <li><a href="#paths">三条路径，按你的服务形状选</a></li>
+    <li><a href="#pathA">路径 A：协议兼容直连（零代码）</a></li>
+    <li><a href="#pathB">路径 B：写项目 Provider（推荐）</a></li>
+    <li><a href="#comfyui">ComfyUI 专项：最现实的一条路</a></li>
+    <li><a href="#fastvideo">FastVideo 专项：接口已经备好了</a></li>
+    <li><a href="#constraints">六条硬约束，别踩</a></li>
+    <li><a href="#reality">现实检查：自部署视频模型这件事本身</a></li>
+    <li><a href="#steps">落地步骤</a></li>
+  </ol>
+</nav>
+
+<h2 id="why">1 · 为什么能接：capability 是模型身份，不是服务商</h2>
+
+<p>Hypit 把「生成视频」这件事拆成三个互不绑定的层：</p>
+
+<div class="card">
+  <p><strong>Model</strong> —— 定义要生成什么。输入端口、参数取值、输出类型。比如 <code>@hypit/seedance@1</code> 声明的 <code>TextVideo</code> / <code>FrameVideo</code> / <code>ReferenceVideo</code> 三种调用形状。</p>
+  <p><strong>Provider</strong> —— 知道怎么通过某个服务完成这个请求。它是 capability 的<em>实现者</em>。</p>
+  <p><strong>Endpoint</strong> —— 配置好的 Provider 实例：服务地址、凭据、并发容量。写在一个 Runtime Profile 里。</p>
+  <p style="margin-bottom:0"><strong>Profile 的 <code>bindings</code></strong> 把「需要什么能力」和「由哪个 Endpoint 兑现」接上。</p>
+</div>
+
+<p>关键在这里：SVML 作者写的是 capability，<strong>不是服务商</strong>。</p>
+
+<pre><code>&lt;seedance:TextVideo id="take" model="mini" prompt={direction} duration="5"/&gt;</code></pre>
+
+<p>这行源码编译出的需求是 <code>@hypit/seedance@1#seedance-2-mini</code> —— 一个<em>模型身份</em>。至于这个身份由腾讯的 HypiHub 兑现、还是由你自部署的推理服务兑现，是 Profile 层的事，SVML 不用改一个字。</p>
+
+<figure>
+<svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hypit 自部署模型接入架构图">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#7d8698"/>
+    </marker>
+  </defs>
+
+  <!-- 左：本地 Mac -->
+  <rect x="14" y="18" width="252" height="264" rx="10" fill="#ffffff" stroke="#cfd4dd" stroke-width="1.2"/>
+  <text x="30" y="42" font-size="11.5" font-weight="700" fill="#878e9e" font-family="system-ui">你的 Mac（Hypit Runtime）</text>
+
+  <rect x="30" y="58" width="220" height="52" rx="7" fill="#eaf1fd" stroke="#b9d0f5"/>
+  <text x="44" y="80" font-size="12.5" font-weight="600" fill="#1a1d24" font-family="system-ui">SVML 源码</text>
+  <text x="44" y="98" font-size="11" fill="#5a6172" font-family="ui-monospace, monospace">seedance:TextVideo model="mini"</text>
+
+  <line x1="140" y1="110" x2="140" y2="134" stroke="#7d8698" stroke-width="1.4" marker-end="url(#ar)"/>
+  <text x="150" y="128" font-size="10.5" fill="#878e9e" font-family="system-ui">编译为 capability</text>
+
+  <rect x="30" y="136" width="220" height="40" rx="7" fill="#ffffff" stroke="#cfd4dd"/>
+  <text x="44" y="155" font-size="11.5" font-weight="600" fill="#1a1d24" font-family="system-ui">需求：seedance-2-mini</text>
+  <text x="44" y="169" font-size="11" fill="#5a6172" font-family="system-ui">一个模型身份，与服务商无关</text>
+
+  <line x1="140" y1="176" x2="140" y2="200" stroke="#7d8698" stroke-width="1.4" marker-end="url(#ar)"/>
+  <text x="150" y="194" font-size="10.5" fill="#878e9e" font-family="system-ui">Profile.bindings 选择实现</text>
+
+  <rect x="30" y="202" width="220" height="60" rx="7" fill="#e6f4ef" stroke="#8ecfb8"/>
+  <text x="44" y="222" font-size="12" font-weight="600" fill="#0f7b5f" font-family="system-ui">你的项目 Provider 包</text>
+  <text x="44" y="239" font-size="10.5" fill="#5a6172" font-family="ui-monospace, monospace">provider-selfhosted-video</text>
+  <text x="44" y="253" font-size="10.5" fill="#5a6172" font-family="system-ui">把端口翻译成你服务的 wire 格式</text>
+
+  <!-- 中间箭头 -->
+  <line x1="266" y1="232" x2="330" y2="232" stroke="#1d63d2" stroke-width="1.8" marker-end="url(#ar)"/>
+  <text x="272" y="222" font-size="10.5" font-weight="600" fill="#1d63d2" font-family="ui-monospace, monospace">HTTP</text>
+  <text x="268" y="248" font-size="10" fill="#878e9e" font-family="system-ui">提交 / 轮询 / 取产物</text>
+
+  <!-- 右：服务器 -->
+  <rect x="338" y="18" width="328" height="264" rx="10" fill="#ffffff" stroke="#cfd4dd" stroke-width="1.2"/>
+  <text x="354" y="42" font-size="11.5" font-weight="700" fill="#878e9e" font-family="system-ui">你的服务器（GPU）</text>
+
+  <rect x="354" y="58" width="296" height="96" rx="7" fill="#fdf3e4" stroke="#e8c891"/>
+  <text x="368" y="79" font-size="12" font-weight="600" fill="#a8620a" font-family="system-ui">推理服务</text>
+  <text x="368" y="97" font-size="11" fill="#5a6172" font-family="system-ui">· ComfyUI（127.0.0.1:8188）</text>
+  <text x="368" y="114" font-size="11" fill="#5a6172" font-family="system-ui">· 自写 FastAPI + diffusers</text>
+  <text x="368" y="131" font-size="11" fill="#5a6172" font-family="system-ui">· vLLM / 任务式推理网关</text>
+  <text x="368" y="148" font-size="10.5" fill="#878e9e" font-family="system-ui">对外开放的是 HTTP API，不是模型文件</text>
+
+  <line x1="502" y1="154" x2="502" y2="180" stroke="#7d8698" stroke-width="1.4" marker-end="url(#ar)"/>
+
+  <rect x="354" y="182" width="296" height="80" rx="7" fill="#f4f6f9" stroke="#e1e5ec"/>
+  <text x="368" y="203" font-size="12" font-weight="600" fill="#1a1d24" font-family="system-ui">真正的模型</text>
+  <text x="368" y="221" font-size="11" fill="#5a6172" font-family="system-ui">LTX-2.3 · Wan 2.2 · HunyuanVideo 1.5</text>
+  <text x="368" y="238" font-size="11" fill="#5a6172" font-family="system-ui">LTX-Video 0.9.5 · CogVideoX · Mochi 1</text>
+  <text x="368" y="254" font-size="10.5" fill="#878e9e" font-family="system-ui">CUDA 显卡；算力成本属于你自己的机器</text>
+</svg>
+<figcaption>Provider 跑在 Hypit 这一侧，通过网络调用你的推理服务。你不需要把 Hypit 部署到服务器上。</figcaption>
+</figure>
+
+<div class="note note-ok">
+  <span class="tag">值得注意</span>
+  <p>官方文档在「模型与 Provider」一章里，把<strong>「在自己的云部署上运行模型」</strong>列为修改位置表中的独立一行；在「模型与部署服务」里也明确写了：<em>没有合作关系、没有官方内置 Provider，也可以使用一份合适的部署。</em>这条路是设计出来的，不是绕出来的。</p>
+</div>
+
+<h2 id="paths">2 · 三条路径，按你的服务形状选</h2>
+
+<div class="paths">
+  <div class="path p1">
+    <div class="pn">PATH A</div>
+    <div class="pt">协议兼容直连</div>
+    <div class="pd">你的服务实现了 HypiHub 那套 HTTP 形状。<br><strong>工作量：改一行配置。</strong>零代码。</div>
+  </div>
+  <div class="path p2">
+    <div class="pn">PATH B</div>
+    <div class="pt">写项目 Provider</div>
+    <div class="pd">你的服务是别的协议（ComfyUI、自写接口）。<br><strong>工作量：一个包，照抄骨架。</strong>推荐。</div>
+  </div>
+  <div class="path p3">
+    <div class="pn">PATH C</div>
+    <div class="pt">连 Model 一起自定义</div>
+    <div class="pd">你的模型能力与 Hypit 已有模型差异很大。<br><strong>工作量：Provider + Model 定义。</strong>最大。</div>
+  </div>
+</div>
+
+<table>
+  <thead><tr><th>你的情况</th><th>走哪条</th><th>要写代码吗</th></tr></thead>
+  <tbody>
+    <tr><td>自建服务对外协议与 HypiHub 一致</td><td><strong>A</strong></td><td>不用，改 Profile</td></tr>
+    <tr><td>ComfyUI / 自写 FastAPI / 任务队列</td><td><strong>B</strong></td><td>一个 Provider 包</td></tr>
+    <tr><td>能力接近 Seedance，只是换了算力</td><td><strong>B</strong></td><td>一个 Provider 包</td></tr>
+    <tr><td>能力与现有模型差异大，需要新参数</td><td><strong>C</strong></td><td>Provider + Model 包</td></tr>
+  </tbody>
+</table>
+
+<h2 id="pathA">3 · 路径 A：协议兼容直连（零代码）</h2>
+
+<p>官方 <code>@hypit/provider-hypihub</code> 的 <code>baseUrl</code> 是<strong>可配置</strong>的，默认 <code>https://hypit.ai/v1</code>。如果你的推理服务实现了同一套 HTTP 形状，改地址就接上了。</p>
+
+<h3>需要实现的协议</h3>
+
+<table>
+  <thead><tr><th>用途</th><th>端点</th><th>要点</th></tr></thead>
+  <tbody>
+    <tr><td>模型目录</td><td><code>GET /v1/models/{model}</code></td><td><strong>强制</strong>。返回 <code>{ endpoints: ["videos"] }</code>，必须包含 <code>videos</code>，否则提交前就报错</td></tr>
+    <tr><td>提交视频</td><td><code>POST /v1/videos</code></td><td>返回 <code>{ id }</code> 或 <code>{ job_id }</code>。请求体见下</td></tr>
+    <tr><td>轮询任务</td><td><code>GET /v1/jobs/{id}</code></td><td><code>status</code> 取值：<code>queued</code> / <code>running</code> / <code>in_progress</code> / <code>succeeded</code> / <code>completed</code> / <code>failed</code></td></tr>
+    <tr><td>取产物</td><td><code>GET /v1/jobs/{id}/assets</code></td><td>返回 <code>{ items: [...] }</code></td></tr>
+    <tr><td>上传素材</td><td><code>POST /v1/files/uploads</code>、<code>/v1/files</code></td><td>参考图 / 参考音 / 首尾帧</td></tr>
+    <tr><td>OAuth（可选）</td><td><code>POST /oauth/token</code></td><td>用 API Key 就不需要</td></tr>
+  </tbody>
+</table>
+
+<p><code>POST /v1/videos</code> 的请求体字段（<code>videos</code> 操作的规范化形状）：</p>
+
+<pre><code>{
+  "model": "seedance-2-mini",
+  "prompt": "…",
+  "seconds": 5,
+  "resolution": "720p",
+  "aspect_ratio": "9:16",
+  "generate_audio": true,
+  "reference_image_urls": ["https://…"],
+  "reference_videos":     ["https://…"],
+  "reference_audios":     ["https://…"],
+  "first_frame": "https://…",
+  "last_frame":  "https://…"
+}</code></pre>
+
+<p>认证走 Bearer：<code>authorization: Bearer &lt;key&gt;</code>。另外提交时会带一个 <code>idempotency-key</code> 头，用于幂等。</p>
+
+<h4>地址规范化规则</h4>
+<p>Provider 会把你配的 <code>baseUrl</code> 归一化：去掉尾部斜杠，剥掉末尾的 <code>/v1</code> 或 <code>/v1beta</code>，再统一拼上 <code>/v1</code>。所以下面三种写法等价，都指向 <code>https://video.myserver.com/v1</code>：</p>
+<pre><code>https://video.myserver.com
+https://video.myserver.com/
+https://video.myserver.com/v1</code></pre>
+
+<h4>Profile 改法</h4>
+<pre><code>{
+  "endpoints": {
+    "selfhosted.video": {
+      "use": "@hypit/provider-hypihub",
+      "config": {
+        "baseUrl": "https://video.myserver.com",
+        "apiKey":  { "store": "os", "key": "selfhosted.video" },
+        "pollIntervalMs": 10000,
+        "operationTimeoutMs": 3600000
+      }
+    }
+  },
+  "bindings": {
+    "@hypit/seedance@1#seedance-2-mini": "selfhosted.video"
+  }
+}</code></pre>
+
+<div class="note note-warn">
+  <span class="tag">前提要说清</span>
+  <p>路径 A 省事，代价是你的服务得长成 HypiHub 的样子 —— 包括那个<strong>强制的模型目录查询</strong>、任务 ID 的字段名、状态枚举、资产清单接口。如果你是自己写的服务，为了省一个 Provider 包去迁就这套形状，通常不划算。<strong>自写服务直接走路径 B 更干净。</strong></p>
+</div>
+
+<h2 id="pathB">4 · 路径 B：写项目 Provider（推荐）</h2>
+
+<p>项目 Provider 是放在你项目里的一个普通包。官方仓库里有一个完整的参考示例 <code>examples/provider-package</code>，我这边的骨架就是照它的结构做的。</p>
+
+<h3>已经给你备好的骨架</h3>
+
+<p>位置：<code>videos/demo/packages/provider-selfhosted-video/</code>，<strong>已编译通过</strong>（<code>tsc</code> 零报错，产物可导入）。</p>
+
+<table>
+  <thead><tr><th>文件</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>src/provider.ts</code></td><td>核心：端口映射表、支持性判定、提交 / 轮询 / 取产物三个生命周期方法</td></tr>
+    <tr><td><code>src/activation.ts</code></td><td>读 Profile 的 config、校验地址、建实例</td></tr>
+    <tr><td><code>package.json</code></td><td><code>hypit.activation</code> 指向编译产物，Hypit 靠它找到入口</td></tr>
+    <tr><td><code>tsconfig.json</code></td><td>与官方示例一致的编译配置</td></tr>
+  </tbody>
+</table>
+
+<h3>它为你做了什么</h3>
+
+<ul>
+  <li><strong>复用官方 Seedance capability</strong> —— SVML 一行不改，<code>seedance:TextVideo model="mini"</code> 直接打到你自己的服务</li>
+  <li><strong>诚实边界</strong> —— 只声明你的服务真正支持的端口；作者一旦用了不支持的端口，<code>hypit plan</code> 阶段就明确报错，而不是静默丢弃</li>
+  <li><strong>参考素材上传链路</strong> —— 把 Hypit 侧的资源字节上传到你服务能取到的位置，再换成 URL 进请求体</li>
+  <li><strong>产物登记</strong> —— 下载回来的字节登记为 <code>GeneratedVideoSet</code>，下游时间轴照常消费</li>
+  <li><strong>零调用费用声明</strong> —— <code>pricing: { kind: "local" }</code>，算力成本归你自己的机器，Hypit 侧不计费</li>
+</ul>
+
+<h3>你要改的地方：就四处</h3>
+
+<div class="step">
+  <div class="n">1</div>
+  <div class="b">
+    <p><strong>顶替哪个 capability</strong>（<code>provider.ts</code> 顶部）</p>
+    <p>按 SVML 里的 <code>model=</code> 属性选，两处必须对得上：</p>
+    <table>
+      <thead><tr><th>SVML 写法</th><th>capability 全名</th><th>分辨率</th><th>时长</th></tr></thead>
+      <tbody>
+        <tr><td><code>model="standard"</code></td><td><code>@hypit/seedance@1#seedance-2</code></td><td>1080p / 4k</td><td>4–15s</td></tr>
+        <tr><td><code>model="fast"</code></td><td><code>@hypit/seedance@1#seedance-2-fast</code></td><td>480p / 720p</td><td>4–15s</td></tr>
+        <tr><td><code>model="mini"</code></td><td><code>@hypit/seedance@1#seedance-2-mini</code></td><td>480p / 720p</td><td>4–15s</td></tr>
+        <tr><td><code>model="2.5"</code></td><td><code>@hypit/seedance@1#seedance-2.5</code></td><td>480p / 720p / 1080p</td><td>-1 或 4–30s</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="step">
+  <div class="n">2</div>
+  <div class="b">
+    <p><strong>端口映射表 <code>mapping.fields</code></strong></p>
+    <p>左边是 Hypit 的端口名，右边是你服务的 JSON 字段名。<strong>只声明你的服务真正接受的端口</strong>。Seedance 的端口全集是这些：</p>
+    <table>
+      <thead><tr><th>端口</th><th>含义</th><th>类型写法</th></tr></thead>
+      <tbody>
+        <tr><td><code>prompt</code></td><td>提示词（普通 Text）</td><td><code>{ as: "value" }</code></td></tr>
+        <tr><td><code>duration</code></td><td>时长（整秒字面量）</td><td><code>{ as: "value" }</code></td></tr>
+        <tr><td><code>resolution</code></td><td>分辨率</td><td><code>{ as: "value" }</code></td></tr>
+        <tr><td><code>aspectRatio</code></td><td>画幅比</td><td><code>{ as: "value" }</code></td></tr>
+        <tr><td><code>firstFrame</code> / <code>lastFrame</code></td><td>首帧 / 尾帧</td><td><code>{ as: "url" }</code></td></tr>
+        <tr><td><code>referenceImage</code></td><td>参考图（可带 <code>personReference</code>）</td><td><code>{ as: "urlArray", resourceFields: ["personReference"] }</code></td></tr>
+        <tr><td><code>referenceVideo</code></td><td>参考视频（运动 / 运镜依据）</td><td><code>{ as: "urlArray" }</code></td></tr>
+        <tr><td><code>referenceAudio</code></td><td>参考音频（音色）</td><td><code>{ as: "urlArray" }</code></td></tr>
+        <tr><td><code>generateAudio</code></td><td>是否生成同步音频</td><td><code>{ as: "value" }</code></td></tr>
+        <tr><td><code>webSearch</code></td><td>仅 <code>TextVideo</code> 形状开放</td><td><code>{ as: "value" }</code></td></tr>
+      </tbody>
+    </table>
+    <div class="note note-warn" style="margin-top:14px">
+      <span class="tag">这一步最关键</span>
+      <p>自部署的 Wan 2.2、HunyuanVideo 都是<strong>无声模型</strong>。那就不要声明 <code>referenceAudio</code> / <code>generateAudio</code> / <code>webSearch</code>。作者写了 <code>generate-audio="true"</code> 时，<code>plan</code> 会直接告诉他这个 Endpoint 不支持 —— 这是好事，比跑到一半才发现花钱强。</p>
+    </div>
+  </div>
+</div>
+
+<div class="step">
+  <div class="n">3</div>
+  <div class="b">
+    <p><strong>三个生命周期方法</strong>（<code>start</code> / <code>poll</code> / <code>collect</code>）</p>
+    <p>骨架里假设的是最常见的「任务式 HTTP API」形状，改这三处的路径和响应字段即可：</p>
+    <table>
+      <thead><tr><th>方法</th><th>骨架假设</th></tr></thead>
+      <tbody>
+        <tr><td><code>start</code></td><td><code>POST /tasks</code> → <code>{ id }</code>；参考素材走 <code>POST /upload</code> → <code>{ url }</code></td></tr>
+        <tr><td><code>poll</code></td><td><code>GET /tasks/{id}</code> → <code>{ state }</code></td></tr>
+        <tr><td><code>collect</code></td><td><code>GET /tasks/{id}/files</code> → <code>{ items: [{ url }] }</code>，再下载字节</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="step">
+  <div class="n">4</div>
+  <div class="b">
+    <p><strong>Profile 里接上</strong></p>
+    <pre style="margin-bottom:0"><code>{
+  "endpoints": {
+    "selfhosted.video": {
+      "use": "@local/provider-selfhosted-video",
+      "config": {
+        "baseUrl": "http://127.0.0.1:8188",
+        "pollIntervalMs": 5000,
+        "requestTimeoutMs": 120000,
+        "concurrency": 1
+      }
+    }
+  },
+  "bindings": {
+    "@hypit/seedance@1#seedance-2-mini": "selfhosted.video"
+  }
+}</code></pre>
+    <p style="margin:10px 0 0"><code>apiToken</code> 是可选的 —— 服务不需要鉴权就别配。</p>
+  </div>
+</div>
+
+<h3>构建与安装</h3>
+<pre><code>cd packages/provider-selfhosted-video
+npm install          # 拉 @hypit/hypit@0.1.10 + typescript
+npm run build        # tsc → dist/
+cd ../..
+npm install ./packages/provider-selfhosted-video   # 装进项目</code></pre>
+
+<p>装完先跑体检，配置有没有写对一眼看得出来：</p>
+<pre><code>hypit doctor --color never
+hypit plan runs/your.svrun    # 看这次要干什么、用到哪些端口、花多少钱</code></pre>
+
+<div class="note note-warn">
+  <span class="tag">别被这个报错骗了</span>
+  <p><code>@hypit/hypit</code> 的 subpath exports 里，<code>import</code> 指向的是 <strong>TypeScript 源文件</strong>（<code>./packages/endpoint-kit/src/index.ts</code>），<code>types</code> 才指向 <code>.d.ts</code>。</p>
+  <p>所以你用裸 <code>node</code> 去 import 编译产物时会看到 <code>Stripping types is currently unsupported for files under node_modules</code>。<strong>这不是包坏了</strong> —— <code>tsc</code> 编译能过正是因为类型走的是 <code>.d.ts</code>；而运行时是由 Hypit Runtime 自己的模块解析器加载的，不是裸 node。</p>
+  <p style="margin-bottom:0">判断包能不能用，看 <code>hypit doctor</code> 的输出，别看裸 node import 的结果。</p>
+</div>
+
+<h3>这条路径已经实测验证过</h3>
+
+<p>骨架不是纸上的示例，我在这台机器上跑通了完整闭环。验证目录：<code>videos/selfhosted-check/</code></p>
+
+<table>
+  <thead><tr><th>验证项</th><th>结果</th></tr></thead>
+  <tbody>
+    <tr><td>骨架包编译（<code>tsc</code>）</td><td><span class="pill pill-y">零报错</span> 产出 <code>dist/provider.js</code>、<code>dist/activation.js</code> 及类型声明</td></tr>
+    <tr><td>装进项目（<code>npm install ./packages/…</code>）</td><td><span class="pill pill-y">成功</span> 链接到 <code>node_modules/@local/</code></td></tr>
+    <tr><td>Runtime 体检（正向配置）</td><td><span class="pill pill-y">0 diagnostics</span> Provider 加载成功、Endpoint 配置合法、binding 被接受</td></tr>
+    <tr><td>反例：内网明文 HTTP 地址</td><td><span class="pill pill-y">被拦下</span> 报 <code>RUNTIME_ENDPOINT_CONFIG_INVALID</code>，消息即来自骨架的校验</td></tr>
+    <tr><td>反例：binding 指向不存在的 Endpoint</td><td><span class="pill pill-y">被拦下</span> 并列出该 Profile 里真实存在的实例名</td></tr>
+  </tbody>
+</table>
+
+<div class="note note-ok">
+  <span class="tag">这条证据最有力</span>
+  <p>反例 1 报出的错误文字是 <em>「自部署视频服务 baseUrl 必须是 HTTPS，或 http://localhost / http://127.0.0.1」</em> —— 这句是我写在骨架 <code>activation.ts</code> 里的。它出现在 Runtime 的输出里，<strong>证明 Provider 真的被加载、激活并执行了校验逻辑</strong>，不是只被当成一个配置文件读了一下。</p>
+</div>
+
+<h2 id="comfyui">5 · ComfyUI 专项：最现实的一条路</h2>
+
+<p>自部署视频模型绝大多数不是以「干净的 HTTP API」形态存在的，而是 ComfyUI 工作流。好消息是 ComfyUI 的接口形状<strong>天然就是 start / poll / collect</strong>，而且默认监听 <code>127.0.0.1:8188</code> —— 正好满足下面说的回环地址约束。</p>
+
+<table>
+  <thead><tr><th>Hypit 需要</th><th>ComfyUI 对应</th><th>响应</th></tr></thead>
+  <tbody>
+    <tr><td>提交任务</td><td><code>POST /prompt</code>，body <code>{ prompt: &lt;API格式工作流&gt;, client_id }</code></td><td><code>{ prompt_id }</code></td></tr>
+    <tr><td>轮询</td><td><code>GET /history/{prompt_id}</code></td><td>进行中返回空 <code>{}</code>；完成返回 <code>outputs</code> 与 <code>status.completed</code></td></tr>
+    <tr><td>取产物</td><td><code>GET /view?filename=&amp;subfolder=&amp;type=output</code></td><td>文件字节</td></tr>
+    <tr><td>上传参考图</td><td><code>POST /upload/image</code>（multipart）</td><td><code>{ name, subfolder, type }</code></td></tr>
+    <tr><td>取消</td><td><code>POST /interrupt</code></td><td>—</td></tr>
+    <tr><td>健康检查</td><td><code>GET /system_stats</code></td><td>GPU 名、显存总量 / 剩余</td></tr>
+  </tbody>
+</table>
+
+<div class="note note-stop">
+  <span class="tag">最常见的失败原因</span>
+  <p>ComfyUI UI 里保存的普通工作流 JSON <strong>不能直接提交</strong>。必须导出 <strong>API 格式</strong>：<span class="kbd">Settings</span> → 勾选 <span class="kbd">Enable Dev Mode options</span> → 出现 <span class="kbd">Save (API Format)</span> 按钮，用它导出。API 格式只保留可执行图（节点 ID + <code>class_type</code> + <code>inputs</code>），没有画布位置信息。</p>
+</div>
+
+<h3>骨架里怎么改</h3>
+
+<pre><code>// start —— 提交工作流
+const task = await json("/prompt", context.credentials, {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify({ prompt: workflowGraph, client_id: "hypit" }),
+});
+const id = text(task.prompt_id, "prompt_id");
+
+// poll —— /history/{id} 空对象表示还在跑
+const history = await json(`/history/${encodeURIComponent(id)}`, context.credentials);
+const entry = history[id];
+if (entry === undefined) return wakeAfter({ id }, interval, Date.now(), { phase: "running" });
+// entry.outputs 里找视频节点（VHS 的 VideoCombine 输出常在 gifs 字段）
+// entry.status.completed 为 true 表示完成
+
+// collect —— 用 /view 取文件
+const url = `${base}/view?filename=${encodeURIComponent(name)}&amp;subfolder=&amp;type=output`;</code></pre>
+
+<p>几个实操要点：</p>
+<ul>
+  <li>工作流 JSON 里把 <strong>prompt 文本框、种子、时长、分辨率</strong>留成可替换的位置 —— 骨架里用字符串替换或按节点 ID 定位都行</li>
+  <li>参考图先用 <code>POST /upload/image</code> 传进 ComfyUI 的 <code>input</code> 目录，再把返回的 <code>name</code> 填进工作流的 LoadImage 节点</li>
+  <li>ComfyUI 默认<strong>没有任何鉴权</strong>。别直接暴露到公网；用 SSH 隧道或反代加认证</li>
+  <li>视频产物位置取决于节点：VHS 系节点在 <code>outputs</code> 的 <code>gifs</code> 字段，其他节点可能是 <code>images</code>。以你实际工作流的输出为准</li>
+</ul>
+
+<h2 id="fastvideo">6 · FastVideo 专项：这条路的接口已经备好了</h2>
+
+<p><strong>关键发现：FastVideo 自带 OpenAI 兼容的 HTTP 服务，不用你自己再包一层。</strong></p>
+
+<pre><code>fastvideo serve --config your-config.yaml --server.host 127.0.0.1 --server.port 8000</code></pre>
+
+<p>它暴露的接口（源码位置：<code>fastvideo/entrypoints/openai/</code>）：</p>
+
+<table>
+  <thead><tr><th>端点</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td><code>POST /v1/videos</code></td><td>提交异步任务 → <code>{ id, status, progress, error }</code></td></tr>
+    <tr><td><code>GET /v1/videos/{id}</code></td><td>轮询状态</td></tr>
+    <tr><td><code>GET /v1/videos/{id}/content</code></td><td>下载 mp4 字节</td></tr>
+    <tr><td><code>POST /v1/videos/sync</code></td><td>同步生成，直接返回 mp4（带 <code>X-Inference-Time-S</code> 等头）</td></tr>
+    <tr><td><code>GET /v1/models/{model}</code></td><td>模型目录</td></tr>
+    <tr><td><code>GET /health</code></td><td>健康检查</td></tr>
+  </tbody>
+</table>
+
+<p>状态枚举是 <code>queued</code> / <code>in_progress</code> / <code>completed</code> / <code>failed</code>。</p>
+
+<h3>为什么不直接走路径 A（零代码）</h3>
+
+<table>
+  <thead><tr><th>步骤</th><th>HypiHub 要求</th><th>FastVideo 提供</th><th>一致？</th></tr></thead>
+  <tbody>
+    <tr><td>提交视频</td><td><code>POST /v1/videos</code></td><td><code>POST /v1/videos</code></td><td><span class="pill pill-y">路径一致</span></td></tr>
+    <tr><td>模型目录</td><td><code>GET /v1/models/{model}</code> → <code>{ endpoints: ["videos"] }</code></td><td><code>GET /v1/models/{model}</code> → OpenAI 模型卡</td><td><span class="pill pill-m">路径通，响应形状不同</span></td></tr>
+    <tr><td>轮询</td><td><code>GET /v1/jobs/{id}</code></td><td><code>GET /v1/videos/{id}</code></td><td><span class="pill pill-n">路径不同</span></td></tr>
+    <tr><td>取产物</td><td><code>GET /v1/jobs/{id}/assets</code></td><td><code>GET /v1/videos/{id}/content</code></td><td><span class="pill pill-n">路径不同</span></td></tr>
+    <tr><td>素材上传</td><td><code>POST /v1/files/uploads</code></td><td>无（引用走 <code>image_reference</code> 的 URL）</td><td><span class="pill pill-n">缺</span></td></tr>
+  </tbody>
+</table>
+
+<p>主路径对得上，但轮询和取产物的路径不同 —— <strong>所以路径 A 走不通，走路径 B</strong>。好在差异都在 URL 路径上，改起来就是三处。</p>
+
+<div class="note note-ok">
+  <span class="tag">骨架已经改好了</span>
+  <p><code>packages/provider-selfhosted-video/</code> 现在默认就是 <strong>FastVideo 形状</strong>：<code>start</code> 打 <code>/v1/videos</code>、<code>poll</code> 打 <code>/v1/videos/{id}</code>、<code>collect</code> 打 <code>/v1/videos/{id}/content</code>。你要改的只剩 <code>routes[0].model</code> 的模型名，以及按你的模型能力决定是否打开 <code>generateAudio</code>。</p>
+</div>
+
+<h3>请求字段对照</h3>
+
+<table>
+  <thead><tr><th>Seedance 端口</th><th>FastVideo 字段</th><th>备注</th></tr></thead>
+  <tbody>
+    <tr><td><code>prompt</code></td><td><code>prompt</code></td><td>直接对应</td></tr>
+    <tr><td><code>duration</code></td><td><code>seconds</code></td><td>类型宽松，接受整数或数字字符串</td></tr>
+    <tr><td><code>aspectRatio</code></td><td><code>aspect_ratio</code></td><td>FastVideo 原生支持，直接对应</td></tr>
+    <tr><td><code>resolution</code></td><td><code>size</code></td><td><strong>骨架做了换算</strong>：<code>720p</code> + <code>9:16</code> → <code>720x1280</code></td></tr>
+    <tr><td><code>referenceImage</code></td><td><code>image_reference</code></td><td>形状是 <code>[{ image_url }]</code>，骨架用 <code>itemObject</code> 映射</td></tr>
+    <tr><td><code>generateAudio</code></td><td><code>generate_sound</code></td><td><strong>按你的模型能力决定是否声明</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="note note-warn">
+  <span class="tag">一个真实卡点</span>
+  <p>FastVideo 的素材引用<strong>只接受 URL</strong>（<code>image_reference: [{ image_url }]</code>），而它没有上传端点。所以「图生视频」这条链路上，得先有地方托管素材字节 —— 同机静态服务、对象存储、或给你网关加一个上传口。骨架里 <code>★ 服务适配点 1</code> 就标在这里，未配置时会明确报错。</p>
+  <p style="margin-bottom:0"><strong>纯文生视频（<code>seedance:TextVideo</code>）不会碰到这个问题</strong>，不需要任何素材托管就能跑通。</p>
+</div>
+
+<h3>你的 4090 能跑什么 —— 决定接的是哪一半活</h3>
+
+<table>
+  <thead><tr><th>档位</th><th>模型</th><th>能接的活</th></tr></thead>
+  <tbody>
+    <tr><td>直接能跑</td><td>Wan2.1 / TurboWan / FastWan 1.3B（480P）、Wan2.2 TI2V 5B（720P）、LTX-2</td><td><strong>无声</strong>：B-roll、空镜、转场、氛围镜头</td></tr>
+    <tr><td>需调优</td><td>Wan2.1 14B（480P）</td><td>同上，质量更高</td></tr>
+    <tr><td>单卡别想</td><td>MiniMax H3（T2VA，带同步音频）</td><td>官方 SSIM 回归测试硬编码 4 卡</td></tr>
+  </tbody>
+</table>
+
+<p><strong>结论：你的 4090 接的是「无声视频」这半条链路。</strong>那就不要声明 <code>generateAudio</code>，让 <code>supports()</code> 明确拦住带音频的请求 —— 别让作者以为写了 <code>generate-audio="true"</code> 就真有声。</p>
+
+<h3>但你可以两条路同时用</h3>
+
+<p>需要「带口型 / 带同期声」的镜头，仍然走 HypiHub 的 Seedance 2.5。两边可以<strong>同时配在一个 Profile 里，按 capability 分流</strong>：</p>
+
+<pre><code>"bindings": {
+  "@hypit/seedance@1#seedance-2-mini": "selfhosted.video",
+  "@hypit/seedance@1#seedance-2.5":    "hypihub.default"
+}</code></pre>
+
+<div class="note note-ok">
+  <span class="tag">这是整套机制最漂亮的地方</span>
+  <p>同一条 SVML 里，<code>model="mini"</code> 的镜头走你自己的卡（零 API 费用），<code>model="2.5"</code> 的镜头走云端（带音频）。<strong>作者不需要知道这件事</strong> —— 他写的是能力，Profile 决定谁来兑现。</p>
+  <p style="margin-bottom:0">于是成本结构就变成了：量大面广的无声镜头用自己的算力，少量必须出声的镜头花钱买。这是自部署对接最实际的用法。</p>
+</div>
+
+<h2 id="constraints">7 · 六条硬约束，别踩</h2>
+
+<table>
+  <thead><tr><th>约束</th><th>说明</th><th>怎么绕</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>地址必须 HTTPS 或回环</strong></td>
+      <td>官方 Provider 与示例都强制：<code>https://</code>、<code>http://localhost</code>、<code>http://127.0.0.1</code> 之外一律拒绝。<code>http://192.168.1.x:8000</code> 会被直接拦下</td>
+      <td>SSH 隧道（见下）、内网域名 + 自签证书、或反代到本地端口</td>
+    </tr>
+    <tr>
+      <td><strong>模型目录查询（路径 A）</strong></td>
+      <td><code>POST /v1/videos</code> 之前必查 <code>GET /v1/models/{model}</code>，且 <code>endpoints</code> 必须含 <code>videos</code></td>
+      <td>走路径 B 就没这个要求</td>
+    </tr>
+    <tr>
+      <td><strong>端口声明即契约</strong></td>
+      <td>没在 <code>mapping.fields</code> 里声明的端口，请求一旦使用就在计划阶段失败</td>
+      <td>这是特性不是缺陷。想让作者少踩坑就声明完整；能力确实没有就别声明</td>
+    </tr>
+    <tr>
+      <td><strong>凭据槽是可选的</strong></td>
+      <td>服务不需要鉴权时，<code>credentials</code> 完全不声明，Profile 里也不配 <code>apiToken</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><strong>并发要自己压</strong></td>
+      <td>骨架默认 <code>concurrency: 1</code>，<code>actionLimits</code> 把 submit / poll / collect 分开限流</td>
+      <td>单卡串行就跑 1；多卡或队列化服务再往上调</td>
+    </tr>
+    <tr>
+      <td><strong>超时是分钟级的</strong></td>
+      <td>视频生成慢。<code>operationTimeoutMs</code> 官方 Provider 默认 20 分钟，骨架的 <code>requestTimeoutMs</code> 是单次 HTTP 120 秒</td>
+      <td>长任务把轮询间隔放宽、单次超时设到分钟级；别用默认值硬扛</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>内网服务的 SSH 隧道方案</h3>
+
+<p>最省事的合规做法：把远端服务映射到本机回环，既满足约束又不用配证书。</p>
+
+<pre><code># 把服务器上的 8188 映射到本机 127.0.0.1:8188
+ssh -N -L 8188:127.0.0.1:8188 user@your-server
+
+# 之后 baseUrl 直接写回环地址即可
+# "baseUrl": "http://127.0.0.1:8188"</code></pre>
+
+<h2 id="reality">8 · 现实检查：自部署视频模型这件事本身</h2>
+
+<p>能不能接是一回事，值不值得自己跑是另一回事。下面是你该先看的数字。</p>
+
+<h3>可自部署视频模型现状（2026 年 9 月）</h3>
+
+<table>
+  <thead><tr><th>模型</th><th>最高分辨率</th><th>单次时长</th><th>同步音频</th><th>最低显存</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>LTX-2.3</strong>（Lightricks）</td>
+      <td>4K @ 50fps</td><td>20s</td>
+      <td><span class="pill pill-y">有，单次生成</span></td>
+      <td>官方 32GB；社区 GGUF Q3 约 12GB</td>
+    </tr>
+    <tr>
+      <td><strong>Wan 2.2</strong>（阿里）</td>
+      <td>1280×720</td><td>5s</td>
+      <td><span class="pill pill-n">无</span></td>
+      <td>24GB（FP8）；TI2V-5B 约 8–12GB</td>
+    </tr>
+    <tr>
+      <td><strong>HunyuanVideo 1.5</strong>（腾讯）</td>
+      <td>720×1280</td><td>5s</td>
+      <td><span class="pill pill-n">无</span></td>
+      <td>13.6GB（720p + offload）</td>
+    </tr>
+    <tr>
+      <td><strong>LTX-Video 0.9.5</strong></td>
+      <td>768×512</td><td>5s</td>
+      <td><span class="pill pill-n">无</span></td>
+      <td>12GB</td>
+    </tr>
+    <tr>
+      <td><strong>Mochi 1</strong>（Genmo）</td>
+      <td>848×480</td><td>5.4s</td>
+      <td><span class="pill pill-n">无</span></td>
+      <td>24GB</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="note note-ok">
+  <span class="tag">这条最关键</span>
+  <p><strong>LTX-2.3 是目前唯一单次生成就能出同步音频（含口型）的开源模型。</strong>这直接决定了它能接住什么活儿：只有它能在能力上对上 Seedance 的「口播 / 带音」语义 —— 也就是声明 <code>referenceAudio</code> + <code>generateAudio</code> 端口，配合 <code>seedance:ReferenceVideo</code> 用参考音色驱动说话人。</p>
+  <p>其他几个都是<strong>无声模型</strong>，只能做 B-roll、空镜、转场。它们能接，但接的是另一半活。选模型之前先想清楚你要做的是哪一类片子。</p>
+</div>
+
+<h3>硬件门槛</h3>
+
+<table>
+  <thead><tr><th>显存</th><th>能跑什么</th></tr></thead>
+  <tbody>
+    <tr><td><strong>32GB</strong>（RTX 5090）</td><td>舒适区。LTX-2.3 高分辨率、Wan 2.2 全量、长片段</td></tr>
+    <tr><td><strong>24GB</strong>（RTX 4090 / 3090）</td><td>可用下限。Wan 2.2 720p、HunyuanVideo 1.5 经量化、LTX-2.3 fp8 720p</td></tr>
+    <tr><td><strong>16GB 及以下</strong></td><td>只能重量化 + 低分辨率 + 短片。CogVideoX 类可试，LTX-2 需要 Q3 量化</td></tr>
+    <tr><td><strong>Apple Silicon 统一内存</strong></td><td><span class="pill pill-n">不推荐</span> 视频模型基本依赖 CUDA；MPS 后端支持不全，且内存带宽与算力都吃紧</td></tr>
+  </tbody>
+</table>
+
+<div class="note note-warn">
+  <span class="tag">对你本机</span>
+  <p>你现在这台是 <strong>M1 Pro / 16GB</strong>。跑 Hypit 的本地渲染核心（画面、字幕、动效）完全没问题 —— 那是 Chrome 渲染，不是扩散模型。但<strong>跑视频扩散模型不现实</strong>。「自己服务器」对这条路线来说是必需品，不是可选项。</p>
+</div>
+
+<h3>成本结构：三条路各自的账</h3>
+
+<table>
+  <thead><tr><th>方式</th><th>计费形态</th><th>参考量级</th></tr></thead>
+  <tbody>
+    <tr><td>HypiHub 托管</td><td>按次</td><td>官方示例单条成片 $1.07–$1.15</td></tr>
+    <tr><td>自购 GPU</td><td>一次性硬件 + 电费</td><td>24GB 二手 3090 是社区性价比共识；32GB 5090 是舒适线</td></tr>
+    <tr><td>租云 GPU 自部署</td><td>按小时（基础设施费）</td><td>Modal A100 约 $0.99/小时；RunPod / Lambda / AutoDL 同类</td></tr>
+  </tbody>
+</table>
+
+<p>判断逻辑很简单：<strong>出片量大、且能跑满 GPU 的时段集中</strong> → 自部署或租卡按小时算，单条成本能压到远低于按次付费。<strong>偶尔出片</strong> → 租卡的时间都在等冷启动和调参，反而不划算。</p>
+
+<p>另外提一句：租云 GPU 是<em>基础设施费用</em>，跟「绑定付费 Key 的闭源 SaaS」是两回事 —— 你的工作流、模型、数据都留在自己的环境里，只付电和机时。</p>
+
+<h2 id="steps">9 · 落地步骤</h2>
+
+<div class="step"><div class="n">1</div><div class="b">
+  <p><strong>先定哪一类片子</strong>。要做口播（需要同步音频 + 音色参考）就只能选 LTX-2.3 这一档；做 B-roll / 空镜 / 转场，Wan 2.2 或 HunyuanVideo 就够。</p>
+</div></div>
+
+<div class="step"><div class="n">2</div><div class="b">
+  <p><strong>把推理服务跑起来并能用 curl 调通</strong>。这一步在 Hypit 之外先做完 —— 别把两边的坑叠在一起排查。</p>
+  <pre style="margin-bottom:0"><code># FastVideo
+fastvideo serve --config your-config.yaml --server.host 127.0.0.1 --server.port 8000
+curl http://127.0.0.1:8000/health
+curl -X POST http://127.0.0.1:8000/v1/videos/sync \
+  -H "Content-Type: application/json" \
+  -d '{"prompt":"a calm drone shot over misty mountains at dawn","seconds":4,"size":"1280x720"}'
+
+# ComfyUI
+curl http://127.0.0.1:8188/system_stats</code></pre>
+</div></div>
+
+<div class="step"><div class="n">3</div><div class="b">
+  <p><strong>决定复用哪个 capability</strong>，然后改骨架的 <code>provider.ts</code>：capability 那一行 + mapping 端口表（只声明真实支持的）。</p>
+</div></div>
+
+<div class="step"><div class="n">4</div><div class="b">
+  <p><strong>改 start / poll / collect 三处</strong>，对齐你服务的真实路径与响应字段。</p>
+</div></div>
+
+<div class="step"><div class="n">5</div><div class="b">
+  <p><strong>如果没有公网 HTTPS，就搭 SSH 隧道</strong>，让服务以 <code>http://127.0.0.1:PORT</code> 出现。</p>
+</div></div>
+
+<div class="step"><div class="n">6</div><div class="b">
+  <p><strong>构建、安装、配 Profile、体检</strong>。</p>
+  <pre style="margin-bottom:0"><code>cd packages/provider-selfhosted-video &amp;&amp; npm install &amp;&amp; npm run build
+cd ../.. &amp;&amp; npm install ./packages/provider-selfhosted-video
+hypit doctor --color never
+hypit plan runs/your.svrun</code></pre>
+</div></div>
+
+<div class="step"><div class="n">7</div><div class="b">
+  <p><strong>先跑一条最短的片子验证链路</strong>。用 <code>seedance:TextVideo</code> + 5 秒 + 720p 这种最小组合，确认提交、轮询、产物落盘都通，再上复杂工作流。</p>
+</div></div>
+
+<hr>
+
+<h3>一句话收尾</h3>
+
+<p>技术上完全能接，路径也是官方设计好的。真正需要你先想清楚的不是「怎么接」，而是<strong>「你要做的片子需不需要同步音频」</strong> —— 这一个问题决定了你得选哪个模型、要不要那张 32GB 的卡，以及整条链路的成本量级。</p>
+
+<p>对你现在这套配置（FastVideo + 4090）来说，答案更明确：<strong>无声镜头走自己的卡，出声镜头走云端</strong>。两条路配在同一个 Profile 里，SVML 里用 <code>model=</code> 分流，作者完全不用知道。量大的那部分用自己的算力摊平成本，必须出声的那部分才花钱 —— 这是自部署对接最实际的用法。</p>
+
+<footer>
+  <p><strong>配套文件</strong><br>
+  骨架包：<code>videos/demo/packages/provider-selfhosted-video/</code>（已编译通过、已实测加载）<br>
+  最小验证工程：<code>videos/selfhosted-check/</code>（含 Profile，可直接 <code>hypit doctor --runtime hypit.runtime.json</code>）<br>
+  官方参考示例：<code>repos/hypit/examples/provider-package/</code><br>
+  官方文档：<code>repos/hypit/docs/zh/guide/providers.md</code> · <code>service-partners.md</code> · <code>runtime.md</code></p>
+  <p style="margin-top:14px">基于 hypit v0.1.10 源码与 <code>@hypit/hypit@0.1.10</code> npm 包核对 · FastVideo 接口以其仓库源码 <code>fastvideo/entrypoints/openai/</code> 为准 · 2026-09-16</p>
+</footer>
+
+</div>
+</body>
+</html>

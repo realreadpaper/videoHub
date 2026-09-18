@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A / B 选型结论 · 已跑通的 v3 流水线是怎么干的</title>
+<style>
+  :root {
+    --bg:#f7f8fa; --card:#fff; --ink:#1c1f23; --ink2:#4a5158; --ink3:#7b848d;
+    --line:#e3e7eb; --line2:#eef1f4;
+    --red:#c0392b; --green:#1e7a4b; --amber:#a86400; --blue:#1a5fb4;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:36px 28px 80px; background:var(--bg); color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1100px; margin:0 auto; }
+  header { border-bottom:2px solid var(--ink); padding-bottom:18px; margin-bottom:28px; }
+  h1 { font-size:26px; margin:0 0 8px; letter-spacing:-.3px; }
+  .meta { color:var(--ink3); font-size:13px; }
+  h2 { font-size:19px; margin:38px 0 14px; padding-left:11px; border-left:4px solid var(--ink); }
+  h3 { font-size:15.5px; margin:22px 0 9px; }
+  p { margin:11px 0; color:var(--ink2); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 22px; margin:15px 0; }
+  .win  { border-left:5px solid var(--green); background:#fafdfb; }
+  .lose { border-left:5px solid var(--red);   background:#fffafa; }
+  .note { border-left:5px solid var(--amber); background:#fffdf6; }
+  .info { border-left:5px solid var(--blue);  background:#fafcff; }
+  .card p:first-child { margin-top:0; } .card p:last-child { margin-bottom:0; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line);
+    border-radius:8px; overflow:hidden; font-size:13.5px; margin:11px 0; }
+  th { background:#f0f3f6; text-align:left; padding:9px 11px; font-weight:600; color:var(--ink2);
+    font-size:12.5px; border-bottom:1px solid var(--line); }
+  td { padding:8px 11px; border-bottom:1px solid var(--line2); color:var(--ink2); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  code { background:#eef1f4; padding:1px 5px; border-radius:4px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; color:#334; }
+  pre { background:#f4f6f8; border:1px solid var(--line); border-radius:8px; padding:13px 15px;
+    overflow-x:auto; font-size:12.5px; line-height:1.62; margin:12px 0;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--ink); }
+  ul,ol { margin:10px 0; padding-left:21px; color:var(--ink2); } li { margin:6px 0; }
+  .ok{color:var(--green);font-weight:600;} .bad{color:var(--red);font-weight:600;} .amb{color:var(--amber);font-weight:600;}
+  .tag { display:inline-block; border-radius:4px; padding:1px 7px; font-size:11.5px; font-weight:600; margin-right:5px; }
+  .tA{background:#fbeceb;color:var(--red);} .tB{background:#eaf5ee;color:var(--green);}
+  .chain { background:#f4f6f8; border:1px solid var(--line); border-radius:8px; padding:16px 18px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; line-height:1.9;
+    color:var(--ink); overflow-x:auto; white-space:pre; margin:12px 0; }
+  .chain .c { color:var(--ink3); }
+  .chain .k { color:var(--green); font-weight:600; }
+  footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line); color:var(--ink3); font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A / B 选型结论 —— 先看清那两个视频是怎么跑出来的</h1>
+  <div class="meta">2026-09-18 · 结论基于对已生成产物的逆向追踪 + A100 实测验证 · 本文档未改动任何工程文件</div>
+</header>
+
+<div class="card win">
+  <p style="font-size:16px"><b>结论：不用选了 —— 已跑通的那条就是 B，而且直接照抄就行，一行新代码都不用为"执行器"写。</b></p>
+  <p>上一轮我把 <code>80_run_workflow_remote.py</code> 当成唯一执行器，它在 A100 上不存在，所以我以为要重建。
+  <b>这个判断错了</b>：那两个视频根本没用它，用的是 <code>/root/s2/submit_api.py</code> —— <span class="ok">现成、在 A100 上、已跑通 51 个产物</span>。</p>
+  <p style="margin-bottom:0">而它吃的是 <b>API 格式 JSON</b>，<b>没有 <code>--set</code></b>。这就是 B。</p>
+</div>
+
+<h2>一、那两个视频在哪、怎么生成的</h2>
+
+<table>
+  <thead><tr><th>项</th><th>实测</th></tr></thead>
+  <tbody>
+    <tr><td>成片</td><td><code>h3-films/_deliver/v3/成片_film1.mp4</code>（223 MB，今早 08:14）<br>
+        <code>h3-films/_deliver/v3/成片_film2.mp4</code>（256 MB，今早 08:16）</td></tr>
+    <tr><td>在哪台机器跑的</td><td class="ok">就是 A100（kehu）。<code>deliver_v3.sh</code> 第 6 行原文：
+        <code>SRV="kehu:/workspace/ComfyUI/output/MiniMaxH3/v3run"</code></td></tr>
+    <tr><td>产物</td><td><code>/workspace/ComfyUI/output/MiniMaxH3/v3run/</code> —— <b>51 个 mp4</b>，前缀 <code>f1sNN_</code> / <code>f2sNN_</code></td></tr>
+    <tr><td>生成脚本</td><td><code>build_workflows_v3.py</code>（构建） + <code>_remote/v3run/run_v3.sh</code>（跑链）</td></tr>
+    <tr><td>提交器</td><td class="ok"><code>/root/s2/submit_api.py</code> —— 已核实存在且可用</td></tr>
+  </tbody>
+</table>
+
+<h3>完整链路</h3>
+<div class="chain">manifest_v2.json + _lines_rhythm/&lt;film&gt;_shot_lines.json
+        │
+        ▼
+<span class="k">build_workflows_v3.py --one f1s01</span>          <span class="c">← 逐镜生成，参数直接写进 JSON</span>
+        │   wf["6"]["inputs"]["prompt"]  = ...
+        │   wf["6"]["inputs"]["width"]   = 768
+        │   wf["13"]["inputs"]["audio"]  = s["audio_file"]     <span class="c">← 原声锁（中文干声）</span>
+        │   wf["12"]["inputs"]["filename_prefix"] = "MiniMaxH3/v3run/f1s01"
+        │   wf["9"]["inputs"]["noise_seed"] = seed + no
+        ▼
+_remote/v3run/wf_f1s01.json                  <span class="c">← API 格式模板 _remote/v2prev_tpl/s16.api.json</span>
+        │
+        ▼
+<span class="k">run_v3.sh</span>   for k in $(cat keys.txt); do
+                 python3 /root/s2/submit_api.py /root/v3run/wf_$k.json
+             done
+        ▼
+/workspace/ComfyUI/output/MiniMaxH3/v3run/f1s01_*.mp4
+        │
+        ▼
+<span class="k">deliver_v3.sh</span>  scp 回本地 → 规格核对 → 拼片 → 对照版</div>
+
+<h3>它怎么满足你要的"两阶段批、绝不交替"</h3>
+<p><code>run_v3.sh</code> 的注释原文（第 2 行）：</p>
+<pre># v3 全量生产跑链：Mode B 按镜帧数 · 原声锁 · 直出 768×1344
+# 顺序（模型只装两次，绝不交替）：T2V(f1 16) → T2V(f2 18) → I2V(f1 7) → I2V(f2 7)</pre>
+<p>而 <code>keys.txt</code> 实际执行序也确实如此 —— 前 34 个全是 T2V，后 13 个才是 I2V：</p>
+<pre>f1s01 f1s02 … f1s23 | f2s02 f2s03 … f2s25 | f1s14 f1s15 … f2s17
+└────── T2V 34 镜 ─────────────────────────┘ └─ I2V 13 镜 ─┘</pre>
+<p style="margin-bottom:0">这就是你说的第①点，<b>已经是这么干的了</b>，而且注释里直接写了"绝不交替"。
+<code>PIPELINE.md</code> 里也算过账：拆两批 56.5 分 vs 交替 96.1 分，<b>省 39.6 分</b>，并注明"唯一无代价的优化就是拆两批"。</p>
+
+<h2>二、A / B 对比 —— A 其实不用考虑</h2>
+
+<table>
+  <thead><tr><th></th><th><span class="tag tA">A</span> 给 ui_to_api.py 补 <code>--set</code></th><th><span class="tag tB">B</span> 逐镜生成完整 API JSON</th></tr></thead>
+  <tbody>
+    <tr><td>要不要写代码</td><td class="bad">要，且是重新造一个已丢的东西</td>
+        <td class="ok">不要 —— <code>build_workflows_v3.py</code> + <code>submit_api.py</code> 现成</td></tr>
+    <tr><td>A100 上可行性</td><td class="bad"><code>--set</code> 是 4090 时代 <code>80_run_workflow_remote.py</code> 的能力，
+        那个 runner 在 A100 上根本不存在</td>
+        <td class="ok">已跑通 51 个产物</td></tr>
+    <tr><td>已知坑</td><td class="bad"><b>刚才实测时这个坑正在生效</b>：转换输出里明写
+        <code>[20] SaveVideo widgets 1/3 → 输入 2 项</code> ——
+        <code>format/codec</code> 是 <code>COMFY_DYNAMICCOMBO_V3</code>，白名单不认，参数连键带值消失</td>
+        <td class="ok">直接改 JSON，不经白名单，绕开</td></tr>
+    <tr><td>可存档 / 可 diff</td><td>差（参数散在命令行）</td><td class="ok">好（每镜一份 JSON）</td></tr>
+    <tr><td>断点续跑</td><td>弱</td><td class="ok">强 —— <code>keys.txt</code> 删掉已成功的 key 即可</td></tr>
+  </tbody>
+</table>
+
+<div class="card note">
+  <p style="margin:0"><b>选 B。</b>不是"我推荐 B"，是<b>现成的就是 B</b> —— 照抄 v3 的模式，把工作流模板换成两阶段的那套。</p>
+</div>
+
+<h2>三、但有一样<span class="bad">不能照抄</span> —— 这是要你判断的地方</h2>
+
+<div class="card lose">
+  <p><b>v3 是"一步直出"，不是"两阶段精修"。</b></p>
+  <p><code>build_workflows_v3.py</code> 的 docstring 原文：
+  <code>Mode B · 按镜帧数 · 原声锁 · <b>直出 768×1344</b></code>。
+  它只有 T2VA 和 Ref2VA 两种 <code>task_type</code>，
+  <b>全程没有 Stage2 精修这一步</b>。</p>
+  <p style="margin-bottom:0">而你要的三部曲走的是 H3 草稿 384×672 → LTX-2.5 精修 768×1344。
+  <b>所以：提交机制和批处理思想照抄，工作流模板不照抄。</b></p>
+</div>
+
+<div class="card info">
+  <p><b>顺带一个好消息：你要的两阶段，比 v3 的一步直出更快。</b></p>
+  <p>之前在 A100 上实测过这两个口径（同为 20 镜）：</p>
+  <ul style="margin-bottom:0">
+    <li>两步走（草稿批 + 精修批）：<b>0.96 小时</b></li>
+    <li>一步到位（全 768 直出）：<b>3.56 小时</b></li>
+  </ul>
+  <p style="margin-top:8px;margin-bottom:0">差 <b>3.7 倍</b>。原因是像素翻 4 倍后单步成本涨 11 倍（按 N^1.76），
+  而一步到位要从 sigma=1.0 全噪声开始去噪。<b>所以坚持两阶段不只是质量选择，也是成本选择。</b></p>
+</div>
+
+<h2>四、两阶段模板从哪来 —— 已在 A100 上验证通</h2>
+
+<pre>s2_adapt.py --template <官方工作流> --preset identity --width 768 --height 1344 --out s2.json
+        │   [✓] 写出 /tmp/s2_id_test.json （10 节点）
+        ▼
+ui_to_api.py s2.json --out s2.api.json
+        │   已写出 API 工作流（22 个节点）
+        │   含 #3 MiniMaxH3SolEngineDraftToLTXT8Advanced  ← 精修入口
+        ▼
+submit_api.py s2.api.json          <span class="c">← 与 v3 同一条提交路径</span></pre>
+
+<p>上面这条是我刚才在 A100 上<b>实跑</b>的（只生成、未提交），两步都成功。另外还发现服务器上躺着官方保脸工作流：</p>
+<pre>/workspace/ComfyUI/custom_nodes/comfyui-minimax-h3-audio-T8/examples/workflows/22-sol-engine-h3-super/
+  ├── 2026-08-29_H3_Sol_Engine_Super_Acceleration_LTX25_Advanced_EXP.json
+  └── <span class="k">2026-08-30_H3_Sol_Engine_LTX25_Identity_Preserve_3Step_Advanced_EXP.json</span>   <span class="c">← 保脸版，现成</span></pre>
+
+<h2>五、还有一个该学但方案里漏了的东西</h2>
+
+<div class="card note">
+  <p><b>v3 用的是"原声锁"（audio lock）</b>：<code>wf["13"]["inputs"]["audio"] = s["audio_file"]</code>。
+  中文台词是<b>外部 TTS 生成干声、锁进音轨</b>的，不是让 H3 自己说中文。</p>
+  <p style="margin-bottom:0">这与 <code>11_run_voice_film.py</code> 里的注明一致：让 H3 自己说中文<b>"台词不稳"</b>。
+  三部曲 24 镜全有中文台词，我建议也走原声锁 —— 但这<b>多出一个 TTS 环节</b>（本地 Edge TTS 就能做，免费）。
+  要不要加，需要你定。</p>
+</div>
+
+<h2>六、结论与待你拍板</h2>
+
+<div class="card win">
+  <p style="margin-top:0"><b>结论：B。照抄 v3 的提交机制 + 批处理思想，工作流模板换成两阶段版。</b></p>
+  <table style="margin:10px 0 0">
+    <thead><tr><th>照抄</th><th>换成</th></tr></thead>
+    <tbody>
+      <tr><td class="ok">提交器 <code>/root/s2/submit_api.py</code></td>
+          <td class="amb">工作流模板：一步直出 → 两阶段（草稿 + 精修 identity）</td></tr>
+      <tr><td class="ok">构建方式：API 模板 + 直接改 JSON，不用 <code>--set</code></td>
+          <td class="amb">分辨率：v3 直出 768×1344 → 草稿 384×672 / 精修 768×1344</td></tr>
+      <tr><td class="ok">批处理：按阶段分批，绝不交替，模型只装两次</td>
+          <td class="amb">台词：v3 原声锁 → 三部曲待定</td></tr>
+      <tr><td class="ok">断点续跑：<code>keys.txt</code> 删已成功的 key</td>
+          <td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <p style="margin-top:0"><b>三件要你拍板：</b></p>
+  <ol>
+    <li><b>A / B —— 我给 B，依据是现成的就是 B 且已跑通 51 镜。</b>你要是觉得还有我没看到的理由选 A，说。</li>
+    <li><b>台词走不走原声锁？</b>v3 是走的（外部 TTS 干声锁音轨）。不走的代价是 H3 自己说中文不稳。
+        走的代价是加一个 TTS 环节（Edge TTS 免费，本地能跑）。我建议走。</li>
+    <li><b>7 镜的文字道具保不保？</b>（上一份方案里的问题，还没定）
+        我的建议是全改成"字迹不可辨"；若某镜必须看清数字，只有生成后合成贴图一条路。</li>
+  </ol>
+</div>
+
+<footer>
+  所有结论均来自实测：<code>deliver_v3.sh</code> 第 6 行的 <code>kehu</code> 主机、
+  <code>run_v3.sh</code> 的注释与 <code>keys.txt</code> 执行序、
+  A100 上 <code>submit_api.py --help</code>、以及 <code>s2_adapt.py → ui_to_api.py</code> 的实跑输出。
+</footer>
+
+</div>
+</body>
+</html>

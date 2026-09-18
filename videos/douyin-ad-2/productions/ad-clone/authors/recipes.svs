@@ -1,0 +1,88 @@
+<?svml using="@hypit/svs@1"?>
+
+<sheet version="1" id="homecook-clone">
+  media.base {
+    stack-order: 10;
+    fit: cover;
+  }
+
+  film.vertical {
+    background: #000000;
+  }
+
+  /* 顶部通栏：卖点/证明条。压在最上方，避开原片自带的底部字幕与右下免责声明。 */
+  banner.text {
+    stack-order: 60;
+    size: 42;
+    weight: 900;
+    line-height: 1.0;
+    tracking: -1;
+    inline-size: fixed;
+    block-size: hug;
+    align: center;
+    block-align: center;
+    wrap: word;
+    overflow: shrink;
+    minimum-scale: 0.62;
+    max-lines: 1;
+    fill: #FFFFFF;
+    padding: "0";
+  }
+
+  /* 步骤条：小一号，用于 ①②③④⑤ */
+  step.text {
+    stack-order: 61;
+    size: 40;
+    weight: 900;
+    line-height: 1.0;
+    tracking: -0.5;
+    inline-size: fixed;
+    block-size: hug;
+    align: center;
+    block-align: center;
+    wrap: word;
+    overflow: shrink;
+    minimum-scale: 0.6;
+    max-lines: 1;
+    fill: #FFE14D;
+    padding: "0";
+  }
+
+  /* 价格徽章：大字号展示体，摆在通栏正下方，不遮面部与产品 */
+  price.text {
+    stack-order: 62;
+    size: 96;
+    weight: 400;
+    line-height: 1.0;
+    tracking: 0;
+    inline-size: fixed;
+    block-size: hug;
+    align: center;
+    block-align: center;
+    wrap: word;
+    overflow: shrink;
+    minimum-scale: 0.5;
+    max-lines: 2;
+    fill: #FFE14D;
+    padding: "0";
+  }
+
+  /* 成交/CTA 卡 */
+  cta.text {
+    stack-order: 63;
+    size: 58;
+    weight: 400;
+    line-height: 1.06;
+    tracking: 0;
+    inline-size: fixed;
+    block-size: hug;
+    align: center;
+    block-align: center;
+    wrap: word;
+    overflow: shrink;
+    minimum-scale: 0.6;
+    max-lines: 2;
+    fill: #FFFFFF;
+    padding: "0";
+  }
+</sheet>

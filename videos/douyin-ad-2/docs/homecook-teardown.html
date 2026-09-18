@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拆解报告 · 抖音「短剧 + 家常菜」带货片</title>
+<style>
+  :root{
+    --bg:#FBFAF7; --card:#FFFFFF; --ink:#1F1B17; --ink2:#6B6259; --ink3:#9A9086;
+    --red:#C8102E; --red-soft:#FCEEF0; --gold:#B8860B; --gold-soft:#FDF6E3;
+    --line:#E8E2D9; --line2:#F2EDE6; --green:#2E7D5B; --green-soft:#EDF7F2;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+    line-height:1.75;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:960px;margin:0 auto;padding:56px 28px 96px;}
+
+  /* ── 头部 ── */
+  header{border-bottom:2px solid var(--ink);padding-bottom:28px;margin-bottom:44px;}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:14px;}
+  h1{font-size:38px;line-height:1.28;margin:0 0 18px;letter-spacing:-.4px;font-weight:800;}
+  h1 em{font-style:normal;color:var(--red);}
+  .lede{font-size:17px;color:var(--ink2);max-width:760px;margin:0;}
+  .lede b{color:var(--ink);font-weight:700;}
+
+  /* ── 元数据条 ── */
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:32px 0 0;}
+  .meta div{background:var(--card);padding:14px 16px;}
+  .meta dt{font-size:11.5px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase;margin:0 0 5px;}
+  .meta dd{margin:0;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;}
+
+  /* ── 章节 ── */
+  section{margin:68px 0 0;}
+  h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);
+    font-weight:800;margin:0 0 6px;}
+  h2 + .h2sub{font-size:26px;font-weight:800;letter-spacing:-.3px;margin:0 0 26px;line-height:1.35;}
+  h3{font-size:16.5px;margin:32px 0 12px;font-weight:700;}
+  p{margin:0 0 16px;}
+  .muted{color:var(--ink2);font-size:15px;}
+
+  /* ── 三段结构条 ── */
+  .struct{display:flex;height:74px;border-radius:10px;overflow:hidden;border:1px solid var(--line);
+    font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;}
+  .struct > div{display:flex;flex-direction:column;justify-content:center;
+    align-items:center;gap:2px;padding:0 8px;text-align:center;}
+  .struct .s-drama{background:#8E9AAF;}
+  .struct .s-ad{background:var(--red);box-shadow:inset 0 0 0 3px #fff,inset 0 0 0 4px var(--red);}
+  .struct .s-drama2{background:#8E9AAF;}
+  .struct span{font-weight:500;font-size:11.5px;opacity:.9;}
+  .struct-legend{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink3);
+    font-variant-numeric:tabular-nums;}
+
+  /* ── 动作卡 ── */
+  .acts{display:grid;gap:12px;}
+  .act{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:start;
+    background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .act .n{width:32px;height:32px;border-radius:8px;background:var(--red-soft);color:var(--red);
+    font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;
+    font-variant-numeric:tabular-nums;}
+  .act .t{font-weight:700;font-size:16px;margin:0 0 4px;}
+  .act .d{font-size:14.5px;color:var(--ink2);margin:0;}
+  .act .dur{font-size:13px;font-weight:700;color:var(--ink3);font-variant-numeric:tabular-nums;
+    white-space:nowrap;padding-top:4px;}
+  .act.hero{border-color:var(--red);background:linear-gradient(180deg,#FFF8F9,#fff);}
+  .act.hero .n{background:var(--red);color:#fff;}
+
+  /* ── 表格 ── */
+  .tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card);}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:720px;}
+  th{background:var(--line2);text-align:left;padding:11px 14px;font-size:12px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);font-weight:700;
+    border-bottom:1px solid var(--line);white-space:nowrap;}
+  td{padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num{font-variant-numeric:tabular-nums;color:var(--ink3);white-space:nowrap;font-size:13px;}
+  td.fn{font-weight:700;color:var(--red);white-space:nowrap;font-size:13px;}
+  tr.hl{background:#FFFBFB;}
+  tr.hl td.fn{color:#8A0C14;}
+
+  /* ── 不对称对比 ── */
+  .cmp{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px 24px;}
+  .cmp-row{display:grid;grid-template-columns:120px 1fr 66px;gap:14px;align-items:center;margin-bottom:16px;}
+  .cmp-row:last-child{margin-bottom:0;}
+  .cmp-lab{font-size:14px;font-weight:700;}
+  .bar{height:32px;border-radius:7px;display:flex;align-items:center;padding-left:11px;
+    color:#fff;font-size:13px;font-weight:700;}
+  .bar.cheap{background:var(--red);}
+  .bar.taste{background:#C9BFAF;}
+  .cmp-val{font-size:14px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);}
+  .cmp-note{margin:18px 0 0;padding-top:16px;border-top:1px dashed var(--line);
+    font-size:14.5px;color:var(--ink2);}
+  .cmp-note b{color:var(--red);}
+
+  /* ── 价格阶梯 ── */
+  .steps{display:grid;gap:10px;}
+  .step{display:grid;grid-template-columns:88px 1fr;gap:18px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:11px;padding:15px 20px;}
+  .step .amt{font-size:22px;font-weight:800;color:var(--red);font-variant-numeric:tabular-nums;line-height:1.1;}
+  .step .amt small{display:block;font-size:11.5px;font-weight:600;color:var(--ink3);letter-spacing:.05em;}
+  .step .say{font-size:14.5px;}
+  .step .say b{font-weight:700;}
+  .step.final{background:linear-gradient(180deg,#FFF8F9,#fff);border-color:var(--red);}
+  .step.final .amt{color:#8A0C14;font-size:26px;}
+
+  /* ── 语术骨架 ── */
+  .skeleton{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 24px 22px;}
+  .sk-grp{padding:18px 0;border-bottom:1px dashed var(--line);}
+  .sk-grp:last-child{border-bottom:none;}
+  .sk-tag{display:inline-block;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:800;color:var(--red);background:var(--red-soft);
+    padding:3px 9px;border-radius:5px;margin-bottom:11px;}
+  .sk-line{font-size:16px;margin:9px 0;line-height:2.1;}
+  .fill{display:inline-block;min-width:104px;border-bottom:2px solid var(--red);
+    text-align:center;color:var(--red);font-weight:700;padding:0 8px;
+    font-size:15px;}
+  .sk-hint{font-size:13px;color:var(--ink3);margin:10px 0 0;}
+
+  /* ── 图层示意 ── */
+  .layers{display:grid;grid-template-columns:200px 1fr;gap:26px;align-items:start;}
+  .phone{background:#2A2622;border-radius:20px;padding:9px;box-shadow:0 8px 26px rgba(0,0,0,.14);}
+  .screen{position:relative;aspect-ratio:9/16;border-radius:13px;overflow:hidden;
+    background:linear-gradient(180deg,#E8DCCB 0%,#D9C7AE 38%,#C4AE93 72%,#B49B7E 100%);}
+  .lz{position:absolute;left:3%;width:94%;border-radius:5px;font-size:11px;font-weight:800;
+    display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;line-height:1.25;}
+  .lz-banner{top:2.2%;height:9.6%;background:var(--red);}
+  .lz-price{top:13%;height:14%;background:#C8102EF2;color:#FFE14D;font-size:15px;
+    border:2px solid #8A0C14;}
+  .lz-arrow{top:52%;left:55%;width:34%;height:34%;background:transparent;color:var(--red);font-size:30px;}
+  .lz-cap{top:78%;height:8%;background:rgba(20,18,16,.82);font-size:10px;font-weight:500;}
+  .lz-disc{top:90%;left:52%;width:45%;height:5%;background:rgba(20,18,16,.66);font-size:8.5px;font-weight:500;}
+  .lg-item{display:grid;grid-template-columns:16px 1fr;gap:11px;margin-bottom:13px;align-items:start;}
+  .lg-dot{width:13px;height:13px;border-radius:3px;margin-top:5px;}
+  .lg-item .n{font-size:14.5px;font-weight:700;margin:0 0 2px;}
+  .lg-item .d{font-size:13.5px;color:var(--ink2);margin:0;}
+
+  /* ── 工程块 ── */
+  pre{background:#26221E;color:#EFE9E1;border-radius:11px;padding:18px 20px;overflow-x:auto;
+    font-size:13px;line-height:1.75;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin:14px 0;}
+  pre .c{color:#9B9188;}
+  pre .k{color:#FFB3A7;}
+  pre .s{color:#B8D8B0;}
+  code{background:var(--line2);padding:2px 6px;border-radius:4px;font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  .files{display:grid;gap:8px;margin:16px 0 0;}
+  .f{display:grid;grid-template-columns:auto 1fr;gap:14px;font-size:14px;
+    padding:11px 16px;background:var(--card);border:1px solid var(--line);border-radius:9px;}
+  .f code{background:none;padding:0;color:var(--red);font-weight:600;font-size:13px;}
+  .f span{color:var(--ink2);}
+
+  /* ── 提示块 ── */
+  .note{background:var(--gold-soft);border-left:3px solid var(--gold);
+    border-radius:0 9px 9px 0;padding:16px 20px;margin:20px 0;font-size:14.5px;}
+  .note b{color:#8A6508;}
+  .warn{background:var(--red-soft);border-left:3px solid var(--red);}
+  .warn b{color:var(--red);}
+  .ok{background:var(--green-soft);border-left:3px solid var(--green);}
+  .ok b{color:var(--green);}
+
+  ul{margin:0 0 16px;padding-left:22px;}
+  li{margin-bottom:8px;font-size:15px;}
+
+  footer{margin-top:80px;padding-top:26px;border-top:1px solid var(--line);
+    font-size:13px;color:var(--ink3);}
+  footer b{color:var(--ink2);}
+
+  @media (max-width:720px){
+    .wrap{padding:36px 18px 70px;}
+    h1{font-size:27px;}
+    h2 + .h2sub{font-size:20px;}
+    .layers{grid-template-columns:1fr;}
+    .phone{max-width:230px;}
+    .act{grid-template-columns:36px 1fr;gap:12px;}
+    .act .dur{grid-column:2;padding-top:0;}
+    .cmp-row{grid-template-columns:88px 1fr 54px;gap:9px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">参考视频拆解报告 · 02</div>
+  <h1>短剧做钩子，<em>厨房做收割</em><br>——105 秒卖货段的完整拆解</h1>
+  <p class="lede">
+    这条 297 秒的抖音爆款，前 106 秒在演"相亲女嫌弃坐轮椅的孩子"，孩子一句<b>「阿姨我想吃红烧排骨」</b>把场景推进厨房，广告就此开始，观众毫无察觉。卖货 105 秒，说得最多的不是"好吃"，而是<b>「你不用进厨房」</b>。
+  </p>
+
+  <dl class="meta">
+    <div><dt>时长</dt><dd>296.9s</dd></div>
+    <div><dt>规格</dt><dd>720×1282</dd></div>
+    <div><dt>点赞</dt><dd>2.26 万</dd></div>
+    <div><dt>评论</dt><dd>685</dd></div>
+    <div><dt>转发</dt><dd>1593</dd></div>
+    <div><dt>发布</dt><dd>2026-07-16</dd></div>
+  </dl>
+</header>
+
+<!-- ══════════ 结构 ══════════ -->
+<section>
+  <h2>01 / 结构</h2>
+  <div class="h2sub">三段式：钩子 · 收割 · 收尾</div>
+
+  <div class="struct">
+    <div class="s-drama" style="flex:106.6">
+      短剧 A · 钩子<span>0:00 – 1:46 · 106.6s</span>
+    </div>
+    <div class="s-ad" style="flex:105.5">
+      卖货段<span>1:46.6 – 3:32.1 · 105.5s</span>
+    </div>
+    <div class="s-drama2" style="flex:84.7">
+      短剧 B · 反转<span>3:32 – 4:57 · 84.7s</span>
+    </div>
+  </div>
+  <div class="struct-legend">
+    <span>0:00</span><span>1:46.6 切入</span><span>3:32.1 切回</span><span>4:56.8</span>
+  </div>
+
+  <div class="note">
+    <b>切换机制不是硬切，是「孩子点菜」。</b>
+    孩子说"阿姨我想吃红烧排骨" → 女主接"现在做红烧排骨哪有麻烦" → 镜头直接进厨房。
+    观众以为剧情在推进，广告已经开始了。<b>零违和、零停顿</b>——这是整条片子里最值得抄走的一招。
+  </div>
+</section>
+
+<!-- ══════════ 六动作 ══════════ -->
+<section>
+  <h2>02 / 卖货段</h2>
+  <div class="h2sub">6 个动作，105.5 秒</div>
+
+  <div class="acts">
+    <div class="act">
+      <div class="n">1</div>
+      <div><p class="t">痛点链 · 5 拍</p><p class="d">上班累到骨头散架 → 焖热厨房切葱姜蒜、忍油烟炒糖色 → 油花四溅烫到手 → 吃完刷油腻锅灶 → <b>于是你点了外卖</b></p></div>
+      <div class="dur">16.6s</div>
+    </div>
+    <div class="act">
+      <div class="n">2</div>
+      <div><p class="t">承诺 + 排除旧方案</p><p class="d">"有个电饭锅，饭店级排骨闭着眼睛都能做"；八角桂皮酱油老抽<b>通通先靠边站</b></p></div>
+      <div class="dur">7.6s</div>
+    </div>
+    <div class="act">
+      <div class="n">3</div>
+      <div><p class="t">五步演示</p><p class="d">① 焯水洗净 ② 丢进电饭锅 ③ 撕一包倒进去 ④ 加半碗清水 ⑤ 按煮饭键</p></div>
+      <div class="dur">18.8s</div>
+    </div>
+    <div class="act hero">
+      <div class="n">4</div>
+      <div><p class="t">省事 + 好吃证明 ⟵ 全程最重</p><p class="d">可以离开厨房、洗澡敷面膜刷两集、叮一声开饭；不加老抽照样红亮、一戳脱骨；<b>只洗一个内胆</b></p></div>
+      <div class="dur">26.3s</div>
+    </div>
+    <div class="act">
+      <div class="n">5</div>
+      <div><p class="t">配料 + 多用途</p><p class="d">配料表干净、0 蔗糖、老人小孩都能吃；红烧肉 / 鱼 / 牛羊肉都行</p></div>
+      <div class="dur">5.5s</div>
+    </div>
+    <div class="act">
+      <div class="n">6</div>
+      <div><p class="t">价格四段 + CTA</p><p class="d">锚点 7–8 元/包 → 9.9 元 5 包 → 再送 2 包 → 一块多一顿 → 点击左下角</p></div>
+      <div class="dur">28.2s</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 不对称 ══════════ -->
+<section>
+  <h2>03 / 洞察</h2>
+  <div class="h2sub">两个不对称：省事是好吃的时间的 4 倍</div>
+
+  <div class="cmp">
+    <div class="cmp-row">
+      <div class="cmp-lab">省事的举证</div>
+      <div class="bar cheap" style="width:100%">不用吸油烟 · 洗澡敷面膜 · 只洗一个内胆 · 不刷锅不擦灶台</div>
+      <div class="cmp-val">≈24s</div>
+    </div>
+    <div class="cmp-row">
+      <div class="cmp-lab">好吃的举证</div>
+      <div class="bar taste" style="width:25%">红亮 · 脱骨</div>
+      <div class="cmp-val">≈6s</div>
+    </div>
+    <p class="cmp-note">
+      <b>这个品类卖的不是"更好吃"，是"更不费事"。</b>
+      它的买家下班已经没力气了——所以"好吃"只需要 6 秒证明，剩下 24 秒全部用来拆掉"要做饭"这件事的门槛：油烟、守火、刷锅、擦灶台。
+      <br><br>
+      另一个不对称同样值得记：<b>痛点链 16.6s ≈ 五步演示 18.8s</b>。痛点里塞了 5 个具体崩溃点（累/切配/油烟/烫手/刷锅），每个都短促密集；演示反而被迫压缩成机械五步。
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ 逐拍表 ══════════ -->
+<section>
+  <h2>04 / 逐拍</h2>
+  <div class="h2sub">卖货段完整时间轴</div>
+
+  <div class="tw">
+    <table>
+      <thead>
+        <tr><th>相对</th><th>绝对</th><th>口播原文（节选）</th><th>功能</th><th>画面</th></tr>
+      </thead>
+      <tbody>
+        <tr class="hl"><td class="num">0.6s</td><td class="num">1:46.6</td><td>现在做红烧排骨哪有麻烦</td><td class="fn">切换铰链</td><td>女主接孩子点菜</td></tr>
+        <tr><td class="num">3.1s</td><td class="num">1:49.1</td><td>别再用老一套方法做红烧排骨了</td><td class="fn">否定旧方案</td><td>手持产品 + 生排骨</td></tr>
+        <tr><td class="num">5.8s</td><td class="num">1:51.8</td><td>每天上班累的骨头都快散架</td><td class="fn">痛点① 累</td><td>排骨 + 电饭锅</td></tr>
+        <tr><td class="num">8.5s</td><td class="num">1:54.5</td><td>还要切葱姜蒜、忍着油烟炒糖色</td><td class="fn">痛点②③</td><td>特写（脸顶到上部）</td></tr>
+        <tr><td class="num">11.7s</td><td class="num">1:57.7</td><td>稍不注意油花四溅烫到手</td><td class="fn">痛点④ 烫手</td><td>铁锅熬糖色</td></tr>
+        <tr><td class="num">14.1s</td><td class="num">2:00.1</td><td>吃完还得刷油腻腻的炒锅和灶台</td><td class="fn">痛点⑤ 刷锅</td><td>炒锅 + 堆叠碗碟</td></tr>
+        <tr><td class="num">16.7s</td><td class="num">2:02.7</td><td>是不是瞬间就想点外卖</td><td class="fn">痛点收口</td><td>女主出镜</td></tr>
+        <tr><td class="num">19.7s</td><td class="num">2:05.7</td><td>有个电饭锅，饭店级排骨闭眼都能做</td><td class="fn">承诺</td><td>电饭锅 + 排骨</td></tr>
+        <tr class="hl"><td class="num">24.6s</td><td class="num">2:10.6</td><td>八角桂皮酱油老抽通通先靠边站</td><td class="fn">排除旧方案</td><td>一排调料瓶</td></tr>
+        <tr><td class="num">27.3s</td><td class="num">2:13.3</td><td>焯水、温水洗净、放进电饭锅</td><td class="fn">步骤①②</td><td>电饭锅焯水</td></tr>
+        <tr class="hl"><td class="num">32.8s</td><td class="num">2:18.8</td><td>重点来了，撕开这一包鲍汁红烧酱倒进去</td><td class="fn">步骤③ 产品出场</td><td>撕包倒酱特写</td></tr>
+        <tr><td class="num">38.3s</td><td class="num">2:24.3</td><td>根本不用你再猜"少许"到底是多少</td><td class="fn">反衬旧做法</td><td>酱汁浇排骨</td></tr>
+        <tr><td class="num">43.6s</td><td class="num">2:29.6</td><td>盖上盖子按下煮饭键搞定</td><td class="fn">步骤⑤</td><td>按煮饭键</td></tr>
+        <tr class="hl"><td class="num">46.1s</td><td class="num">2:32.1</td><td>可以离开厨房了，不用吸油烟不用守着火</td><td class="fn">省事①</td><td>女主离开厨房</td></tr>
+        <tr><td class="num">51.1s</td><td class="num">2:34.4</td><td>你去洗个澡敷个面膜刷两集</td><td class="fn">省事②</td><td>孩子坐等</td></tr>
+        <tr><td class="num">57.3s</td><td class="num">2:39.9</td><td>不加一滴老抽照样红亮诱人</td><td class="fn">好吃①</td><td>出锅排骨</td></tr>
+        <tr><td class="num">60.3s</td><td class="num">2:42.0</td><td>吸满酱汁，筷子一戳就脱骨，软烂下饭</td><td class="fn">好吃②③</td><td>夹排骨特写</td></tr>
+        <tr class="hl"><td class="num">62.7s</td><td class="num">2:48.7</td><td>关键是吃完只用洗一个内胆</td><td class="fn">省事④</td><td>女主举排骨</td></tr>
+        <tr><td class="num">65.1s</td><td class="num">2:51.1</td><td>不用刷炒锅，不用擦满是油点的灶台</td><td class="fn">省事⑤</td><td>空灶台</td></tr>
+        <tr><td class="num">69.9s</td><td class="num">2:55.9</td><td>配料表干净，最重要的是 0 蔗糖</td><td class="fn">配料 / 安全</td><td>手拿产品</td></tr>
+        <tr><td class="num">75.2s</td><td class="num">3:01.2</td><td>红烧肉、鱼、牛羊肉都可以，一包搞定</td><td class="fn">多用途</td><td>一桌菜</td></tr>
+        <tr class="hl"><td class="num">77.9s</td><td class="num">3:03.9</td><td>平时去买这么一包少说也要七八块</td><td class="fn">价格锚点</td><td>手拿产品</td></tr>
+        <tr><td class="num">83.4s</td><td class="num">3:09.4</td><td>9 块 9 直接到手五包</td><td class="fn">报价</td><td>三包产品展示</td></tr>
+        <tr><td class="num">86.1s</td><td class="num">3:12.1</td><td>拼手速下单的，我再自掏腰包多送你两包</td><td class="fn">加码</td><td>三包 + 字幕</td></tr>
+        <tr><td class="num">94.0s</td><td class="num">3:20.0</td><td>折算下来一块多钱就能解决一顿大餐的调味</td><td class="fn">折算</td><td>女主出镜</td></tr>
+        <tr class="hl"><td class="num">99.3s</td><td class="num">3:25.3</td><td>现货库存马上见底，点击左下角头像抢单带回家</td><td class="fn">CTA</td><td>孩子吃饭</td></tr>
+        <tr><td class="num">106.1s</td><td class="num">3:32.1</td><td>爸爸好香，慢点吃锅里还有</td><td class="fn">切回短剧</td><td>短剧镜头</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════ 价格 ══════════ -->
+<section>
+  <h2>05 / 价格</h2>
+  <div class="h2sub">四段式报价：锚点 → 让利 → 加码 → 折算</div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="amt">7–8<small>元 / 包</small></div>
+      <div class="say"><b>锚点</b>：「平时去买这么一包，少说也要七八块」——先给一个日常价，让后面的数字有参照。</div>
+    </div>
+    <div class="step">
+      <div class="amt">1.98<small>元 / 包</small></div>
+      <div class="say"><b>让利</b>：「今天在我们这里直接把底价打穿，9 块 9 直接到手五包」——口号 + 具体数字。</div>
+    </div>
+    <div class="step">
+      <div class="amt">1.41<small>元 / 包</small></div>
+      <div class="say"><b>加码</b>：「还没完，拼手速下单的我再自掏腰包多送你两包」——把"买"变成"抢"，制造行动理由。</div>
+    </div>
+    <div class="step final">
+      <div class="amt">≈1.8 折<small>7.5 元 → 1.41 元</small></div>
+      <div class="say"><b>折算 + 稀缺 + 指令</b>：「一块多钱就能解决一顿大餐的调味」→「现货库存马上见底，点击左下角头像抢单带回家」。</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>注意加码那一步的措辞。</b>"自掏腰包多送你两包"把平台的促销说成了主播个人的让利——这是**把折扣人格化**，比单纯的"买五送二"更容易让人下单。
+  </div>
+</section>
+
+<!-- ══════════ 语术骨架 ══════════ -->
+<section>
+  <h2>06 / 可复用</h2>
+  <div class="h2sub">话术骨架 —— 括号里换成你的产品</div>
+
+  <p class="muted">把逐拍表抽象成填空模板。这是可以直接拿去用的部分。</p>
+
+  <div class="skeleton">
+    <div class="sk-grp">
+      <span class="sk-tag">切换铰链</span>
+      <p class="sk-line">（在场的人）说：「我想吃 <span class="fill">你的品类</span>」</p>
+      <p class="sk-line">主角接：「现在做 <span class="fill">你的品类</span> 哪有麻烦」</p>
+      <p class="sk-hint">→ 用一句剧情台词把观众带进产品场景，不要出现"接下来介绍"这类出戏提示。</p>
+    </div>
+
+    <div class="sk-grp">
+      <span class="sk-tag">痛点链 · 5 拍</span>
+      <p class="sk-line">别再用老一套方法做 <span class="fill">你的品类</span> 了</p>
+      <p class="sk-line">每天上班累到 <span class="fill">具体身体感受</span></p>
+      <p class="sk-line">还要 <span class="fill">最烦的第 1 个动作</span>、<span class="fill">第 2 个动作</span></p>
+      <p class="sk-line"><span class="fill">最狼狈的瞬间</span></p>
+      <p class="sk-line">完了还得 <span class="fill">最烦的收尾工作</span></p>
+      <p class="sk-line">是不是瞬间就想 <span class="fill">曾经的退路</span>？</p>
+      <p class="sk-hint">→ 5 拍、共 16 秒左右。每拍都要能被<span style="color:var(--red);font-weight:700">身体感受</span>对号入座，不要写抽象形容词。</p>
+    </div>
+
+    <div class="sk-grp">
+      <span class="sk-tag">承诺 + 排除</span>
+      <p class="sk-line">只要家里有 <span class="fill">最常见的现有工具</span>，就能做出 <span class="fill">超越预期的结果</span></p>
+      <p class="sk-line"><span class="fill">传统配料 / 传统步骤</span>，通通先靠边站</p>
+      <p class="sk-hint">→ "靠边站"比"不需要"更有画面感，也不会被读成比较性广告。</p>
+    </div>
+
+    <div class="sk-grp">
+      <span class="sk-tag">步骤演示 · 5 步</span>
+      <p class="sk-line">① <span class="fill">预处理</span>　② 放进 <span class="fill">主设备</span>　③ 撕开 <span class="fill">你的产品</span>倒进去</p>
+      <p class="sk-line">④ <span class="fill">唯一的添加动作</span>　⑤ <span class="fill">一键动作</span>，搞定</p>
+      <p class="sk-hint">→ 必须正好 5 步，且第 ③ 步是产品出场。步数再多，观众就记不住了。</p>
+    </div>
+
+    <div class="sk-grp">
+      <span class="sk-tag">省事举证 · 4 倍权重 ★</span>
+      <p class="sk-line">接下来你就可以离开 <span class="fill">现场</span> 了，不用 <span class="fill">最累的事</span></p>
+      <p class="sk-line">你去 <span class="fill">最想干的事</span>、<span class="fill">第二件事</span>、<span class="fill">第三件事</span></p>
+      <p class="sk-line">关键是吃完只用洗 <span class="fill">一个什么件</span></p>
+      <p class="sk-line">不用 <span class="fill">清洁动作 A</span>，不用 <span class="fill">清洁动作 B</span></p>
+      <p class="sk-line">简直就是 <span class="fill">目标人群</span> 的 <span class="fill">最高赞美</span></p>
+      <p class="sk-hint">→ 这一段给足 24 秒，是"好吃"的 4 倍。你的产品解决的如果是"麻烦"，就把时间全押在这里。</p>
+    </div>
+
+    <div class="sk-grp">
+      <span class="sk-tag">好吃举证 · 只给 6 秒</span>
+      <p class="sk-line">不加 <span class="fill">传统上色料</span> 照样 <span class="fill">外观结果</span></p>
+      <p class="sk-line"><span class="fill">口感第 1 层</span>，<span class="fill">口感第 2 层</span>，<span class="fill">口感第 3 层</span></p>
+      <p class="sk-hint">→ 三个口感词、两句话，收工。说多了反而稀释"省事"的记忆点。</p>
+    </div>
+
+    <div class="sk-grp">
+      <span class="sk-tag">价格四段</span>
+      <p class="sk-line">平时去买 <span class="fill">多少量</span> 少说也要 <span class="fill">日常价</span></p>
+      <p class="sk-line">今天 <span class="fill">让利口号</span>，<span class="fill">实付价</span> 直接到手 <span class="fill">数量</span></p>
+      <p class="sk-line">还没完，拼手速下单的，我再自掏腰包多送你 <span class="fill">加赠量</span></p>
+      <p class="sk-line">折算下来 <span class="fill">单次成本</span> 就能解决 <span class="fill">一次什么</span></p>
+      <p class="sk-line">库存马上见底，点击左下角头像抢单带回家</p>
+      <p class="sk-hint">→ 五句话、约 28 秒。锚点价必须是观众日常真的会掏的钱。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 图层 ══════════ -->
+<section>
+  <h2>07 / 复刻工程</h2>
+  <div class="h2sub">图形层压在哪里</div>
+
+  <div class="layers">
+    <div class="phone">
+      <div class="screen">
+        <div class="lz lz-banner">我加：卖点条</div>
+        <div class="lz lz-price">9.9 元 5 包</div>
+        <div class="lz lz-arrow">↓</div>
+        <div class="lz lz-cap">原片烧死：口播字幕</div>
+        <div class="lz lz-disc">原片烧死：免责声明</div>
+      </div>
+    </div>
+    <div>
+      <div class="lg-item">
+        <div class="lg-dot" style="background:var(--red)"></div>
+        <div><p class="n">我加的 · 卖点条（顶部 2.2%–11.8%）</p>
+        <p class="d">痛点链 / 承诺 / 五步 / 省事证明 / CTA。白字红底，逐句对齐口播。</p></div>
+      </div>
+      <div class="lg-item">
+        <div class="lg-dot" style="background:#8A0C14"></div>
+        <div><p class="n">我加的 · 价格卡（13%–27%）</p>
+        <p class="d">只在成交窗口出现（78s–96s），黄字红底大字号，不遮面部与产品。</p></div>
+      </div>
+      <div class="lg-item">
+        <div class="lg-dot" style="background:#8E9AAF"></div>
+        <div><p class="n">原片烧死 · 口播字幕（底部 78%–86%）</p>
+        <p class="d">跟着 A-roll 一起进入成片，<b>无法关闭</b>。</p></div>
+      </div>
+      <div class="lg-item">
+        <div class="lg-dot" style="background:#B49B7E"></div>
+        <div><p class="n">原片烧死 · 免责声明（右下 90%–95%）</p>
+        <p class="d">"剧情虚构 请勿模仿 无不良影响"。</p></div>
+      </div>
+      <div class="lg-item">
+        <div class="lg-dot" style="background:var(--red)"></div>
+        <div><p class="n">原片烧死 · 红色箭头（画面中下部）</p>
+        <p class="d">原片自带的指引层，拍哪指哪。<b>不需要重建</b>。</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <b>一个必须说清的取舍。</b>
+    顶部通栏在中景镜头是干净背景，但<b>特写镜头会压到额头</b>（例 1:54–1:56，人物脸部顶到画面 5%）。
+    我仍然选顶部，因为：底部被字幕占死、中部是脸和产品、右下是免责声明——<b>顶部是唯一不打架的位置</b>，这也是竖屏带货的通行做法。
+    若要零遮挡，需要按镜头逐个切换条的位置，工程量会翻几倍。
+  </div>
+</section>
+
+<!-- ══════════ 交付 ══════════ -->
+<section>
+  <h2>08 / 交付</h2>
+  <div class="h2sub">工程文件与验证结果</div>
+
+  <div class="files">
+    <div class="f"><code>references/homecook/</code><span>原片、逐词转写、接触表、证据帧、ANALYSIS / TIMELINE</span></div>
+    <div class="f"><code>productions/ad-clone/authors/main.svml</code><span>复刻主工程（5 层图形 + A-roll + 原声）</span></div>
+    <div class="f"><code>productions/ad-clone/authors/recipes.svs</code><span>文字样式配方（字号 / 字距 / 换行 / 收缩）</span></div>
+    <div class="f"><code>productions/ad-clone/assets/ad-segment.mp4</code><span>卖货段切片 105.0s · 720×1282@30 · H.264</span></div>
+    <div class="f"><code>render-clone.sh</code><span>一键渲染（本机终端）</span></div>
+  </div>
+
+  <h3>已验证（本环境内可跑完的两级）</h3>
+  <pre><span class="c">$</span> hypit check productions/ad-clone/authors/main.svml --workspace .
+<span class="s">✓ Source is valid</span>
+  Outputs  21
+
+<span class="c">$</span> hypit plan productions/ad-clone/runs/final.svrun --workspace .
+  Requests        5
+  Local requests  5
+  Preflight       <span class="s">ready</span>
+<span class="c">  → 5 个请求全部 local，零 Provider 费用</span></pre>
+
+  <p class="muted">真实渲染（<code>hypit build</code>）需要在你自己的终端或远端主机上执行 —— 本会话环境带有删除安全护栏与进程枚举限制，会在收尾阶段中止。</p>
+
+  <h3>渲染</h3>
+  <pre><span class="c"># 本机终端</span>
+cd ~/Desktop/videoHub/videos/douyin-ad-2
+bash render-clone.sh
+
+<span class="c"># 远端主机（x86_64 Linux）</span>
+cd ~/Desktop/videoHub/remote-render
+bash render-on-remote.sh --host root@你的IP --project ~/Desktop/videoHub/videos/douyin-ad-2</pre>
+</section>
+
+<!-- ══════════ 合规 ══════════ -->
+<section>
+  <h2>09 / 合规</h2>
+  <div class="h2sub">投放前必须改掉的表述</div>
+
+  <div class="note warn">
+    <ul style="margin:0">
+      <li><b>"0 蔗糖"</b> —— 若写成"0 糖 / 无糖"属违规表述，需有检测依据支撑，建议保留"0 蔗糖"并备好检测报告。</li>
+      <li><b>"老人小孩都能安心吃"</b> —— 属安全性声称，食品广告风险高，建议改为"配料简单，家常调味"。</li>
+      <li><b>"饭店级别""大厨味"</b> —— 绝对化 / 比较性表述，建议改为"接近饭店口感"。</li>
+      <li><b>"底价打穿""库存马上见底"</b> —— 价格与稀缺性承诺，须与实际库存、价保期一致。</li>
+      <li><b>短剧外壳若涉及虚假人设</b>（冒充特定企业、虚构身份），需确保不影射真实企业与个人。</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <b>版权。</b>原片素材（含真人表演、品牌包装）<b>仅可用于研究</b>。商用必须替换为自有素材与模特；本工程保留原片切片只为验证结构复刻，不作为可投放成品。
+  </div>
+</section>
+
+<footer>
+  <p><b>拆解报告 · 02</b> · 参考片 7663019839170397945 · 生成于 2026-09-16</p>
+  <p>转写 whisper.cpp large-v3-turbo（本地）· 渲染 Hypit 本地 Provider（零模型费用）· 原片素材仅限研究</p>
+</footer>
+
+</div>
+</body>
+</html>

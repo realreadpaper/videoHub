@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全流程说明 · 问题诊断 · 审查清单</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, "SF Pro SC", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    background:#FBFAF7; color:#2C2C2A; line-height:1.75; font-size:15px; padding:48px 24px 90px;
+  }
+  .wrap { max-width:960px; margin:0 auto; }
+  header { border-bottom:2px solid #2C2C2A; padding-bottom:20px; margin-bottom:34px; }
+  h1 { font-size:27px; font-weight:600; letter-spacing:-.3px; margin-bottom:10px; }
+  .sub { font-size:14px; color:#77746D; }
+  h2 { font-size:19px; font-weight:600; margin:46px 0 16px; padding-left:12px; border-left:4px solid #D85A30; }
+  h3 { font-size:15.5px; font-weight:600; margin:28px 0 10px; color:#444441; }
+  h4 { font-size:14.5px; font-weight:600; margin:20px 0 8px; color:#5F5E5A; }
+  p { margin-bottom:14px; }
+  .muted { color:#77746D; font-size:13.5px; }
+  code, .mono { font-family:"SF Mono", ui-monospace, Menlo, monospace; font-size:13px;
+    background:#F1EFE8; padding:1px 6px; border-radius:4px; }
+  pre { background:#F6F4EF; border-radius:9px; padding:14px 18px; overflow-x:auto;
+    font-family:"SF Mono", ui-monospace, Menlo, monospace; font-size:12.5px; line-height:1.65;
+    margin:12px 0 18px; border-left:3px solid #D3D1C7; }
+
+  table { width:100%; border-collapse:collapse; margin:16px 0 22px; font-size:14px; }
+  th { text-align:left; font-weight:600; font-size:13px; color:#5F5E5A;
+       border-bottom:1.5px solid #D3D1C7; padding:9px 12px; white-space:nowrap; }
+  td { border-bottom:1px solid #EDEBE6; padding:9px 12px; vertical-align:top; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tr.total td { font-weight:600; background:#F6F4EF; border-bottom:1.5px solid #D3D1C7; }
+
+  .callout { border-radius:10px; padding:16px 20px; margin:20px 0; font-size:14px; }
+  .callout.warn { background:#FAEEDA; border-left:4px solid #BA7517; }
+  .callout.info { background:#E6F1FB; border-left:4px solid #378ADD; }
+  .callout.good { background:#E1F5EE; border-left:4px solid #1D9E75; }
+  .callout.bad  { background:#FCEBEB; border-left:4px solid #E24B4A; }
+  .callout b { font-weight:600; }
+
+  .tag { display:inline-block; font-size:11.5px; padding:2px 9px; border-radius:20px;
+         font-weight:600; vertical-align:middle; white-space:nowrap; }
+  .tag.ok   { background:#E1F5EE; color:#0F6E56; }
+  .tag.no   { background:#FCEBEB; color:#A32D2D; }
+  .tag.part { background:#FAEEDA; color:#854F0B; }
+  .tag.gray { background:#F1EFE8; color:#5F5E5A; }
+
+  figure { margin:22px 0; }
+  figure img { width:100%; border-radius:10px; border:1px solid #E8E6E1; display:block; }
+  figcaption { font-size:12.5px; color:#77746D; margin-top:8px; }
+
+  .chain { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:18px 0; font-size:13px; }
+  .chain .step { background:#fff; border:1px solid #E8E6E1; border-radius:8px; padding:9px 13px; }
+  .chain .step.remote { background:#FAEEDA; border-color:#FAC775; }
+  .chain .step.local  { background:#E1F5EE; border-color:#9FE1CB; }
+  .chain .step.miss   { background:#FCEBEB; border-color:#F7C1C1; border-style:dashed; }
+  .chain .arw { color:#B4B2A9; }
+
+  ul, ol { margin:12px 0 18px 22px; }
+  li { margin-bottom:8px; }
+  footer { margin-top:56px; padding-top:20px; border-top:1px solid #E8E6E1; font-size:12.5px; color:#9A968E; }
+  .kbd { font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>全流程说明 · 问题诊断 · 审查清单</h1>
+  <div class="sub">
+    针对片1「良心面试 · 食堂红烧」交付版<br>
+    回应你提的四类问题：情节拖沓 / 表情不配合 / 字幕异常 / 产品样子不对
+  </div>
+</header>
+
+<div class="callout bad">
+  <b>先认一件最重要的事：这次交付的成片，hypit 一步都没参与。</b><br>
+  hypit 工程建好了、校验也过了，但<b>渲染那一步从来没跑通</b>，所以它的图形层（价位卡 / 痛点条 / CTA）
+  和<b>产品贴图合成</b>都没有落到成片上。你现在看到的片子，是 H3 生成 + LTX 精修 + 直接拼接的裸版。
+  你提的「产品样子不对」，根因就在这里。
+</div>
+
+<h2>一、完整工作过程——每一步在哪跑、跑了什么</h2>
+
+<h3>整条链路</h3>
+<div class="chain">
+  <span class="step">原片下载<br><span class="muted">286s / 720×1280</span></span>
+  <span class="arw">→</span>
+  <span class="step">hypit 分析<br><span class="muted">拆结构 / 转写 / 证据帧</span></span>
+  <span class="arw">→</span>
+  <span class="step local">本地：逐句对齐<br><span class="muted">100% 抄写台词</span></span>
+  <span class="arw">→</span>
+  <span class="step local">本地：中文干声<br><span class="muted">Edge TTS</span></span>
+  <span class="arw">→</span>
+  <span class="step remote">远端：草稿 384×672<br><span class="muted">H3 audio-lock</span></span>
+  <span class="arw">→</span>
+  <span class="step remote">远端：精修 768×1344<br><span class="muted">LTX</span></span>
+  <span class="arw">→</span>
+  <span class="step miss">hypit 合成层<br><span class="muted">未执行 ❌</span></span>
+</div>
+
+<table>
+  <thead><tr><th>步骤</th><th>在哪跑</th><th>产出</th><th>状态</th></tr></thead>
+  <tbody>
+    <tr><td>1. 参考片下载 + 元数据</td><td>本地</td><td><span class="mono">source.mp4</span> / <span class="mono">metadata.info.json</span></td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td>2. hypit 结构分析</td><td>本地</td><td>ANALYSIS.md / TIMELINE.md / transcript.srt</td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td>3. 逐句对齐 + 100% 抄写校验</td><td>本地</td><td><span class="mono">抄写核对报告.md</span> / <span class="mono">*_shot_lines.txt</span></td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td>4. 分镜与 prompt 撰写（20 镜）</td><td>本地</td><td>SCRIPT.md / STORYBOARD.md / manifest.json</td><td><span class="tag part">有缺陷</span></td></tr>
+    <tr><td>5. 中文干声合成（40 镜）</td><td>本地 CPU</td><td><span class="mono">shotNN_dry.wav</span> + <span class="mono">lines.json</span></td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td>6. 草稿渲染 Stage1</td><td>远端 4090</td><td>20 镜 / 384×672</td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td>7. 精修渲染 Stage2</td><td>远端 4090</td><td>20 镜 / 768×1344</td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td>8. 拼接 + 回传</td><td>远端→本地</td><td>全片 114 MB</td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td>9. 外挂字幕生成</td><td>本地</td><td>83 条 <span class="mono">.srt</span>/<span class="mono">.vtt</span></td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td><b>10. hypit 图形层 + 产品贴图合成</b></td><td>本地</td><td><b>预期产出最终成片</b></td><td><span class="tag no">未执行</span></td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <b>一句话概括这次的分工：</b>「抄什么、怎么念」这一步做得很扎实（1–5 步全部可验证）；
+  「画面长什么样」这一步做了一半 —— 生成层干净可用，<b>合成层（补图形、补产品）整段缺失</b>。
+  你看到的所有问题，几乎都落在第 4 步和第 10 步。
+</div>
+
+<h2>二、hypit 到底做了什么、产出了什么</h2>
+
+<p>
+  hypit 在这个项目里的定位是<b>「分析 + 后期合成」两件事</b>，中间的画面生成交给了 H3/LTX。
+  它实际交付的部分质量很高，但后半截卡在了环境限制上。
+</p>
+
+<h3>2.1 分析层产出（这部分是有效资产，可直接审）</h3>
+<table>
+  <thead><tr><th>文件</th><th>内容</th><th>规模</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><span class="mono">references/zui-guoli-ribs/ANALYSIS.md</span></td>
+      <td>整片结构拆解：判定了这是「短剧引流 + 中段口播带货 + 剧情收尾」三段式，拆出四个系统（剧情 / 载体 / 卖货 / 收尾），并解释了卖货段为什么有效</td>
+      <td class="num">3.7 KB</td>
+    </tr>
+    <tr>
+      <td><span class="mono">references/zui-guoli-ribs/TIMELINE.md</span></td>
+      <td>逐段秒级时间轴：0–133s 剧情、133–181s 交接桥、181–265s 卖货、265–286s 收尾</td>
+      <td class="num">4.8 KB</td>
+    </tr>
+    <tr>
+      <td><span class="mono">references/zui-guoli-ribs/transcript.srt</span></td>
+      <td>全片 286 秒逐句转写（带时间码）—— 这是后面「100% 抄写」的底本</td>
+      <td class="num">61 KB</td>
+    </tr>
+    <tr>
+      <td><span class="mono">references/zui-guoli-ribs/ad-sentences.json</span></td>
+      <td>卖货段话术按句切分，供复刻工程引用</td>
+      <td class="num">0.4 KB</td>
+    </tr>
+    <tr>
+      <td><span class="mono">.../evidence/sheet_*.jpg</span></td>
+      <td>四个时间段的证据接触表 + 产品特写，用于人工核对拆解结论</td>
+      <td class="num">4 张</td>
+    </tr>
+    <tr>
+      <td><span class="mono">docs/douyin-ad-teardown.html</span></td>
+      <td>拆解报告的可视化版本</td>
+      <td class="num">35 KB</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout good">
+  <b>这份分析里最有价值的一个判断</b>（直接决定了能不能复用）：<br>
+  「短剧和卖货之间没有叙事缝合。第 133s 一句『去公司食堂厨房完整做一次给我看』就完成了切换，
+  第 265s 一句又拉回剧情。<b>这意味着卖货段自成一体，可以被整段替换、整段复用、整段适配别的产品。</b>」<br>
+  —— 也就是说：<b>换产品不需要重拍剧情段，只需要重做中间那 84 秒。</b>这是后面所有优化方案的立足点。
+</div>
+
+<h3>2.2 工程层产出（搭好了，但没渲染）</h3>
+<table>
+  <thead><tr><th>文件</th><th>内容</th><th>状态</th></tr></thead>
+  <tbody>
+    <tr><td><span class="mono">productions/ad-clone/BRIEF.md</span></td><td>复刻目标与边界定义</td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td><span class="mono">productions/ad-clone/TREATMENT.md</span></td><td>处理方案（怎么复刻卖货段的六个功能）</td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td><span class="mono">productions/ad-clone/authors/main.svml</span></td><td>复刻主工程：图形层描述，含痛点条 / 五步条 / 价格卡 / CTA</td><td><span class="tag ok">校验通过<br>18 outputs</span></td></tr>
+    <tr><td><span class="mono">productions/ad-clone/authors/recipes.svs</span></td><td>可复用的配方（素材 + 参数组合）</td><td><span class="tag ok">完成</span></td></tr>
+    <tr><td><span class="mono">productions/ad-clone/runs/final.svrun</span></td><td>渲染配置，指向 A-roll 素材</td><td><span class="tag ok">预检 ready</span></td></tr>
+    <tr><td><span class="mono">productions/ad-clone/assets/ad-segment.mp4</span></td><td>A-roll 素材（待替换为新生成画面）</td><td><span class="tag gray">待替换</span></td></tr>
+    <tr><td><b>实际渲染成片</b></td><td><b><span class="mono">output/</span> 目录</b></td><td><span class="tag no">空的</span></td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <b>为什么没渲染成？</b>（原话记录在 <span class="mono">PROGRESS.md</span> 里，不是配置问题）<br>
+  ① 会话环境的批量删除计数触顶，Runtime Worker 起不来；<br>
+  ② hypit 渲染收尾会用 <span class="mono">ps -A -o pid=,ppid=</span> 回收 Chrome 子进程，而当前环境禁用 <span class="mono">ps</span>，导致收尾 EPERM、结果不落盘。<br>
+  两个都是环境护栏，<b><span class="mono">hypit plan</span> 已经返回 Preflight ready</b>，说明工程本身是好的。
+  在你自己终端跑一条命令就能出片。
+</div>
+
+<h4>在你的终端补跑这一步（需要时用）</h4>
+<pre>cd ~/Desktop/videoHub/videos/douyin-ad
+export PATH="$HOME/.npm-global/bin:$PATH"
+hypit build productions/ad-clone/runs/final.svrun --workspace . --follow</pre>
+<p class="muted">模型费用 0 元（全部走本地 Provider）。跑之前注意：现在的 A-roll 还是原片切片，要先把画面换成新生成的那 20 镜。</p>
+
+<h2>三、四个问题的根因——全部有实测证据</h2>
+
+<h3>问题 1｜产品样子不对 <span class="tag no">根因已定位</span></h3>
+<p>
+  这是<b>设计如此 + 合成层缺席</b>的双重结果，不是生成失误。<br>
+  <span class="mono">_product/PRODUCT.md</span> 里写得很明确：H3 是生成模型，包装上的中文<b>必然被画成乱码</b>，
+  所以工程上把产品拆成两层 ——
+</p>
+<ul>
+  <li><b>生成层</b>：prompt 只描述「壳」（形状 / 配色 / 材质 / 光感 / 成品图 / 挂孔），
+      品牌与品名区域强制写成 <span class="mono">clean unprinted red field</span>，保证画面干净不吃乱码。</li>
+  <li><b>合成层</b>：把真实产品图按透视贴回袋面。<b>这一步就是 hypit，没跑。</b></li>
+</ul>
+<p>于是成片里的袋子就成了一个<b>纯空白红壳</b>。实测证据：</p>
+<figure>
+  <img src="_review/zoom/s15_full.jpg" alt="生成出来的产品袋是空白红壳">
+  <figcaption>片1 镜15（t≈218s）原始生成帧：袋子是空白的 —— 米白顶条、挂孔、一盘成品菜都在位，但<b>零文字</b>。这是「待贴图」状态，不是画错了。</figcaption>
+</figure>
+<p class="muted">产品出现在 6 个镜：<b>镜 7、13、14、15、18、19</b>。这 6 镜都需要贴图处理。</p>
+
+<h3>问题 2｜人物表情没配合上 <span class="tag no">根因已定位</span></h3>
+
+<div class="callout info">
+  <b>先更正我自己一个粗略结论。</b>我第一遍用「整镜有没有情绪词」去扫，报出「9 个镜零表情」——
+  那个口径太粗，把纯物件特写（锅里的酱汁、成品菜特写）也算进去了，那些镜<b>画面里根本没有人脸</b>，没有表情是正常的。
+  下面是逐段复核后的准确口径。
+</div>
+
+<p>
+  真正的口径应该是：<b>「这一段画面里有人脸，但 prompt 没描述表情」</b>。按这个算：
+</p>
+
+<table>
+  <thead><tr><th>统计项</th><th class="num">数值</th></tr></thead>
+  <tbody>
+    <tr><td>画面里有人的动作段（共 20 镜 × 3 段）</td><td class="num">35 段</td></tr>
+    <tr><td>其中明确描述了面部表情的</td><td class="num">12 段</td></tr>
+    <tr class="total"><td>缺口</td><td class="num">23 段（66%）</td></tr>
+    <tr><td>存在缺口的镜</td><td class="num">17 / 20</td></tr>
+  </tbody>
+</table>
+<p><b>有缺口的镜：</b><span class="mono">2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20</span></p>
+
+<p>
+  也就是说，prompt 写的是<b>物理动作</b>（"turns his head slowly"、"lifts her chin"、"stands up and brushes the dust off"），
+  但<b>三分之二的情况下没有一句描述这个人此刻是什么表情</b>。模型不知道要演什么，只能自己猜 ——
+  猜出来就是中性、木然，或者 AI 常见的尬笑。
+</p>
+
+<h3>更深一层的问题：动作段的粒度对不上台词节奏</h3>
+<p>
+  这是更根本的原因，也是它同时导致「表情不配合」和「情节拖沓」的地方：
+</p>
+<table>
+  <thead><tr><th>镜</th><th class="num">台词句数</th><th class="num">平均每句时长</th><th class="num">动作段粒度</th></tr></thead>
+  <tbody>
+    <tr><td>镜 5</td><td class="num">8 句</td><td class="num">1.9 秒</td><td class="num">固定 5 秒</td></tr>
+    <tr><td>镜 9 / 10 / 11</td><td class="num">6 句</td><td class="num">2.5 秒</td><td class="num">固定 5 秒</td></tr>
+    <tr><td>镜 2 / 3 / 4 / 12 …</td><td class="num">5 句</td><td class="num">3.0 秒</td><td class="num">固定 5 秒</td></tr>
+    <tr><td>镜 19</td><td class="num">1 句</td><td class="num">15.0 秒</td><td class="num">固定 5 秒</td></tr>
+  </tbody>
+</table>
+<div class="callout warn">
+  <b>看这个错配：</b>每镜一律切成「3 段 × 5 秒」，但台词节奏差了 <b>8 倍</b>
+  （镜5 每 1.9 秒一句，镜19 一句铺满 15 秒）。<br>
+  结果是：<b>情绪的转折点经常落在某一段的中间，而 prompt 对这一段只写了一句话、一个中性动作。</b>
+  模型只能用一个表情走完这 5 秒 → 该转的情绪没转、该给的反应没给。
+  <b>这才是"表情没配合上"的真正机制，不是简单的"忘了写表情"。</b>
+</div>
+
+<h3>问题 3｜情节拖沓 <span class="tag part">根因已定位</span></h3>
+<table>
+  <thead><tr><th>口径</th><th class="num">时长</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>原片时长</td><td class="num">286.13 s</td><td>4 分 46 秒</td></tr>
+    <tr><td>交付成片时长</td><td class="num">301.47 s</td><td>5 分 01 秒</td></tr>
+    <tr class="total"><td>多出</td><td class="num">+15.34 s</td><td>+5.4%</td></tr>
+  </tbody>
+</table>
+<p>
+  原因是硬约束：H3 单镜时长锁在 <b>15.0417 秒</b>（361 帧 / 24fps，是 <span class="mono">17n+5</span> 栅格的安全上限），
+  20 镜 × 15.0417 = <b>300.83 秒，一格都动不了</b>。
+  原片 286 秒 / 20 镜 ≈ 14.3 秒每镜，所以每镜天生就比原片长约 0.7 秒。
+</p>
+<div class="callout info">
+  <b>要压到 286 秒，只有两条路：</b><br>
+  ① <b>每镜裁尾 0.7 秒</b>（零成本，剪掉每镜最后 0.7s，20 镜刚好省 14.7s，落回 286.1s）；<br>
+  ② <b>减镜数</b>（比如合并 2 组镜到 18 镜）—— 但要重跑生成。<br>
+  推荐先做 ①，它是纯剪辑动作，不动画面。
+</div>
+
+<h3>问题 4｜字幕不对 <span class="tag no">根因已定位，且和外挂字幕无关</span></h3>
+<p>
+  <b>先说清楚：我给你的外挂 <span class="mono">.srt</span> 本身是准的</b>（83 条，逐句取 TTS 实测落点，末条 05:00.616 落在片长内）。
+  你看到的「字幕不对」，是<b>画面里被烧死的伪字</b>—— H3 把原片烧死的字幕当成画面内容学进去了，画出来的是<b>不成字的乱码</b>。
+</p>
+<figure>
+  <img src="_review/zoom/s12_band.jpg" alt="画面里 H3 自造的乱码伪字">
+  <figcaption>片1 镜12（t≈173s）放大：画面中部的「字幕」是 H3 自造的乱码字形，不是任何真实文字。镜3（t≈38s）同样问题。</figcaption>
+</figure>
+<p>
+  更要紧的是：prompt 里<b>其实已经写了</b>负面约束 ——<br>
+  <span class="mono">no subtitles, no captions, no on-screen text, no watermark…</span><br>
+  但<b>模型没有遵守</b>。因为原片本身就烧死了整条字幕，H3 在「复刻这个画面」时，把字幕当成了画面的一部分。
+  这证明了一件事：
+</p>
+<div class="callout bad">
+  <b>纯靠负面 prompt 压不住烧死的字幕。</b>因为它是「临摹任务」，模型会照抄它看到的东西。
+  必须用<b>画面后期手段</b>解决（见第五节），不能指望 prompt。
+</div>
+
+<h2>四、产品图怎么实现——我已经做了样张</h2>
+
+<p>
+  你给的产品图（鲍汁红烧酱料，822×1106）我已经存进项目：
+  <span class="mono">h3-films/_product/mine/product_鲍汁红烧酱料_原图.jpg</span>
+  <span class="muted">（微信临时目录会被清理，先落到项目里）</span>
+</p>
+
+<div class="callout good">
+  <b>可行性已经验证过了，不是纸上方案。</b>
+  我把你的产品图按透视贴到了镜15 的空白袋面上，品牌「佐味纪」、品名「鲍汁红烧酱料」、
+  PICC 保险标、建议零售价 8 元/包、净含量 80 克 —— <b>全部一比一还原</b>。
+</div>
+
+<figure>
+  <img src="_review/POC_产品贴图对比.jpg" alt="产品贴图前（空白红壳）与贴图后（真产品）对比">
+  <figcaption>左：当前成片里生成出来的空白红壳（按设计不画字，避免乱码）。
+  右：用你的产品图做透视贴图后的效果 —— <b>文字 100% 准确、可随时换成任何自有产品</b>。
+  这条路径<b>不需要重跑 GPU</b>。</figcaption>
+</figure>
+
+<p>我写了一个可复用的脚本 <span class="mono">h3-films/make_product_overlay.py</span>，核心就一步：</p>
+<pre>python make_product_overlay.py \
+  --frame  生成帧.jpg \
+  --product "_product/mine/product_鲍汁红烧酱料_原图.jpg" \
+  --crop   62,78,752,1022        # 产品图里袋子本体的裁切框 \
+  --quad   112,370 656,368 620,1096 132,1096   # 生成帧里袋面四角 TL TR BR BL \
+  --keep-highlight \
+  --out    贴图结果.jpg</pre>
+
+<h3>三条路线，按成本排序</h3>
+<table>
+  <thead><tr><th>路线</th><th>怎么做</th><th>成本</th><th>效果</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><b>A. 后期贴图</b><br><span class="tag ok">已做样张</span></td>
+      <td>在已有成片上按透视贴真图。袋子静止的镜（桌面静置、成品同框）效果最好；手持运动中需要逐帧跟踪打点</td>
+      <td class="num">0 GPU<br>纯 CPU</td>
+      <td>文字 100% 准；<br>静置镜接近完美，<br>运动镜需手动跟</td>
+    </tr>
+    <tr>
+      <td><b>B. I2VA 图生视频</b><br><span class="tag gray">可选</span></td>
+      <td>用你的产品图当首帧参考，重跑产品相关的那 6 个镜，让模型直接"画"出这个产品</td>
+      <td class="num">6 镜<br>≈ 17 分 GPU</td>
+      <td>光影更自然；<br>但中文仍会乱码，<br>还得用 A 兜底</td>
+    </tr>
+    <tr>
+      <td><b>C. hypit 图形层</b><br><span class="tag part">待补跑</span></td>
+      <td>在产品贴图之外，把痛点条 / 五步条 / 价格卡 / CTA 一并叠上（main.svml 里已经写好了）</td>
+      <td class="num">0 模型费<br>需你终端跑</td>
+      <td>一次性补齐<br>整条卖货段的<br>全部商业信息</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <b>我的建议顺序：C 打底（把图形层跑通）→ A 贴产品（覆盖 6 个镜）→ 有需要再考虑 B。</b><br>
+  理由：A 和 C 都是零 GPU 成本的后期动作，做完就能看到接近终版的完整效果；
+  B 要花 GPU 却仍然解决不了乱码，性价比最低。<br>
+  <b>另外，只改产品不需要重拍剧情段</b> —— 前面 ANALYSIS.md 已经判定卖货段自成一体，可整段替换。
+</div>
+
+<h2>五、表情 / 节奏 / 字幕的修复方案</h2>
+
+<h3>5.1 表情不配合 <span class="tag ok">工具已写好并跑通</span></h3>
+<p>根因有两个（缺表情 + 粒度错配），所以修法也是两步，工具 <span class="mono">h3-films/rebuild_beats.py</span> 一次做完：</p>
+<ol>
+  <li><b>用干声实测的逐句时间重排动作段</b> —— 把「3 段 × 5 秒」改成「一句台词一段」，
+      粒度自动跟台词对齐。数据源就是 <span class="mono">_tts/film1/shotNN_lines.json</span> 里已有的
+      <span class="mono">t</span> / <span class="mono">dur</span>（真实测出来的，不是估的）。</li>
+  <li><b>给每段补面部表情描述</b> —— 情绪按关键词规则从台词推断，再翻译成模型能执行的面部动作
+      （眉 / 眼 / 嘴 / 下颌 / 呼吸），并按说话人加语气基调。</li>
+</ol>
+
+<h4>改造前后对比（镜 3，5 句台词）</h4>
+<pre><b>改造前</b> —— 3 段 × 5 秒，全程无表情
+[00:00.000 – 00:05.000] Medium shot of S1 still seated on the concrete… He turns his head slowly…
+[00:05.000 – 00:10.000] At the top of the shallow steps S4 stands with her folder…
+[00:10.000 – 00:15.000] Close-up on S1's face… He speaks toward her, unhurried…
+
+<b>改造后</b> —— 5 段，跟着 5 句台词的实测时间走，每段带表情
+[00:00.200 – 00:04.577] …S1, delivering: "连一句求助都不愿意听完…" — <b>face: expression composed and unreadable, gaze steady…</b>
+[00:04.577 – 00:05.456] the speaker draws a short breath… S4, "这什么味啊。" — <b>face: lips pressed thin and turned down, eyes flicking away in disdain…</b>
+[00:05.456 – 00:08.333] …S1, "姑娘，能不能扶我一下…" — <b>face: brows drawn up in the middle, eyes soft and pleading, jaw slack with fatigue…</b>
+[00:08.333 – 00:10.290] …S4, "穿成这样怎么混到后门来的？" — <b>face: cold and clipped, emotion tight and controlled…</b>
+[00:10.290 – 00:14.824] …S1, "我腿不方便…" — <b>face: brows drawn up in the middle, eyes soft and pleading…</b></pre>
+
+<div class="callout good">
+  <b>这套工具有两个刻意的设计：</b><br>
+  ① <b>情绪表是你可改的</b>。规则从台词推断难免有偏差（比如镜3 第一句判成了"平静中性"，
+  其实更该是"失望里带冷峻"）。它会产出一份 <span class="mono">_review/表情注入审阅表.md</span>，
+  <b>你直接改这份表，重跑即可</b> —— 不用碰脚本。<br>
+  ② <b>会把可疑处标出来</b>。如果原动作描述写的是 A 在动、但这段话是 B 在说，
+  工具会自动换成中性承接动作并在审阅表里打 ⚠，提醒你重点复核，<b>不闷头糊过去</b>。
+</div>
+
+<h4>怎么用</h4>
+<pre>cd ~/Desktop/videoHub/h3-films
+python rebuild_beats.py \
+  --manifest film1-office/manifest.json \
+  --lines    _tts/film1 \
+  --shots    2,3,4,6,7,8,9,10,11,12,13,14,16,17,18,19,20 \   # 有缺口的 17 镜
+  --out-manifest _review/manifest_beats.json \
+  --out-review   _review/表情注入审阅表.md</pre>
+<p class="muted">已用 8 镜跑通验证（镜 2/3/4/5/10/14/19/20），产出的审阅表可直接打开看。</p>
+
+<h3>5.2 情节拖沓</h3>
+<ol>
+  <li><b>先做零成本的那一步</b>：每镜裁掉尾部 0.7 秒，300.83s → 286.1s，跟原片对齐。</li>
+  <li>如果还想更紧：把每镜里「说话完但画面继续走」的尾段剪掉，用下一镜的起始动作顶上来 —— 这是纯剪辑，不动生成。</li>
+  <li>要根治得改分镜：把 3×5 秒的均分改成<b>按台词长度分配</b>（长台词给长段、短促反应给短段）。</li>
+</ol>
+
+<h3>5.3 画面伪字（真正的字幕问题）</h3>
+<table>
+  <thead><tr><th>手段</th><th>做法</th><th>成本</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><b>外挂字幕条压住</b><br><span class="tag ok">推荐</span></td>
+      <td>伪字位置基本固定在画面中下部。外挂字幕本身要显示，正好用一条带底衬的字幕条盖在伪字上 —— 一举两得</td>
+      <td class="num">零</td>
+    </tr>
+    <tr>
+      <td>局部抹除</td>
+      <td>用 ffmpeg 对伪字区域做模糊 / 内容填充（位置需要逐镜确认，H3 的伪字位置不完全固定）</td>
+      <td class="num">低</td>
+    </tr>
+    <tr>
+      <td>重跑该镜</td>
+      <td>把 <span class="mono">no on-screen text</span> 约束提到 prompt 更靠前的位置、并补 <span class="mono">clean blank walls, no burnt-in subtitles</span>；但已验证纯 prompt 手段不可靠，只作为辅助</td>
+      <td class="num">高</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>六、你可以审查什么——逐项清单</h2>
+
+<p>下面每一项都是<b>具体文件 + 明确判断标准</b>。你按这张表过一遍，就能在花 GPU 之前把问题拦住。</p>
+
+<table>
+  <thead><tr><th>#</th><th>审查项</th><th>看哪个文件</th><th>判断标准</th></tr></thead>
+  <tbody>
+    <tr>
+      <td class="num">1</td>
+      <td><b>台词是不是 100% 抄原片</b></td>
+      <td><span class="mono">h3-films/_lines/抄写核对报告.md</span><br><span class="mono">_lines/film1_shot_lines.txt</span></td>
+      <td>逐句与原片对照，有无漏句 / 改词 / 错别字</td>
+    </tr>
+    <tr>
+      <td class="num">2</td>
+      <td><b>台词稿（含说话人）</b></td>
+      <td><span class="mono">h3-films/film1-office/SCRIPT.md</span></td>
+      <td>人物、场次、每句归属对不对</td>
+    </tr>
+    <tr>
+      <td class="num">3</td>
+      <td><b>分镜设计</b></td>
+      <td><span class="mono">h3-films/film1-office/STORYBOARD.md</span></td>
+      <td>景别、机位、节奏是否合理；<b>这一层就能看出"拖沓"</b></td>
+    </tr>
+    <tr>
+      <td class="num">4</td>
+      <td><b>生成用 prompt（最该看的一份）</b></td>
+      <td><span class="mono">h3-films/film1-office/manifest.json</span></td>
+      <td>搜 <span class="mono">prompt</span> 字段，逐镜检查：<b>有没有表情描述</b>、动作是否具体、负面约束是否到位</td>
+    </tr>
+    <tr>
+      <td class="num">5</td>
+      <td><b>中文干声质量</b></td>
+      <td><span class="mono">_lines/tts_质检报告.md</span><br>音频 <span class="mono">_tts/film1/shotNN_dry.wav</span></td>
+      <td>40 镜相似度 0.922–1.000 全过；重点听音色是否符合人物设定</td>
+    </tr>
+    <tr>
+      <td class="num">6</td>
+      <td><b>产品素材与外观定义</b></td>
+      <td><span class="mono">_product/PRODUCT.md</span> 与 <span class="mono">_product/*.jpg</span></td>
+      <td>产品外观描述是否与你手上的实物一致</td>
+    </tr>
+    <tr>
+      <td class="num">7</td>
+      <td><b>成片本身</b></td>
+      <td><span class="mono">_deliver/良心面试_食堂红烧（原片复刻）_全片.mp4</span></td>
+      <td>整体观感；配合接触表 <span class="mono">_review/f1_contact_sheet.jpg</span> 快速扫 20 镜</td>
+    </tr>
+    <tr>
+      <td class="num">8</td>
+      <td><b>外挂字幕是否准</b></td>
+      <td><span class="mono">_deliver/同名 .srt / .vtt</span></td>
+      <td>用任意播放器加载，逐句对轴；末条应在 05:00.6 左右</td>
+    </tr>
+    <tr>
+      <td class="num">9</td>
+      <td><b>hypit 分析结论是否认同</b></td>
+      <td><span class="mono">videos/douyin-ad/references/zui-guoli-ribs/ANALYSIS.md</span><br><span class="mono">.../TIMELINE.md</span></td>
+      <td>四系统划分、卖货段边界（181–265s）是否与你的理解一致；<b>这条决定了能不能"只换产品不重拍"</b></td>
+    </tr>
+    <tr>
+      <td class="num">10</td>
+      <td><b>hypit 复刻工程</b></td>
+      <td><span class="mono">videos/douyin-ad/productions/ad-clone/</span><br>尤其 <span class="mono">authors/main.svml</span></td>
+      <td>图形层要放什么、文案是什么、价位怎么打 —— 这是最终成片上会出现的商业信息</td>
+    </tr>
+    <tr>
+      <td class="num">11</td>
+      <td><b>产品贴图样张</b></td>
+      <td><span class="mono">_review/POC_产品贴图对比.jpg</span></td>
+      <td>贴图位置、比例、观感是否可接受；<b>这是决定走哪条路线的关键判断</b></td>
+    </tr>
+    <tr>
+      <td class="num">12</td>
+      <td><b>表情注入审阅表</b></td>
+      <td><span class="mono">_review/表情注入审阅表.md</span></td>
+      <td>逐句看「推断情绪」对不对；<b>带 ⚠ 的段落是工具自己都拿不准的，必看</b></td>
+    </tr>
+    <tr>
+      <td class="num">13</td>
+      <td><b>表情改造后的新 prompt</b></td>
+      <td><span class="mono">_review/manifest_beats_demo.json</span></td>
+      <td>搜 <span class="mono">prompt</span> 字段，确认动作段已按台词切分、每段都带 <span class="mono">face:</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout good">
+  <b>建议的审查顺序（按"花的钱"从少到多）：</b><br>
+  <b>先看 4（prompt）和 3（分镜）</b> —— 这两个文件决定了 9 个镜要重跑，看一眼就能拦下来；<br>
+  <b>再看 11（产品贴图样张）和 9（卖货段边界）</b> —— 决定产品方案走 A 还是 B；<br>
+  <b>最后看 7、8（成片和字幕）</b> —— 验收。
+</div>
+
+<h2>七、下一步我建议这么走</h2>
+
+<table>
+  <thead><tr><th>优先级</th><th>动作</th><th>GPU 成本</th><th>依赖</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>P0</td>
+      <td><b>你审表情注入审阅表</b>（17 个有缺口的镜）→ 改完情绪表我重跑</td>
+      <td class="num">0</td>
+      <td>无（工具已跑通）</td>
+    </tr>
+    <tr>
+      <td>P0</td>
+      <td><b>产品贴图扩到全部 6 个产品镜</b>（镜 7/13/14/15/18/19）</td>
+      <td class="num">0</td>
+      <td>你确认样张方向</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td><b>补跑 hypit 图形层</b>（痛点条 / 五步条 / 价格卡 / CTA）</td>
+      <td class="num">0 模型费</td>
+      <td>需在你终端执行</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td><b>每镜裁尾 0.7s</b>，把片长压回 286s</td>
+      <td class="num">0</td>
+      <td>无</td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>17 个有缺口的镜重跑（用补好的 prompt）</td>
+      <td class="num">约 51 分</td>
+      <td><b>需要先修好坏掉的远端实例</b></td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>伪字区域后期抹除 / 字幕条覆盖</td>
+      <td class="num">0</td>
+      <td>确认伪字位置</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <b>卡点提醒：</b>P2 要重跑 GPU，但<b>远端 4090 实例目前是失联状态</b>
+  （端口 22/23/8188 全不通、ping 100% 丢包，本地网络已排除）。
+  请去服务商控制台确认实例是否被暂停 —— 开机后给我新 IP，我就能续上重跑。
+</div>
+
+<footer>
+  本报告所有结论均来自实物核对，可自行复验：<br>
+  · 帧证据抽自 <span class="mono">_deliver/良心面试_食堂红烧（原片复刻）_全片.mp4</span>，接触表见 <span class="mono">_review/f1_contact_sheet.jpg</span><br>
+  · prompt 统计脚本口径：在 <span class="mono">film1-office/manifest.json</span> 的每镜 <span class="mono">prompt</span> 字段中检索 24 个英文表情/情绪词，命中 0 计为"零表情"<br>
+  · 片长对比来自 ffprobe 实测（原片 286.133s / 成片 301.472s）<br>
+  · 产品贴图脚本 <span class="mono">h3-films/make_product_overlay.py</span>，样张 <span class="mono">_review/poc_s15_v2.jpg</span><br>
+  生成时间：2026-09-17
+</footer>
+
+</div>
+</body>
+</html>

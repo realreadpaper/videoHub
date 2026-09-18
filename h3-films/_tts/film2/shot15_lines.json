@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S4",
+  "text": "紧点击左下角头像抢单带回家。",
+  "mp3": "s15_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 2.12
+ },
+ {
+  "speaker": "S2",
+  "text": "爸爸，好香。",
+  "mp3": "s15_1.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f01.wav",
+  "t": 3.071,
+  "dur": 0.916
+ },
+ {
+  "speaker": "S4",
+  "text": "慢点吃，锅里还有。",
+  "mp3": "s15_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 4.737,
+  "dur": 1.324
+ },
+ {
+  "speaker": "S5",
+  "text": "顾总，董事会那边已经等您半个小时了，合同需要您亲自签。",
+  "mp3": "s15_3.mp3",
+  "voice": "zh-CN-YunyangNeural",
+  "clip": "f03.wav",
+  "t": 6.811,
+  "dur": 3.148
+ },
+ {
+  "speaker": "S3",
+  "text": "顾总？你是宏盛集团的顾承舟？你刚才不是说你普通上",
+  "mp3": "s15_4.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f04.wav",
+  "t": 10.709,
+  "dur": 3.656
+ }
+]

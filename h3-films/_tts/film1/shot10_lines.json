@@ -1,0 +1,56 @@
+[
+ {
+  "speaker": "S4",
+  "text": "是您。",
+  "mp3": "s10_0.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 0.46
+ },
+ {
+  "speaker": "S1",
+  "text": "不知道我是董事长？嫌我影响公司形象？",
+  "mp3": "s10_1.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f01.wav",
+  "t": 1.005,
+  "dur": 2.851
+ },
+ {
+  "speaker": "S4",
+  "text": "我只是今天来面试，太紧张了。",
+  "mp3": "s10_2.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f02.wav",
+  "t": 4.201,
+  "dur": 1.879
+ },
+ {
+  "speaker": "S1",
+  "text": "一个人最真实的样子，往往就在没人知道他身份的时候。二位，今天的面试到此结束。",
+  "mp3": "s10_3.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f03.wav",
+  "t": 6.425,
+  "dur": 5.126
+ },
+ {
+  "speaker": "S4",
+  "text": "顾董，再给我一次机会吧。",
+  "mp3": "s10_4.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f04.wav",
+  "t": 11.897,
+  "dur": 1.424
+ },
+ {
+  "speaker": "S3",
+  "text": "顾董，我学历很",
+  "mp3": "s10_5.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f05.wav",
+  "t": 13.666,
+  "dur": 1.158
+ }
+]

@@ -1,0 +1,460 @@
+{
+  "checked": 20,
+  "failed": 12,
+  "results": [
+    {
+      "id": "shot01.mp4",
+      "t": 6.27,
+      "verdict": "FAIL",
+      "n_hit_frames": 2,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmpbekioccg.png",
+      "tokens": 13,
+      "hits": [
+        {
+          "key": [
+            102,
+            4
+          ],
+          "text": "a | | ¥",
+          "chars": 4,
+          "y_ratio": 0.662,
+          "conf": 61.0,
+          "x_span": [
+            57,
+            1228
+          ],
+          "x_span_ratio": 0.954
+        },
+        {
+          "key": [
+            93,
+            4
+          ],
+          "text": "f | | ¥",
+          "chars": 4,
+          "y_ratio": 0.607,
+          "conf": 69.2,
+          "x_span": [
+            490,
+            1228
+          ],
+          "x_span_ratio": 0.601
+        }
+      ]
+    },
+    {
+      "id": "shot02.mp4",
+      "t": 8.77,
+      "verdict": "FAIL",
+      "n_hit_frames": 3,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmp02sa3_6v.png",
+      "tokens": 10,
+      "hits": [
+        {
+          "key": [
+            132,
+            7
+          ],
+          "text": "一 一 =a ‘es",
+          "chars": 7,
+          "y_ratio": 0.862,
+          "conf": 65.3,
+          "x_span": [
+            653,
+            1174
+          ],
+          "x_span_ratio": 0.424
+        },
+        {
+          "key": [
+            132,
+            8
+          ],
+          "text": "一 一 off ‘es",
+          "chars": 8,
+          "y_ratio": 0.862,
+          "conf": 53.9,
+          "x_span": [
+            653,
+            1174
+          ],
+          "x_span_ratio": 0.424
+        },
+        {
+          "key": [
+            132,
+            5
+          ],
+          "text": "一 一 ‘es",
+          "chars": 5,
+          "y_ratio": 0.862,
+          "conf": 61.9,
+          "x_span": [
+            653,
+            1174
+          ],
+          "x_span_ratio": 0.424
+        }
+      ]
+    },
+    {
+      "id": "shot03.mp4",
+      "t": 1.25,
+      "verdict": "FAIL",
+      "n_hit_frames": 3,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmp_og7b767.png",
+      "tokens": 13,
+      "hits": [
+        {
+          "key": [
+            137,
+            6
+          ],
+          "text": "Ii Al t.",
+          "chars": 6,
+          "y_ratio": 0.893,
+          "conf": 54.5,
+          "x_span": [
+            42,
+            361
+          ],
+          "x_span_ratio": 0.26
+        },
+        {
+          "key": [
+            137,
+            9
+          ],
+          "text": "Ii Al Bes S$",
+          "chars": 9,
+          "y_ratio": 0.893,
+          "conf": 43.6,
+          "x_span": [
+            42,
+            755
+          ],
+          "x_span_ratio": 0.581
+        },
+        {
+          "key": [
+            137,
+            8
+          ],
+          "text": "Ii Al t. S$",
+          "chars": 8,
+          "y_ratio": 0.893,
+          "conf": 49.0,
+          "x_span": [
+            42,
+            755
+          ],
+          "x_span_ratio": 0.581
+        }
+      ]
+    },
+    {
+      "id": "shot04.mp4",
+      "t": 3.76,
+      "verdict": "FAIL",
+      "n_hit_frames": 3,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmp2xyk1pdg.png",
+      "tokens": 33,
+      "hits": [
+        {
+          "key": [
+            136,
+            14
+          ],
+          "text": "alll ho. 1S it eee",
+          "chars": 14,
+          "y_ratio": 0.887,
+          "conf": 38.2,
+          "x_span": [
+            596,
+            891
+          ],
+          "x_span_ratio": 0.24
+        },
+        {
+          "key": [
+            136,
+            11
+          ],
+          "text": "alll 1S it eee",
+          "chars": 11,
+          "y_ratio": 0.887,
+          "conf": 39.6,
+          "x_span": [
+            596,
+            891
+          ],
+          "x_span_ratio": 0.24
+        }
+      ]
+    },
+    {
+      "id": "shot05.mp4",
+      "t": 11.28,
+      "verdict": "FAIL",
+      "n_hit_frames": 1,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmpwpj1w9lw.png",
+      "tokens": 4,
+      "hits": [
+        {
+          "key": [
+            142,
+            8
+          ],
+          "text": "Vay Ss Nis",
+          "chars": 8,
+          "y_ratio": 0.926,
+          "conf": 38.2,
+          "x_span": [
+            585,
+            1180
+          ],
+          "x_span_ratio": 0.485
+        }
+      ]
+    },
+    {
+      "id": "shot06.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    },
+    {
+      "id": "shot07.mp4",
+      "t": 8.77,
+      "verdict": "FAIL",
+      "n_hit_frames": 2,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmpqgy7s7xp.png",
+      "tokens": 12,
+      "hits": [
+        {
+          "key": [
+            92,
+            7
+          ],
+          "text": "\\ Siu se!",
+          "chars": 7,
+          "y_ratio": 0.598,
+          "conf": 66.9,
+          "x_span": [
+            91,
+            1222
+          ],
+          "x_span_ratio": 0.921
+        }
+      ]
+    },
+    {
+      "id": "shot08.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    },
+    {
+      "id": "shot09.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    },
+    {
+      "id": "shot10.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    },
+    {
+      "id": "shot11.mp4",
+      "t": 8.77,
+      "verdict": "FAIL",
+      "n_hit_frames": 1,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmpzb27q1ao.png",
+      "tokens": 7,
+      "hits": [
+        {
+          "key": [
+            114,
+            6
+          ],
+          "text": "me ig. a",
+          "chars": 6,
+          "y_ratio": 0.744,
+          "conf": 33.5,
+          "x_span": [
+            516,
+            868
+          ],
+          "x_span_ratio": 0.287
+        }
+      ]
+    },
+    {
+      "id": "shot12.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    },
+    {
+      "id": "shot13.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    },
+    {
+      "id": "shot14.mp4",
+      "t": 8.77,
+      "verdict": "FAIL",
+      "n_hit_frames": 1,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmprv7i4959.png",
+      "tokens": 8,
+      "hits": [
+        {
+          "key": [
+            135,
+            4
+          ],
+          "text": "_— — a",
+          "chars": 4,
+          "y_ratio": 0.88,
+          "conf": 44.7,
+          "x_span": [
+            25,
+            372
+          ],
+          "x_span_ratio": 0.283
+        }
+      ]
+    },
+    {
+      "id": "shot15.mp4",
+      "t": 8.77,
+      "verdict": "FAIL",
+      "n_hit_frames": 2,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmp8jgxbcy7.png",
+      "tokens": 11,
+      "hits": [
+        {
+          "key": [
+            114,
+            6
+          ],
+          "text": "4 —_ < NS",
+          "chars": 6,
+          "y_ratio": 0.74,
+          "conf": 47.9,
+          "x_span": [
+            370,
+            737
+          ],
+          "x_span_ratio": 0.299
+        }
+      ]
+    },
+    {
+      "id": "shot16.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    },
+    {
+      "id": "shot17.mp4",
+      "t": 6.27,
+      "verdict": "FAIL",
+      "n_hit_frames": 1,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmp99cfh2bb.png",
+      "tokens": 13,
+      "hits": [
+        {
+          "key": [
+            82,
+            7
+          ],
+          "text": "Ses Bre \\",
+          "chars": 7,
+          "y_ratio": 0.533,
+          "conf": 49.6,
+          "x_span": [
+            703,
+            1095
+          ],
+          "x_span_ratio": 0.319
+        }
+      ]
+    },
+    {
+      "id": "shot18.mp4",
+      "t": 11.28,
+      "verdict": "FAIL",
+      "n_hit_frames": 1,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmpwvibxwk1.png",
+      "tokens": 11,
+      "hits": [
+        {
+          "key": [
+            83,
+            5
+          ],
+          "text": "4 fh, i",
+          "chars": 5,
+          "y_ratio": 0.542,
+          "conf": 48.9,
+          "x_span": [
+            145,
+            1091
+          ],
+          "x_span_ratio": 0.77
+        }
+      ]
+    },
+    {
+      "id": "shot19.mp4",
+      "t": 8.77,
+      "verdict": "FAIL",
+      "n_hit_frames": 1,
+      "frame": "/var/folders/kh/m3zl__hd52v10xfr_yl829mr_2hgyd/T/tmp4e3gcncy.png",
+      "tokens": 12,
+      "hits": [
+        {
+          "key": [
+            84,
+            5
+          ],
+          "text": "a8 | ES",
+          "chars": 5,
+          "y_ratio": 0.548,
+          "conf": 54.2,
+          "x_span": [
+            85,
+            1228
+          ],
+          "x_span_ratio": 0.931
+        }
+      ]
+    },
+    {
+      "id": "shot20.mp4",
+      "t": null,
+      "hits": [],
+      "verdict": "PASS",
+      "tokens": null,
+      "n_hit_frames": 0
+    }
+  ]
+}

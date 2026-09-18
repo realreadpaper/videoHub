@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FastVideo 远程服务器部署手册</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg2:#f7f8f9; --bg3:#f0f2f4;
+    --line:#e3e6e9; --line2:#d0d5da;
+    --tx:#1a1d21; --tx2:#5a6169; --tx3:#8b939c;
+    --blue:#1a6fd4; --blue-bg:#eaf3fd;
+    --green:#1a7f4b; --green-bg:#e9f6ef;
+    --amber:#9a6410; --amber-bg:#fdf4e3;
+    --red:#c0392b; --red-bg:#fdeceb;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:14px;line-height:1.72;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:48px 32px 96px}
+
+  header{border-bottom:2px solid var(--tx);padding-bottom:24px;margin-bottom:8px}
+  h1{font-size:26px;font-weight:600;margin:0 0 10px;letter-spacing:-.01em}
+  .sub{color:var(--tx2);font-size:14px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .tag{font-size:12px;padding:3px 10px;border-radius:20px;background:var(--bg3);color:var(--tx2);border:1px solid var(--line)}
+  .tag.ok{background:var(--green-bg);color:var(--green);border-color:#c5e6d4}
+  .tag.warn{background:var(--amber-bg);color:var(--amber);border-color:#f0dcb4}
+
+  h2{font-size:19px;font-weight:600;margin:52px 0 6px;padding-top:20px;border-top:1px solid var(--line)}
+  h2:first-of-type{border-top:none;padding-top:0}
+  h2 .n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:var(--tx);color:#fff;font-size:13px;font-weight:600;margin-right:10px;vertical-align:2px}
+  h3{font-size:15px;font-weight:600;margin:28px 0 8px}
+  h4{font-size:13.5px;font-weight:600;margin:20px 0 6px;color:var(--tx2)}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  a{color:var(--blue);text-decoration:none;border-bottom:1px solid #bcd9f7}
+  strong{font-weight:600}
+  code{font-family:var(--mono);font-size:12.5px;background:var(--bg3);padding:1.5px 5px;border-radius:4px;color:#25468a}
+
+  pre{background:#fbfcfd;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:8px;padding:14px 16px;overflow-x:auto;margin:12px 0;font-size:12.5px;line-height:1.65}
+  pre code{background:none;padding:0;color:var(--tx);font-size:12.5px}
+  pre .c{color:var(--tx3)}
+  .cmt{color:var(--tx3)}
+  .varb{color:#8a5a00}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+  th{text-align:left;font-weight:600;padding:8px 10px;background:var(--bg2);border-bottom:1px solid var(--line2);white-space:nowrap}
+  td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td code{font-size:12px}
+
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+  .card.warn{background:var(--amber-bg);border-color:#f0dcb4}
+  .card.danger{background:var(--red-bg);border-color:#f5cdc9}
+  .card.ok{background:var(--green-bg);border-color:#c5e6d4}
+  .card h4{margin-top:0;color:var(--tx)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+  .step{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:14px}
+  .step .t{font-weight:600;font-size:13.5px;margin-bottom:4px}
+  .step .d{font-size:12.5px;color:var(--tx2);line-height:1.6}
+  .step .time{font-size:11.5px;color:var(--tx3);margin-top:8px;font-family:var(--mono)}
+
+  .kv{display:grid;grid-template-columns:132px 1fr;gap:6px 14px;font-size:13px;margin:12px 0}
+  .kv dt{color:var(--tx3)}
+  .kv dd{margin:0}
+
+  .note{font-size:12.5px;color:var(--tx2);border-left:2px solid var(--line2);padding-left:12px;margin:12px 0}
+  .pill{display:inline-block;font-size:11.5px;padding:1px 7px;border-radius:4px;font-family:var(--mono);font-weight:600}
+  .pill.g{background:var(--green-bg);color:var(--green)}
+  .pill.r{background:var(--red-bg);color:var(--red)}
+  .pill.a{background:var(--amber-bg);color:var(--amber)}
+
+  .fig{margin:20px 0;padding:18px;background:var(--bg2);border:1px solid var(--line);border-radius:12px}
+  .fig figcaption{font-size:12.5px;color:var(--tx3);margin-top:12px;text-align:center}
+
+  @media(max-width:720px){.steps{grid-template-columns:1fr}.kv{grid-template-columns:1fr}.wrap{padding:32px 20px 64px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>FastVideo 远程服务器部署手册</h1>
+  <p class="sub">在远程 GPU 服务器上从零跑到对外提供视频生成服务。逐条命令，可直接复制。基于 <code>hao-ai-lab/FastVideo</code> <code>main</code> 分支 commit <code>9b0e57fe</code> 核对。</p>
+  <div class="meta">
+    <span class="tag">远程 Linux 服务器</span>
+    <span class="tag">SSH 隧道接入</span>
+    <span class="tag ok">单卡 4090 路径</span>
+    <span class="tag">OpenAI 兼容 API</span>
+    <span class="tag warn">不烧字幕，产物外挂</span>
+  </div>
+</header>
+
+<h2><span class="n">0</span>先说清楚：远程跑和本地跑差在哪</h2>
+
+<p>远程服务器上跑 GPU 推理，真正的难点从来不是显卡——是<strong>进程会死、端口不通、文件搬不回来</strong>这三件事。本地跑你可能一辈子不会遇到，远程跑第一天就会撞上。</p>
+
+<table>
+  <tr><th>问题</th><th>本地会怎样</th><th>远程会怎样</th><th>解法</th></tr>
+  <tr>
+    <td><strong>进程存活</strong></td>
+    <td>终端不关就没事</td>
+    <td>SSH 一断，进程收到 SIGHUP 直接死，跑了 40 分钟的生成白费</td>
+    <td>tmux / systemd（第 6 节）</td>
+  </tr>
+  <tr>
+    <td><strong>端口可达</strong></td>
+    <td>127.0.0.1 直接开浏览器</td>
+    <td>服务绑在服务器的 localhost，你的电脑够不着</td>
+    <td>SSH 端口转发（第 7 节）</td>
+  </tr>
+  <tr>
+    <td><strong>文件搬运</strong></td>
+    <td>本地目录直接读</td>
+    <td>产物在服务器上，几十 GB 权重在服务器上</td>
+    <td>rsync / HF 断点续传（第 4、9 节）</td>
+  </tr>
+  <tr>
+    <td><strong>权重下载</strong></td>
+    <td>可能本来就有缓存</td>
+    <td>服务器多半是干净盘，且国内机房访问 HF 经常不通</td>
+    <td>HF_HOME + 国内镜像（第 4 节）</td>
+  </tr>
+  <tr>
+    <td><strong>磁盘规划</strong></td>
+    <td>不太在意</td>
+    <td>云盘按量计费，下错模型几十 G 白烧</td>
+    <td>先核体积再下（第 4 节，有实测体积表）</td>
+  </tr>
+</table>
+
+<div class="card">
+  <h4>整体链路长这样</h4>
+  <figure class="fig" style="margin:12px 0 0;background:#fff">
+  <svg viewBox="0 0 880 260" width="100%" style="max-width:860px;display:block;margin:0 auto" font-family="-apple-system,BlinkMacSystemFont,PingFang SC,sans-serif">
+    <defs>
+      <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L7,3 z" fill="#5a6169"/>
+      </marker>
+    </defs>
+
+    <!-- 本地 -->
+    <rect x="20" y="60" width="215" height="140" rx="10" fill="#eaf3fd" stroke="#bcd9f7"/>
+    <text x="127" y="86" text-anchor="middle" font-size="14" font-weight="600" fill="#1a6fd4">你的电脑（本地）</text>
+    <text x="40" y="112" font-size="12" fill="#1a1d21">· 浏览器 / curl / SDK</text>
+    <text x="40" y="132" font-size="12" fill="#1a1d21">· 只发请求，不跑 GPU</text>
+    <text x="40" y="152" font-size="12" fill="#1a1d21">· 拿到 MP4 落到本地盘</text>
+    <text x="40" y="178" font-size="11.5" fill="#5a6169" font-family="monospace">127.0.0.1:8000</text>
+
+    <!-- 隧道 -->
+    <line x1="235" y1="130" x2="345" y2="130" stroke="#5a6169" stroke-width="1.5" marker-end="url(#ar)"/>
+    <line x1="345" y1="146" x2="235" y2="146" stroke="#5a6169" stroke-width="1.5" marker-end="url(#ar)"/>
+    <text x="290" y="118" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1a7f4b">SSH 隧道</text>
+    <text x="290" y="170" text-anchor="middle" font-size="10.5" fill="#8b939c" font-family="monospace">ssh -N -L</text>
+    <text x="290" y="184" text-anchor="middle" font-size="10.5" fill="#8b939c" font-family="monospace">8000:127.0.0.1</text>
+
+    <!-- 服务器 -->
+    <rect x="350" y="30" width="510" height="200" rx="10" fill="#f0f2f4" stroke="#d0d5da"/>
+    <text x="605" y="54" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1d21">远程 GPU 服务器（Linux）</text>
+
+    <rect x="375" y="72" width="145" height="70" rx="8" fill="#fff" stroke="#d0d5da"/>
+    <text x="447" y="94" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1d21">tmux 会话</text>
+    <text x="447" y="113" text-anchor="middle" font-size="10.5" fill="#5a6169">保持进程不被打断</text>
+    <text x="447" y="130" text-anchor="middle" font-size="10.5" fill="#8b939c">SSH 断了也不影响</text>
+
+    <rect x="535" y="72" width="145" height="70" rx="8" fill="#e9f6ef" stroke="#c5e6d4"/>
+    <text x="607" y="94" text-anchor="middle" font-size="12" font-weight="600" fill="#1a7f4b">fastvideo serve</text>
+    <text x="607" y="113" text-anchor="middle" font-size="10.5" fill="#5a6169">OpenAI 兼容 API</text>
+    <text x="607" y="130" text-anchor="middle" font-size="10.5" fill="#8b939c" font-family="monospace">127.0.0.1:8000</text>
+
+    <rect x="695" y="72" width="145" height="70" rx="8" fill="#fff" stroke="#d0d5da"/>
+    <text x="767" y="94" text-anchor="middle" font-size="12" font-weight="600" fill="#1a1d21">权重缓存盘</text>
+    <text x="767" y="113" text-anchor="middle" font-size="10.5" fill="#5a6169">HF_HOME 指过去</text>
+    <text x="767" y="130" text-anchor="middle" font-size="10.5" fill="#8b939c">持久化，别随机器删</text>
+
+    <rect x="375" y="158" width="465" height="52" rx="8" fill="#fdf4e3" stroke="#f0dcb4"/>
+    <text x="607" y="179" text-anchor="middle" font-size="12" font-weight="600" fill="#9a6410">RTX 4090 · 24 GB · sm_89</text>
+    <text x="607" y="198" text-anchor="middle" font-size="10.5" fill="#9a6410">FP8 ✓　VSA(Triton) ✓　NVFP4 ✗　FA4 ✗　SageAttn3 ✗</text>
+  </svg>
+  <figcaption>请求在你电脑发出，算力在服务器，中间靠一条 SSH 隧道连起来</figcaption>
+  </figure>
+</div>
+
+<h2><span class="n">1</span>第一步：先给服务器做个体检</h2>
+
+<p>别急着装东西。先花两分钟确认这台机器能不能跑，能跑哪个量级——<strong>环境不匹配的话，后面所有步骤都是白费</strong>。</p>
+
+<p>我写了个自检脚本，只读不改。两种送上服务器的方式：</p>
+
+<h3>方式 A：直接 scp 上去（推荐）</h3>
+<pre><code><span class="cmt"># 在你本地执行，把脚本传到服务器</span>
+scp fastvideo-doctor.sh 用户名@服务器IP:~/
+
+<span class="cmt"># 到服务器上执行</span>
+ssh 用户名@服务器IP
+bash ~/fastvideo-doctor.sh /data          <span class="cmt"># /data 换成你打算放权重的盘</span></code></pre>
+
+<h3>方式 B：懒得传文件，直接贴</h3>
+<pre><code><span class="cmt"># 在服务器上执行这一条，得到最小版体检结论</span>
+nvidia-smi --query-gpu=name,memory.total,driver_version,compute_cap --format=csv &amp;&amp; \
+uname -s &amp;&amp; python3 -V &amp;&amp; free -g | head -2 &amp;&amp; df -h /data | tail -1</code></pre>
+
+<h3>看什么</h3>
+<table>
+  <tr><th>指标</th><th>必须满足</th><th>不满足会怎样</th></tr>
+  <tr><td>操作系统</td><td><code>Linux</code>（或 WSL）</td><td>macOS 完全没有 CUDA 路径，只能走另一条 MLX 分支</td></tr>
+  <tr><td>GPU 算力</td><td><code>8.9</code> = 4090 / L40S 同架构</td><td>低于 8.9 则 FP8 硬件加速不可用，性能明显打折</td></tr>
+  <tr><td>显存</td><td>≥ 20 GB 才有讨论价值</td><td>低于这个数，视频生成基本跑不动</td></tr>
+  <tr><td>Python</td><td>3.10 – 3.12</td><td>3.13 会被拒——<strong>但用 uv 的话这条自动绕过</strong>，见第 3 节</td></tr>
+  <tr><td>磁盘可用</td><td>≥ 40 GB 起，想上 FastH3 要 140 GB</td><td>装到一半空间不够，权重得重下</td></tr>
+  <tr><td>内存</td><td>≥ 64 GB 舒服</td><td>逐层卸载要靠宿主内存做权重中转缓冲，太小会频繁换页</td></tr>
+</table>
+
+<div class="card warn">
+  <h4>关于 Python 版本，有个能省你半小时的细节</h4>
+  <p style="margin-bottom:0">官方要求 Python 3.10–3.12，而很多服务器的系统 Python 是 3.13。你<strong>不需要去动系统 Python</strong>——<code>uv</code> 会自己下载一个独立的 3.12 解释器放进虚拟环境，跟系统的那个完全隔离。所以这条限制实际上不构成障碍。</p>
+</div>
+
+<h2><span class="n">2</span>代码怎么到服务器上</h2>
+
+<p><strong>别用 scp 把整个仓库传上去</strong>——服务器上<code>git clone</code>更快、更干净，而且以后拉更新只要一条命令。</p>
+
+<pre><code><span class="cmt"># 在服务器上执行</span>
+<span class="cmt"># ① 装 git（如果没有），Ubuntu/Debian 系：</span>
+sudo apt-get update &amp;&amp; sudo apt-get install -y git
+
+<span class="cmt"># ② 克隆（--depth 1 省时间，不要完整历史）</span>
+git clone --depth 1 https://github.com/hao-ai-lab/FastVideo.git ~/FastVideo
+cd ~/FastVideo</code></pre>
+
+<div class="card warn">
+  <h4>如果服务器访问不了 GitHub</h4>
+  <p>国内机房常见。按顺序试：</p>
+  <ol style="margin-bottom:0">
+    <li>换 SSH 协议：<code>git clone git@github.com:hao-ai-lab/FastVideo.git</code>（配好 key 后通常更稳）</li>
+    <li>用镜像：<code>git clone https://ghproxy.net/https://github.com/hao-ai-lab/FastVideo.git</code></li>
+    <li>兜底：本地下好打包传上去——<code>tar czf fv.tgz FastVideo &amp;&amp; scp fv.tgz 用户@IP:~/ &amp;&amp; ssh 用户@IP 'tar xzf fv.tgz'</code></li>
+  </ol>
+</div>
+
+<h3>关于 submodule</h3>
+<p>仓库带 3 个 submodule（ThunderKittens、cutlass、VBench）。<strong>纯 Python 推理不需要它们</strong>——<code>pip install</code> 会从 PyPI 装预编译好的 <code>fastvideo-kernel</code> 轮子。只有你要从源码编译 CUDA 内核（想开 VSA 稀疏注意力）才需要：</p>
+<pre><code>git submodule update --init --recursive    <span class="cmt"># 约 1–2 GB，按需</span></code></pre>
+
+<h2><span class="n">3</span>装环境：三条路线，挑一条</h2>
+
+<div class="steps">
+  <div class="step">
+    <div class="t">A · uv 直装</div>
+    <div class="d">最轻，无 root 也基本能用。适合已有干净服务器的场景</div>
+    <div class="time">约 10 分钟</div>
+  </div>
+  <div class="step">
+    <div class="t">B · Docker</div>
+    <div class="d">依赖全打包好，环境隔离最干净。适合多项目共存的机器</div>
+    <div class="time">约 15 分钟（含拉镜像）</div>
+  </div>
+  <div class="step">
+    <div class="t">C · 云平台模板</div>
+    <div class="d">RunPod 等平台自带 FastVideo 镜像，开箱即用</div>
+    <div class="time">约 5 分钟</div>
+  </div>
+</div>
+
+<h3>路线 A：uv 直装（我推荐这条起步）</h3>
+
+<p>我把整个流程写成了脚本，幂等、可重复跑：</p>
+
+<pre><code><span class="cmt"># 传到服务器后执行</span>
+scp fastvideo-remote-setup.sh 用户名@服务器IP:~/
+ssh 用户名@服务器IP
+
+bash ~/fastvideo-remote-setup.sh --dir ~/FastVideo --cuda 126
+<span class="cmt"># CUDA 13 的机器把 --cuda 126 换成 --cuda 130</span>
+<span class="cmt"># 想顺带编译 VSA 内核加 --with-kernel（多花 5–10 分钟）</span></code></pre>
+
+<p>脚本做四件事：拉仓库 → 装 uv → 建 Python 3.12 环境 → 装 fastvideo，并把 HF 相关环境变量写进 <code>~/FastVideo/.fastvideo-env.sh</code>。</p>
+
+<p>手动版的等价命令，便于你理解每一步：</p>
+<pre><code><span class="cmt"># 1) 装 uv</span>
+curl -LsSf https://astral.sh/uv/install.sh | sh
+export PATH="$HOME/.local/bin:$PATH"
+
+<span class="cmt"># 2) 建环境（uv 自动拉 3.12，与系统 Python 无关）</span>
+cd ~/FastVideo
+uv venv --python 3.12 --seed
+source .venv/bin/activate
+
+<span class="cmt"># 3) 装（cu126 对应 CUDA 12.6，CUDA 13 用 cu130）</span>
+UV_TORCH_BACKEND=cu126 uv pip install -e .
+
+<span class="cmt"># 4) 可选：flash-attn，装了推理快一档</span>
+uv pip install flash-attn --no-build-isolation -v
+
+<span class="cmt"># 5) 验证</span>
+python -c "import fastvideo; print('OK')"
+python -c "import torch; print(torch.cuda.get_device_capability(0))"
+<span class="cmt"># ↑ 4090 必须输出 (8, 9)。这个数字后面所有优化判断都基于它。</span></code></pre>
+
+<h3>路线 B：Docker</h3>
+
+<pre><code><span class="cmt"># 拉官方开发镜像（CUDA 12.6 版）</span>
+docker pull ghcr.io/hao-ai-lab/fastvideo/fastvideo-dev:py3.12-latest
+
+<span class="cmt"># 建两个目录：权重缓存 + 产物输出</span>
+mkdir -p ~/fastvideo_models ~/fastvideo_outputs
+
+docker run --gpus all -it --rm \
+  --name fastvideo \
+  --shm-size=16g \
+  -v ~/fastvideo_models:/root/.cache/huggingface \
+  -v ~/fastvideo_outputs:/outputs \
+  -v ~/FastVideo:/FastVideo \
+  ghcr.io/hao-ai-lab/fastvideo/fastvideo-dev:py3.12-latest
+
+<span class="cmt"># 进容器后，uv 环境在 /opt/venv 且已激活，落在 /FastVideo</span>
+cd /FastVideo &amp;&amp; uv pip install -e .</code></pre>
+
+<div class="card danger">
+  <h4>三个必踩的 Docker 坑</h4>
+  <ul style="margin-bottom:0">
+    <li><code>--shm-size=16g</code> <strong>漏了必崩</strong>——Docker 默认共享内存只有 64 MB，多进程加载模型直接挂</li>
+    <li>不挂 HF 缓存目录，<strong>容器一删几十 GB 权重全丢</strong></li>
+    <li>CUDA 13 的机器要换镜像 tag：<code>py3.12-cuda13.0.0-latest</code>，同时安装时用 <code>UV_TORCH_BACKEND=cu130</code></li>
+  </ul>
+</div>
+
+<h3>路线 C：云平台（RunPod 等）</h3>
+
+<p>官方专门写了云 GPU 指南。要点：租 Pod 时选 <strong>FastVideo / fastvideo-dev 模板</strong>（自带全部依赖和 Flash Attention），然后：</p>
+
+<ul>
+  <li><strong>务必挂持久卷到 <code>/root/.cache</code> 或 <code>/models</code></strong>——权重 10–140 GB，每换一次机器重下纯属烧钱</li>
+  <li>连接方式：<code>ssh root@&lt;pod-ip&gt; -p &lt;port&gt; -i ~/.ssh/id_ed25519</code></li>
+  <li>卷挂好后设 <code>export HF_HOME=/models/huggingface</code> 并写进 <code>~/.bashrc</code></li>
+  <li><strong>用完一定要 "Terminate" 再 "Delete"</strong>——只停不删，存储照样计费</li>
+</ul>
+
+<h2><span class="n">4</span>下载权重：先把体积搞清楚</h2>
+
+<p>这里有个大坑：<strong>模型名字里的参数量和下载体积完全不是一回事</strong>。我实测查了 HF 上的真实体积：</p>
+
+<table>
+  <tr><th>模型</th><th>名字听起来</th><th>实际下载</th><th>许可</th><th>4090 单卡</th></tr>
+  <tr>
+    <td><code>FastVideo/FastWan2.1-T2V-1.3B-Diffusers</code></td>
+    <td>1.3B</td>
+    <td><strong>27.2 GB</strong></td>
+    <td><span class="pill g">Apache-2.0</span></td>
+    <td><span class="pill g">可行</span></td>
+  </tr>
+  <tr>
+    <td><code>Wan-AI/Wan2.2-TI2V-5B-Diffusers</code></td>
+    <td>5B</td>
+    <td><strong>31.9 GB</strong></td>
+    <td><span class="pill g">Apache-2.0</span></td>
+    <td><span class="pill a">吃力</span></td>
+  </tr>
+  <tr>
+    <td><code>FastVideo/FastVideo-Minimax-FastH3-Preview-v0.2</code></td>
+    <td>H3 蒸馏版</td>
+    <td><strong>137.7 GB</strong></td>
+    <td><span class="pill r">MiniMax 社区许可</span></td>
+    <td><span class="pill r">单卡不可行</span></td>
+  </tr>
+</table>
+
+<p>"1.3B" 下下来 27 GB，是因为仓库里除了 DiT 主干还包含完整的 VAE、文本编码器（umt5-xxl 一个就 ~11 GB）等组件。<strong>按实际体积规划磁盘，别按参数量猜。</strong></p>
+
+<h3>把缓存指到大盘</h3>
+<pre><code><span class="cmt"># 关键：权重默认落在 ~/.cache，很可能是个小系统盘</span>
+<span class="cmt"># 指到数据盘，避免系统盘被撑爆</span>
+export HF_HOME=/data/hf_cache
+export HF_HUB_CACHE=/data/hf_cache
+export TRANSFORMERS_CACHE=/data/hf_cache
+export HF_HUB_ENABLE_HF_TRANSFER=1        <span class="cmt"># 多线程加速，快 3–5 倍</span>
+
+<span class="cmt"># 写进 ~/.bashrc 让它长期生效</span>
+echo 'export HF_HOME=/data/hf_cache' &gt;&gt; ~/.bashrc</code></pre>
+
+<h3>国内服务器必看：走镜像</h3>
+<pre><code><span class="cmt"># 直连不通时加这一条</span>
+export HF_ENDPOINT=https://hf-mirror.com
+
+<span class="cmt"># 也可以直接写进 shell 配置，长期生效</span>
+echo 'export HF_ENDPOINT=https://hf-mirror.com' &gt;&gt; ~/.bashrc</code></pre>
+
+<h3>下载命令</h3>
+<pre><code><span class="cmt"># 先装 hf 命令行（新版 huggingface_hub 自带）</span>
+uv pip install "huggingface_hub[cli]" hf_transfer
+
+<span class="cmt"># 下 4090 能跑的那个（27 GB）</span>
+hf download FastVideo/FastWan2.1-T2V-1.3B-Diffusers \
+  --local-dir /data/models/FastWan2.1-T2V-1.3B
+
+<span class="cmt"># 断了重跑同一条命令即可断点续传，不会重下</span>
+<span class="cmt"># 后台跑（大文件建议），日志写文件：</span>
+nohup hf download FastVideo/FastWan2.1-T2V-1.3B-Diffusers \
+  --local-dir /data/models/FastWan2.1-T2V-1.3B &gt; /data/hf_dl.log 2&gt;&amp;1 &amp;
+tail -f /data/hf_dl.log</code></pre>
+
+<h2><span class="n">5</span>跑通第一支片</h2>
+
+<p>先验证环境，别一上来就调优。</p>
+
+<pre><code>cd ~/FastVideo &amp;&amp; source .venv/bin/activate
+
+<span class="cmt"># 最小验证：跑仓库自带的最简例子</span>
+python examples/inference/basic/basic.py
+
+<span class="cmt"># 看产物落在哪</span>
+ls -lh outputs/ 2&gt;/dev/null; ls -lh video_samples/ 2&gt;/dev/null</code></pre>
+
+<p>然后上你的配置。我把针对这张卡的配置放在 <code>fastvideo-configs/</code> 目录：</p>
+
+<pre><code><span class="cmt"># 稳妥起步档：FP8 量化 + VSA 稀疏 0.8 + 逐层卸载，480P / 81 帧</span>
+FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN \
+  fastvideo generate --config ~/FastVideo/fastvideo-configs/06-rtx4090-24gb-fp8-vsa.yaml
+
+<span class="cmt"># 没编译 VSA 内核的话，换回通用后端</span>
+FASTVIDEO_ATTENTION_BACKEND=FLASH_ATTN \
+  fastvideo generate --config ~/FastVideo/fastvideo-configs/06-rtx4090-24gb-fp8-vsa.yaml</code></pre>
+
+<div class="card warn">
+  <h4>第一次跑特别慢，是正常的</h4>
+  <p style="margin-bottom:0">如果配置里开了 <code>compile.enabled</code>，第一次生成要花几十秒到几分钟建图——这是<strong>一次性成本</strong>，之后每个请求都受益。官方文档专门点名这是"最常见的错误结论来源"：别拿第一次的耗时当性能基线。</p>
+</div>
+
+<h2><span class="n">6</span>保活：SSH 断了不能死</h2>
+
+<p>这是远程服务器上最容易吃亏的地方。一条 40 分钟的视频生成任务，因为你的笔记本合盖断网就全没了。</p>
+
+<h3>方案 1：tmux（首选）</h3>
+<pre><code><span class="cmt"># 装（如果没有）</span>
+sudo apt-get install -y tmux
+
+<span class="cmt"># 开一个会话</span>
+tmux new -s fv
+
+<span class="cmt"># 在里面正常干活，然后按 Ctrl+B 再按 D 脱离</span>
+<span class="cmt"># 此时进程继续跑，SSH 断线也不受影响</span>
+
+<span class="cmt"># 下次回来重新接上</span>
+tmux attach -t fv
+
+<span class="cmt"># 看有哪些会话</span>
+tmux ls</code></pre>
+
+<p>tmux 里跑长任务的正确姿势，是<strong>会话 + 日志文件双保险</strong>：</p>
+<pre><code><span class="cmt"># 在 tmux 里执行，同时把输出写进日志，方便事后翻</span>
+fastvideo generate --config xx.yaml 2&gt;&amp;1 | tee -a ~/run_$(date +%m%d_%H%M).log</code></pre>
+
+<h3>方案 2：nohup（不想开 tmux 时）</h3>
+<pre><code>nohup fastvideo serve --config serve.yaml &gt; ~/serve.log 2&gt;&amp;1 &amp;
+echo $! &gt; ~/serve.pid          <span class="cmt"># 记下进程号</span>
+tail -f ~/serve.log            <span class="cmt"># 看日志</span>
+kill $(cat ~/serve.pid)        <span class="cmt"># 停服务</span></code></pre>
+
+<h3>方案 3：systemd（有 root，且要长期常驻）</h3>
+<pre><code><span class="cmt"># /etc/systemd/system/fastvideo.service</span>
+[Unit]
+Description=FastVideo OpenAI-compatible server
+After=network.target
+
+[Service]
+Type=simple
+User=<span class="varb">你的用户名</span>
+WorkingDirectory=/home/<span class="varb">你的用户名</span>/FastVideo
+Environment="HF_HOME=/data/hf_cache"
+Environment="FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN"
+ExecStart=/home/<span class="varb">你的用户名</span>/FastVideo/.venv/bin/fastvideo serve --config /home/<span class="varb">你的用户名</span>/FastVideo/serve.yaml
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+<pre><code>sudo systemctl daemon-reload
+sudo systemctl enable --now fastvideo
+sudo systemctl status fastvideo
+journalctl -u fastvideo -f        <span class="cmt"># 看日志</span></code></pre>
+
+<h2><span class="n">7</span>服务化：端口怎么打通</h2>
+
+<h3>先起服务</h3>
+<pre><code><span class="cmt"># 关键：绑 127.0.0.1，不要绑 0.0.0.0</span>
+FASTVIDEO_ATTENTION_BACKEND=VIDEO_SPARSE_ATTN \
+  fastvideo serve --config ~/FastVideo/fastvideo-configs/08-4090-serve-fastwan1.3b.yaml \
+  --server.host 127.0.0.1 --server.port 8000</code></pre>
+
+<p>另开一个终端验证就绪：</p>
+<pre><code>curl --fail-with-body http://127.0.0.1:8000/health
+<span class="cmt"># 模型加载完成后返回 {"status":"ok"}</span>
+<span class="cmt"># 返回 503 说明工作进程池挂了，看服务日志</span></code></pre>
+
+<h3>然后在你自己的电脑上开隧道</h3>
+
+<p>官方文档对远程场景给的就是这个做法——<em>"keep the server bound to loopback and forward the port"</em>：</p>
+
+<pre><code><span class="cmt"># 在你本地电脑执行（不是服务器上）</span>
+ssh -N -L 8000:127.0.0.1:8000 用户名@服务器IP
+
+<span class="cmt"># 本地 8000 被占用的话，映射到别的口</span>
+ssh -N -L 8001:127.0.0.1:8000 用户名@服务器IP
+
+<span class="cmt"># 保持稳定，加心跳（网络抖动时不容易掉）</span>
+ssh -N -L 8000:127.0.0.1:8000 \
+  -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
+  用户名@服务器IP</code></pre>
+
+<p>然后本地浏览器直接开 <code>http://127.0.0.1:8000/playground/</code>——就是你服务器上那个 H3 playground，跟本地跑一模一样。</p>
+
+<div class="card ok">
+  <h4>为什么推荐隧道而不是直接开端口</h4>
+  <ul style="margin-bottom:0">
+    <li><strong>不用改云平台安全组</strong>，不用把端口暴露到公网</li>
+    <li><strong>FastVideo 的 HTTP 服务没有任何鉴权</strong>——官方原话："客户端里的 key 只是 SDK 要求的占位符，不是服务端鉴权"</li>
+    <li>隧道走 SSH 加密，等于白送一层认证</li>
+  </ul>
+</div>
+
+<div class="card danger">
+  <h4>血的教训：不要图省事改成 0.0.0.0</h4>
+  <p>把 <code>--server.host</code> 改成 <code>0.0.0.0</code> 并开放安全组，等于<strong>把一台 4090 挂在公网上给人白嫖</strong>。没有 API Key 校验，任何人扫到端口就能无限调你的卡。</p>
+  <p style="margin-bottom:0">确实需要对外提供服务的，必须套一层带鉴权的反向代理（Nginx / Caddy + Bearer Token），并在代理层做限流和来源限制。</p>
+</div>
+
+<h2><span class="n">8</span>调用它：接口速查</h2>
+
+<p>服务起来后是一套 <strong>OpenAI 兼容的 REST 接口</strong>，现有 OpenAI SDK 客户端改个 base_url 就能用，不用写适配层。</p>
+
+<table>
+  <tr><th>操作</th><th>端点</th></tr>
+  <tr><td>服务健康检查</td><td><code>GET /health</code></td></tr>
+  <tr><td>列出已加载模型</td><td><code>GET /v1/models</code></td></tr>
+  <tr><td>提交异步任务</td><td><code>POST /v1/videos</code></td></tr>
+  <tr><td><strong>同步出片，直接返回 MP4</strong></td><td><code>POST /v1/videos/sync</code></td></tr>
+  <tr><td>查询任务状态</td><td><code>GET /v1/videos/{id}</code></td></tr>
+  <tr><td>下载产物</td><td><code>GET /v1/videos/{id}/content</code></td></tr>
+  <tr><td>删除任务与产物</td><td><code>DELETE /v1/videos/{id}</code></td></tr>
+  <tr><td>H3 专用网页界面</td><td><code>GET /playground/</code></td></tr>
+</table>
+
+<h3>最快的一次调用（curl）</h3>
+<pre><code><span class="cmt"># 同步出片：一次 POST 直接拿回 MP4 文件</span>
+curl -s -X POST http://127.0.0.1:8000/v1/videos/sync \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "model": "fastwan21-1.3b",
+    "prompt": "A fox runs through fresh snow, cinematic lighting",
+    "size": "832x480",
+    "num_frames": 81,
+    "fps": 16,
+    "seed": 1024
+  }' --output out.mp4
+
+<span class="cmt"># 响应头里有耗时和峰值显存，值得一看：</span>
+<span class="cmt"># X-Inference-Time-S / X-Peak-Memory-MB / X-Stage-Durations</span></code></pre>
+
+<h3>用仓库自带的客户端（异步 + 轮询）</h3>
+<pre><code>cd ~/FastVideo
+
+<span class="cmt"># cURL 版</span>
+FASTVIDEO_BASE_URL=http://127.0.0.1:8000/v1 \
+FASTVIDEO_MODEL=fastwan21-1.3b \
+  bash examples/serving/clients/video.sh
+
+<span class="cmt"># Python 版（需 openai==3.6.0，这是官方测过的版本）</span>
+uv pip install openai==3.6.0
+FASTVIDEO_BASE_URL=http://127.0.0.1:8000/v1 \
+FASTVIDEO_MODEL=fastwan21-1.3b \
+  python examples/serving/clients/video.py</code></pre>
+
+<div class="card warn">
+  <h4>异步接口的两个反直觉行为</h4>
+  <ul style="margin-bottom:0">
+    <li><strong>失败的任务返回 HTTP 200</strong>，body 里是 <code>status: "failed"</code> + error 对象——这样 SDK 的轮询能正常终止而不是当成网络错误重试。别只看状态码判断成败。</li>
+    <li><strong>轮询超时不会取消 GPU 执行</strong>。客户端 30 分钟超时了，任务可能还在跑。把打印出来的 job ID 存好，用它单独查。</li>
+  </ul>
+</div>
+
+<h3>压测：摸出这张卡的真实产能</h3>
+<pre><code><span class="cmt"># 服务起着，另开一个终端</span>
+fastvideo bench --dataset random --num-prompts 20 --port 8000 --max-concurrency 1
+
+<span class="cmt"># 想要更真实的评测集</span>
+fastvideo bench --dataset vbench --num-prompts 20 --port 8000</code></pre>
+
+<p>这一步的产出是<strong>"单条出片耗时"和"每小时能出几条"</strong>——这两个数字决定了后面所有变现讨论有没有意义。</p>
+
+<h2><span class="n">9</span>产物怎么拿回来</h2>
+
+<p>服务端写文件的位置由 <code>server.output_dir</code> 决定，客户端<strong>不能指定路径</strong>，每个视频按请求 ID 存一个唯一文件。</p>
+
+<pre><code><span class="cmt"># 方案 1：rsync 增量同步（推荐，断了能续）</span>
+rsync -avP --exclude='*.tmp' \
+  用户名@服务器IP:/data/outputs/ ./server_outputs/
+
+<span class="cmt"># 方案 2：只拉某个任务</span>
+scp 用户名@服务器IP:/data/outputs/&lt;job_id&gt;.mp4 ./
+
+<span class="cmt"># 方案 3：产物太多不搬了，直接在服务器上后处理</span>
+<span class="cmt"># （比如 ffmpeg 拼接、转码、抽帧，都在服务器做完再拉成品）</span></code></pre>
+
+<div class="card">
+  <h4>一条链路习惯：产物在服务器上就完成封装</h4>
+  <p style="margin-bottom:0">如果你的下游还有拼接、加 BGM、响度归一化这些步骤，<strong>在服务器上做完再回传</strong>。回传几十 GB 原始片段，比回传几个成品 MP4 慢得多，而且云盘出流量常常是要计费的。</p>
+</div>
+
+<h2><span class="n">10</span>排错表</h2>
+
+<table>
+  <tr><th>症状</th><th>根因</th><th>解法</th></tr>
+  <tr>
+    <td>装到一半报 Python 版本不支持</td>
+    <td>系统 Python 是 3.13</td>
+    <td>不用动系统 Python，用 <code>uv venv --python 3.12</code> 建独立环境</td>
+  </tr>
+  <tr>
+    <td>PyTorch 装了但 <code>torch.cuda.is_available()</code> 是 False</td>
+    <td>wheel 后端与驱动不匹配</td>
+    <td>确认 <code>UV_TORCH_BACKEND</code>：CUDA 12.6 用 cu126，CUDA 13 用 cu130</td>
+  </tr>
+  <tr>
+    <td>跑着跑着 CUDA out of memory</td>
+    <td>24 GB 显存不够</td>
+    <td>按 <code>06</code> 配置末尾的降级顺序逐级打开卸载，或降分辨率到 640×384</td>
+  </tr>
+  <tr>
+    <td>报 pinned memory 分配失败</td>
+    <td>消费级驱动锁页受限</td>
+    <td>把 <code>offload.pin_cpu_memory</code> 改成 <code>false</code></td>
+  </tr>
+  <tr>
+    <td>容器里多进程加载模型直接崩</td>
+    <td>Docker 默认共享内存 64 MB</td>
+    <td>启动加 <code>--shm-size=16g</code></td>
+  </tr>
+  <tr>
+    <td>换了注意力后端但速度没变</td>
+    <td><code>FASTVIDEO_ATTENTION_BACKEND</code> 只解析一次</td>
+    <td>循环 benchmark 时必须重建 VideoGenerator，不能只改环境变量</td>
+  </tr>
+  <tr>
+    <td>exeperimental 里改了参数没反应</td>
+    <td><code>experimental</code> / <code>extensions</code> 没有 schema</td>
+    <td>键名打错会<strong>静默失效</strong>，逐字核对官方 YAML 里的拼写</td>
+  </tr>
+  <tr>
+    <td>健康检查一直返回 503</td>
+    <td>工作进程池不可用，通常是加载模型时挂了</td>
+    <td>看服务日志；常见是显存不足或权重文件不完整</td>
+  </tr>
+  <tr>
+    <td>下载权重卡住不动</td>
+    <td>HF 直连不通</td>
+    <td>设 <code>HF_ENDPOINT=https://hf-mirror.com</code>，并装 <code>hf_transfer</code></td>
+  </tr>
+  <tr>
+    <td>SSH 断开后任务消失</td>
+    <td>进程收到 SIGHUP</td>
+    <td>用 tmux，或 nohup + disown</td>
+  </tr>
+  <tr>
+    <td>本地浏览器打不开 playground</td>
+    <td>服务绑在服务器 localhost，本地够不着</td>
+    <td>建 SSH 隧道：<code>ssh -N -L 8000:127.0.0.1:8000 用户@IP</code></td>
+  </tr>
+  <tr>
+    <td>请求被拒，报模型名不对</td>
+    <td>请求里的 model 必须等于 <code>server.served_model_name</code></td>
+    <td>先用 <code>GET /v1/models</code> 查实际对外暴露的名字</td>
+  </tr>
+</table>
+
+<h2><span class="n">11</span>安全与变现边界</h2>
+
+<h3>三条硬边界</h3>
+<div class="card danger">
+  <h4>1. 代码许可 ≠ 权重许可</h4>
+  <p style="margin-bottom:0">FastVideo 代码是 <strong>Apache-2.0</strong>，但模型权重单独授权：FastWan / Wan 系列是 Apache-2.0 可商用；<strong>MiniMax H3 系列走 MiniMax 社区许可</strong>；Lucy Edit 明确非商用。拿代码做内部产品没问题，<strong>对外卖服务前必须逐张核对 model card</strong>。</p>
+</div>
+<div class="card danger">
+  <h4>2. HTTP 服务本身没有鉴权</h4>
+  <p style="margin-bottom:0">别把端口裸奔到公网。要走公网必须套带 API Key 的反向代理，并做限流。</p>
+</div>
+<div class="card warn">
+  <h4>3. 精度不是无损的</h4>
+  <p style="margin-bottom:0">官方自认"非对齐安全"。MiniMax-H3 在区域编译 vs eager 下：像素误差 20.247/255、PSNR 16.67 dB、SSIM 0.7108。FP4 余弦相似度约 0.99。<strong>如果你的业务对画面一致性极敏感，先小批量验片再上量。</strong></p>
+</div>
+
+<h3>变现路径（按落地难度排）</h3>
+<table>
+  <tr><th>路径</th><th>怎么做</th><th>前置条件</th></tr>
+  <tr>
+    <td><strong>自用内容生产</strong><br><span class="pill g">最快</span></td>
+    <td><code>/v1/videos/sync</code> 天生适合脚本批处理：一条 prompt 批量出 480P 镜头，喂进你的解说 / 短剧管线</td>
+    <td>先用 <code>bench</code> 测出"一小时能出几条"</td>
+  </tr>
+  <tr>
+    <td><strong>私有化交付</strong><br><span class="pill a">中等</span></td>
+    <td>客户自带卡，卖部署 + 调优 + 工作流打包</td>
+    <td>需要一套可复制的部署脚本（本次交付的脚本就是起点）</td>
+  </tr>
+  <tr>
+    <td><strong>API 转售</strong><br><span class="pill r">最难</span></td>
+    <td>对第三方提供生成接口</td>
+    <td>单卡产能低 + 必须过权重许可 + 必须自建鉴权与计费</td>
+  </tr>
+</table>
+
+<h2><span class="n">12</span>你现在该做的三件事</h2>
+
+<ol>
+  <li><strong>跑体检脚本</strong>，把 <code>fastvideo-doctor.sh</code> 传上去执行，确认 OS / 算力 / 显存 / 磁盘四项</li>
+  <li><strong>跑安装脚本</strong>，<code>fastvideo-remote-setup.sh</code> 一条命令把环境建好</li>
+  <li><strong>下 27 GB 那个模型先跑通</strong>，拿到第一支 MP4 和第一个耗时数字，再谈调优和变现</li>
+</ol>
+
+<div class="note">
+  <strong>配套文件</strong>：<code>fastvideo-doctor.sh</code>（服务器自检，只读不改）、<code>fastvideo-remote-setup.sh</code>（一键建环境，幂等可重跑）、<code>fastvideo-configs/06</code>~<code>08</code>（4090 三档配置：稳妥 / 压榨 / 服务化）。本手册所有命令与仓库内文档逐条核对过，未凭印象编写。
+</div>
+
+</div>
+</body>
+</html>

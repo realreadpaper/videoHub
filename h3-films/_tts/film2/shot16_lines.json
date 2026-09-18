@@ -1,0 +1,56 @@
+[
+ {
+  "speaker": "S3",
+  "text": "班吗？",
+  "mp3": "s16_0.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 0.314
+ },
+ {
+  "speaker": "S1",
+  "text": "我从来没说过我普通，是你们只看我穿的普通。",
+  "mp3": "s16_1.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f01.wav",
+  "t": 0.832,
+  "dur": 2.406
+ },
+ {
+  "speaker": "S4",
+  "text": "顾总，刚才是误会，我不是嫌孩子，我是怕他不舒服。",
+  "mp3": "s16_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 3.555,
+  "dur": 3.305
+ },
+ {
+  "speaker": "S3",
+  "text": "对啊，我也是替你考虑，毕竟孩子以后需要规划。",
+  "mp3": "s16_3.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f03.wav",
+  "t": 7.177,
+  "dur": 2.587
+ },
+ {
+  "speaker": "S2",
+  "text": "不用你们规划，我腿没事。是爸爸想看看，谁真心喜欢我。",
+  "mp3": "s16_4.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f04.wav",
+  "t": 10.082,
+  "dur": 3.84
+ },
+ {
+  "speaker": "S1",
+  "text": "我儿子腿",
+  "mp3": "s16_5.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f05.wav",
+  "t": 14.239,
+  "dur": 0.584
+ }
+]

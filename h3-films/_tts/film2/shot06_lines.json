@@ -1,0 +1,38 @@
+[
+ {
+  "speaker": "S1",
+  "text": "算账的。",
+  "mp3": "s06_0.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 0.555
+ },
+ {
+  "speaker": "S3",
+  "text": "现实一点，我没有错。你带着这种孩子，本来就得补偿我。",
+  "mp3": "s06_1.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f01.wav",
+  "t": 1.505,
+  "dur": 3.524
+ },
+ {
+  "speaker": "S1",
+  "text": "慢点，门口的台阶。别看孩子。",
+  "mp3": "s06_2.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f02.wav",
+  "t": 5.779,
+  "dur": 2.366
+ },
+ {
+  "speaker": "S4",
+  "text": "小朋友，冷不冷？坐久了腿",
+  "mp3": "s06_3.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f03.wav",
+  "t": 8.895,
+  "dur": 2.213
+ }
+]

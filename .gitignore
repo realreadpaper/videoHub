@@ -1,0 +1,85 @@
+# ============================================================
+# videoHub 仓库只保存「编排代码 / 剧本 / 提示词 / 报告 / 配置」
+# 大体积媒体与外部代码仓库一律不入库（GitHub 单文件硬上限 100 MB）
+# ============================================================
+
+# ---- 敏感凭据：绝对禁止提交 ----
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa*
+id_ed25519*
+.env
+.env.*
+!.env.example
+*credentials*.json
+*token*.json
+
+# ---- 视频 / 音频 / 图片等大文件 ----
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
+*.flv
+*.m4v
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.ogg
+*.opus
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.gif
+*.bmp
+*.tif
+*.tiff
+*.psd
+*.exr
+
+# ---- 模型权重 / 数据文件 ----
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.gguf
+*.bin
+*.h5
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+*.zip
+*.tar
+*.tgz
+*.gz
+*.7z
+
+# ---- 外部代码仓库（各自有独立 remote，本仓库只做引用说明）----
+repos/
+reelbench-skills/
+TaoMate-H3/
+
+# ---- 依赖 / 缓存 / 运行时产物 ----
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.cache/
+.pytest_cache/
+*.log
+
+# ---- 本机 / 工具状态 ----
+.DS_Store
+.mimosa/
+.idea/
+.vscode/
+Thumbs.db

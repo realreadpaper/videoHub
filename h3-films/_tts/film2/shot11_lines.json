@@ -1,0 +1,29 @@
+[
+ {
+  "speaker": "S4",
+  "text": "再加半碗清水，盖上盖子，按下煮饭键，搞定。",
+  "mp3": "s11_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 3.162
+ },
+ {
+  "speaker": "S4",
+  "text": "接下来你就可以离开厨房了，不用吸油烟，不用守着火，你去洗个澡、敷个面膜、刷两集剧都行。",
+  "mp3": "s11_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f01.wav",
+  "t": 3.479,
+  "dur": 6.027
+ },
+ {
+  "speaker": "S4",
+  "text": "等电饭锅叮的一声，直接开饭。你看这出锅的颜色，不加一滴老抽，照样红亮优",
+  "mp3": "s11_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f02.wav",
+  "t": 9.622,
+  "dur": 5.201
+ }
+]

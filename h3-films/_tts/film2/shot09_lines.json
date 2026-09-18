@@ -1,0 +1,29 @@
+[
+ {
+  "speaker": "S4",
+  "text": "烫到手，吃完还得刷油腻腻的炒锅和灶台，是不是瞬间就想点外卖？",
+  "mp3": "s09_0.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 4.035
+ },
+ {
+  "speaker": "S4",
+  "text": "今天我就让你看看，红烧排骨还能这么简单。只要家里有个电饭锅，饭店级别的软烂红烧排骨，闭着眼睛都能做出来。",
+  "mp3": "s09_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a01.wav",
+  "t": 4.322,
+  "dur": 7.234
+ },
+ {
+  "speaker": "S4",
+  "text": "家里那些落灰的八角、桂皮、酱油、老抽，通",
+  "mp3": "s09_2.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a02.wav",
+  "t": 11.642,
+  "dur": 3.181
+ }
+]

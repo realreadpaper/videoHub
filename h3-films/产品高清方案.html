@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>产品高清方案 —— 像素门槛与可执行路径</title>
+<style>
+  :root{
+    --bg:#f7f7f8; --card:#ffffff; --ink:#1a1a1a; --ink2:#555555; --ink3:#8a8a8a;
+    --line:#e4e4e7; --blue:#1e6fbf; --green:#1e8449; --red:#c0392b; --amber:#d68910;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 28px 72px}
+  h1{font-size:27px;margin:0 0 6px;letter-spacing:-.3px}
+  .sub{color:var(--ink3);font-size:14px;margin-bottom:34px}
+  h2{font-size:19px;margin:44px 0 14px;padding-bottom:9px;border-bottom:2px solid var(--line)}
+  h3{font-size:16px;margin:26px 0 10px;color:var(--ink)}
+  p{margin:10px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin:16px 0}
+  .lead{background:#eef5fc;border-left:4px solid var(--blue)}
+  .warn{background:#fdf2f0;border-left:4px solid var(--red)}
+  .good{background:#eef8f1;border-left:4px solid var(--green)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:#f2f2f4;font-weight:600;font-size:13px}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  code{background:#f0f0f2;padding:2px 6px;border-radius:4px;font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre{background:#1e1f22;color:#e6e6e6;padding:16px 18px;border-radius:8px;overflow-x:auto;
+    font-size:13px;line-height:1.65;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre .c{color:#7f8c9b}
+  .kpi{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0}
+  .kpi div{flex:1;min-width:170px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:16px 18px}
+  .kpi b{display:block;font-size:23px;letter-spacing:-.5px;margin-bottom:3px}
+  .kpi span{color:var(--ink3);font-size:13px}
+  .ok{color:var(--green);font-weight:600}
+  .bad{color:var(--red);font-weight:600}
+  .mid{color:var(--amber);font-weight:600}
+  ul,ol{margin:10px 0 10px 4px;padding-left:22px}
+  li{margin:6px 0}
+  .tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:20px;
+    background:#eceff3;color:#4a5568;margin-right:6px}
+  footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--ink3);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>产品高清方案 —— 像素门槛与可执行路径</h1>
+  <div class="sub">H3 + LTX-2.5 双阶段管线 · A100 40GB 实测 · shot13 同镜四组对照</div>
+
+  <div class="card lead">
+    <h3 style="margin-top:0">一句话结论</h3>
+    <p><b>产品在画面里占多少像素，决定它最终能有多清晰。</b>参考图再高清，也救不了"产品在画面里只有一小条"的镜头。</p>
+    <p>四个杠杆按性价比排序：</p>
+    <ol style="margin-bottom:0">
+      <li><b>改构图</b>（把产品拍成特写）—— <span class="ok">零成本，收益最大</span></li>
+      <li><b>S2 用低 sigma 保脸精修</b> —— <span class="ok">零额外成本，收益第二</span></li>
+      <li><b>提高整帧分辨率</b> —— 成本翻倍，收益与第 2 项相当</li>
+      <li><b>产品区域合成贴图</b> —— 成本较高，但唯一能保证 100% 保真</li>
+    </ol>
+  </div>
+
+  <h2>一、为什么糊：把像素账算出来</h2>
+
+  <p>你给的参考图本身没问题——<b>694×973，袋面满幅 685×956</b>，清晰度充足。问题出在生成帧里产品占的位置太小。</p>
+
+  <table>
+    <tr><th>项目</th><th>像素尺寸</th><th>说明</th></tr>
+    <tr><td>参考原图</td><td class="num">694 × 973</td><td>袋面几乎满幅（685×956）</td></tr>
+    <tr><td>S2 精修输出（768×1344）</td><td class="num">226 × 296</td><td>袋面只占画面左下角，宽度是原图的 <b>33%</b></td></tr>
+    <tr><td>S1 草稿（384×672）</td><td class="num">113 × 148</td><td>再打对折</td></tr>
+  </table>
+
+  <h3>latent 账：为什么模型"画不出来"字</h3>
+  <p>视频 VAE 在空间上压缩 8 倍，所以 768×1344 的帧在模型内部只有 <b>96×168 个 latent 格子</b>。袋面 226px 宽 ≈ <b>28 格</b>；竖排主文字条只占袋面宽度约 20%，约 <b>5 格宽</b>。而 6 个汉字竖排，每个字只能分到 <b>约 5×3 格</b>。</p>
+  <p>latent 格是"语义块"不是像素——<b>在 5 个格子里画一个汉字，物理上不可能</b>。模型只能输出一团"看起来像字的涂抹"。这就是你截图里那种糊。</p>
+
+  <div class="card warn">
+    <b>关键澄清：</b>"把参考图喂给模型"解决不了这个问题。参考图提供的是<b>外观先验</b>（这是什么产品、什么颜色、什么版式），<b>不提供像素级贴图</b>。产品在画面里占多少像素，由构图和输出分辨率决定，与参考图多大无关。
+  </div>
+
+  <h2>二、硬约束：两张天花板</h2>
+
+  <table>
+    <tr><th>约束</th><th>数值</th><th>含义</th></tr>
+    <tr><td>模型画布上限<br><span class="tag">软件</span></td><td class="num">1920 × 1088<br>（参考面积）</td><td>H3 节点 <code>allow_above_reference_area</code> 的说明原文。我们当前 S1 只用 <b>384×672 = 上限的 12%</b></td></tr>
+    <tr><td>A100 40GB 实测<br><span class="tag">硬件</span></td><td class="num">40 353 / 40 960 MiB<br><b>98.5%</b></td><td>S1 跑 768×1344 时显存顶格 —— <b>真正的天花板是显存，不是模型</b></td></tr>
+    <tr><td>S2 精修峰值</td><td class="num">40 163 MiB<br>（768×1344）</td><td>输出分辨率封顶 <b>768×1344</b>，再高必 OOM</td></tr>
+  </table>
+
+  <p>也就是说：<b>在这张卡上，靠"堆分辨率"把产品堆清楚的路基本走不通</b>——768×1344 已经是极限。</p>
+
+  <h2>三、四组实测（shot13 同镜）</h2>
+
+  <p>同一份参考图、同一套 prompt（仅改构图措辞）、同一个 seed，唯一变量是构图与分辨率。</p>
+
+  <table>
+    <tr><th>方案</th><th>分辨率</th>
+      <th>S1 草稿<br><span style="font-weight:400;font-size:12px">（冷启口径）</span></th>
+      <th>S2 精修<br><span style="font-weight:400;font-size:12px">（冷启口径）</span></th>
+      <th>合计<br><span style="font-weight:400;font-size:12px">（冷启口径 · 不可乘 20）</span></th>
+      <th>产品占画面</th><th>印刷还原度</th></tr>
+    <tr>
+      <td>原方案（中景）</td><td class="num">384×672 → 768×1344</td>
+      <td class="num">≈360 s</td><td class="num">271 s</td><td class="num bad"><b>≈631 s</b></td>
+      <td class="num">29%</td><td class="bad">≈0%（涂抹）</td>
+    </tr>
+    <tr>
+      <td><b>只改构图</b></td><td class="num">384×672（不变）</td>
+      <td class="num">360 s</td><td class="num">—</td><td class="num mid">360 s</td>
+      <td class="num">~80%</td><td class="mid">~70%（可读，偶有形近字）</td>
+    </tr>
+    <tr>
+      <td><b>构图 + 提分辨率</b></td><td class="num">768×1344（4× 像素）</td>
+      <td class="num">631 s</td><td class="num">—</td><td class="num mid">631 s</td>
+      <td class="num">~80%</td><td class="ok">~100%（全部正确）</td>
+    </tr>
+    <tr>
+      <td><b>特写草稿再走 S2</b></td><td class="num">384×672 → 768×1344</td>
+      <td class="num">360 s</td><td class="num">280 s</td><td class="num mid"><b>640 s</b></td>
+      <td class="num">~80%</td><td class="ok">~95%</td>
+    </tr>
+    <tr style="background:#eef8f1">
+      <td><b>★ 同一方案 · 热态批处理口径</b><br>
+        <span style="font-size:12.5px;color:#5F5E5A">排期该用这个数，画质完全相同</span></td>
+      <td class="num">384×672 → 768×1344</td>
+      <td class="num ok">~77 s</td><td class="num ok">75 s</td>
+      <td class="num ok"><b>≈152 s</b></td>
+      <td class="num">~80%</td><td class="ok">~95%</td>
+    </tr>
+  </table>
+
+  <div class="card warn">
+    <h3 style="margin-top:0">口径修正：原方案那一行的「271 s」只算了半场</h3>
+    <p>271 s 是 <b>S2 精修那一段单独跑下来的时间</b>（identity 预设、冷启、含 LTX 模型装载），
+    不是原方案的全流程。原方案的 S1 中景草稿是更早单独跑的一次，<b>没被计进这 271 s</b>——
+    同分辨率同管线（ref2va + 参考图）的草稿实测在 <b>327–360 s</b>，与「只改构图」组的 360 s 同档。</p>
+    <p style="margin-bottom:0">补上之后：<b>原方案 ≈ 360 + 271 = 631 s</b>，产出 768×1344、产品糊成涂抹；
+    <b>特写草稿再走 S2 = 360 + 280 = 640 s</b>，同样产出 768×1344、产品还原度 ~95%。
+    <span class="ok">同样的耗时，差 9 秒，清晰度从 0% 到 95%。</span></p>
+    <p style="margin-bottom:0">★ 注意这里的 631 / 640 s 都是「两步各跑一次」的<b>冷启口径</b>，
+    只用来做上表的横向比较；换成热态批处理口径是 <b>152 s/镜</b> —— 见下方「口径二」。</p>
+  </div>
+
+  <div class="card lead">
+    <h3 style="margin-top:0">口径二：表里的 360 / 280 是「两次冷启」，不是单镜成本</h3>
+    <p>上表的 S1 与 S2 两列，各自都是<b>该阶段在那台实例上第一次跑</b>的耗时 —— 也就是
+    <b>冷启动口径</b>，不能乘 20。</p>
+    <table style="margin-top:6px">
+      <tr><th>数字</th><th>真实身份</th><th>拆解（日志原文）</th></tr>
+      <tr>
+        <td class="num">360 s</td>
+        <td>S1 · 384×672 特写草稿<br><b>冷启首跑</b>（shot13 ref2va + 参考图）</td>
+        <td class="num">装载/编码/封装 <b>197 s</b> + Model Initializing <b>107 s</b> + 采样 <b>49 s</b><br>
+          <span style="font-size:12.5px;color:#5F5E5A">日志 352.97 s —— 真正在算的只有 49 s，<b>86% 是冷启动</b></span></td>
+      </tr>
+      <tr>
+        <td class="num">280 s</td>
+        <td>S2 · 768×1344<br><b>同会话第一次跑</b>（要先把 LTX 那套权重读进来）</td>
+        <td class="num">热态实测 <b>75.0 / 75.3 s</b><br>
+          <span style="font-size:12.5px;color:#5F5E5A">3 镜连跑实测 271.6 / 75.3 / 75.3 s</span></td>
+      </tr>
+    </table>
+    <p style="margin-bottom:0">同一张 A100、同一份工作流，<b>冷启 vs 热态差 4–5 倍</b>（冷启首镜 382 s → 热态 74 s）。
+    → <b>单镜真实成本（热态批处理）≈ 77 + 75 = 152 s</b>，而不是 640 s。</p>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">口径三：那 248 s 是「逐镜交替」账，4090 换成批处理只要 163 s</h3>
+    <p>4090 上的 107.4 + 139.4 是 <b>2026-09-16 单镜验证报告</b>里第 2、3 镜的数字 —— 权重已在显存，
+    但那批跑法是<b>逐镜交替</b>：每镜 S1 跑完立刻接 S2，下一镜 S1 又得把 H3 的 TE（25.9 G）+ UNET（20 G）
+    重新装回来。同一台 4090 换成<b>批处理</b>，草稿热跑只要 <b>72.5 s</b>（<code>PIPELINE.md</code> 第 26–30 行）。</p>
+    <table style="margin-top:6px">
+      <tr><th>口径</th><th class="num">4090 24G</th><th class="num">A100 40G</th><th>说明</th></tr>
+      <tr><td>S1 草稿 384×672 · <b>热态批处理</b></td><td class="num ok">72.5 s</td><td class="num ok">73.9 / 74.3 s</td>
+        <td><b>两张卡同档</b> —— 草稿这一段，卡不是变量</td></tr>
+      <tr><td>S2 精修 768×1344 · 热态</td><td class="num">90.6 s（原估）<br>139.4（逐镜实测）</td><td class="num ok">75.0 / 75.3 s</td>
+        <td>A100 更快；⚠ 两边的 S2 配置并不相同（见下）</td></tr>
+      <tr><td><b>单镜 · 热态批处理</b></td><td class="num">163 s</td><td class="num ok"><b>149 s</b></td><td>可比口径</td></tr>
+      <tr><td>单镜 · 逐镜交替</td><td class="num bad">248 s</td><td class="num">—</td><td>每镜多付一次权重装卸</td></tr>
+      <tr><td>单镜 · 两步各自冷启</td><td class="num">—</td><td class="num bad">640 s</td><td><b>就是本表 S1+S2 两列</b>，不可乘 20</td></tr>
+    </table>
+    <p style="margin-bottom:0">⚠ <b>诚实标注</b>：4090 那代 S2（139.4 s）与我们 09-17 在 A100 上重建的 S2
+    （融合版权重 + identity 低 sigma 3 步）<b>不是同一套配置</b>，所以「S2 段 A100 快 1.9 倍」里
+    有一部分是配置差、不全是硬件差 —— 这条没有干净的单一变量对照，<b>不当作结论使用</b>。</p>
+  </div>
+
+  <div class="card good">
+    <b>所以"改构图会增加时间"是个假的因果。</b>
+    采样耗时只由 <b>latent 尺寸（分辨率）× 步数 × 模型</b> 决定——画面里产品占 29% 还是 80%，
+    计算量一模一样。360 s 就是 S1 在 384×672 上跑一镜的正常冷启开销，<b>改不改构图都是这个数</b>。
+    真正让"特写草稿再走 S2"看起来贵的是 <b>「+280 s」那一段 S2</b>——而 S2 本来就在你的流程里，
+    原方案也一样要跑（只是那一行没把它的 S1 记上）。
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">名词对照：什么叫"特写草稿"</h3>
+    <table style="margin-top:6px">
+      <tr><th>方案名</th><th>S1 草稿阶段做了什么</th><th>S2 精修阶段做什么</th></tr>
+      <tr>
+        <td>原方案（中景）</td>
+        <td>384×672，产品在画面里只占 29% 宽</td>
+        <td>跑，但放大的是一团涂抹</td>
+      </tr>
+      <tr>
+        <td><b>只改构图</b></td>
+        <td><b>384×672 不变，把产品拍成特写（占宽 ~80%）</b></td>
+        <td>不跑，S1 直接出片</td>
+      </tr>
+      <tr>
+        <td><b>特写草稿再走 S2</b></td>
+        <td><b>同上，384×672 + 特写构图</b></td>
+        <td>跑，把已经"看见"的细节放大补锐</td>
+      </tr>
+      <tr>
+        <td>构图 + 提分辨率</td>
+        <td>直接上 768×1344（4× 像素），一步到位</td>
+        <td>不跑</td>
+      </tr>
+    </table>
+    <p><b>"草稿"</b>指 S1 的输出 —— 384×672 那张低分辨率中间片，职责是"把内容定下来"；分辨率是 S2 负责抬到 768×1344 的。<br>
+    <b>"特写"</b>指构图 —— 产品在画面里占 70–80% 宽，而不是中景里的 29%。</p>
+    <p>所以 <b>"特写草稿"= 在低分辨率阶段就用特写构图生成草稿</b>。背后的逻辑是：<b>S2 精修只能放大和补细节，造不出 S1 根本没看见的东西。</b>中景草稿里产品只有 ≈14 个 latent 格宽，字压根没被画出来，S2 放大的还是涂抹；特写草稿里有 ≈38 格，字已经在了，S2 才能把它擦干净、放大到 768×1344。</p>
+    <p style="margin-bottom:0"><b>为什么它比"直接跑 768×1344"更值得选：</b>按热态批处理口径，它 <b>≈152 s/镜</b>
+    vs 直接跑 <b>631 s/镜</b> —— <b>快 4.2 倍</b>（20 镜口径算上冷启摊薄是 3.7 倍）；成片都是 768×1344，
+    但特写草稿<b>不用把 S1 顶到 98.5% 显存</b>，而且 S2 这一步本来就在流程里，
+    还能顺便挂参考图（<code>--guide</code>）和保脸档（<code>--preset identity</code>）。
+    <span class="bad">（早前此处写"两者耗时几乎一样 640 vs 631 s"是错的口径 —— 640 s 是两次冷启之和。）</span></p>
+  </div>
+
+  <h3>三个读数</h3>
+  <ul>
+    <li><b>构图是第一杠杆。</b>分辨率一点没动，只把产品拍成特写，"鲍汁红烧酱料""佐味纪""PICC""净含量 80 克"就全都能读出来了。</li>
+    <li><b>分辨率不是线性收益。</b>单步采样 <b>12.4 s → 138.5 s（约 11 倍）</b>，复杂度 ≈ N<sup>1.76</sup>。
+    <span class="bad">（早前写的"像素 4× 只慢 1.75×"是把固定装载时间摊薄后的假象，拆到采样一级就露馅。）</span>
+    而且显存直接顶到 98.5% —— 这条路走到头了。</li>
+    <li><b>S2 精修是最划算的一步。</b>特写草稿（~70%）经 S2 低 sigma 精修后到 <b>~95%</b>，而这本来就是你流程里已有的一步，只是此前用错了 sigma 档位。</li>
+  </ul>
+
+  <div class="card good">
+    <b>重要发现：</b>"特写草稿 + S2 精修"（热态批处理 <b>≈152 s/镜</b>）与"直接跑 768×1344"（<b>631 s/镜</b>）
+    画质相当，而<b>快 4.2 倍</b>——且前者<b>不需要改 S1 分辨率、不需要额外显存余量</b>，
+    而且 S2 本来就承担放大到交付分辨率的职责。所以它是更稳的工程选择。
+    <span class="bad">（早前写"耗时相当"是拿两次冷启的 640 s 去比 631 s，属于口径混用。）</span>
+  </div>
+
+  <h2>四、推荐方案（零额外成本）</h2>
+
+  <ol>
+    <li><b>产品镜改特写构图</b> —— 在 prompt 里明确要求产品占画面高度 70–80%、正面朝向镜头、面板保持锐利。产品在画面里占宽 ≥70% 时，竖排主文字才能拿到 ≥8 个 latent 格宽。</li>
+    <li><b>S1 分辨率保持 384×672</b> —— 不提。理由是提了显存顶格、且收益被 S2 精修覆盖。</li>
+    <li><b>S2 一律用 <code>--preset identity</code></b>（低 sigma 保脸版）—— 满强度版会把产品重画成乱码、把角色换成另一个人；低 sigma 版实测 75.0 s vs 75.3 s，<b>零代价</b>。</li>
+    <li><b>关键产品镜加合成贴图兜底</b> —— 生成模型画字本质是概率性的（同一镜内 t=7 s 正确、t=12 s 出现形近字）。要 100% 保证品牌名、净含量、价格不出错，用参考图做四角透视贴回。这条要单独写工具。</li>
+  </ol>
+
+  <h2>五、落地命令</h2>
+
+  <pre><span class="c"># 1) 产品镜用特写 prompt（S1）</span>
+<span class="c">#    关键句：产品占画面 80%、正面朝向、面板全程锐利</span>
+python3 s1_submit.py --shots 13,15,18 --prompt spec_prompt.txt \
+        --width 384 --height 672
+
+<span class="c"># 2) S2 精修一律低 sigma 保脸版（已设为默认）</span>
+python3 batch_s2.py --shots 13,15,18 --preset identity --go
+
+<span class="c"># 3) 阶段边界释放显存（实测 26.7G → 0.6G）</span>
+curl -s -X POST http://127.0.0.1:8188/free \
+     -H 'Content-Type: application/json' \
+     -d '{"unload_models":true,"free_memory":true}'</pre>
+
+  <h2>六、验收标准</h2>
+
+  <table>
+    <tr><th>指标</th><th>门槛</th><th>怎么量</th></tr>
+    <tr><td>产品占画面宽</td><td class="num">≥ 70%</td><td>HSV 红色连通域 bbox ÷ 帧宽</td></tr>
+    <tr><td>竖排主文字 latent 格宽</td><td class="num">≥ 8 格</td><td>文字条像素宽 ÷ 8</td></tr>
+    <tr><td>印刷还原度</td><td class="num">≥ 95%</td><td>主文字（品牌名 / 品名 / 净含量）逐字目视核对</td></tr>
+    <tr><td>显存峰值</td><td class="num">&lt; 95%</td><td><code>nvidia-smi</code> 采样；超了就必须降分辨率</td></tr>
+  </table>
+
+  <h2>七、一句话给决策</h2>
+
+  <div class="card lead" style="margin-bottom:0">
+    <p style="margin:0">如果要<b>产品可读</b>——改构图就够了，今明两天就能改完，不花一分钱算力。</p>
+    <p style="margin:8px 0 0">如果要<b>产品 100% 正确</b>（品牌名、价格、净含量不能错）——必须上合成贴图，生成模型只能做到"大部分时候对"。</p>
+  </div>
+
+  <footer>
+    数据来源：A100 40GB 实例（ssh kehu）· 2026-09-17 实测<br>
+    资产：<code>h3-films/_a100verify/pg/</code>（四组成片与帧）、<code>skills/h3-film-production/scripts/pixel-gate/</code>（脚本）
+  </footer>
+
+</div>
+</body>
+</html>

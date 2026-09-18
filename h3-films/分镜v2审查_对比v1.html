@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分镜 v2 审查 —— 与 v1 逐项对比</title>
+<style>
+  :root{
+    --bg:#f7f7f8; --card:#ffffff; --ink:#1a1a1a; --ink2:#555555; --ink3:#8a8a8a;
+    --line:#e4e4e7; --blue:#1e6fbf; --green:#1e8449; --red:#c0392b; --amber:#d68910;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;}
+  .wrap{max-width:1020px;margin:0 auto;padding:44px 28px 72px}
+  h1{font-size:27px;margin:0 0 6px;letter-spacing:-.3px}
+  .sub{color:var(--ink3);font-size:14px;margin-bottom:34px}
+  h2{font-size:19px;margin:44px 0 14px;padding-bottom:9px;border-bottom:2px solid var(--line)}
+  h3{font-size:16px;margin:26px 0 10px;color:var(--ink)}
+  p{margin:10px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin:16px 0}
+  .lead{background:#eef5fc;border-left:4px solid var(--blue)}
+  .warn{background:#fdf2f0;border-left:4px solid var(--red)}
+  .good{background:#eef8f1;border-left:4px solid var(--green)}
+  .midc{background:#fdf6ec;border-left:4px solid var(--amber)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:#f2f2f4;font-weight:600;font-size:13px}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  code{background:#f0f0f2;padding:2px 6px;border-radius:4px;font-size:13px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre{background:#1e1f22;color:#e6e6e6;padding:16px 18px;border-radius:8px;overflow-x:auto;
+    font-size:13px;line-height:1.65;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre .c{color:#7f8c9b}
+  .kpi{display:flex;gap:14px;flex-wrap:wrap;margin:18px 0}
+  .kpi div{flex:1;min-width:168px;background:var(--card);border:1px solid var(--line);
+    border-radius:10px;padding:16px 18px}
+  .kpi b{display:block;font-size:22px;letter-spacing:-.5px;margin-bottom:3px}
+  .kpi span{color:var(--ink3);font-size:13px}
+  .ok{color:var(--green);font-weight:600}
+  .bad{color:var(--red);font-weight:600}
+  .mid{color:var(--amber);font-weight:600}
+  ul,ol{margin:10px 0 10px 4px;padding-left:22px}
+  li{margin:6px 0}
+  .severity{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 8px;border-radius:4px;
+    color:#fff;margin-right:8px;vertical-align:1px}
+  .p0{background:#c0392b}.p1{background:#d68910}.p2{background:#7f8c9b}
+  footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);
+    color:var(--ink3);font-size:13px}
+  .small{font-size:13px;color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>分镜 v2 审查 —— 与 v1 逐项对比</h1>
+  <div class="sub">节奏重排版 v2（`v2-rhythm-cuts`，146 镜）vs v1 均分版（40 镜） · 2026-09-17 深夜</div>
+
+  <div class="card lead">
+    <h3 style="margin-top:0">一句话结论</h3>
+    <p><b>分镜本身通过审查 —— 不通过的是计价方式。</b></p>
+    <p><b>镜数不多，甚至偏少。</b>v2 贴着参考片<b>实测切点</b>重排并做了贪心合并：参考片 94 / 103 个切点
+    （19.7 / 20.8 切/分），v2 压到 70 / 76 镜（14.7 / 15.4 切/分），<b>比原片还少 26% 的切点</b>。
+    反过来看，v1 的 4.0 切/分才是偏离原片节奏的那一版。</p>
+    <p><b>问题出在</b>三份工作流模板把 <code>length</code> 固定成 362 帧（15.083 s），
+    于是一条 2 秒的镜和一条 15 秒的镜<b>花一样的钱</b>。70 镜的窗口覆盖因此变成正片的
+    <b class="bad">3.69 倍</b>（v1 只有 1.01 倍）→ 两片 GPU 从 1.66 h 涨到 <b class="bad">9.52 h</b>。</p>
+    <p style="margin-bottom:0"><b>而这个参数是节点原生的</b>（`length` / step 17 / 栅格 `17n+5`）。
+    按镜帧数设置后，窗口覆盖回到 <b class="ok">1.09 倍</b>，两片落到
+    <b class="ok">2.35–4.46 h</b>；而且因为短窗的每帧成本更低，<b>草稿档反而比 v1 更快</b>。</p>
+  </div>
+
+  <div class="kpi">
+    <div><b>40 → 146</b><span>镜数（两片合计）· 3.65×</span></div>
+    <div><b>4.0 → 14.7</b><span>切/分（片1）· 参考片是 19.7</span></div>
+    <div><b class="bad">3.69×</b><span>窗口覆盖率（正片 286 s 生成 1 056 s）</span></div>
+    <div><b class="bad">9.52 h</b><span>两片 GPU 工时（现状计价）</span></div>
+  </div>
+
+  <h2>一、三段节奏对齐：v1 是那个"不对"的版本</h2>
+
+  <table>
+    <tr>
+      <th>口径</th><th class="num">切点数 / 镜数</th><th class="num">正片时长</th>
+      <th class="num">平均镜长</th><th class="num">切/分</th><th>判读</th>
+    </tr>
+    <tr>
+      <td><b>参考片（原片实测）</b><br><span class="small">片1 / 片2</span></td>
+      <td class="num">94 / 103</td><td class="num">286.1 / 296.9 s</td>
+      <td class="num">3.04 / 2.88 s</td><td class="num">19.7 / 20.8</td>
+      <td>基准。含 ≤0.5 s 的闪切 2 个/片</td>
+    </tr>
+    <tr>
+      <td><b>v1（均分版）</b></td>
+      <td class="num">20 / 20</td><td class="num">300 s</td>
+      <td class="num">15.00 s</td><td class="num bad">4.0</td>
+      <td class="bad">比原片慢 5 倍。这是"看起来不像原片"的根源</td>
+    </tr>
+    <tr>
+      <td><b>v2（节奏重排版）</b></td>
+      <td class="num"><b>70 / 76</b></td><td class="num">286.1 / 296.9 s</td>
+      <td class="num">4.09 / 3.91 s</td><td class="num mid">14.7 / 15.4</td>
+      <td class="ok">贴住原片；差的那 26% 是"能生成的下限"逼出来的</td>
+    </tr>
+  </table>
+
+  <p><b>v2 的 146 镜不是拍脑袋加出来的，是"复刻参考片节奏"这个目标推出来的下限。</b>
+  合并下限定在 2.0 s，就是为了不再往上涨。</p>
+
+  <h3>逐镜时长分布（v2）</h3>
+  <table>
+    <tr><th>时长档</th><th class="num">片1</th><th class="num">片2</th><th>说明</th></tr>
+    <tr><td>2.0 – 2.9 s</td><td class="num">25 镜（35.7%）</td><td class="num">22 镜（28.9%）</td><td>碎切主力；在 Mode A 下"最亏"的一档</td></tr>
+    <tr><td>3.0 – 4.9 s</td><td class="num">30 镜（42.9%）</td><td class="num">41 镜（53.9%）</td><td>主体</td></tr>
+    <tr><td>5.0 – 7.9 s</td><td class="num">9 镜（12.9%）</td><td class="num">12 镜（15.8%）</td><td>性价比最好的一档</td></tr>
+    <tr><td>8.0 – 15 s</td><td class="num">6 镜（8.6%）</td><td class="num">1 镜（1.3%）</td><td>接近满窗</td></tr>
+  </table>
+
+  <h2>二、钱的账：多出来的东西叫"窗口覆盖"</h2>
+
+  <div class="card warn">
+    <h3 style="margin-top:0">根因：模板把 <code>length</code> 写死成 362 帧</h3>
+    <p><code>MiniMaxH3AudioConditioningT8</code> 节点原生就有 <code>length</code> 输入：</p>
+    <pre><span class="c"># h3_t8/nodes.py:291</span>
+io.Int.Input("length", default=124, min=5, max=None, step=17,
+  tooltip="24fps; snapped up to the 17n+5 H3 grid.")</pre>
+    <p>但 v2 预览用的三份模板（`s16.api.json` / `api_s13.json` / `pg_B.api.json`）都沿用了历史值 <b>362 帧</b>，
+    且 `preview_flow.py` 里 `build_draft` / `build_direct` <b>只改 width/height、根本不设 length</b>。
+    实测产物可以验证：</p>
+    <table>
+      <tr><th>产物</th><th class="num">镜长应该是</th><th class="num">实际生成</th></tr>
+      <tr><td><code>f1s01_draft</code></td><td class="num">3.23 s</td><td class="num bad">15.08 s / 362 帧</td></tr>
+      <tr><td><code>f2s03_draft</code></td><td class="num">5.44 s</td><td class="num bad">15.08 s / 362 帧</td></tr>
+      <tr><td><code>f2s35_direct768</code></td><td class="num">6.13 s</td><td class="num bad">15.08 s / 362 帧</td></tr>
+    </table>
+    <p style="margin-bottom:0">这就是 `STORYBOARD.md` 执行注意第 3 条写的 <b>Mode A</b>：
+    「每镜整窗生成后裁（现在就能跑，<b>成本每镜全价</b>）」。</p>
+  </div>
+
+  <h3>★ 新增口径：窗口覆盖率（正片时长 ÷ 实际生成时长）</h3>
+  <table>
+    <tr><th>版本</th><th class="num">镜数</th><th class="num">生成窗口合计</th><th class="num">正片</th><th class="num">覆盖率</th></tr>
+    <tr>
+      <td><b>v1</b>（20 镜 × 15.08 s）</td><td class="num">20</td><td class="num">302 s</td>
+      <td class="num">300 s</td><td class="num ok">1.01×</td>
+    </tr>
+    <tr>
+      <td><b>v2 · Mode A</b>（每镜满窗）</td><td class="num">70 / 76</td>
+      <td class="num">1 056 / 1 146 s</td><td class="num">286.2 / 296.9 s</td>
+      <td class="num bad">3.69× / 3.86×</td>
+    </tr>
+    <tr>
+      <td><b>v2 · Mode B</b>（length = snap17(帧数)）</td><td class="num">70 / 76</td>
+      <td class="num">311 / 320 s</td><td class="num">286.2 / 296.9 s</td>
+      <td class="num ok">1.09× / 1.08×</td>
+    </tr>
+  </table>
+  <p class="small">v1 覆盖率 1.01× 是因为 20 镜正好铺满 300 s，一帧不浪费 —— <b>它的"省"来自镜少，
+  不来自效率高</b>。Mode B 的 1.08–1.09× 里那 8–9% 是 snap 到 `17n+5` 栅格的必然冗余（每镜最多多 17 帧 = 0.7 s）。
+  判据：<b>覆盖率 &gt;1.5 就是在拿满窗钱买短镜内容</b>，与镜数无关。</p>
+
+  <h3>三档成本对照（A100 热态，两片合计）</h3>
+
+  <table>
+    <tr>
+      <th>方案</th><th class="num">片1</th><th class="num">片2</th><th class="num">两片</th>
+      <th class="num">vs v1</th><th>依据</th>
+    </tr>
+    <tr>
+      <td><b>v1 基线</b><br><span class="small">40 镜 · 满窗 + 精修</span></td>
+      <td class="num">0.83 h</td><td class="num">0.83 h</td>
+      <td class="num">1.66 h</td><td class="num">1.0×</td>
+      <td>40 × (74.3 + 75.3)</td>
+    </tr>
+    <tr>
+      <td><b>A · 现状 Mode A</b><br><span class="small">整窗全价</span></td>
+      <td class="num">4.50 h</td><td class="num">5.02 h</td>
+      <td class="num bad">9.52 h</td><td class="num bad">5.7×</td>
+      <td>58×(74.3+75.3)+12×631 ／ 62×…+14×631</td>
+    </tr>
+    <tr>
+      <td><b>B · Mode B</b><br><span class="small">length = snap17(镜帧数)</span></td>
+      <td class="num">1.18–2.18 h</td><td class="num">1.17–2.28 h</td>
+      <td class="num mid"><b>2.35 – 4.46 h</b></td><td class="num mid">1.4–2.7×</td>
+      <td>见下"两个成本模型"</td>
+    </tr>
+    <tr>
+      <td><b>C · Mode B + 并碎切</b><br><span class="small">146 → 107 镜</span></td>
+      <td class="num">1.03–1.75 h</td><td class="num">1.02–1.83 h</td>
+      <td class="num ok"><b>2.04 – 3.59 h</b></td><td class="num ok">1.2–2.2×</td>
+      <td>同上，再省 13–20%</td>
+    </tr>
+  </table>
+
+  <div class="card midc">
+    <b>为什么 B 是个区间 —— 两个成本模型</b>
+    <p class="small" style="margin:8px 0">模型① 贴实测：技能库里有一组实测阶梯
+    `17 s@124帧 / 43 s@243帧 / 73 s@362帧`（草稿档，同卡同 seed），log-log 拟合得
+    <code>t = 0.024 × n^1.362</code>（校验 17.1 / 42.6 / 73.4）。<b>关键含义：每帧成本随时长上升</b>
+    （0.137 → 0.177 → 0.202 s/帧），所以短窗口更划算。此模型下 B = <b>2.35 h</b>。</p>
+    <p class="small" style="margin:8px 0">模型② 线性保守：假设"每镜固定开销 25 s + 采样随帧数线性"，
+    上界取 `25 + 49×(n/362)`。此模型下 B = <b>4.46 h</b>，是<b>悲观的上界</b>。</p>
+    <p class="small" style="margin:8px 0 0">⚠ 两个模型都在 <b>124 帧以下外推</b>（v2 平均只有 98 帧），
+    项目自己标过"未直接实测"。真实值大概率落在区间里、更接近模型①，但 <b>在单镜验证之前，
+    排期请按 4.46 h 这个上界走</b>。</p>
+  </div>
+
+  <h3>★ 只看草稿档：Mode B 下 v2 反而比 v1 快</h3>
+  <table>
+    <tr><th>打法（片1，正片 286.1 s）</th><th class="num">镜数</th><th class="num">窗口覆盖</th><th class="num">草稿档耗时</th></tr>
+    <tr><td>v1 · 20 镜满窗</td><td class="num">20</td><td class="num">1.01×</td><td class="num">24.5 min</td></tr>
+    <tr><td>v2 · Mode A</td><td class="num">70</td><td class="num bad">3.69×</td><td class="num bad">85.6 min</td></tr>
+    <tr><td>v2 · Mode B（模型①）</td><td class="num">70</td><td class="num ok">1.09×</td><td class="num ok">17.2 min</td></tr>
+    <tr><td>v2 · Mode B（模型②）</td><td class="num">70</td><td class="num ok">1.09×</td><td class="num mid">46.0 min</td></tr>
+  </table>
+  <p><b>这是本次审查最重要的一条：</b>把 length 交给镜帧数之后，"切得碎"这件事在草稿档
+  <b>不再是成本劣势</b> —— 因为它不再为一条 2 秒的镜生成 15 秒。剩余的两片总成本高出 v1 的部分，
+  基本全部集中在 <b>26 个 ref2va 直出 768 镜</b>（631 s/镜）。</p>
+
+  <h2>三、审查发现（按严重度）</h2>
+
+  <div class="card">
+    <p><span class="severity p0">P0</span><b>length 未按镜帧数设置 → 窗口覆盖 3.69×，白烧 5 h</b></p>
+    <p class="small" style="margin:0">证据：模板 + `preview_flow.py` 均不设 length；三镜产物全为 362 帧。
+    两片生成 52 852 帧、进成片 13 993 帧（<b>利用率 26.5%</b>），弃掉约 27 分钟素材。
+    这是本轮唯一"必须改"的一项，且零依赖。</p>
+  </div>
+
+  <div class="card">
+    <p><span class="severity p0">P0</span><b>抽检伪字幕率不支持 146 镜的乐观排期</b></p>
+    <p class="small" style="margin:0 0 4px">三镜预览抽检 1 镜（片2 镜03）出现画面中下部乱码伪字幕
+    （`_review/v2_preview/README.md` 已记录），需过 `check_no_text.py` OCR 门重抽 seed。
+    镜数从 40 涨到 146，重抽次数同比例上涨：若 30% 镜需重抽一次 →
+    <b>A 档 9.52 h 变 12.4 h，B 档 4.46 h 变 5.8 h</b>。样本仅 3 镜，不当比率用，但排期要留这个上行空间。</p>
+  </div>
+
+  <div class="card">
+    <p><span class="severity p1">P1</span><b>26 个 ref2va 直出 768 吃掉近一半成本</b></p>
+    <p class="small" style="margin:0">片1 12 镜 / 7 572 s（占 47%），片2 14 镜 / 8 834 s（占 49%）。
+    631 s/镜 = 两阶段 149.6 s 的 <b>4.2 倍</b>。策略有依据（LTX 精修会重画包装印刷，产品镜不敢走精修），
+    但它在 Mode B 下也会跟着掉到约 1/3，是<b>降本第二块</b>。</p>
+  </div>
+
+  <div class="card">
+    <p><span class="severity p1">P1</span><b>120 镜 T2V 的 ref_images 是空的 → 一致性 = 146 次摇号</b></p>
+    <p class="small" style="margin:0">`ref_images` 分布：片1 只有 12 镜、片2 只有 14 镜带参考图，
+    全是产品图（`_refs/prod_P2_white.png`）；<b>其余 120 镜为空数组</b>，人物外观纯靠 prompt 文本形容。
+    这不是 v2 引入的（v1 就被抱怨过"人物随便变"），但镜数 3.65× 把暴露面同步放大。
+    缓解选项：角色定妆照常驻 `ref_images`（节点支持最多 9 张）→ 需单镜验证能否与产品图共存。</p>
+  </div>
+
+  <div class="card">
+    <p><span class="severity p2">P2</span><b>27% 的镜是"可并不可并都行"的碎切</b></p>
+    <p class="small" style="margin:0">相邻两镜<b>同场景 + 同角色集</b>且合计 ≤12 s 的：
+    片1 19 对、片2 20 对（70→51、76→56，合计 146→107）。
+    ⚠ 合并<b>会丢硬切</b>（一个窗口只能出一条连续 take，中途切就是跳切）。
+    所以这不是"该不该"，是"哪几对换掉硬切不心疼" —— 建议只并原片里靠近同机位同动作的短切。</p>
+  </div>
+
+  <h2>四、Mode B 现在就能开（不用装任何东西）</h2>
+
+  <p>栅格是 <code>17n+5</code>：5, 22, 39, 56, 73, <b>90, 107, 124</b> … 345, <b>362</b>。
+  把每镜 <code>frames</code> 向上 snap 到最近的栅格值（多余 ≤17 帧 = 0.7 s，后期裁掉）：</p>
+
+  <pre><span class="c"># 片1 前几镜的换算法（帧 → snap17+5 → 秒）</span>
+镜1   78f →  90f (3.750s)     镜4   94f → 107f (4.458s)
+镜2   48f →  56f (2.333s)     镜3  229f → 243f (10.125s)
+
+<span class="c"># 工作流里只加这一行（preview_flow.py 的 build_draft / build_direct 同理）</span>
+wf["6"]["inputs"]["length"] = 90   <span class="c"># 原来没有这一行，节点吃默认 362</span></pre>
+
+  <div class="card midc">
+    <b>但必须先做「单镜验证」再排期</b> —— `STORYBOARD.md` 执行注意第 3 条自己规定了
+    「Mode B = `h3_length` 按镜帧数（成本近似线性降）<b>需先单镜验证，验证前不得按此排期</b>」。
+    <p class="small" style="margin:8px 0 0">验收四问：① 短窗（如 90 帧）能否正常出片、不崩结构；
+    ② 画质与 362 帧版是否同档；③ `audio_mode=lock_source` 在短窗下音轨是否仍对齐；
+    ④ 精修段吃短草稿时，输出帧数与时长是否仍匹配（LTX `frame_policy=trim_to_8n_plus_1`
+    会把 90 裁成 89 帧 = 3.708 s，字幕时间轴要跟着走 → 这是最容易漏的一条）。</p>
+  </div>
+
+  <h2>五、给 v2 的排期建议</h2>
+
+  <table>
+    <tr><th>打法</th><th class="num">两片 GPU</th><th class="num">含 30% 重抽</th><th>代价</th></tr>
+    <tr>
+      <td>照现状跑（Mode A）</td><td class="num bad">9.5 h</td><td class="num bad">12.4 h</td>
+      <td>不改任何东西，但白扔 5 h</td>
+    </tr>
+    <tr>
+      <td><b>先验 Mode B，再跑（推荐）</b></td>
+      <td class="num mid">2.4–4.5 h</td><td class="num mid">3.1–5.8 h</td>
+      <td>多花约 3–5 分钟做单镜验证</td>
+    </tr>
+    <tr>
+      <td>Mode B + 并碎切</td><td class="num ok">2.0–3.6 h</td><td class="num ok">2.7–4.7 h</td>
+      <td>要重排镜界 + 接受部分硬切丢失</td>
+    </tr>
+  </table>
+
+  <div class="card lead" style="margin-bottom:0">
+    <b>需要你定三件事：</b>
+    <ol style="margin-bottom:0">
+      <li><b>Mode B 单镜验证现在跑吗？</b>一个 4 s 镜、两种 length 对照 + LTX 精修接一段，
+        ~5 分钟机器时间。跑通就把 9.5 h 变 4.5 h（乐观 2.4 h）。</li>
+      <li><b>一致性要不要一起解？</b>120 镜裸跑 T2V 等于接受 146 次摇号 —— 要不要顺手试
+        "角色定妆照常驻 ref_images"的单镜验证。</li>
+      <li><b>碎切合并动不动？</b>动就再省 13–20%，但要逐对判断哪几对硬切不心疼。</li>
+    </ol>
+  </div>
+
+  <footer>
+    数据源：`film1-office/manifest_v2.json`、`film2-blinddate/manifest_v2.json`、`_lines_rhythm/*.json`（镜界）、
+    `videos/douyin-ad{,-2}/shots/shots.json`（参考片实测切点）、`_review/v2_preview/README.md`（三镜预览实测）、
+    `h3_t8/nodes.py:291`（length 定义）、技能库 `h3-film-production/SKILL.md` §1 实测阶梯。<br>
+    Mode A 为直接核算；Mode B 为按帧数外推的估算（两个模型给出区间），<b>未实测</b>。
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+[
+ {
+  "shot": 13,
+  "frames": 361,
+  "seed": 1,
+  "detect": 17,
+  "track": 11,
+  "skip": 1,
+  "out_of_range": 332
+ },
+ {
+  "shot": 15,
+  "frames": 361,
+  "seed": 1,
+  "detect": 71,
+  "track": 11,
+  "skip": 27,
+  "out_of_range": 252
+ },
+ {
+  "shot": 18,
+  "frames": 361,
+  "seed": 1,
+  "detect": 41,
+  "track": 0,
+  "skip": 104,
+  "out_of_range": 216
+ }
+]

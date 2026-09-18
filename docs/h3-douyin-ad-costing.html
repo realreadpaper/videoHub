@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>抖音复刻接 H3 生成 · 耗时重算</title>
+<style>
+  :root{
+    --bg:#f7f8f7; --card:#ffffff; --ink:#1f2421; --ink2:#5f6b64; --ink3:#8b948e;
+    --line:#e3e7e4; --line2:#d3d9d5;
+    --teal:#0f6e56; --teal-l:#e1f5ee; --teal-m:#1d9e75;
+    --amber:#854f0b; --amber-l:#faeeda;
+    --red:#a32d2d; --red-l:#fcebeb;
+    --blue:#185fa5; --blue-l:#e6f1fb;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:0 20px 80px;
+    background:var(--bg); color:var(--ink);
+    font:400 15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto}
+  header{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+  h1{margin:0 0 10px;font-size:27px;font-weight:600;letter-spacing:-.01em}
+  .sub{color:var(--ink2);font-size:14px;margin:0}
+  .meta{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:12px;padding:3px 10px;border-radius:999px;background:#eceeec;color:var(--ink2);border:1px solid var(--line)}
+  .tag.t{background:var(--teal-l);color:var(--teal);border-color:#b7e2d3}
+  .tag.a{background:var(--amber-l);color:var(--amber);border-color:#f0d49a}
+
+  h2{margin:52px 0 16px;font-size:19px;font-weight:600;letter-spacing:-.01em}
+  h2 .num{display:inline-block;width:26px;color:var(--ink3);font-weight:400;font-variant-numeric:tabular-nums}
+  h3{margin:30px 0 10px;font-size:15px;font-weight:600;color:var(--ink)}
+  p{margin:0 0 14px}
+  .lead{font-size:16px;color:var(--ink2)}
+
+  .verdict{
+    background:var(--card);border:1px solid var(--line);border-left:3px solid var(--teal);
+    border-radius:10px;padding:20px 22px;margin:26px 0
+  }
+  .verdict .big{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:4px 0 8px}
+  .verdict p{margin:0;color:var(--ink2);font-size:14px}
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:#f3f5f3;font-weight:600;font-size:13px;color:var(--ink2)}
+  tr:last-child td{border-bottom:none}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  .win{color:var(--teal);font-weight:600}
+  .lose{color:var(--ink3)}
+  code{font-family:var(--mono);font-size:13px;background:#eff1ef;padding:1px 6px;border-radius:4px}
+  .formula{font-family:var(--mono);font-size:14px;background:#2c2c2a;color:#e8f5ef;
+    padding:14px 18px;border-radius:8px;margin:16px 0;overflow-x:auto}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:20px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .card .k{font-size:12px;color:var(--ink3);margin-bottom:4px}
+  .card .v{font-size:20px;font-weight:600;letter-spacing:-.01em}
+  .card .d{font-size:12px;color:var(--ink2);margin-top:6px;line-height:1.6}
+
+  .note{border-radius:10px;padding:16px 20px;margin:18px 0;font-size:14px;border:1px solid}
+  .note.warn{background:var(--amber-l);border-color:#f0d49a;color:#4a2f06}
+  .note.stop{background:var(--red-l);border-color:#f3c9c9;color:#4a1414}
+  .note.ok{background:var(--teal-l);border-color:#b7e2d3;color:#0a4435}
+  .note.info{background:var(--blue-l);border-color:#bcd8f0;color:#0d3a63}
+  .note b{font-weight:600}
+  .note p{margin:0 0 8px}
+  .note p:last-child{margin:0}
+  .note ul{margin:6px 0 0;padding-left:20px}
+  .note li{margin:4px 0}
+
+  ul.tight{margin:12px 0;padding-left:22px}
+  ul.tight li{margin:6px 0}
+  .step{counter-reset:s;list-style:none;padding:0;margin:18px 0}
+  .step li{counter-increment:s;position:relative;padding:0 0 18px 44px;border-left:1px solid var(--line2);margin-left:13px}
+  .step li:last-child{border-left-color:transparent;padding-bottom:0}
+  .step li::before{content:counter(s);position:absolute;left:-13px;top:0;width:26px;height:26px;
+    background:var(--teal);color:#fff;border-radius:50%;font-size:13px;font-weight:600;
+    display:flex;align-items:center;justify-content:center}
+  .step .st{font-weight:600;margin-bottom:2px}
+  .step .sd{font-size:14px;color:var(--ink2)}
+  .step code{font-size:12.5px}
+  footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>抖音复刻接 H3 生成 · 耗时重算</h1>
+  <p class="sub">把「hypit / SVML 编排」与「H3 两阶段生成」合成一条线的可行性与时间账</p>
+  <div class="meta">
+    <span class="tag t">基准：远端 4090 实测日志</span>
+    <span class="tag">2026-09-16</span>
+    <span class="tag a">含 3 处错配提示</span>
+  </div>
+</header>
+
+<div class="verdict">
+  <div style="font-size:13px;color:var(--ink3);letter-spacing:.04em">结论</div>
+  <div class="big">短剧段交给 H3，卖货段留给实拍 + hypit —— 端到端约 43 分钟</div>
+  <p>全片都用 H3 生成是 <strong>约 61 分钟</strong>，但会牺牲产品真实性与口播精度，不推荐。真正值得做的分工是：H3 只负责短剧外壳（那一层才是版权风险所在），卖货段保持实拍、由 hypit 叠图形层。</p>
+</div>
+
+<h2><span class="num">01</span>基准：H3 单镜 15 秒的实测构成</h2>
+
+<p class="lead">所有估算都建立在这组实测值上，来自你自己机器上的跑片日志，不是外推。</p>
+
+<table>
+  <thead>
+    <tr><th>阶段</th><th>分辨率</th><th class="n">冷启动（首镜）</th><th class="n">热跑（第二镜起）</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>草稿 Stage1 · H3</td><td><code>672×384</code></td><td class="n">120.6 s</td><td class="n">72.5 s</td></tr>
+    <tr><td>精修 Stage2 · LTX-2.5</td><td><code>1344×768</code></td><td class="n">167.7 s</td><td class="n">90.6 s</td></tr>
+    <tr><td>单镜交替跑（默认）</td><td>—</td><td class="n">—</td><td class="n">288.3 s</td></tr>
+    <tr><td>单镜拆两批（推荐）</td><td>—</td><td class="n">—</td><td class="n"><span class="win">163.1 s</span></td></tr>
+  </tbody>
+</table>
+
+<p>这里的核心事实是：<strong>单镜 288 秒里，模型真正在算的只有 86 秒</strong>，其余是把 35 GB 模型塞进 22 GiB 显存付出的搬运代价。默认交替跑让 H3（35 GB）和 LTX（36 GB）每镜来回换两次，8 镜就白付 16 次全量装载。</p>
+
+<h3>总时间公式</h3>
+<div class="formula">T(N) = 288.3 + (N − 1) × 163.1 &nbsp;秒 &nbsp;&nbsp;<span style="color:#9fe1cb">// 拆两批</span>
+T(N) = N × 288.3 &nbsp;秒 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#f0997b">// 交替跑</span></div>
+<p style="font-size:13px;color:var(--ink3)">校验：N=8 代入拆两批 = 1430.0 s = 23 分 50 秒，与原始报告数字完全一致。</p>
+
+<h2><span class="num">02</span>镜数怎么定</h2>
+
+<p>H3 的单镜固定 15 秒（<code>H3_LENGTH = 362</code>，落在 17n+5 帧网格上）。所以镜数只由「要生成的时长」决定：<code>镜数 = ceil(时长 ÷ 15)</code>。</p>
+
+<table>
+  <thead>
+    <tr><th>要生成的段</th><th>时长</th><th class="n">镜数</th><th class="n">拆两批</th><th class="n">交替跑</th><th class="n">拆批省下</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>第一支 · 卖货段（卤味）</td><td>84 s</td><td class="n">6</td><td class="n win">18.4 分</td><td class="n lose">28.8 分</td><td class="n">10.4 分</td></tr>
+    <tr><td>第二支 · 卖货段（家常菜）</td><td>105.5 s</td><td class="n">7</td><td class="n win">21.1 分</td><td class="n lose">33.6 分</td><td class="n">12.5 分</td></tr>
+    <tr><td>第一支 · 短剧段</td><td>154 s</td><td class="n">11</td><td class="n win">32.0 分</td><td class="n lose">52.9 分</td><td class="n">20.9 分</td></tr>
+    <tr><td>第二支 · 短剧段（A+B）</td><td>192 s</td><td class="n">13</td><td class="n win">37.4 分</td><td class="n lose">62.5 分</td><td class="n">25.1 分</td></tr>
+    <tr><td>任一整片</td><td>≈ 290 s</td><td class="n">20</td><td class="n win">56.5 分</td><td class="n lose">96.1 分</td><td class="n">39.6 分</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="num">03</span>三种口径的完整账</h2>
+
+<table>
+  <thead>
+    <tr><th>口径</th><th>H3 生成什么</th><th class="n">镜数</th><th class="n">H3</th><th class="n">hypit 编排</th><th class="n">端到端</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>A</b> 只换卖货段</td><td>卖货画面（105.5 s）</td><td class="n">7</td><td class="n">21.1 分</td><td class="n">3 分</td><td class="n">≈ 24 分</td>
+    </tr>
+    <tr style="background:#f4fbf8">
+      <td><b>B</b> 只换短剧段 <span class="tag t" style="margin-left:6px">推荐</span></td><td>短剧 A+B（192 s）</td><td class="n">13</td><td class="n">37.4 分</td><td class="n">3 分</td><td class="n"><b>≈ 40 分</b></td>
+    </tr>
+    <tr>
+      <td><b>C</b> 全片生成</td><td>整片（296.9 s）</td><td class="n">20</td><td class="n">56.5 分</td><td class="n">4 分</td><td class="n">≈ 61 分</td>
+    </tr>
+    <tr>
+      <td><b>D</b> 现状（不接 H3）</td><td>不生成，用原片切片</td><td class="n">0</td><td class="n">0</td><td class="n">3 分</td><td class="n">≈ 3 分</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>为什么 B 比 C 好</h3>
+<ul class="tight">
+  <li><b>省 21 分钟</b>，而且卖货段本来就不该由 H3 造——产品包装要做真实展示，AI 生成的包装一定失真。</li>
+  <li><b>风险落在正确的位置</b>：原片里真正构成版权风险的是短剧剧情段（角色、台词、情节），把它换成 H3 生成，版权问题就解决了。卖货段是你自己拍的，本来就干净。</li>
+  <li><b>口播可控</b>：卖货段的话术必须精确到字（"点击左下角头像抢单带回家"），H3 的 T2VA 音频做不到这一点。</li>
+</ul>
+
+<h2><span class="num">04</span>三处必须知道的错配</h2>
+
+<div class="note stop">
+  <p><b>一、口播台词不可控 · 这是硬伤</b></p>
+  <p>H3 的 <code>task_type</code> 是 <code>T2VA</code>（文生视频 + 音频），确实原生带音轨。但那是模型按 prompt 理解的音频——环境音、氛围声、模糊人声。<strong>它无法被精确指定说出某句台词</strong>。带货话术必须另做：Edge TTS（免费）或真人配音，再由 hypit 混进音轨。</p>
+</div>
+
+<div class="note warn">
+  <p><b>二、15 秒长镜 vs 3 秒快切 · 语法冲突</b></p>
+  <p>H3 生产的是电影级 15 秒连续长镜头，运镜是一条完整弧线。而抖音带货段的实测节奏是<strong>平均 2–4 秒一个画面</strong>。把 7 个 15 秒长镜切碎成 30 多个片段，运镜设计全部作废，画面会散。</p>
+  <p>若真要生成卖货画面，素材冗余得按 <b>1.5 倍</b>准备（105 秒成片 → 157 秒素材 → 11 镜 → 32 分钟），不能按 7 镜算。</p>
+</div>
+
+<div class="note warn">
+  <p><b>三、16:9 / 24fps → 9:16 / 30fps 的转换</b></p>
+  <ul>
+    <li><b>竖版</b>：改 manifest 的 <code>resolution_stage1/2</code> 为 <code>384×672</code> / <code>768×1344</code>。像素量与横版持平（都是 103 万），<b>耗时不会变快</b>，别按"竖屏像素少"去估。</li>
+    <li><b>帧率</b>：H3 出 24fps。两条路——改 <code>H3_LENGTH</code> 走 17n+5 网格出 447 帧标 29.8fps；或交给 hypit 的 <code>fps=fps=30/1</code> 归一化插帧。后者零成本，但运动会有轻微不自然。</li>
+    <li><b>构图风险</b>：H3 主要在 16:9 上训练，竖屏 9:16 的"人物 + 产品同框"是否稳定，<b>必须先跑一镜验证</b>，不要按 13 镜直接投产。</li>
+  </ul>
+</div>
+
+<h2><span class="num">05</span>落地步骤</h2>
+
+<ol class="step">
+  <li>
+    <div class="st">先跑一镜验竖版（约 5 分钟）</div>
+    <div class="sd">用第二支短剧 A 的首镜 prompt，改分辨率为 <code>384×672</code> / <code>768×1344</code>，跑 <code>--shots 1 --stage both</code>。看构图是否成立、人物是否变形。这一镜的结论决定后面 12 镜要不要跑。</div>
+  </li>
+  <li>
+    <div class="st">写短剧段分镜（人工，不占机时）</div>
+    <div class="sd">13 个 15 秒镜的 prompt。要替换原片剧情，分镜必须<b>重写</b>而不是照抄——照抄动作设计仍有"实质性相似"风险。这是整个流程里最花人的一步。</div>
+  </li>
+  <li>
+    <div class="st">拆两批提交（H3 侧 37.4 分钟）</div>
+    <div class="sd">先 <code>--stage draft --shots 1-13</code> 全跑完，再 <code>--stage refine --shots 1-13</code>。必须拆，合跑会白付 12 次装载（多 25 分钟）。精修 prompt 与草稿<b>逐字一致</b>，LTX 是重扩散不是超分。</div>
+  </li>
+  <li>
+    <div class="st">口播单独做</div>
+    <div class="sd">卖货段话术走 Edge TTS 或真人配音。素材里的 H3 原生音轨保留为环境底噪，hypit 里分轨混音。</div>
+  </li>
+  <li>
+    <div class="st">hypit 编排与合成（本地，约 3 分钟）</div>
+    <div class="sd">H3 短剧镜头 + 实拍卖货素材 + 图形层（沿用现有的 5 层 28 条）+ 字幕外挂（<code>.srt</code>，不烧入）+ 响度归一化。输出竖版 720×1280。</div>
+  </li>
+</ol>
+
+<h2><span class="num">06</span>一句话回答</h2>
+
+<div class="note ok">
+  <p><b>第二支片子按推荐口径（短剧 H3 + 卖货实拍）：H3 侧 37.4 分钟，端到端约 40 分钟。</b></p>
+  <p>如果偷懒全片交给 H3：<b>56.5 分钟生成，端到端约 61 分钟</b>，但产品展示会失真、口播要另配、快切节奏要硬切长镜。多花 21 分钟换一堆将就，不值。</p>
+  <p>另外别忘了：<b>H3 唯一不可替代的价值是"素材自有"</b>。如果版权不是约束，现有 hypit 方案 3 分钟就能出片，没有任何理由接 H3。</p>
+</div>
+
+<footer>
+  数据来源：远端 4090 实测跑片日志（<code>01_单镜290秒解剖报告</code> / <code>时间成本估算</code>）+ 本机 <code>hypit check/plan</code> 验证结果。<br>
+  镜数按单镜 15 秒整除向上取整；所有耗时不含人工写分镜的时间。
+</footer>
+
+</div>
+</body>
+</html>

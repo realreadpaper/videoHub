@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FastVideo 使用说明（重点：配置）</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg-soft:#f6f8fa; --bg-code:#f2f4f7;
+    --text:#1a1d21; --text-2:#57606a; --text-3:#8b949e;
+    --line:#d8dee4; --line-soft:#eaeef2;
+    --accent:#1f6feb; --accent-soft:#ddeaff;
+    --green:#1a7f37; --green-soft:#dafbe1;
+    --red:#cf222e; --red-soft:#ffebe9;
+    --amber:#9a6700; --amber-soft:#fff8c5;
+    --purple:#8250df; --purple-soft:#f3eefe;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:15px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:48px 40px 100px;}
+  header.top{border-bottom:2px solid var(--text); padding-bottom:24px; margin-bottom:8px;}
+  header.top .kicker{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-2); font-weight:600;}
+  header.top h1{font-size:32px; line-height:1.3; margin:10px 0 12px; letter-spacing:-.01em;}
+  header.top .sub{color:var(--text-2); font-size:14px;}
+  header.top .sub code{background:var(--bg-code); padding:2px 6px; border-radius:4px; font-size:13px;}
+
+  h2{font-size:22px; margin:56px 0 16px; padding-left:14px; border-left:4px solid var(--accent); line-height:1.4;}
+  h3{font-size:17px; margin:32px 0 10px; color:var(--text);}
+  h4{font-size:15px; margin:22px 0 8px; color:var(--text-2); font-weight:600;}
+  p{margin:10px 0;}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft);}
+  a:hover{border-bottom-color:var(--accent);}
+
+  code{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace; font-size:13px;
+       background:var(--bg-code); padding:2px 5px; border-radius:4px; color:#0a3069;}
+  pre{background:var(--bg-code); border:1px solid var(--line-soft); border-radius:8px;
+      padding:14px 16px; overflow-x:auto; margin:14px 0;}
+  pre code{background:none; padding:0; font-size:12.5px; line-height:1.6; color:var(--text);}
+
+  table{width:100%; border-collapse:collapse; margin:16px 0; font-size:13.5px;}
+  th{background:var(--bg-soft); text-align:left; padding:9px 11px; border:1px solid var(--line);
+     font-weight:600; font-size:12.5px; color:var(--text-2);}
+  td{padding:9px 11px; border:1px solid var(--line-soft); vertical-align:top;}
+  tbody tr:nth-child(even){background:#fcfdfe;}
+  td code{font-size:12px;}
+
+  .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:22px 0;}
+  .card{background:var(--bg-soft); border:1px solid var(--line-soft); border-radius:10px; padding:14px 16px;}
+  .card .num{font-size:24px; font-weight:700; letter-spacing:-.02em; line-height:1.2;}
+  .card .lbl{font-size:12px; color:var(--text-2); margin-top:4px;}
+
+  .box{border-radius:8px; padding:14px 18px; margin:18px 0; border-left:4px solid;}
+  .box p:first-child{margin-top:0;} .box p:last-child{margin-bottom:0;}
+  .box-tip{background:var(--accent-soft); border-color:var(--accent);}
+  .box-warn{background:var(--amber-soft); border-color:var(--amber);}
+  .box-danger{background:var(--red-soft); border-color:var(--red);}
+  .box-ok{background:var(--green-soft); border-color:var(--green);}
+  .box .t{font-weight:700; font-size:13.5px; display:block; margin-bottom:4px;}
+
+  .badge{display:inline-block; font-size:11px; padding:1px 7px; border-radius:20px; font-weight:600;
+         vertical-align:1px;}
+  .b-ok{background:var(--green-soft); color:var(--green);}
+  .b-no{background:var(--red-soft); color:var(--red);}
+  .b-part{background:var(--amber-soft); color:var(--amber);}
+  .b-info{background:var(--purple-soft); color:var(--purple);}
+
+  ul,ol{margin:10px 0; padding-left:22px;} li{margin:5px 0;}
+  .toc{background:var(--bg-soft); border:1px solid var(--line-soft); border-radius:10px; padding:18px 24px; margin:28px 0;}
+  .toc ol{columns:2; column-gap:36px; margin:6px 0 0; padding-left:20px;}
+  .toc a{border-bottom:none;} .toc a:hover{text-decoration:underline;}
+  .muted{color:var(--text-2); font-size:13px;}
+  hr{border:none; border-top:1px solid var(--line-soft); margin:40px 0;}
+  .kv{display:grid; grid-template-columns:170px 1fr; gap:6px 16px; margin:12px 0; font-size:13.5px;}
+  .kv dt{color:var(--text-2);} .kv dd{margin:0;}
+  .anchor{scroll-margin-top:20px;}
+  @media (max-width:820px){ .wrap{padding:28px 18px 70px;} .cards{grid-template-columns:repeat(2,1fr);} .toc ol{columns:1;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">仓库调研 · 使用说明 · 2026-09-16</div>
+  <h1>FastVideo 使用说明<br><span style="font-size:19px;font-weight:500;color:var(--text-2);">统一视频生成推理与后训练框架 —— 配置为主线的实操手册</span></h1>
+  <div class="sub">
+    源码已拉到本地：<code>repos/FastVideo/</code>　·　固定版本 <code>9b0e57fe</code>（2026-09-15）　·　
+    上游 <a href="https://github.com/hao-ai-lab/FastVideo">hao-ai-lab/FastVideo</a>（Hao AI Lab / UC Berkeley）
+  </div>
+</header>
+
+<div class="toc">
+  <strong style="font-size:13px;">目录</strong>
+  <ol>
+    <li><a href="#s1">这是什么，值不值得用</a></li>
+    <li><a href="#s2">交付结果与完整性核对</a></li>
+    <li><a href="#s3">架构：三层配置模型</a></li>
+    <li><a href="#s4">配置总览：YAML 全字段地图</a></li>
+    <li><a href="#s5">generator.engine 逐项详解</a></li>
+    <li><a href="#s6">配置核心：显存与卸载策略</a></li>
+    <li><a href="#s7">request 段：采样参数详解</a></li>
+    <li><a href="#s8">环境变量完整参考（41 项）</a></li>
+    <li><a href="#s9">注意力后端选择表</a></li>
+    <li><a href="#s10">安装：三条平台路径</a></li>
+    <li><a href="#s11">权重与模型矩阵</a></li>
+    <li><a href="#s12">可直接复制的配方模板</a></li>
+    <li><a href="#s13">坑与风险清单</a></li>
+    <li><a href="#s14">对你（短剧解说线）的落地建议</a></li>
+  </ol>
+</div>
+
+<h2 id="s1" class="anchor">1. 这是什么，值不值得用</h2>
+
+<p><strong>FastVideo 不是又一个视频生成模型，而是一个"视频扩散模型的推理加速 + 蒸馏训练"统一框架。</strong>它把业界主流的开源视频 DiT（Wan、Hunyuan、LTX-2、Cosmos、LongCat、Kandinsky-5、MiniMax-H3 等 20 多个家族）收纳进同一套代码，然后做两件事：<strong>把推理做快</strong>（稀疏注意力、量化、并行、编译），<strong>把模型做少步</strong>（DMD2 蒸馏、稀疏蒸馏）。</p>
+
+<div class="cards">
+  <div class="card"><div class="num">4,405</div><div class="lbl">GitHub Stars</div></div>
+  <div class="card"><div class="num">46</div><div class="lbl">注册模型家族</div></div>
+  <div class="card"><div class="num">382k</div><div class="lbl">代码行数（.py/.cu/.h）</div></div>
+  <div class="card"><div class="num">50×</div><div class="lbl">宣称最大去噪加速</div></div>
+</div>
+
+<h3>为什么你可能真的要用它</h3>
+<ol>
+  <li><strong>它开源了 MiniMax-H3 的蒸馏版（FastH3）</strong>——4 步 / 8 步出片，且<strong>视频与音频同步生成</strong>（T2VA / FL2VA / Ref2VA）。这对"解说视频"这类需要音画对齐的场景是直接可用的能力。</li>
+  <li><strong>有 OpenAI 兼容的服务端</strong>（<code>fastvideo serve</code>），带 <code>/v1/videos</code> 接口和内置 playground。也就是说它能被当成一个"本地视频生成 API"接进你自己的产品里，而不是只能跑 demo 脚本。</li>
+  <li><strong>Apple Silicon 原生支持</strong>（MLX 运行时）。你本地是 Mac，FastMetal-QAD 系（1.3B / 5B / 14B）开箱即用，不需要 NVIDIA 卡就能先跑通链路。</li>
+  <li><strong>它是底座而非终点</strong>：SGLang 的多模态生成、腾讯的 SRPO、HY-WorldPlay、HunyuanVideo-1.5 都基于或借鉴了 FastVideo。跟着它能看见上游生态的走向。</li>
+</ol>
+
+<h3>代价与门槛</h3>
+<ul>
+  <li>真正的性能（4×GB200 上 5 秒 1080p）依赖 Blackwell 级别硬件；消费级卡上能跑，但快不了那么多。</li>
+  <li>部分权重带<strong>非商业 / 自定义许可</strong>（MiniMax H3 Community License、Lucy Edit 非商用），商用前必须逐个核对（见 <a href="#s13">第 13 节</a>）。</li>
+  <li>它是"研究级工程"：配置面极宽（这正是本文重点），且部分优化<strong>会改变数值结果</strong>，官方自己也标注为"实验性、非对齐安全"。</li>
+</ul>
+
+<h2 id="s2" class="anchor">2. 交付结果与完整性核对</h2>
+
+<div class="kv">
+  <dt>本地代码路径</dt><dd><code>repos/FastVideo/</code>（工作区 <code>/Users/hejianglong/Desktop/videoHub/</code>）</dd>
+  <dt>固定版本</dt><dd><code>9b0e57fe4b3a8c112ff24cc22f752eb0608ccfab</code> · <code>main</code> · 2026-09-15</dd>
+  <dt>本地文件数</dt><dd>2,530 个（体积 19.8 MB / <code>du</code> 显示 25 MB）</dd>
+  <dt>缺失文件</dt><dd><strong>0</strong> —— 已用 GitHub 文件树逐条反查</dd>
+  <dt>许可证</dt><dd>Apache-2.0（仓库本身）</dd>
+</div>
+
+<h4>明确未拉取的内容（不要当成"已完整"）</h4>
+<table>
+  <thead><tr><th>类别</th><th>数量</th><th>体积</th><th>原因</th></tr></thead>
+  <tbody>
+    <tr><td>演示视频 <code>.mp4</code></td><td>15</td><td>99.9 MB</td><td>纯展示素材，非代码</td></tr>
+    <tr><td>图片 <code>.png/.jpg/.webp/.gif</code></td><td>65</td><td>55.0 MB</td><td>文档插图与示例输入</td></tr>
+    <tr><td>合计跳过</td><td><strong>80</strong></td><td><strong>154.9 MB</strong></td><td>——</td></tr>
+  </tbody>
+</table>
+
+<div class="box box-warn">
+  <span class="t">⚠️ 三个 submodule 未拉取</span>
+  <p><code>.gitmodules</code> 声明了 3 个外部子模块，都是第三方依赖，本次<strong>只记录未下载</strong>：</p>
+  <ul>
+    <li><code>fastvideo-kernel/include/tk</code> → <a href="https://github.com/HazyResearch/ThunderKittens">HazyResearch/ThunderKittens</a>（VSA 稀疏注意力内核依赖）</li>
+    <li><code>fastvideo-kernel/include/cutlass</code> → <a href="https://github.com/NVIDIA/cutlass">NVIDIA/cutlass</a>（体积巨大，标准 CUDA 库）</li>
+    <li><code>fastvideo/third_party/eval/vbench</code> → <a href="https://github.com/Vchitect/VBench">Vchitect/VBench</a>（仅评测用）</li>
+  </ul>
+  <p class="muted">影响：跑纯净 Python 侧推理<strong>不受影响</strong>（<code>pip install</code> 会从 PyPI 装 <code>fastvideo-kernel==0.3.5</code> 预编译轮子）；只有从源码编译 CUDA 内核时才需要，执行 <code>git submodule update --init --recursive</code> 即可补齐。</p>
+</div>
+
+<h2 id="s3" class="anchor">3. 架构：三层配置模型</h2>
+
+<p>这是理解 FastVideo 的第一把钥匙。<strong>它的所有行为都由三层配置决定，优先级从下往上递减：</strong></p>
+
+<svg viewBox="0 0 1040 400" width="100%" style="margin:20px 0;" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <!-- 第 1 层 -->
+  <rect x="20" y="30" width="300" height="128" rx="10" fill="#ddeaff" stroke="#1f6feb" stroke-width="1.6"/>
+  <text x="42" y="56" font-family="sans-serif" font-size="14" font-weight="700" fill="#0a3069">① CLI / YAML（最外层）</text>
+  <text x="42" y="80" font-family="monospace" font-size="11.5" fill="#1a1d21">fastvideo generate --config run.yaml</text>
+  <text x="42" y="100" font-family="monospace" font-size="11.5" fill="#1a1d21">  --request.sampling.seed 42</text>
+  <text x="42" y="126" font-family="sans-serif" font-size="11.5" fill="#57606a">子命令只暴露 --config，其余一律</text>
+  <text x="42" y="143" font-family="sans-serif" font-size="11.5" fill="#57606a">用「点号路径」覆盖（优先级最高）</text>
+
+  <!-- 第 2 层 -->
+  <rect x="355" y="30" width="330" height="128" rx="10" fill="#f3eefe" stroke="#8250df" stroke-width="1.6"/>
+  <text x="377" y="56" font-family="sans-serif" font-size="14" font-weight="700" fill="#4c2889">② Python API（类型化对象）</text>
+  <text x="377" y="80" font-family="monospace" font-size="11.5" fill="#1a1d21">VideoGenerator.from_pretrained(</text>
+  <text x="377" y="97" font-family="monospace" font-size="11.5" fill="#1a1d21">  "model-id", num_gpus=1, **kwargs)</text>
+  <text x="377" y="123" font-family="sans-serif" font-size="11.5" fill="#57606a">这些 dataclass 就是 YAML 的 schema：</text>
+  <text x="377" y="140" font-family="sans-serif" font-size="11.5" fill="#57606a">GeneratorConfig / EngineConfig / …</text>
+
+  <!-- 第 3 层 -->
+  <rect x="720" y="30" width="300" height="128" rx="10" fill="#dafbe1" stroke="#1a7f37" stroke-width="1.6"/>
+  <text x="742" y="56" font-family="sans-serif" font-size="14" font-weight="700" fill="#0f5323">③ 环境变量（最底层）</text>
+  <text x="742" y="80" font-family="monospace" font-size="11.5" fill="#1a1d21">FASTVIDEO_ATTENTION_BACKEND=…</text>
+  <text x="742" y="100" font-family="monospace" font-size="11.5" fill="#1a1d21">FASTVIDEO_FA4=1 …</text>
+  <text x="742" y="126" font-family="sans-serif" font-size="11.5" fill="#57606a">注册表在 fastvideo/envs.py（41 项）</text>
+  <text x="742" y="143" font-family="sans-serif" font-size="11.5" fill="#57606a">部分为「只解析一次」，见第 8 节</text>
+
+  <!-- 收敛箭头 -->
+  <path d="M170,160 L170,196 L510,196" stroke="#8b949e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+  <path d="M520,160 L520,196" stroke="#8b949e" stroke-width="1.4" fill="none"/>
+  <path d="M870,160 L870,196 L530,196" stroke="#8b949e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+
+  <text x="520" y="188" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8b949e">合并 / 解析一次</text>
+
+  <!-- 汇聚 -->
+  <rect x="300" y="205" width="440" height="72" rx="10" fill="#f6f8fa" stroke="#8b949e" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <text x="520" y="232" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#1a1d21">FastVideoArgs</text>
+  <text x="520" y="253" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#57606a">单一运行时真值对象 · fastvideo/fastvideo_args.py（1,571 行，约 150 字段）</text>
+  <text x="520" y="270" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#8b949e">auto 语义在此结算：如 lazy_module_load=None → 按设备类型判定</text>
+
+  <path d="M520,277 L520,308" stroke="#8b949e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+
+  <!-- 执行 -->
+  <rect x="220" y="315" width="600" height="60" rx="10" fill="#ffffff" stroke="#1a1d21" stroke-width="1.6"/>
+  <text x="520" y="340" text-anchor="middle" font-family="sans-serif" font-size="13.5" font-weight="700" fill="#1a1d21">Worker 进程 → Pipeline 各 Stage（text encode → denoise → VAE decode）</text>
+  <text x="520" y="361" text-anchor="middle" font-family="sans-serif" font-size="11.5" fill="#57606a">单机走 mp 多进程；跨机走 ray，需 RAY_ADDRESS + FASTVIDEO_HOST_IP</text>
+</svg>
+
+<div class="box box-tip">
+  <span class="t">💡 一句话记住优先级</span>
+  <p><strong>环境变量是"原料"，YAML 是"配置"，点号覆盖是"临时改一行"。</strong>三者最终都折叠进 <code>FastVideoArgs</code>。改配置前先想清楚落在哪一层——尤其是下一节那个"只解析一次"的陷阱。</p>
+</div>
+
+<h2 id="s4" class="anchor">4. 配置总览：YAML 全字段地图</h2>
+
+<p>推理配置（<code>fastvideo generate</code>）只有<strong>两个顶级键</strong>：<code>generator</code>（初始化什么）和 <code>request</code>（这次生成什么）。权威 schema 在 <code>fastvideo/api/schema.py</code>。</p>
+
+<svg viewBox="0 0 1040 470" width="100%" style="margin:20px 0;" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="18" width="240" height="34" rx="7" fill="#1a1d21"/>
+  <text x="140" y="40" text-anchor="middle" font-family="monospace" font-size="13" font-weight="700" fill="#ffffff">RunConfig</text>
+
+  <!-- generator 树 -->
+  <rect x="60" y="76" width="180" height="30" rx="6" fill="#ddeaff" stroke="#1f6feb"/>
+  <text x="150" y="96" text-anchor="middle" font-family="monospace" font-size="12.5" font-weight="700" fill="#0a3069">generator</text>
+
+  <line x1="150" y1="106" x2="150" y2="126" stroke="#8b949e" stroke-width="1.2"/>
+  <line x1="70" y1="126" x2="500" y2="126" stroke="#8b949e" stroke-width="1.2"/>
+
+  <rect x="30" y="134" width="120" height="26" rx="5" fill="#ffffff" stroke="#1f6feb" stroke-dasharray="3 3"/>
+  <text x="90" y="152" text-anchor="middle" font-family="monospace" font-size="11" fill="#0a3069">model_path</text>
+  <rect x="160" y="134" width="90" height="26" rx="5" fill="#ffffff" stroke="#1f6feb" stroke-dasharray="3 3"/>
+  <text x="205" y="152" text-anchor="middle" font-family="monospace" font-size="11" fill="#0a3069">revision</text>
+  <rect x="260" y="134" width="130" height="26" rx="5" fill="#ffffff" stroke="#1f6feb" stroke-dasharray="3 3"/>
+  <text x="325" y="152" text-anchor="middle" font-family="monospace" font-size="11" fill="#0a3069">trust_remote_code</text>
+
+  <line x1="150" y1="126" x2="150" y2="172" stroke="#8b949e" stroke-width="1.2"/>
+  <rect x="60" y="172" width="180" height="30" rx="6" fill="#ddeaff" stroke="#1f6feb"/>
+  <text x="150" y="192" text-anchor="middle" font-family="monospace" font-size="12.5" font-weight="700" fill="#0a3069">engine</text>
+
+  <line x1="60" y1="202" x2="60" y2="216" stroke="#8b949e" stroke-width="1.2"/>
+  <line x1="60" y1="216" x2="400" y2="216" stroke="#8b949e" stroke-width="1.2"/>
+  <g font-family="monospace" font-size="10.5" fill="#1a1d21">
+    <rect x="20" y="222" width="100" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="70" y="238" text-anchor="middle">num_gpus</text>
+    <rect x="128" y="222" width="126" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="191" y="238" text-anchor="middle">execution_backend</text>
+    <rect x="262" y="222" width="112" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="318" y="238" text-anchor="middle">parallelism</text>
+    <rect x="382" y="222" width="86" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="425" y="238" text-anchor="middle">offload</text>
+    <rect x="476" y="222" width="86" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="519" y="238" text-anchor="middle">compile</text>
+    <rect x="570" y="222" width="146" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="643" y="238" text-anchor="middle">use_fsdp_inference</text>
+    <rect x="724" y="222" width="118" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="783" y="238" text-anchor="middle">quantization</text>
+    <rect x="850" y="222" width="166" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="933" y="238" text-anchor="middle">disable_autocast</text>
+  </g>
+
+  <line x1="150" y1="202" x2="150" y2="264" stroke="#8b949e" stroke-width="1.2"/>
+  <rect x="60" y="264" width="180" height="30" rx="6" fill="#ddeaff" stroke="#1f6feb"/>
+  <text x="150" y="284" text-anchor="middle" font-family="monospace" font-size="12.5" font-weight="700" fill="#0a3069">pipeline</text>
+
+  <line x1="60" y1="294" x2="60" y2="308" stroke="#8b949e" stroke-width="1.2"/>
+  <line x1="60" y1="308" x2="400" y2="308" stroke="#8b949e" stroke-width="1.2"/>
+  <g font-family="monospace" font-size="10.5" fill="#1a1d21">
+    <rect x="20" y="314" width="118" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="79" y="330" text-anchor="middle">workload_type</text>
+    <rect x="146" y="314" width="90" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="191" y="330" text-anchor="middle">components</text>
+    <rect x="244" y="314" width="96" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="292" y="330" text-anchor="middle">vae_tiling</text>
+    <rect x="348" y="314" width="128" height="24" rx="4" fill="#fff8c5" stroke="#9a6700"/><text x="412" y="330" text-anchor="middle">experimental</text>
+    <rect x="484" y="314" width="128" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="548" y="330" text-anchor="middle">preset_overrides</text>
+  </g>
+
+  <!-- request 树 -->
+  <rect x="660" y="76" width="180" height="30" rx="6" fill="#dafbe1" stroke="#1a7f37"/>
+  <text x="750" y="96" text-anchor="middle" font-family="monospace" font-size="12.5" font-weight="700" fill="#0f5323">request</text>
+
+  <line x1="750" y1="106" x2="750" y2="126" stroke="#8b949e" stroke-width="1.2"/>
+  <line x1="660" y1="126" x2="1010" y2="126" stroke="#8b949e" stroke-width="1.2"/>
+  <g font-family="monospace" font-size="10.5" fill="#1a1d21">
+    <rect x="652" y="134" width="88" height="24" rx="4" fill="#ffffff" stroke="#1a7f37" stroke-dasharray="3 3"/><text x="696" y="150" text-anchor="middle">prompt</text>
+    <rect x="748" y="134" width="120" height="24" rx="4" fill="#ffffff" stroke="#1a7f37" stroke-dasharray="3 3"/><text x="808" y="150" text-anchor="middle">negative_prompt</text>
+    <rect x="876" y="134" width="82" height="24" rx="4" fill="#ffffff" stroke="#1a7f37" stroke-dasharray="3 3"/><text x="917" y="150" text-anchor="middle">inputs</text>
+    <rect x="966" y="134" width="52" height="24" rx="4" fill="#ffffff" stroke="#1a7f37" stroke-dasharray="3 3"/><text x="992" y="150" text-anchor="middle">…</text>
+  </g>
+
+  <line x1="750" y1="126" x2="750" y2="180" stroke="#8b949e" stroke-width="1.2"/>
+  <g font-family="monospace" font-size="10.5" fill="#1a1d21">
+    <rect x="640" y="188" width="104" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="692" y="204" text-anchor="middle">sampling</text>
+    <rect x="752" y="188" width="98" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="801" y="204" text-anchor="middle">output</text>
+    <rect x="858" y="188" width="94" height="24" rx="4" fill="#f6f8fa" stroke="#d8dee4"/><text x="905" y="204" text-anchor="middle">runtime</text>
+    <rect x="960" y="188" width="112" height="24" rx="4" fill="#fff8c5" stroke="#9a6700"/><text x="1016" y="204" text-anchor="middle">extensions</text>
+  </g>
+
+  <!-- 关键提示 -->
+  <rect x="600" y="240" width="424" height="180" rx="9" fill="#ffebe9" stroke="#cf222e" stroke-width="1.3"/>
+  <text x="620" y="264" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#cf222e">三个必须知道的配置事实</text>
+  <text x="620" y="288" font-family="sans-serif" font-size="11.5" fill="#1a1d21">1. 只有 --config 一个子命令参数，</text>
+  <text x="620" y="305" font-family="sans-serif" font-size="11.5" fill="#1a1d21">    其余全靠点号覆盖（第 12 节有模板）</text>
+  <text x="620" y="329" font-family="sans-serif" font-size="11.5" fill="#1a1d21">2. request.output.return_frames 默认 True，</text>
+  <text x="620" y="346" font-family="sans-serif" font-size="11.5" fill="#1a1d21">    但 <tspan font-weight="700">CLI 上默认被翻成 false</tspan>，需要显式开</text>
+  <text x="620" y="370" font-family="sans-serif" font-size="11.5" fill="#1a1d21">3. experimental / extensions 是</text>
+  <text x="620" y="387" font-family="sans-serif" font-size="11.5" fill="#1a1d21">    <tspan font-weight="700">无 schema 的自由字典</tspan>，写错键不报错、静默失效</text>
+</svg>
+
+<h3>4.1 <code>generator</code> 段字段表</h3>
+<table>
+  <thead><tr><th>路径</th><th>类型 / 取值</th><th>默认</th><th>作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>generator.model_path</code></td><td>str（HF ID 或本地目录）</td><td>必填</td><td>模型；决定走哪条 pipeline</td></tr>
+    <tr><td><code>generator.revision</code></td><td>str</td><td>None</td><td>HF 分支 / commit</td></tr>
+    <tr><td><code>generator.trust_remote_code</code></td><td>bool</td><td>false</td><td>允许执行远端仓库代码，非必要不开</td></tr>
+    <tr><td><code>generator.engine.num_gpus</code></td><td>int</td><td>1</td><td>并行 GPU 数</td></tr>
+    <tr><td><code>generator.engine.execution_backend</code></td><td><code>mp</code> | <code>ray</code></td><td><code>mp</code></td><td>单机多进程 / 跨机 Ray</td></tr>
+    <tr><td><code>generator.engine.parallelism.tp_size</code></td><td>int（-1=自动）</td><td>-1</td><td>张量并行</td></tr>
+    <tr><td><code>generator.engine.parallelism.sp_size</code></td><td>int（-1=自动）</td><td>-1</td><td>序列并行（长视频首选）</td></tr>
+    <tr><td><code>generator.engine.parallelism.hsdp_replicate_dim</code></td><td>int</td><td>1</td><td>HSDP 复制维度（训练用）</td></tr>
+    <tr><td><code>generator.engine.parallelism.hsdp_shard_dim</code></td><td>int</td><td>-1</td><td>HSDP 分片维度</td></tr>
+    <tr><td><code>generator.engine.parallelism.dist_timeout</code></td><td>int</td><td>None</td><td>torch.distributed 超时（秒）</td></tr>
+    <tr><td><code>generator.engine.use_fsdp_inference</code></td><td>bool</td><td>false</td><td>权重分片推理，多卡推荐</td></tr>
+    <tr><td><code>generator.engine.disable_autocast</code></td><td>bool</td><td>false</td><td>关自动混合精度（调试用）</td></tr>
+    <tr><td><code>generator.engine.enable_stage_verification</code></td><td>bool</td><td>true</td><td>stage 输出校验</td></tr>
+    <tr><td><code>generator.engine.quantization.transformer_quant</code></td><td><code>FP8</code> / <code>nvfp4_qat</code></td><td>None</td><td>DiT 线性层量化（第 9 节）</td></tr>
+    <tr><td><code>generator.pipeline.workload_type</code></td><td><code>t2v</code>/<code>i2v</code>/<code>t2i</code>/<code>i2i</code>/<code>v2a</code>/<code>t2a</code></td><td>None</td><td>任务类型；不同模型支持集不同</td></tr>
+    <tr><td><code>generator.pipeline.vae_tiling</code></td><td>bool | null</td><td>null</td><td>分块 VAE 解码，省显存抗 OOM</td></tr>
+    <tr><td><code>generator.pipeline.preset</code></td><td>str</td><td>None</td><td>指定推理预设（如 LTX2_BASE）</td></tr>
+    <tr><td><code>generator.pipeline.components.lora_path</code></td><td>str</td><td>None</td><td>LoRA 权重路径</td></tr>
+    <tr><td><code>generator.pipeline.components.lora_nickname</code></td><td>str</td><td><code>default</code></td><td>LoRA 别名（运行时切换用）</td></tr>
+    <tr><td><code>generator.pipeline.components.lora_strength</code></td><td>float</td><td>1.0</td><td>LoRA 强度</td></tr>
+    <tr><td><code>generator.pipeline.components.*_weights</code></td><td>str</td><td>None</td><td>覆盖单个组件权重路径（text_encoder / transformer / transformer_2 / vae / upsampler）</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s5" class="anchor">5. <code>generator.engine</code> 子块逐项详解</h2>
+
+<h3>5.1 <code>engine.offload</code> —— 显存开关组（7 个）</h3>
+<table>
+  <thead><tr><th>字段</th><th>默认</th><th>语义</th><th>何时改</th></tr></thead>
+  <tbody>
+    <tr><td><code>offload.dit</code></td><td><code>true</code></td><td>DiT 权重放 CPU，逐层搬回 GPU（<strong>仅 FSDP 生效</strong>）</td><td>多卡 FSDP 时设为 <code>false</code></td></tr>
+    <tr><td><code>offload.dit_layerwise</code></td><td><code>true</code></td><td>逐层卸载并<strong>与计算重叠</strong>，只支持单卡；不兼容 FSDP</td><td>单卡保持 <code>true</code>；多卡设 <code>false</code></td></tr>
+    <tr><td><code>offload.text_encoder</code></td><td><code>true</code></td><td>文本编码器权重放 CPU 并在 CPU 上算</td><td>OOM 最后手段（明显变慢）</td></tr>
+    <tr><td><code>offload.image_encoder</code></td><td><code>true</code></td><td>图像编码器按需搬运</td><td>OOM 时开</td></tr>
+    <tr><td><code>offload.vae</code></td><td><code>true</code></td><td>VAE 权重按需搬运</td><td>OOM 时开（<strong>最常需要</strong>的救急项）</td></tr>
+    <tr><td><code>offload.pin_cpu_memory</code></td><td><code>true</code></td><td>锁定页内存，加速 CPU→GPU 传输</td><td>不是卸载开关，一般别动</td></tr>
+    <tr><td><code>offload.lazy_module_load</code></td><td><code>null</code>=auto</td><td>各组件<strong>用时才加载、用完释放</strong>，峰值显存从"总和"降为"最大重叠集"</td><td>模型**装不下**时用（详见 5.3）</td></tr>
+  </tbody>
+</table>
+
+<div class="box box-warn">
+  <span class="t">⚠️ 统一内存设备上，7 个卸载开关里的 5 个会失效</span>
+  <p>在 <strong>NVIDIA GB10 / DGX Spark</strong> 和 <strong>Apple Silicon</strong> 上，宿主内存与设备内存<strong>是同一个物理池</strong>。FastVideo 会在 worker 内探测设备类型，<strong>在加载模块前自动关掉全部 5 个 host-offload 模式</strong>（dit / dit_layerwise / text_encoder / image_encoder / vae），因为此时"卸载"只增加搬运和重复驻留，并不省内存。</p>
+  <p><code>pin_cpu_memory</code> 不是卸载开关，不受影响；CUDA 上的 FSDP 分片仍按需启用；MPS 则持续禁用 FSDP。</p>
+</div>
+
+<h3>5.2 <code>engine.compile</code> —— torch.compile 开关组</h3>
+<table>
+  <thead><tr><th>字段</th><th>默认</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>compile.enabled</code></td><td><code>false</code></td><td>编译 DiT（含 <code>transformer_2</code> 与 LTX-2 stage-2）</td></tr>
+    <tr><td><code>compile.backend</code></td><td>None</td><td>torch.compile backend，如 <code>inductor</code></td></tr>
+    <tr><td><code>compile.fullgraph</code></td><td>None</td><td>整图编译</td></tr>
+    <tr><td><code>compile.mode</code></td><td>None</td><td>如 <code>reduce-overhead</code>（<strong>注意：区域编译下与之冲突</strong>）</td></tr>
+    <tr><td><code>compile.dynamic</code></td><td>None</td><td>动态 shape</td></tr>
+    <tr><td><code>compile.extras</code></td><td><code>{}</code></td><td>其余 torch.compile kwargs（options / disable 等）</td></tr>
+    <tr><td><code>compile.text_encoder_enabled</code></td><td>None</td><td>单独编译文本编码器（默认 eager）</td></tr>
+    <tr><td><code>compile.vae_enabled</code></td><td>None</td><td>单独编译 VAE（FastH3 Spark 配置里开了）</td></tr>
+    <tr><td><code>compile.audio_vae_enabled</code></td><td>None</td><td>单独编译音频 VAE</td></tr>
+    <tr><td><code>compile.dit_kwargs</code> / <code>text_encoder_kwargs</code> / <code>vae_kwargs</code> / <code>audio_vae_kwargs</code></td><td><code>{}</code></td><td>组件级 kwargs；非空则覆盖上面的 master 设置</td></tr>
+  </tbody>
+</table>
+<p class="muted">另有一个更严格的实验路径 <code>pipeline.experimental.inference_torch_compile</code>（等价环境变量 <code>FASTVIDEO_INFERENCE_TORCH_COMPILE=1</code>）：它在加载后把 transformer 内每个 <code>_compile_conditions</code> 块包进 <code>torch.compile(fullgraph=True)</code>。两者同时设置时<strong>区域编译胜出</strong>。<strong>不要</strong>与 <code>compile.mode</code> 同用。</p>
+
+<h3>5.3 显存不够时的正确顺序</h3>
+<svg viewBox="0 0 1040 300" width="100%" style="margin:18px 0;" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#cf222e"/></marker></defs>
+  <text x="20" y="26" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a1d21">单卡推理路径（按顺序升级）</text>
+
+  <rect x="20" y="42" width="230" height="72" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+  <text x="135" y="66" text-anchor="middle" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#0f5323">① 默认即可</text>
+  <text x="135" y="86" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#1a1d21">dit_layerwise: true</text>
+  <text x="135" y="102" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#57606a">开销可忽略，直接开着</text>
+
+  <path d="M250,78 L286,78" stroke="#cf222e" stroke-width="1.5" marker-end="url(#ar2)"/>
+
+  <rect x="292" y="42" width="230" height="72" rx="8" fill="#fff8c5" stroke="#9a6700"/>
+  <text x="407" y="66" text-anchor="middle" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#9a6700">② OOM 了？</text>
+  <text x="407" y="86" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#1a1d21">vae: true</text>
+  <text x="407" y="102" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#1a1d21">image_encoder: true</text>
+
+  <path d="M522,78 L558,78" stroke="#cf222e" stroke-width="1.5" marker-end="url(#ar2)"/>
+
+  <rect x="564" y="42" width="230" height="72" rx="8" fill="#ffe3c2" stroke="#bc4c00"/>
+  <text x="679" y="66" text-anchor="middle" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#bc4c00">③ 还 OOM？</text>
+  <text x="679" y="86" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#1a1d21">text_encoder: true</text>
+  <text x="679" y="102" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#57606a">会明显变慢，但文本编码不是瓶颈</text>
+
+  <path d="M794,78 L830,78" stroke="#cf222e" stroke-width="1.5" marker-end="url(#ar2)"/>
+
+  <rect x="836" y="42" width="184" height="72" rx="8" fill="#ffebe9" stroke="#cf222e"/>
+  <text x="928" y="66" text-anchor="middle" font-family="sans-serif" font-size="12.5" font-weight="700" fill="#cf222e">④ 加载阶段就挂</text>
+  <text x="928" y="86" text-anchor="middle" font-family="monospace" font-size="10.5" fill="#1a1d21">lazy_module_load: true</text>
+  <text x="928" y="102" text-anchor="middle" font-family="sans-serif" font-size="10.5" fill="#57606a">唯一能救"装不下"的方案</text>
+
+  <line x1="20" y1="146" x2="1020" y2="146" stroke="#eaeef2" stroke-width="1.5"/>
+  <text x="20" y="174" font-family="sans-serif" font-size="13" font-weight="700" fill="#1a1d21">多卡推理路径</text>
+  <rect x="20" y="190" width="420" height="78" rx="8" fill="#dafbe1" stroke="#1a7f37"/>
+  <text x="40" y="214" font-family="monospace" font-size="11.5" fill="#1a1d21">use_fsdp_inference: true</text>
+  <text x="40" y="234" font-family="monospace" font-size="11.5" fill="#1a1d21">offload.dit_layerwise: false   ← 必须关</text>
+  <text x="40" y="254" font-family="monospace" font-size="11.5" fill="#1a1d21">offload.dit: false             ← 必须关</text>
+
+  <rect x="470" y="190" width="550" height="78" rx="8" fill="#f6f8fa" stroke="#8b949e"/>
+  <text x="490" y="214" font-family="sans-serif" font-size="11.5" fill="#1a1d21">再 OOM 才逐个开 <tspan font-family="monospace">text_encoder</tspan> / <tspan font-family="monospace">image_encoder</tspan> / <tspan font-family="monospace">vae</tspan>；</text>
+  <text x="490" y="234" font-family="sans-serif" font-size="11.5" fill="#1a1d21">仍不够才开 <tspan font-family="monospace">offload.dit: true</tspan>。</text>
+  <text x="490" y="256" font-family="sans-serif" font-size="11.5" font-weight="700" fill="#cf222e">注意：FP4 路径与 use_fsdp_inference 互斥（分片会让张量指针失效）。</text>
+</svg>
+
+<h2 id="s6" class="anchor">6. 配置核心：注意力后端</h2>
+
+<p>注意力后端是<strong>单点收益最大</strong>的配置项，也是最多人踩坑的地方——因为它<strong>不是 YAML 里的普通字段，而主要是环境变量</strong>，且<strong>只解析一次</strong>。</p>
+
+<table>
+  <thead><tr><th>后端值</th><th>硬件门槛</th><th>特点</th><th>模型适用</th></tr></thead>
+  <tbody>
+    <tr><td><code>TORCH_SDPA</code></td><td>无</td><td>PyTorch 原生，最稳最慢。<strong>排查问题时的基准</strong></td><td>全部</td></tr>
+    <tr><td><code>FLASH_ATTN</code></td><td>sm80+</td><td>FlashAttention 2/3，通用推荐</td><td>全部</td></tr>
+    <tr><td><code>VIDEO_SPARSE_ATTN</code></td><td>需要 VSA 内核</td><td>视频稀疏注意力，本项目核心卖点</td><td>Wan / FastWan</td></tr>
+    <tr><td><code>VIDEO_SPARSE_ATTN_H3</code></td><td>sm100a 或 triton 回退</td><td><strong>H3 专用</strong>稀疏路径</td><td>MiniMax-H3 / FastH3</td></tr>
+    <tr><td><code>SAGE_ATTN</code></td><td>需源码编译</td><td>SageAttention 2.1.1</td><td>Wan 2.2 等</td></tr>
+    <tr><td><code>SAGE_ATTN_THREE</code></td><td>RTX 5090，需 py≥3.13 / torch≥2.8 / CUDA 13</td><td>FP4 量化 + Blackwell Tensor Core</td><td>特定</td></tr>
+    <tr><td><code>ATTN_QAT_INFER</code></td><td><strong>硬门槛 sm_120</strong>（RTX 5090）</td><td>改版 SageAttention3 FP4；其他 GPU 会退到 FlashAttention 并打日志</td><td>Wan 2.1（配 <code>nvfp4_qat</code>）</td></tr>
+    <tr><td><code>VMOBA_ATTN</code></td><td>需 V-MoBA 内核</td><td>视频 MoBA 注意力</td><td>1.3B Wan（有配置样例）</td></tr>
+    <tr><td><code>SLA_ATTN</code> / <code>SAGE_SLA_ATTN</code></td><td>需对应内核</td><td>稀疏线性注意力</td><td>TurboWan（TurboDiffusion）<strong>必须</strong>用 SLA</td></tr>
+    <tr><td><code>SLIDING_TILE_ATTN</code></td><td>Hopper（H100）</td><td>已在 <code>main</code> 归档，保留在 <code>sta_do_not_delete</code> 分支</td><td>遗留</td></tr>
+  </tbody>
+</table>
+
+<div class="box box-danger">
+  <span class="t">🚨 最大的配置陷阱：FASTVIDEO_ATTENTION_BACKEND 是"只解析一次"</span>
+  <p>该变量在 <code>FastVideoArgs.__post_init__</code> 里<strong>被读取一次</strong>并写进参数对象，之后加载器不再回查环境。</p>
+  <ul>
+    <li>Python 里循环切换后端做 benchmark 时，<strong>必须在每次改完环境变量后重新实例化 <code>VideoGenerator</code></strong>，否则第二次还是用的旧后端。</li>
+    <li>同一个 shell 里不要同时用环境变量和 <code>pipeline.experimental.attention_backend</code> 设置不同值（后者是"角色级请求"，会覆盖前者）。</li>
+  </ul>
+  <p>官方文档里那句提醒值得抄在墙上：<em>"reinstantiate VideoGenerator after changing FASTVIDEO_ATTENTION_BACKEND"</em>。</p>
+</div>
+
+<h2 id="s7" class="anchor">7. <code>request</code> 段：采样参数详解</h2>
+
+<h3>7.1 <code>request.sampling</code> 全字段</h3>
+<table>
+  <thead><tr><th>字段</th><th>默认</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>seed</code></td><td>1024</td><td>随机种子（CLI 脚本层常用 2026 / 0 / 42）</td></tr>
+    <tr><td><code>num_frames</code></td><td>125</td><td>帧数。<strong>模型有约束</strong>：H3 合法值为 <code>17n+5</code>，上限 345（15.08 秒）</td></tr>
+    <tr><td><code>height</code> / <code>width</code></td><td>720 / 1280</td><td>分辨率（VAE 缩放前）</td></tr>
+    <tr><td><code>height_sr</code> / <code>width_sr</code></td><td>1072 / 1920</td><td>超分阶段目标尺寸（LongCat refine 等）</td></tr>
+    <tr><td><code>fps</code></td><td>24</td><td>输出帧率</td></tr>
+    <tr><td><code>num_inference_steps</code></td><td>50</td><td><strong>语义因模型而异</strong>：普通模型是去噪步数；FastH3 8-Step 是"sigma 网格点数"（9 点 = 8 次前向）</td></tr>
+    <tr><td><code>guidance_scale</code></td><td>1.0</td><td>CFG 强度。蒸馏模型通常要 <code>1.0</code>（即关 CFG）</td></tr>
+    <tr><td><code>batch_cfg</code></td><td>false</td><td>条件/无条件分支合批算一次前向（省时间、增显存）</td></tr>
+    <tr><td><code>guidance_scale_2</code></td><td>None</td><td>第二 CFG 尺度（Wan2.2 高低噪双专家等）</td></tr>
+    <tr><td><code>guidance_rescale</code></td><td>0.0</td><td>CFG 重缩放</td></tr>
+    <tr><td><code>true_cfg_scale</code></td><td>None</td><td>FLUX 真 CFG（&gt;1 时生效，需负面提示词编码）</td></tr>
+    <tr><td><code>use_embedded_guidance</code></td><td>None</td><td>FLUX 内嵌引导，不把 <code>guidance_scale&gt;1</code> 当经典 CFG</td></tr>
+    <tr><td><code>cfg_normalization</code></td><td>false</td><td>Z-Image 专用：把 CFG 预测范数封顶到正预测范数</td></tr>
+    <tr><td><code>cfg_truncation</code></td><td>1.0</td><td>Z-Image 专用：高于该归一化噪声阈值就关 CFG</td></tr>
+    <tr><td><code>boundary_ratio</code></td><td>None</td><td>高低噪专家切换边界（Wan2.2 类）</td></tr>
+    <tr><td><code>sigmas</code></td><td>None</td><td>自定义噪声调度序列，覆盖默认</td></tr>
+    <tr><td><code>max_sequence_length</code></td><td>None</td><td>提示词最大 token 数</td></tr>
+    <tr><td><code>num_videos_per_prompt</code></td><td>1</td><td>每提示词生成条数</td></tr>
+  </tbody>
+</table>
+
+<h3>7.2 其余 request 子块</h3>
+<table>
+  <thead><tr><th>路径</th><th>字段</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="7"><code>request.inputs</code></td><td><code>prompt_path</code></td><td>提示词 txt 文件（只接受 <code>.txt</code>，否则报错）</td></tr>
+    <tr><td><code>image_path</code></td><td>I2V 输入图，支持本地路径或 URL</td></tr>
+    <tr><td><code>video_path</code></td><td>V2V / VC 输入视频</td></tr>
+    <tr><td><code>refine_from</code></td><td>二阶段精修输入（如从 480p 提到 720p）</td></tr>
+    <tr><td><code>pose</code></td><td>相机轨迹（HYWorld，如 <code>'w-31'</code> 或 JSON）</td></tr>
+    <tr><td><code>mouse_cond</code> / <code>keyboard_cond</code></td><td>矩阵游戏类的控制输入</td></tr>
+    <tr><td><code>action_path</code> / <code>c2ws_plucker_emb</code></td><td>LingBotWorld 系列的动作与相机嵌入</td></tr>
+    <tr><td rowspan="4"><code>request.output</code></td><td><code>output_path</code></td><td>输出目录</td></tr>
+    <tr><td><code>output_video_name</code></td><td>输出文件名</td></tr>
+    <tr><td><code>save_video</code></td><td>是否落盘</td></tr>
+    <tr><td><code>return_frames</code></td><td>是否返回原始帧。</td></tr>
+    <tr><td rowspan="3"><code>request.runtime</code></td><td><code>enable_teacache</code></td><td>TeaCache 缓存加速</td></tr>
+    <tr><td><code>return_trajectory_latents</code></td><td>返回每步 latent</td></tr>
+    <tr><td><code>return_trajectory_decoded</code></td><td>返回每步解码结果</td></tr>
+  </tbody>
+</table>
+
+<div class="box box-danger">
+  <span class="t">🚨 CLI 与 Python 的 return_frames 默认值不一致</span>
+  <p>dataclass 里 <code>return_frames = True</code>，但<strong>CLI 走 <code>fastvideo generate</code> 时默认是 <code>false</code></strong>，除非你在 YAML 里写 <code>request.output.return_frames: true</code> 或用点号覆盖显式打开。这一点官方配置文档里专门提了一句，容易被当成 bug 排查半天。</p>
+</div>
+
+<h3>7.3 <code>experimental</code> 与 <code>extensions</code>：无 schema 的自由字典</h3>
+<p>这两个是"逃生舱"，内容由各 pipeline 自行解释，<strong>写错键不会报错，只会静默不生效</strong>。从仓库现有配置里能确认实际用到的键如下：</p>
+<table>
+  <thead><tr><th>键</th><th>归属</th><th>用途</th></tr></thead>
+  <tbody>
+    <tr><td><code>pipeline.experimental.flow_shift</code></td><td>Wan / Hunyuan / FastHunyuan</td><td>整流流时间步平移，典型 3.0 / 5.0 / 7 / 8.0 / 17</td></tr>
+    <tr><td><code>pipeline.experimental.VSA_sparsity</code></td><td>VSA 稀疏注意力</td><td>稀疏率：Wan 常用 0.8~0.9；FastH3 8-Step 训练值 <strong>0.8</strong>；Preview 用 <strong>0.9</strong></td></tr>
+    <tr><td><code>pipeline.experimental.VSA_tile_size</code></td><td>VSA</td><td>tile 粒度：<strong>64</strong>（sm100a 路径 / FastH3 8-Step）或 256</td></tr>
+    <tr><td><code>pipeline.experimental.attention_backend</code></td><td>通用</td><td>角色级注意力后端请求，<strong>覆盖</strong>环境变量</td></tr>
+    <tr><td><code>pipeline.experimental.dmd_denoising_steps</code></td><td>DMD 蒸馏模型</td><td>蒸馏阶梯，如 <code>[1000, 757, 522]</code>；H3 8-Step 为 <code>[999, 874, 749, 624, 500, 375, 250, 125]</code></td></tr>
+    <tr><td><code>pipeline.experimental.embedded_cfg_scale</code></td><td>Hunyuan / FastHunyuan</td><td>内嵌 CFG 尺度，样例用 <code>6</code></td></tr>
+    <tr><td><code>pipeline.experimental.enable_bsa</code> / <code>bsa_sparsity</code> / <code>bsa_chunk_q</code> / <code>bsa_chunk_k</code></td><td>LongCat</td><td>块稀疏注意力；无 VSA 时 LongCat 的开销主要靠它压</td></tr>
+    <tr><td><code>pipeline.experimental.moba_config_path</code></td><td>Wan 1.3B V-MoBA</td><td>V-MoBA 参数 JSON 路径（仓库自带两个：480×832 / 448×832）</td></tr>
+    <tr><td><code>pipeline.experimental.inference_torch_compile</code></td><td>通用</td><td>区域 fullgraph 编译（第 5.2 节）</td></tr>
+    <tr><td><code>pipeline.experimental.vae_parallel_decode</code> / <code>_strategy</code></td><td>MiniMax-H3</td><td>VAE 时间块在 SP 各 rank 上轮转，策略 <code>gather</code>（默认）/ <code>all_gather</code></td></tr>
+    <tr><td><code>pipeline.experimental.lora_nickname</code></td><td>LoRA</td><td>运行时指定用哪个 LoRA 适配器</td></tr>
+    <tr><td><code>request.extensions.t_thresh</code> / <code>spatial_refine_only</code> / <code>num_cond_frames</code></td><td>LongCat refine</td><td>精修阶段的步长阈值 / 只做空间不做时间 / 条件帧数</td></tr>
+    <tr><td><code>request.extensions.ltx2_images</code> / <code>ltx2_image_crf</code></td><td>LTX-2</td><td>多图条件与条件图 H.264 重编码质量</td></tr>
+    <tr><td><code>pipeline.preset_overrides.refine.*</code></td><td>LTX-2 / LongCat</td><td>二阶段精修覆盖：<code>enabled</code> / <code>num_inference_steps</code> / <code>guidance_scale</code> / <code>add_noise</code></td></tr>
+  </tbody>
+</table>
+
+<h2 id="s8" class="anchor">8. 环境变量完整参考</h2>
+
+<p>权威注册表：<code>fastvideo/envs.py</code>（共 41 个运行时变量 + 5 个安装期变量）。全部为惰性求值，通过 <code>fastvideo.envs.XXX</code> 访问。</p>
+
+<h3>8.1 运行时核心（改行为）</h3>
+<table>
+  <thead><tr><th>变量</th><th>默认</th><th>取值与作用</th></tr></thead>
+  <tbody>
+    <tr><td><code>FASTVIDEO_ATTENTION_BACKEND</code></td><td>None（自动）</td><td>见第 6 节。<strong>只解析一次</strong></td></tr>
+    <tr><td><code>FASTVIDEO_FA4</code></td><td><code>0</code></td><td>启用 FlashAttention-4（<code>flash_attn.cute</code>）。<strong>永不自动选择</strong>，因为 CuTe 内核按 shape 家族 JIT，某些 GPU/shape 组合会运行时失败。sm90 以下会把带梯度与 GQA 调用路由到 FA2</td></tr>
+    <tr><td><code>FASTVIDEO_MINIMAX_H3_FA4_PACKED_VARLEN</code></td><td><code>0</code></td><td>H3 长单序列 dense DiT 自注意力走 FA4 packed-varlen 入口。<strong>仅推理</strong>，会改变浮点归约顺序</td></tr>
+    <tr><td><code>FASTVIDEO_VSA_SM100A</code></td><td>自动探测</td><td>强制 VSA 的 sm100a tile-64 路径。<strong>GB10 上必须设 0</strong></td></tr>
+    <tr><td><code>FASTVIDEO_DISABLE_ATTENTION_COMPILE</code></td><td><code>0</code></td><td>逃生舱：保留 transformer eager，避免编译中途失败</td></tr>
+    <tr><td><code>FASTVIDEO_INFERENCE_TORCH_COMPILE</code></td><td><code>0</code></td><td>区域 fullgraph 编译（等价 <code>FastVideoArgs.inference_torch_compile=True</code>）</td></tr>
+    <tr><td><code>FASTVIDEO_MINIMAX_H3_FUSIONS</code></td><td>空</td><td>H3 专用 Triton 融合：<code>all</code> / <code>1</code> / 逗号子集 <code>modulate,qknorm_rope,swiglu</code>。空 / <code>0</code> / <code>none</code> = eager。<strong>会改数值</strong></td></tr>
+    <tr><td><code>FASTVIDEO_VAE_PARALLEL_DECODE</code> / <code>_ENCODE</code></td><td><code>0</code></td><td>H3 VAE 时间块在 SP rank 上轮转（需 SP&gt;1）</td></tr>
+    <tr><td><code>FASTVIDEO_VAE_PARALLEL_DECODE_STRATEGY</code></td><td>None</td><td><code>gather</code>（默认）/ <code>all_gather</code></td></tr>
+    <tr><td><code>FASTVIDEO_ULYSSES_A2A</code></td><td><code>off</code></td><td>序列并行 all-to-all 后端：<code>off</code>=NCCL 路径；<code>auto</code>=在 2/4/6/8 rank 的 load-store 可达 mesh 上用融合 NVLink 内核</td></tr>
+    <tr><td><code>FASTVIDEO_CFG_GATE_STEP</code></td><td><code>1.0</code></td><td>CFG 门控（Adaptive Guidance / LinearAG）。<code>1.0</code>=关闭；<code>0.5</code>=后半程复用 uncond delta（官方称 4×L40S ~22%、1×H100 ~24% 端到端提速）；<code>0.0</code>=最激进。<strong>算法近似，非逐位对齐</strong></td></tr>
+    <tr><td><code>FASTVIDEO_WORKER_MULTIPROC_METHOD</code></td><td><code>spawn</code></td><td>多进程启动方式</td></tr>
+    <tr><td><code>FASTVIDEO_TARGET_DEVICE</code></td><td><code>cuda</code></td><td><code>cuda</code> / <code>rocm</code> / <code>neuron</code> / <code>cpu</code> / <code>openvino</code></td></tr>
+    <tr><td><code>FASTVIDEO_H3_SEQUENTIAL_LOAD</code>（经 API）</td><td>auto</td><td>H3 专属：先载 Qwen3-VL 做条件编码 → 释放 → 再载 DiT 与 VAE。统一内存设备自动开；离散 GPU 上会阻止同 worker 二次 generate</td></tr>
+  </tbody>
+</table>
+
+<h3>8.2 分布式 / 网络（多机必设）</h3>
+<table>
+  <thead><tr><th>变量</th><th>默认</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>FASTVIDEO_HOST_IP</code></td><td>空</td><td>多网卡时指定本机 IP。<strong>两台 DGX Spark 场景必须设，且要和 <code>ray start --node-ip-address</code> 一致</strong>，用互联（QSFP）IP，不要用 Wi-Fi</td></tr>
+    <tr><td><code>FASTVIDEO_LOOPBACK_IP</code></td><td>空</td><td>强制指定回环 IP</td></tr>
+    <tr><td><code>FASTVIDEO_RAY_PER_WORKER_GPUS</code></td><td><code>1.0</code></td><td>每 worker 占用的 GPU 数；设小数可让多个 actor 共享一张卡</td></tr>
+    <tr><td><code>FASTVIDEO_NCCL_SO_PATH</code></td><td>None</td><td>指定 NCCL 库路径（PyTorch 自带 nccl≥2.19 有已知 bug 时的绕行）</td></tr>
+    <tr><td><code>FASTVIDEO_RINGBUFFER_WARNING_INTERVAL</code></td><td>60</td><td>环形缓冲满时的告警间隔（秒）</td></tr>
+    <tr><td><code>FASTVIDEO_ENGINE_ITERATION_TIMEOUT_S</code></td><td>60</td><td>引擎单次迭代超时</td></tr>
+    <tr><td><code>RAY_ADDRESS</code></td><td>—</td><td>非 FastVideo 前缀，但跨机必设（如 <code>&lt;head-ip&gt;:6379</code>）</td></tr>
+  </tbody>
+</table>
+
+<h3>8.3 缓存 / 日志 / 调试</h3>
+<table>
+  <thead><tr><th>变量</th><th>默认</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><code>FASTVIDEO_CACHE_ROOT</code></td><td><code>~/.cache/fastvideo</code></td><td>缓存根目录（受 <code>XDG_CACHE_HOME</code> 影响）</td></tr>
+    <tr><td><code>FASTVIDEO_CONFIG_ROOT</code></td><td><code>~/.config/fastvideo</code></td><td>配置根目录</td></tr>
+    <tr><td><code>FASTVIDEO_LOGGING_LEVEL</code></td><td><code>INFO</code></td><td><code>DEBUG</code>/<code>INFO</code>/<code>WARNING</code>/<code>ERROR</code></td></tr>
+    <tr><td><code>FASTVIDEO_STAGE_LOGGING</code></td><td><code>0</code></td><td><strong>最实用</strong>：打印每个 stage 耗时，也能拆出去噪/解码/文本的分段耗时</td></tr>
+    <tr><td><code>FASTVIDEO_LOGGING_PREFIX</code> / <code>FASTVIDEO_LOGGING_CONFIG_PATH</code> / <code>FASTVIDEO_CONFIGURE_LOGGING</code></td><td>空 / None / 1</td><td>日志前缀、自定义配置、是否接管 logging</td></tr>
+    <tr><td><code>FASTVIDEO_NVTX_PROFILE</code></td><td><code>0</code></td><td>发 NVTX range，供 Nsight Systems 用</td></tr>
+    <tr><td><code>FASTVIDEO_TORCH_PROFILER_DIR</code></td><td>None</td><td>torch profiler 输出目录（<strong>必须绝对路径</strong>）</td></tr>
+    <tr><td><code>FASTVIDEO_TORCH_PROFILER_RECORD_SHAPES</code> / <code>_WITH_PROFILE_MEMORY</code> / <code>_WITH_STACK</code> / <code>_WITH_FLOPS</code></td><td>全 <code>0</code></td><td>profiler 采集维度。<code>_WITH_STACK</code> 约 1.5× 运行时开销、1.4× trace 体积</td></tr>
+    <tr><td><code>FASTVIDEO_TORCH_PROFILE_REGIONS</code></td><td>空</td><td>逗号分隔的区域名，如 <code>model_loading,training_train</code></td></tr>
+    <tr><td><code>FASTVIDEO_TRACE_ACTIVATIONS</code> / <code>_LAYERS</code> / <code>_STATS</code> / <code>_OUTPUT</code> / <code>_STEPS</code></td><td>0 / 空 / <code>abs_mean,sum</code> / <code>/tmp/fv_trace_&lt;pid&gt;.jsonl</code> / 空</td><td>逐层激活值追踪。<code>_LAYERS</code> 是正则过滤模块名，<code>_STEPS</code> 是去噪步索引。排查数值异常时的重武器</td></tr>
+    <tr><td><code>FASTVIDEO_SERVER_DEV_MODE</code></td><td><code>0</code></td><td>开额外调试端点（如 <code>/reset_prefix_cache</code>）</td></tr>
+    <tr><td><code>FASTVIDEO_EVAL_CACHE</code></td><td>—</td><td>评测资产缓存（CLIP / torch.hub / 数据集 / 指标权重）</td></tr>
+    <tr><td><code>FASTVIDEO_TEST_DYNAMO_FULLGRAPH_CAPTURE</code></td><td><code>1</code></td><td>内部开关，默认开</td></tr>
+  </tbody>
+</table>
+
+<h3>8.4 安装期变量（只在 build 时生效）</h3>
+<p><code>FASTVIDEO_TARGET_DEVICE</code>、<code>MAX_JOBS</code>（并行编译任务数）、<code>NVCC_THREADS</code>、<code>CMAKE_BUILD_TYPE</code>（<code>Debug</code>/<code>Release</code>/<code>RelWithDebInfo</code>）、<code>VERBOSE</code>、<code>FASTVIDEO_USE_PRECOMPILED</code>。另外 <code>UV_TORCH_BACKEND</code>（<code>cu126</code>/<code>cu130</code>）是 uv 的变量，决定拉哪个 torch 构建。</p>
+
+<h2 id="s9" class="anchor">9. 量化与优化配置</h2>
+<table>
+  <thead><tr><th>方案</th><th>配置方式</th><th>硬件</th><th>注意</th></tr></thead>
+  <tbody>
+    <tr><td>FP8 权重量化</td><td><code>transformer_quant=get_quantization_config("FP8")()</code><br>粒度 <code>tensor</code>（默认，快）或 <code>channel</code>（慢但准）</td><td>sm89+（H100 / L40S / RTX 4090）</td><td>旧卡自动退 bf16 反量化路径；无需额外依赖</td></tr>
+    <tr><td>NVFP4 + Attn-QAT</td><td><code>FASTVIDEO_ATTENTION_BACKEND=ATTN_QAT_INFER</code> + <code>transformer_quant=get_quantization_config("nvfp4_qat")()</code></td><td><strong>硬门槛 sm_120（RTX 5090）</strong></td><td>DiT 全 4bit；<strong>必须 <code>use_fsdp_inference=False</code></strong>；非 sm_120 会打日志退 FA</td></tr>
+    <tr><td>FP4 FlashAttention-4</td><td><code>FASTVIDEO_FA4=1</code> + <code>--nvfp4_fa4</code> / <code>nvfp4_fa4=True</code></td><td>Blackwell（sm100a/sm103a：B200/B300/GB200/GB300），CUDA 13+，Python 3.10/3.11</td><td>对比 BF16 余弦相似度 ~0.99；仅支持 <code>headdim ≥ 128</code>；FSDP 不兼容</td></tr>
+    <tr><td>torch.compile</td><td><code>compile.enabled=true</code> 或 <code>enable_torch_compile=True</code></td><td>通用</td><td>首次有图构建成本（数十秒~数分钟），<strong>测速必须丢掉第一次</strong></td></tr>
+    <tr><td>CFG 门控</td><td><code>FASTVIDEO_CFG_GATE_STEP=0.5</code></td><td>通用</td><td>近似算法；与 <code>guidance_rescale&gt;0</code> 的组合未验证；Wan2.2 高低噪切换会使缓存失效</td></tr>
+    <tr><td>VAE 分块解码</td><td><code>pipeline.vae_tiling=true</code></td><td>通用 / LTX-2 细粒度另有 4 个参数</td><td>省显存，可能影响速度</td></tr>
+    <tr><td>TeaCache</td><td><code>request.runtime.enable_teacache=true</code></td><td>通用</td><td>支持表中 Wan2.1 系列标 ✅，Wan2.2 标 ❌</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s10" class="anchor">10. 安装：三条平台路径</h2>
+
+<p>官方<strong>强烈推荐 <code>uv</code></strong> 而非 Conda。Python 要求 3.10–3.12（MPS 路径要 3.12.4），PyTorch 固定 <code>2.12.0</code>。</p>
+
+<h3>10.1 NVIDIA GPU（x86_64，Linux / WSL）</h3>
+<pre><code>uv venv --python 3.12 --seed
+source .venv/bin/activate
+
+# CUDA 12.6
+UV_TORCH_BACKEND=cu126 uv pip install fastvideo
+
+# CUDA 13.0
+UV_TORCH_BACKEND=cu130 uv pip install fastvideo
+
+# 可选：FlashAttention
+uv pip install flash-attn --no-build-isolation -v
+
+# 可选：H3 实测性能档所需的依赖集
+UV_TORCH_BACKEND=cu130 uv pip install -e ".[fasth3]"</code></pre>
+<p class="muted">源码安装：<code>git clone ... &amp;&amp; cd FastVideo</code> 后 <code>UV_TORCH_BACKEND=cu126 uv pip install -e .</code></p>
+
+<h3>10.2 NVIDIA DGX Spark（GB10 / aarch64 + CUDA 13）</h3>
+<div class="box box-warn">
+  <p><strong>没有 ARM64 预编译轮子</strong>，必须从源码 editable 安装（会现场编译 CUDA 内核）。用 <code>UV_TORCH_BACKEND=cu130 uv pip install -e .</code>，<strong>不是</strong> <code>uv pip install fastvideo</code>。FlashAttention 的 ARM64 轮子需单独装。</p>
+  <p><strong>GB10 没有 FA4 / sm_100a VSA 内核</strong>，必须保持 <code>FASTVIDEO_FA4=0</code> 与 <code>FASTVIDEO_VSA_SM100A=0</code>。H3 合法帧数为 <code>17n+5</code>，上限 362（15.08 秒）；单台 Spark 上请求 345 帧可能 OOM。两台 Spark 走 Ray + QSFP RoCE 做 <code>sp_size=2</code>。</p>
+</div>
+
+<h3>10.3 Apple Silicon（macOS 14+，你本地就是这条）</h3>
+<pre><code>brew install ffmpeg
+
+uv venv --python 3.12 --seed
+source .venv/bin/activate
+
+# 源码安装（推荐，FastH3 需要）
+uv pip install -e ".[mlx]"
+# 或直接装包
+uv pip install "fastvideo[mlx]"</code></pre>
+<table>
+  <thead><tr><th>权重</th><th>适用 Mac</th><th>运行脚本</th><th>形态</th></tr></thead>
+  <tbody>
+    <tr><td><code>FastVideo/FastMetal-1.3B-QAD</code></td><td>16 GB+ 统一内存</td><td><code>mlx_wan_prompt_to_video.py</code></td><td>开箱即用</td></tr>
+    <tr><td><code>FastVideo/FastMetal-5B-QAD</code></td><td>16 GB+</td><td><code>mlx_wan22_generate.py</code>（latent 布局不同，独立入口）</td><td>开箱即用</td></tr>
+    <tr><td><code>FastVideo/FastMetal-14B-QAD</code></td><td>36 GB+</td><td><code>mlx_wan_prompt_to_video.py</code></td><td>开箱即用</td></tr>
+    <tr><td><code>FastVideo/FastVideo-Minimax-FastH3-Preview-v0.2</code></td><td>M4 Max 36 GB 已验证</td><td><code>mlx_fasth3.py</code></td><td><strong>需本地 DiT 转换</strong></td></tr>
+  </tbody>
+</table>
+<pre><code># FastH3 on Mac：先下载 + 转换（int8 / int6 / int4 三选一）
+hf download FastVideo/FastVideo-Minimax-FastH3-Preview-v0.2 --local-dir ./FastH3-Preview-v0.2
+
+python scripts/checkpoint_conversion/convert_minimax_h3_mlx.py \
+  --model-root ./FastH3-Preview-v0.2/transformer \
+  --out ./FastH3-MLX \
+  --formats "int6"
+
+# 跑基线
+python examples/inference/basic/mlx_fasth3.py \
+  --model-root ./FastH3-Preview-v0.2 \
+  --mlx-checkpoint ./FastH3-MLX/int6 \
+  --prompt "(S1) A presenter says &lt;d&gt;[English] Fast H3 is amazing.&lt;/d&gt;" \
+  --height 480 --width 832 --num-frames 124 --seed 2026 \
+  --output-path ./outputs/fasth3_int6.mp4</code></pre>
+<p class="muted">Mac 上的可选加速开关：<code>--fast</code>（时间维快模式，用 MLX RIFE 补帧回目标帧数，音频保持全长）、<code>--fast-spatial</code>（空间维快模式，按 <code>--fast-spatial-scale</code> 降分辨率去噪再上采样，两者可叠加）、<code>--vsa</code>（需先用 <code>--include-vsa</code> 转换到<strong>新目录</strong>，不要覆盖已有 dense 导出）。</p>
+
+<div class="box box-tip">
+  <span class="t">💡 MLX 路径的当前边界（官方明示）</span>
+  <p>只支持 <strong>T2VA</strong>。FL2VA、Ref2VA、两阶段精修、<code>VideoGenerator</code> 注册表分发<strong>都还没接</strong>。INT8/INT6/INT4 量化是 <strong>weight-only</strong>，VSA 的 Q/K/V 仍是 BF16。</p>
+</div>
+
+<h2 id="s11" class="anchor">11. 权重与模型矩阵</h2>
+
+<p>共 <strong>46 个已注册模型家族</strong>（约 70 个 HF ID）。完整清单见 <code>docs/inference/support_matrix.md</code>，权威来源是 <code>fastvideo/registry.py</code>。按任务分类的重点：</p>
+
+<table>
+  <thead><tr><th>任务</th><th>代表模型</th><th>备注</th></tr></thead>
+  <tbody>
+    <tr><td>文本生视频（T2V）</td><td><code>Wan-AI/Wan2.1-T2V-1.3B-Diffusers</code>（入门首选）<br><code>FastVideo/FastWan2.1-T2V-1.3B-Diffusers</code></td><td>1.3B 是最轻的上手模型，文档默认示例都用它</td></tr>
+    <tr><td>图生视频（I2V）</td><td><code>Wan-AI/Wan2.1-I2V-14B-480P/720P-Diffusers</code><br><code>Wan-AI/Wan2.2-I2V-A14B-Diffusers</code></td><td>14B 级注意显存</td></tr>
+    <tr><td><strong>视频+音频同步</strong></td><td><code>MiniMaxAI/MiniMax-H3</code>（T2VA / FL2VA / Ref2VA）<br><code>FastVideo/FastVideo-FastH3-8-Step-V2</code>（8 步）<br><code>FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree</code>（4 步）</td><td><strong>与本项目最相关</strong>，见下</td></tr>
+    <tr><td>长视频 / 精修</td><td><code>FastVideo/LongCat-Video-T2V-Diffusers</code>（13.6B）<br>+ <code>...-T2V-Distilled-LoRA</code> / <code>...-T2V-Refinement-LoRA</code></td><td>480p 蒸馏 → 720p 精修两阶段，靠 BSA 块稀疏</td></tr>
+    <tr><td>图像生成（T2I）</td><td><code>black-forest-labs/FLUX.2-dev</code> / <code>FLUX.2-klein-4B/9B</code><br><code>zai-org/GLM-Image</code>、<code>Tongyi-MAI/Z-Image-Turbo</code>、<code>stabilityai/stable-diffusion-3.5-medium</code></td><td>同一个框架也能做图</td></tr>
+    <tr><td>音频生成</td><td><code>FastVideo/stable-audio-open-1.0-Diffusers</code>、<code>FastVideo/MMAudio-large-44k-v2-Diffusers</code></td><td>T2A / V2A；MMAudio 权重需本地转换 + 设 <code>MMAUDIO_MODEL_PATH</code></td></tr>
+    <tr><td>世界模型 / 游戏</td><td><code>FastVideo/Matrix-Game-2.0-*</code>、<code>FastVideo/HY-WorldPlay-Bidirectional-Diffusers</code>、<code>FastVideo/LingBot-World-Base-Cam-Diffusers</code>、<code>FastVideo/HunyuanGameCraft-Diffusers</code></td><td>带键鼠/相机控制输入</td></tr>
+  </tbody>
+</table>
+
+<h3>11.1 FastH3 三档对比（与你现有 H3 管线直接相关）</h3>
+<table>
+  <thead><tr><th></th><th>FastH3 8-Step V2</th><th>FastH3 4-step Preview v1</th><th>基础 MiniMax-H3</th></tr></thead>
+  <tbody>
+    <tr><td>HF ID</td><td><code>FastVideo/FastVideo-FastH3-8-Step-V2</code></td><td><code>FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree</code></td><td><code>MiniMaxAI/MiniMax-H3</code></td></tr>
+    <tr><td>DiT 前向次数</td><td>8 次（9 个 sigma 网格点）</td><td>4 次（5 个点）</td><td>—</td></tr>
+    <tr><td>训练 VSA 稀疏率</td><td><strong>0.8</strong></td><td><strong>0.9</strong></td><td>—</td></tr>
+    <tr><td>tile 大小</td><td>64</td><td>64</td><td>—</td></tr>
+    <tr><td>调度阶梯</td><td><code>[999,874,749,624,500,375,250,125]</code></td><td>native 5 点网格</td><td>video shift 12 / audio shift 3（来自 checkpoint）</td></tr>
+    <tr><td>scheduler shift</td><td>video 10 / audio 3</td><td>—</td><td>video 12 / audio 3</td></tr>
+    <tr><td>入口</td><td><code>basic_fasth3_8step.py</code></td><td><code>basic_fasth3.py</code></td><td><code>basic_minimax_h3_t2v.py</code> 等</td></tr>
+  </tbody>
+</table>
+
+<div class="box box-warn">
+  <span class="t">⚠️ 8-Step 的阶梯不能改</span>
+  <p>8-Step V2 的导出带一个 <code>fastvideo_inference.json</code> 契约文件（schema <code>fasth3-inference-contract-v1</code>），里面写死阶梯、点数、前向次数和双 shift。加载器会校验它与 <code>scheduler/scheduler_config.json</code>、<code>audio_scheduler/scheduler_config.json</code> 是否一致；<strong>阶梯缺失、点数不符或显式冲突都会直接报错</strong>，去噪器也会拒绝点数不对的请求。</p>
+  <p>另外：<strong>不要给 H3 设通用的 <code>flow_shift</code></strong>——H3 的 video 与 audio 是两条独立 shift，不是一个共享 shift。</p>
+</div>
+
+<h3>11.2 权重仓库（<strong>仅列清单，未下载</strong>）</h3>
+<p>全部在 HuggingFace 上的 <code>FastVideo</code> 组织下（<a href="https://huggingface.co/FastVideo">huggingface.co/FastVideo</a>），主要集合：</p>
+<ul>
+  <li><strong>FastH3 系列</strong>：<code>huggingface.co/collections/FastVideo/fastvideo-fasth3</code>（含 4-step / 8-step / VSA / Data-Free 各变体）</li>
+  <li><strong>FastMetal 系列</strong>（Apple Silicon）：<code>FastMetal-1.3B-QAD</code> / <code>5B-QAD</code> / <code>14B-QAD</code></li>
+  <li><strong>FastWan 系列</strong>：<code>FastWan2.1-T2V-1.3B-Diffusers</code> 等；量化版 <code>FastWan-QAD-1.3B</code> / <code>FastWan-QAD-FP8-1.3B</code></li>
+  <li><strong>训练数据集</strong>：<code>datasets/FastVideo/Wan-Syn_77x448x832_600k</code>、<code>Wan2.2-Syn-121x704x1280_32k</code></li>
+</ul>
+<p class="muted">注意：代码仓库体积（19.8 MB）与权重体积是两件事，不要把 HF 上的 GB 数算进代码体积。部分权重需要先在 HF 上接受许可协议，否则下载报 gated 错误 —— 此时执行 <code>huggingface-cli login</code>。</p>
+
+<h2 id="s12" class="anchor">12. 可直接复制的配置模板</h2>
+
+<h3>12.1 单卡最简入门（Wan2.1-T2V-1.3B）</h3>
+<pre><code># 保存为 wan_1.3b.yaml，然后：
+#   fastvideo generate --config wan_1.3b.yaml
+generator:
+  model_path: Wan-AI/Wan2.1-T2V-1.3B-Diffusers
+  engine:
+    num_gpus: 1
+    parallelism:
+      tp_size: 1
+      sp_size: 1
+    offload:
+      dit: false          # 单卡不用 FSDP 卸载
+      vae: false
+      pin_cpu_memory: false
+    compile:
+      enabled: false
+  pipeline:
+    experimental:
+      flow_shift: 8.0
+
+request:
+  prompt: &gt;-
+    A curious raccoon peers through a vibrant field of yellow sunflowers,
+    its eyes wide with interest, shallow depth of field.
+  sampling:
+    seed: 1024
+    num_frames: 77
+    height: 480
+    width: 832
+    fps: 16
+    num_inference_steps: 50
+    guidance_scale: 6.0
+  output:
+    output_path: outputs/wan_1.3b/
+    return_frames: false</code></pre>
+<p class="muted">运行：<code>FASTVIDEO_ATTENTION_BACKEND=FLASH_ATTN fastvideo generate --config wan_1.3b.yaml</code>（无 flash-attn 时用 <code>TORCH_SDPA</code>）。</p>
+
+<h3>12.2 单卡省显存 / OOM 救命版</h3>
+<pre><code>generator:
+  model_path: Wan-AI/Wan2.1-I2V-14B-480P-Diffusers
+  engine:
+    num_gpus: 1
+    offload:
+      dit: true
+      dit_layerwise: true      # 单卡推荐，开销可忽略
+      vae: true                # OOM 首选
+      image_encoder: true
+      text_encoder: false      # 最慢，最后才开
+      pin_cpu_memory: true
+    compile:
+      enabled: false
+  pipeline:
+    workload_type: i2v
+    vae_tiling: true           # 分块解码再降一档显存
+
+request:
+  prompt: "An astronaut hatching from an egg, on the surface of the moon."
+  inputs:
+    image_path: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/astronaut.jpg
+  sampling: { num_frames: 77, height: 480, width: 832, fps: 16, num_inference_steps: 40, guidance_scale: 5.0 }
+  output: { output_path: outputs/i2v/ }</code></pre>
+
+<h3>12.3 多卡 FSDP 加速版</h3>
+<pre><code>generator:
+  model_path: FastVideo/FastHunyuan-Diffusers
+  engine:
+    num_gpus: 4
+    execution_backend: mp         # 跨机才改 ray
+    use_fsdp_inference: true      # 权重分片，多卡推荐
+    parallelism:
+      tp_size: 1
+      sp_size: 4                  # 长视频用序列并行
+    offload:
+      dit: false                  # ★ FSDP 下必须关
+      dit_layerwise: false        # ★ FSDP 下必须关
+      pin_cpu_memory: true
+  pipeline:
+    experimental:
+      embedded_cfg_scale: 6
+      flow_shift: 17
+
+request:
+  prompt: A beautiful woman in a red dress walking down a street
+  sampling: { seed: 1024, num_frames: 125, height: 720, width: 1280, num_inference_steps: 6, guidance_scale: 1 }
+  output: { output_path: outputs_video/ }</code></pre>
+
+<h3>12.4 FastH3（4-step VSA，FastH3 Spark 官方配置原样）</h3>
+<pre><code>generator:
+  model_path: FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree
+  engine:
+    num_gpus: 1
+    use_fsdp_inference: false
+    parallelism: { tp_size: 1, sp_size: 1 }
+    offload:
+      dit: false
+      dit_layerwise: false
+      text_encoder: true
+      vae: true
+      pin_cpu_memory: true
+      lazy_module_load: true
+    compile:
+      enabled: false
+      vae_enabled: true
+  pipeline:
+    experimental:
+      attention_backend: VIDEO_SPARSE_ATTN_H3
+      VSA_sparsity: 0.9
+      VSA_tile_size: 64
+      inference_torch_compile: true
+      vae_parallel_decode: true
+      vae_parallel_decode_strategy: gather
+
+request:
+  prompt: &gt;-
+    A wide cinematic shot of an alpine meadow at sunrise, pale pink mountain
+    peaks above a blue valley filled with thin morning mist.
+  negative_prompt: ""
+  sampling:
+    seed: 2026
+    height: 768
+    width: 1344
+    num_frames: 124        # 合法值 17n+5
+    fps: 24
+    num_inference_steps: 5 # 网格点数：5 点 = 4 次前向
+    guidance_scale: 1.0
+    batch_cfg: false
+  output:
+    output_path: outputs/fasth3/
+    save_video: true
+    return_frames: false</code></pre>
+
+<h3>12.5 点号覆盖：不改文件，临时改一行</h3>
+<pre><code># 从 12.1 的模板出发，只换提示词和种子
+fastvideo generate --config wan_1.3b.yaml \
+  --request.prompt "A panda skiing at sunset" \
+  --request.sampling.seed 42
+
+# 临时加卡
+fastvideo generate --config wan_1.3b.yaml --generator.engine.num_gpus 2
+
+# 换输出目录
+bash scripts/inference/run.sh scripts/inference/inference_wan.yaml \
+  --request.output.output_path outputs/custom_run</code></pre>
+
+<h3>12.6 起一个 OpenAI 兼容服务端</h3>
+<pre><code># 保存为 serve.yaml
+generator:
+  model_path: FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree
+  engine:
+    num_gpus: 1
+    offload: { lazy_module_load: true }
+server:
+  host: 127.0.0.1     # 默认 0.0.0.0；本地开发建议锁回环
+  port: 8000
+  output_dir: outputs/
+  served_model_name: fasth3
+
+# 启动
+fastvideo serve --config serve.yaml
+
+# 健康检查（另一个终端）
+curl -s http://127.0.0.1:8000/health        # 期望 {"status":"ok"}
+
+# 浏览器打开内置 playground
+# http://127.0.0.1:8000/playground/</code></pre>
+<div class="box box-danger">
+  <span class="t">🚨 这个服务端没有内置鉴权</span>
+  <p>官方明确说明：这是本地开发服务器，<strong>不带 API key 认证</strong>，客户端里那个 <code>local</code> 只是占位符。要对外暴露必须先套一层带认证的 TLS 反向代理。示例里的 <code>FASTVIDEO_API_KEY</code> 也<strong>绝不要</strong>复用任何 OpenAI 云端的 key。</p>
+</div>
+
+<h3>12.7 Python API 最小可用片段</h3>
+<pre><code>import os
+os.environ["FASTVIDEO_ATTENTION_BACKEND"] = "VIDEO_SPARSE_ATTN"  # 必须在实例化之前
+
+from fastvideo import VideoGenerator, SamplingParam, PipelineConfig
+
+model = "Wan-AI/Wan2.1-T2V-1.3B-Diffusers"
+
+cfg = PipelineConfig.from_pretrained(model)
+cfg.vae_precision = "fp16"
+
+gen = VideoGenerator.from_pretrained(
+    model,
+    num_gpus=1,
+    dit_layerwise_offload=True,
+    pipeline_config=cfg,
+)
+
+sp = SamplingParam.from_pretrained(model)
+sp.num_frames = 45
+sp.width, sp.height = 1024, 576
+sp.num_inference_steps = 30
+sp.guidance_scale = 7.5
+sp.seed = 42
+
+video = gen.generate_video(
+    "A beautiful sunset over a calm ocean, with gentle waves.",
+    sampling_param=sp,
+    output_path="my_videos/",
+    save_video=True,
+)
+print(f"Generated {len(video['frames'])} frames")</code></pre>
+<p class="muted">注意 <code>SamplingParam.update()</code> 会校验键名——传了未声明的字段会直接抛 <code>ValueError</code>（这点比 YAML 的 <code>experimental</code> 安全）。</p>
+
+<h2 id="s13" class="anchor">13. 坑与风险清单</h2>
+
+<h3>13.1 配置类坑（最容易浪费时间的）</h3>
+<table>
+  <thead><tr><th>坑</th><th>表现</th><th>解法</th></tr></thead>
+  <tbody>
+    <tr><td><code>FASTVIDEO_ATTENTION_BACKEND</code> 只解析一次</td><td>循环 benchmark 时后续轮次仍用旧后端；改了没生效</td><td>每次改完<strong>重新实例化</strong> <code>VideoGenerator</code></td></tr>
+    <tr><td>CLI 的 <code>return_frames</code> 默认被翻成 false</td><td>以为拿到了帧，实际是空</td><td>显式写 <code>request.output.return_frames: true</code></td></tr>
+    <tr><td><code>experimental</code> / <code>extensions</code> 无 schema</td><td>键名拼错→静默失效，不报错</td><td>只抄官方 YAML 里出现过的键（第 7.3 节列全了）</td></tr>
+    <tr><td>统一内存设备上卸载开关失效</td><td>GB10 / Mac 上设了 <code>text_encoder: true</code> 却没省内存</td><td>正常行为；改走 <code>lazy_module_load</code></td></tr>
+    <tr><td>FSDP 与 FP4 互斥</td><td>开了 <code>use_fsdp_inference</code> 又开 FP4 → 指针失效</td><td>二选一</td></tr>
+    <tr><td><code>offload.dit_layerwise</code> 与 FSDP 不兼容</td><td>多卡下性能反而差</td><td>多卡时显式设为 <code>false</code></td></tr>
+    <tr><td>区域编译与 <code>compile.mode</code> 冲突</td><td>torch.compile 报 mode + options 互斥</td><td>区域编译下不要给 <code>mode</code></td></tr>
+    <tr><td>H3 设了通用 <code>flow_shift</code></td><td>语义错</td><td>H3 用 checkpoint 自带的 video/audio 双 shift，不要覆盖</td></tr>
+    <tr><td>H3 <code>num_frames</code> 非法</td><td>报错或 OOM</td><td>必须 <code>17n+5</code>，≤345（Spark ≤362）</td></tr>
+    <tr><td>8-Step 改了 <code>--steps</code></td><td>脚本直接拒绝</td><td>必须 9 个网格点</td></tr>
+    <tr><td>缺少 <code>FASTVIDEO_HOST_IP</code>（双 Spark）</td><td>Placement group 无限等待，日志里出现 <code>node:192.168.1.x</code></td><td>每个 <code>ray start</code> 和 driver 上都设，且用 QSFP 地址</td></tr>
+    <tr><td>单台 Spark 请求 345 帧</td><td>OOM</td><td>降到 ≤362 内的更低值并评估显存</td></tr>
+    <tr><td>GB10 上开了 FA4 / sm_100a VSA</td><td>内核不存在</td><td><code>FASTVIDEO_FA4=0</code>、<code>FASTVIDEO_VSA_SM100A=0</code></td></tr>
+    <tr><td>测 torch.compile 时把首次生成算进去</td><td>错误地得出"编译更慢"</td><td>丢掉第一次（图构建），只测稳态</td></tr>
+  </tbody>
+</table>
+
+<h3>13.2 精度 / 数值风险（官方自认的"非对齐安全"项）</h3>
+<table>
+  <thead><tr><th>开关</th><th>官方给出的量化影响</th></tr></thead>
+  <tbody>
+    <tr><td>MiniMax-H3 <strong>区域 fullgraph 编译</strong></td><td>一个 GB200、768×1344×124 的实测：e2e 185.08s → 157.01s，去噪 174.90s → 147.12s；但编译输出<strong>与 eager 不一致</strong>——平均像素绝对误差 <strong>20.247/255</strong>、PSNR <strong>16.67 dB</strong>、SSIM <strong>0.7108</strong>、MS-SSIM <strong>0.6370</strong>（124 帧）。<strong>官方明确说是"opt-in 性能实验，不是 eager 对齐安全模式"</strong></td></tr>
+    <tr><td><code>FASTVIDEO_MINIMAX_H3_FUSIONS=all</code></td><td>FastH3 的 <code>all</code> 档默认开启区域编译，因为它是在 124/243/345 帧上最快的实测路径；但同样会改数值。对比 eager 稀疏 DiT 时用 <code>--no-inference-torch-compile</code></td></tr>
+    <tr><td>FP4 注意力</td><td>每次调用对比 BF16 余弦相似度约 <strong>0.99</strong>（量化误差随去噪步累积）</td></tr>
+    <tr><td><code>FASTVIDEO_CFG_GATE_STEP &lt; 1.0</code></td><td>算法近似，非逐位对齐；与 <code>guidance_rescale&gt;0</code> 的组合未验证；Wan2.2 高低噪专家切换会让缓存失效</td></tr>
+    <tr><td><code>FASTVIDEO_MINIMAX_H3_FA4_PACKED_VARLEN</code></td><td>改变浮点归约顺序，官方定位为"速度/质量评估选项，而非精确对齐模式"</td></tr>
+    <tr><td>通用 <code>torch.compile</code></td><td>官方 SSIM 回归测试是<strong>在 compile 关闭下</strong>跑的；依赖数值一致性时请对你的配置自建 MS-SSIM 门槛</td></tr>
+  </tbody>
+</table>
+
+<h3>13.3 许可风险（商用前必查）</h3>
+<div class="box box-danger">
+  <span class="t">🚨 代码开源 ≠ 权重可商用</span>
+  <ul>
+    <li><strong>仓库代码</strong>：Apache-2.0，宽松。</li>
+    <li><strong>MiniMax H3 系列权重</strong>：适用 <strong>MiniMax H3 Community License</strong>（自定义许可，非 Apache）。FastH3 / FastH3-Preview 都继承此许可。官方多处提示"使用或再分发前请阅读 model card"。</li>
+    <li><strong>Lucy Edit Dev</strong>：非商业许可（模型卡明确标注）。</li>
+    <li><strong>MMAudio</strong>：注册了 HF ID 但<strong>尚未公开</strong>，需按官方 README 本地转换官方权重。</li>
+    <li>另有 gated 权重需先在 HF 接受协议，否则下载失败。</li>
+  </ul>
+  <p>结论：<strong>拿代码做内部产品/服务没问题；把某权重做成对外商业产品前，逐个核对那张 model card。</strong></p>
+</div>
+
+<h3>13.4 未验证项（别把"没测"当"不支持"）</h3>
+<ul>
+  <li>支持矩阵里<strong>未列出的模型 + 优化组合一律是"未测试"，不是不兼容</strong>。</li>
+  <li>完整 H3 CUDA 示例默认要 4 张 GPU，但<strong>源码里没有声明 GPU 型号或显存下限</strong>——官方自己标为 "Source-backed" 而非 "Verified"。</li>
+  <li>FastH3 CUDA 性能档是在 <strong>4×GB200</strong> 上测的；其他配置的组合值属于"支持但未在此处实测"。</li>
+  <li><code>torch.compile</code> 的加速比（Wan2.1-1.3B / A100-80GB / 480×832×81f：259.7s → 198.1s）是<strong>单个数据点，不是保证</strong>。</li>
+  <li>MLX 路径的多项能力（FL2VA/Ref2VA/两阶段精修）官方标注 "not wired"，属未实现而非未测。</li>
+</ul>
+
+<h2 id="s14" class="anchor">14. 对你（短剧解说线）的落地建议</h2>
+
+<p>你现在的工具链是 ComfyUI + MiniMax H3 两阶段（H3 草稿 → LTX-2.5 精修），目标是把"剧本 → 分镜 → 批量出片 → 后期 → 字幕外挂"这条线跑成可复用的产线。FastVideo 对这条线有三处<strong>直接可用</strong>的价值，按投入产出排序：</p>
+
+<h3>第一优先：把 FastVideo 当"出片加速器"，而不是替换 ComfyUI</h3>
+<p>理由很实在——<strong>你已经在用 MiniMax H3，而 FastH3 就是 H3 的官方蒸馏版，4 步 / 8 步出片</strong>，且视频与音频同步生成。原来 H3 草稿阶段的成本主要是去噪步数，蒸馏后能压到 4~8 次前向。</p>
+<ul>
+  <li>先在你现有 Mac 上验证质量：走 10.3 节的 MLX 路径（<code>--fast</code> / <code>--fast-spatial</code> 两个加速开关也一起试）。这条路径<strong>不需要 NVIDIA 卡</strong>，是本机就能完成的最小验证。</li>
+  <li>Mac 上只支持 T2VA，所以这一轮只验证"文本 → 视频+音频"，FL2VA/Ref2VA 要留到 CUDA 环境。</li>
+  <li>8-Step V2 的阶梯是<strong>训练死的</strong>，别试图调 <code>--steps</code>；4-Step Preview 同理。想要更少步数只能换 checkpoint。</li>
+</ul>
+
+<h3>第二优先：用 <code>fastvideo serve</code> 把出片变成 API</h3>
+<p>这是从"本地脚本"走向"可交付产品"的关键一步。你的产线如果需要一个批量出片的服务层，它现成给了 OpenAI 兼容的 <code>/v1/videos</code>。</p>
+<ul>
+  <li>配置直接抄 12.6 节，注意 <code>server.host</code> 默认是 <code>0.0.0.0</code>——本机开发建议改成 <code>127.0.0.1</code>。</li>
+  <li>它<strong>没有鉴权</strong>，如果将来要放到公网给客户用，反向代理那一层是必须自己补的。</li>
+  <li><code>serve</code> 配置支持 <code>default_request</code>（服务端固化的基线请求）和 <code>streaming</code> 段（会话超时、segment 上限、显存池、提示词增强、内容安全），这几个是做成产品时真正要调的旋钮。</li>
+</ul>
+
+<h3>第三优先：从代码里"搬配置"而不是"搬代码"</h3>
+<p>这一条最容易被忽略，但可能是最短路径。FastVideo 的配置面（第 4–9 节那张表）本质上是<strong>一份经过验证的"H3 推理参数知识库"</strong>——VSA 稀疏率多少、tile 多大、哪些 offload 组合在什么硬件上可行、H3 帧数的合法约束是什么。这些结论可以直接映射回你的 ComfyUI 工作流节点参数。</p>
+<p>具体做法：把 12.4 节那份 FastH3 配置里的 <code>experimental</code> 键值，逐个对照到你的 ComfyUI 节点上，看看哪些是你现在没开、或者开错值的。<strong>不用装 FastVideo 也能受益。</strong></p>
+
+<h3>关于变现路径，说句直接的</h3>
+<p>FastVideo 本身是 Apache-2.0 的研究框架，直接卖它不成立；但它是<strong>成本侧</strong>的杠杆——它把"一条 5 秒带音频的成片"的 GPU 时间压到原来的几分之一（4 步 vs 50 步，这是 10 倍量级的差别）。变现落点仍然在你自己那条链上：解说文案 + 分镜 + 批量出片 + 后期包装，FastVideo 负责把中间"出片"这步的边际成本打下来。所以现在的正确动作不是研究 FastVideo 的全部特性，而是<strong>先在本机用 MLX 路径跑通一个 FastH3 的 480p 样片</strong>，拿到"质量能否接受"这个结论——这一条不过，后面都不必谈。</p>
+
+<hr>
+
+<h3>附：本地文件索引</h3>
+<table>
+  <thead><tr><th>路径</th><th>内容</th></tr></thead>
+  <tbody>
+    <tr><td><code>repos/FastVideo/</code></td><td>完整源码（2,530 文件，19.8 MB）</td></tr>
+    <tr><td><code>repos/FastVideo/fastvideo/envs.py</code></td><td><strong>环境变量权威注册表</strong>（384 行）</td></tr>
+    <tr><td><code>repos/FastVideo/fastvideo/api/schema.py</code></td><td><strong>YAML 配置权威 schema</strong></td></tr>
+    <tr><td><code>repos/FastVideo/fastvideo/fastvideo_args.py</code></td><td>运行时真值对象（1,571 行）</td></tr>
+    <tr><td><code>repos/FastVideo/fastvideo/api/sampling_param.py</code></td><td>采样参数定义</td></tr>
+    <tr><td><code>repos/FastVideo/scripts/inference/*.yaml</code></td><td><strong>18 份可运行的推理配置样例</strong>（含 Wan / Hunyuan / LongCat / VSA / DMD）</td></tr>
+    <tr><td><code>repos/FastVideo/examples/inference/basic/</code></td><td>82 个模型示例脚本 + 2 份 FastH3 Spark YAML</td></tr>
+    <tr><td><code>repos/FastVideo/docs/inference/configuration.md</code></td><td>官方配置文档</td></tr>
+    <tr><td><code>repos/FastVideo/docs/inference/optimizations.md</code></td><td>官方优化文档（541 行）</td></tr>
+    <tr><td><code>repos/FastVideo/docs/inference/support_matrix.md</code></td><td>模型 × 优化兼容矩阵</td></tr>
+    <tr><td><code>repos/FastVideo/docs/cookbook/</code></td><td>17 个模型家族的配方页</td></tr>
+    <tr><td><code>repos/FastVideo/.agents/skills/add-model/</code></td><td>官方"新增模型"的 10 步 skill 流程（研究价值高）</td></tr>
+  </tbody>
+</table>
+<p class="muted">索引数据来源：GitHub REST API 文件树（<code>_meta/tree_fastvideo.json</code>）+ 本地源码逐文件读取。所有数值均来自仓库内文件或上游 API，未做推测。</p>
+
+</div>
+</body>
+</html>

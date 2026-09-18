@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H3 竖版单镜验证报告 · 2026-09-16</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1b1f24; --ink2:#4a5158; --ink3:#7b848d;
+    --line:#e3e6ea; --accent:#c8102e; --ok:#1a7f4b; --warn:#b26a00; --bad:#b3261e;
+    --okbg:#eaf6ef; --warnbg:#fdf4e3; --badbg:#fdecea; --accentbg:#fdeef1;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.75;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 28px 80px;}
+  header{border-bottom:3px solid var(--accent);padding-bottom:20px;margin-bottom:34px;}
+  h1{font-size:27px;margin:0 0 8px;letter-spacing:-.3px;}
+  .sub{color:var(--ink3);font-size:13.5px;}
+  h2{font-size:19px;margin:44px 0 14px;padding-left:11px;border-left:4px solid var(--accent);}
+  h3{font-size:15.5px;margin:26px 0 10px;color:var(--ink2);}
+  p{margin:10px 0;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 22px;margin:16px 0;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;}
+  .kpi .n{font-size:23px;font-weight:650;letter-spacing:-.5px;}
+  .kpi .l{font-size:12.5px;color:var(--ink3);margin-top:2px;}
+  .kpi .d{font-size:12.5px;color:var(--ink2);margin-top:8px;border-top:1px dashed var(--line);padding-top:8px;}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{background:#f0f2f5;font-weight:600;font-size:12.5px;color:var(--ink2);}
+  tr:last-child td{border-bottom:none;}
+  code{background:#eef1f4;padding:1.5px 6px;border-radius:4px;font-size:12.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  pre{background:#f0f2f5;border:1px solid var(--line);border-radius:8px;padding:13px 15px;
+    overflow-x:auto;font-size:12.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.6;}
+  figure{margin:18px 0;}
+  figure img{width:100%;border:1px solid var(--line);border-radius:8px;display:block;background:#fff;}
+  figcaption{font-size:12.5px;color:var(--ink3);margin-top:8px;}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:20px;font-weight:600;
+    vertical-align:middle;margin-left:6px;}
+  .t-ok{background:var(--okbg);color:var(--ok);}
+  .t-warn{background:var(--warnbg);color:var(--warn);}
+  .t-bad{background:var(--badbg);color:var(--bad);}
+  .t-info{background:var(--accentbg);color:var(--accent);}
+  .box{border-left:4px solid var(--line);padding:13px 18px;margin:16px 0;background:var(--card);
+    border-radius:0 8px 8px 0;font-size:14px;}
+  .box.ok{border-left-color:var(--ok);background:var(--okbg);}
+  .box.warn{border-left-color:var(--warn);background:var(--warnbg);}
+  .box.bad{border-left-color:var(--bad);background:var(--badbg);}
+  ul,ol{margin:10px 0;padding-left:22px;}
+  li{margin:6px 0;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .two figure{margin:0;}
+  .small{font-size:13px;color:var(--ink2);}
+  footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink3);}
+  @media(max-width:760px){.grid3,.two{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>H3 竖版单镜验证报告</h1>
+  <div class="sub">
+    项目：抖音广告复刻（双片）· 远端 RTX 4090（<code>117.50.188.156:23</code>）· 2026-09-16<br>
+    本轮目标：① 产品素材改用参考视频里提取的真实产品　② 跑单镜验竖版构图
+  </div>
+</header>
+
+<h2>一、结论速览</h2>
+
+<div class="grid3">
+  <div class="kpi">
+    <div class="n" style="color:var(--ok)">竖版成立 ✓</div>
+    <div class="l">768×1344 / 24fps / 361 帧 / 15.04s</div>
+    <div class="d">构图、人物比例、环境交代全部正常，无变形。<b>可以直接投产。</b></div>
+  </div>
+  <div class="kpi">
+    <div class="n" style="color:var(--ok)">烧字幕已解决 ✓</div>
+    <div class="l">根因：对白写法里的英文双引号</div>
+    <div class="d">去掉引号后烧入字幕<b>完全消失</b>，已批量修 25 处。</div>
+  </div>
+  <div class="kpi">
+    <div class="n" style="color:var(--warn)">产品壳只到「形似」</div>
+    <div class="l">壳形能生成，印刷内容做不到</div>
+    <div class="d">品牌字 + 产品图必须走后期贴图，或改走图生视频。</div>
+  </div>
+</div>
+
+<h2>二、产品素材：已从参考视频提取</h2>
+
+<p>查证后有个意外发现 —— <b>两条片子其实是同一品牌同款产品</b>：<b>「醉锅里 · 鲍汁红烧酱」</b>（自立袋，半固态复合调味料）。所以两片共用一套产品素材与描述。</p>
+
+<p>从源视频（720×1280）抽帧、裁切、放大，归档在 <code>h3-films/_product/</code>，规格卡见 <a href="_product/PRODUCT.md">PRODUCT.md</a>。</p>
+
+<figure>
+  <img src="_product/product_contact_sheet.jpg" alt="产品素材">
+  <figcaption>左：产品正面特写（4×）—— 米白挂孔顶条、白色书法大字、下部红烧肉实拍图<br>
+  中：厨房手持场景　右：餐厅桌面静置场景</figcaption>
+</figure>
+
+<h3>产品外观事实（写进 prompt 的依据）</h3>
+<table>
+  <tr><th style="width:110px">项</th><th>内容</th></tr>
+  <tr><td>主色</td><td>鲜亮番茄红 / 砖红，亮面镀铝复合膜，边缘锐利白色镜面高光</td></tr>
+  <tr><td>比例</td><td>正面约 200:253，<b>高比宽约 1.27 倍</b>（细长竖袋，非方袋）</td></tr>
+  <tr><td>顶部</td><td>米白/象牙色横条带，正中圆形挂孔</td></tr>
+  <tr><td>中部</td><td>白色手写书法体品名（4–5 字）+ 细白字拼音 + 小字品类</td></tr>
+  <tr><td>下部</td><td>浅色盘中红亮油润的红烧肉块（带葱段、蒜）</td></tr>
+  <tr><td>表面</td><td>袋身折痕与褶皱、边缘反光</td></tr>
+</table>
+
+<h2>三、三个镜头的实测</h2>
+
+<table>
+  <tr><th>镜头</th><th>用途</th><th>草稿 / 精修</th><th>合计</th><th>显存峰值</th><th>结果</th></tr>
+  <tr>
+    <td>片1 镜 12</td><td>卖货段中景（人物 + 手持产品）</td>
+    <td>120.0 s / 148.2 s</td><td><b>268.2 s</b></td><td>23.18 GiB</td>
+    <td><span class="tag t-warn">验出两个问题</span></td>
+  </tr>
+  <tr>
+    <td>片1 镜 2</td><td>对白镜（字幕根因对照）</td>
+    <td>107.4 s / 139.4 s</td><td><b>246.8 s</b></td><td>23.24 GiB</td>
+    <td><span class="tag t-ok">字幕消失</span></td>
+  </tr>
+  <tr>
+    <td>片1 镜 13</td><td>卖货段产品镜（优化后壳描述）</td>
+    <td>107.0 s / 142.1 s</td><td><b>249.1 s</b></td><td>23.20 GiB</td>
+    <td><span class="tag t-warn">壳形改善仍不够</span></td>
+  </tr>
+</table>
+
+<div class="box ok">
+  <b>热跑稳定在 248 秒/镜</b>，比原估的 288.3 秒<b>快 40 秒（约 14%）</b>。显存峰值 23.2 GiB，
+  对 24 GiB 的 4090 是安全的，全程无 OOM。
+</div>
+
+<h2>四、验证结论 1 · 竖版构图成立</h2>
+
+<figure>
+  <img src="film1-office/shots/shot13_sheet.jpg" alt="镜13 四帧">
+  <figcaption>镜 13（卖货段中近景）四个时间点 —— 人物居中稳定、厨房环境完整、台面反射自然，
+  9:16 画幅下没有任何挤压或变形</figcaption>
+</figure>
+
+<figure>
+  <img src="film1-office/shots/shot02_sheet.jpg" alt="镜2 四帧">
+  <figcaption>镜 2（雨夜落难 · 男主管走过）—— 低机位特写、中景、背影四种景别在竖幅里都成立，
+  电影感完整。<b>画面里没有任何字幕或杂字。</b></figcaption>
+</figure>
+
+<div class="box ok">
+  <b>判定：竖版链路可用，不必回退横版。</b>H3 虽在 16:9 上主训，但 768×1344 的输出构图稳定、
+  人物比例正常。原计划里「竖版崩 → 回退横版裁切」的备选方案<b>不启用</b>。
+</div>
+
+<h2>五、验证结论 2 · 烧字幕的根因与修法 <span class="tag t-info">重要</span></h2>
+
+<p>第一次跑的镜 12 里，画面下半部被烧进了一行白字中文 —— 而且写错了字（模型自造异体字）。这违反了「成片不烧字幕」的既定约定，必须解决。</p>
+
+<figure>
+  <img src="film1-office/shots/shot12_sub_evidence.jpg" alt="烧字幕证据">
+  <figcaption>镜 12 第 9.6 秒 —— 画面被烧入白字台词，且文字是模型自造的错字（"現 / 顧 / 屣 / 嘗" 混杂）</figcaption>
+</figure>
+
+<h3>根因：不是模型固有行为，而是我们的对白写法</h3>
+
+<table>
+  <tr><th style="width:50%">原来的写法（会烧字幕）</th><th>官方示例的写法（不烧字幕）</th></tr>
+  <tr>
+    <td><code>&lt;d&gt;[Chinese] "我赶时间，别挡道。"&lt;/d&gt;</code></td>
+    <td><code>&lt;d&gt;[Chinese] 我赶时间，别挡道。&lt;/d&gt;</code></td>
+  </tr>
+  <tr>
+    <td class="small">台词两侧加了<b>英文双引号</b></td>
+    <td class="small">不加引号 —— 这是节点自带示例库里的写法</td>
+  </tr>
+</table>
+
+<p>对照实验：用同一镜（镜 2）、同一 seed，只把台词引号去掉。结果 ——</p>
+
+<figure>
+  <img src="film1-office/shots/shot02_sheet.jpg" alt="去引号后">
+  <figcaption>去掉引号后的镜 2：<b>字幕完全消失</b>，其余画面内容照常（人物、动作、景别都在）。
+  推论成立。</figcaption>
+</figure>
+
+<div class="box ok">
+  <b>已批量修复</b>：两片共 25 处对白（片 1 十二处 / 片 2 十三处）全部去掉英文双引号，
+  manifest 已重建并推送到远端。<code>h3-films/p1_data.py</code> · <code>p2_data.py</code>
+</div>
+
+<div class="box">
+  <b>顺带确认</b>：画面里出现的纸张文档，模型处理成了「不可读的淡灰线条」，没有生成乱码汉字。
+  也就是说，<b>没有台词的镜头天然干净</b>，卖货段（本就写死 No speech）不受此问题影响。
+</div>
+
+<h2>六、验证结论 3 · 产品壳只能到「形似」</h2>
+
+<p>产品描述替换后跑了两版。第一版（镜 12）与优化后的第二版（镜 13）对比：</p>
+
+<div class="two">
+  <figure>
+    <img src="film1-office/shots/shot12_prod_closeup.jpg" alt="第一版产品壳">
+    <figcaption><b>第一版</b>：红袋 + 米白顶条 + 产品图 —— 但产品图占了袋身 2/3，比例失衡，
+    中间还多了多余的白框线</figcaption>
+  </figure>
+  <figure>
+    <img src="film1-office/shots/shot13_sheet.jpg" alt="第二版产品壳">
+    <figcaption><b>第二版</b>：中部红底留白区明显变大、白框线消失 —— 但产品图变成了
+    「袋子前面摆的一盘实物菜」，没有融合成袋身印刷图案</figcaption>
+  </figure>
+</div>
+
+<h3>能做到 / 做不到</h3>
+<table>
+  <tr><th style="width:150px">项</th><th>实测结果</th></tr>
+  <tr><td>红色自立袋形态</td><td><span class="tag t-ok">能做到</span> 高光、折痕、镀铝质感都对</td></tr>
+  <tr><td>米白挂孔顶条</td><td><span class="tag t-ok">能做到</span>位置与形状基本对</td></tr>
+  <tr><td>中部大面积留白</td><td><span class="tag t-ok">能做到</span>已调出来，便于后期贴图</td></tr>
+  <tr><td>品牌名 + 品名文字</td><td><span class="tag t-bad">做不到</span>模型写中文必出错字，只能后期贴</td></tr>
+  <tr><td>袋身印刷产品图</td><td><span class="tag t-bad">做不到</span>会被画成前景实物盘子，融不进袋面</td></tr>
+  <tr><td>袋身长宽比</td><td><span class="tag t-warn">不稳</span>实测生成的袋子偏宽偏方（真实是 1.27:1 细长袋）</td></tr>
+</table>
+
+<div class="box warn">
+  <b>本质限制</b>：H3 是生成模型，它理解「包装」的壳，但不理解「包装上的印刷图案」。
+  继续调 prompt 的边际收益已经很低。产品还原度必须靠下面两条路之一来兜。
+</div>
+
+<h2>七、两条兜底路线（需要你选）</h2>
+
+<table>
+  <tr><th style="width:170px">路线</th><th>做法</th><th>产品还原度</th><th>代价</th></tr>
+  <tr>
+    <td><b>A · 后期贴图</b><br><span class="small">（推荐）</span></td>
+    <td>生成层只画「干净的红色留白袋」，把真产品图 <code>product_front_4x.jpg</code>
+      用 hypit 做透视贴图盖到袋面上</td>
+    <td>文字与图案 <b>100% 准确</b></td>
+    <td>每镜要标 4 个角点做透视匹配；袋子若不是平面正对镜头，贴合会略歪</td>
+  </tr>
+  <tr>
+    <td><b>B · 图生视频</b><br><span class="small">(I2VA)</span></td>
+    <td>用真产品帧作首帧参考，让 H3 在此基础上动 —— 远端已有现成的 I2VA / Ref2VA 工作流</td>
+    <td>外观保真度<b>高</b>，但重绘时文字可能轻微畸变</td>
+    <td>要改工作流与参数链路，需先单独跑一镜验证（约 5 分钟）</td>
+  </tr>
+</table>
+
+<div class="box">
+  <b>我的建议</b>：卖货段的产品特写镜走 <b>A</b>（贴图，零风险、可换自有产品），
+  剧情段的自然出现（远景/手持）保持现在的生成结果即可 —— 那种景别下观众看不出差异。
+  如果你想一步到位，我可以先跑一镜 <b>B</b> 做对照，再定。
+</div>
+
+<h2>八、顺带发现的两个问题</h2>
+
+<h3>1. 单镜内人物脸会漂</h3>
+<p>镜 12 的四帧里，第 1–2 帧与第 3–4 帧明显不是同一张脸（脸型、年龄感都变了）。
+镜 13 和镜 2 的漂移轻很多。原因：H3 生成时每镜独立、且 15 秒内没有强锚点。
+对策可选：加强 <code>&lt;Subject N&gt;</code> 描述在三个时间切片里各重复一次，或接受轻微差异
+（短剧节奏下观众容忍度高）。<b>需要重跑时告诉我。</b></p>
+
+<h3>2. 场景与 prompt 有偏差</h3>
+<p>镜 2 的 prompt 写的是「雨夜、湿滑台阶、雨水顺着镜头流」，生成结果是无雨的白天大堂。
+雨戏的天气词对 H3 的约束偏弱。如果雨夜是必须的，需要在 prompt 里加倍强调
+（或改用参考图引导）。<b>不影响竖版判定，但成片质感会差一截。</b></p>
+
+<h2>九、耗时基线更新</h2>
+
+<table>
+  <tr><th>口径</th><th>原估</th><th>本轮实测</th><th>变化</th></tr>
+  <tr><td>单镜（草稿+精修连跑）</td><td>288.3 s</td><td><b>248 s</b></td><td style="color:var(--ok)">快 40 s / 省 14%</td></tr>
+  <tr><td>草稿 Stage1</td><td>120.6 s</td><td>107.0 – 120.0 s</td><td style="color:var(--ok)">略快</td></tr>
+  <tr><td>精修 Stage2</td><td>167.7 s</td><td>139.4 – 148.2 s</td><td style="color:var(--ok)">快约 20 s</td></tr>
+  <tr><td>显存峰值</td><td>—</td><td>23.2 GiB / 24 GiB</td><td>安全</td></tr>
+</table>
+
+<p>按实测口径重算单片 20 镜（连跑、不拆分）：<b>248 s × 20 ≈ 82.7 分钟</b>，两片串行约 <b>165 分钟</b>。
+比原排产的 127.9 分钟反而更慢 —— 因为原排产假设了「拆两批」能把装载成本摊薄到 56.5 分钟，
+而本轮实测是<b>连跑</b>口径，每镜都要付一次装载钱。</p>
+
+<div class="box warn">
+  <b>所以「拆两批」这个优化还没被实测证明。</b>建议正式开工前先跑一次 5 镜草稿批测速
+  （约 8 分钟），确认草稿批的热跑速度，再决定用哪种排产。别拿没验过的数字定计划。
+</div>
+
+<h2>十、远端工程现状</h2>
+
+<table>
+  <tr><th style="width:200px">项</th><th>状态</th></tr>
+  <tr><td>ComfyUI 服务</td><td><b>已启动</b>（v0.35.0，端口 8188，冷启动约 15 秒）</td></tr>
+  <tr><td>两片工程</td><td><code>/workspace/films/douyin-office</code> · <code>douyin-blinddate</code>，manifest 均为最新（含产品与对白修正）</td></tr>
+  <tr><td>已完成成镜</td><td><code>final/shot02.mp4</code> · <code>shot12.mp4</code> · <code>shot13.mp4</code>（已回传本地）</td></tr>
+  <tr><td>产品参考素材</td><td>已上传 <code>/workspace/ComfyUI/input/product_ref/</code>（若走路线 B 直接可用）</td></tr>
+  <tr><td>显存</td><td>13 GiB 常驻（模型缓存），GPU 空闲</td></tr>
+</table>
+
+<div class="box bad">
+  <b>踩过的坑（已写进 PIPELINE.md）</b>：<code>10_run_film.py</code> 是通过 HTTP API 提交工作流的，
+  <b>服务没起来会直接报「草稿失败 / Connection refused」</b>。机器重启后必须先把 ComfyUI 拉起来，
+  再跑生成。<code>start_film.sh</code> 本身<b>不含</b>拉服务这一步。
+</div>
+
+<h2>十一、需要你定的事</h2>
+
+<ol>
+  <li><b>产品兜底走哪条路？</b> A 后期贴图（推荐）／ B 图生视频先跑一镜对照／ 或者两者都要。</li>
+  <li><b>人物脸漂移要不要修？</b> 强化角色锚定后重跑，还是先接受、看整片效果再说。</li>
+  <li><b>正式开工的排产口径？</b> 先跑 5 镜草稿批测速（8 分钟）再定，还是直接按连跑口径排。</li>
+  <li><b>口播用 TTS 还是真人？</b>（上一轮遗留，影响后期混轨方式。）</li>
+</ol>
+
+<footer>
+  H3 竖版单镜验证报告 · 生成于 2026-09-16 · 远端 RTX 4090 / ComfyUI 0.35.0 / MiniMax H3 + LTX-2.5 两阶段<br>
+  相关文件：<code>h3-films/PIPELINE.md</code>　<code>h3-films/_product/PRODUCT.md</code>　
+  <code>h3-films/film1-office/shots/</code>
+</footer>
+
+</div>
+</body>
+</html>

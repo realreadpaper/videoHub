@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S1",
+  "text": "连一句求助都不愿意听完，这样的人进了公司也只会踩着别人往上爬。",
+  "mp3": "s03_0.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 4.133
+ },
+ {
+  "speaker": "S4",
+  "text": "这什么味啊。",
+  "mp3": "s03_1.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f01.wav",
+  "t": 4.577,
+  "dur": 0.635
+ },
+ {
+  "speaker": "S1",
+  "text": "姑娘，能不能扶我一下，我从轮椅上摔下来了。",
+  "mp3": "s03_2.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f02.wav",
+  "t": 5.456,
+  "dur": 2.633
+ },
+ {
+  "speaker": "S4",
+  "text": "穿成这样怎么混到后门来的？",
+  "mp3": "s03_3.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f03.wav",
+  "t": 8.333,
+  "dur": 1.712
+ },
+ {
+  "speaker": "S1",
+  "text": "我腿不方便，轮椅滑了一下，麻烦你搭把手。搭把手。我今天是来面",
+  "mp3": "s03_4.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f04.wav",
+  "t": 10.29,
+  "dur": 4.534
+ }
+]

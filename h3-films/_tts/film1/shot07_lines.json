@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S1",
+  "text": "你自己做的？",
+  "mp3": "s07_0.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "a00.wav",
+  "t": 0.2,
+  "dur": 0.852
+ },
+ {
+  "speaker": "S2",
+  "text": "是我自己做的。但真不是我厨艺多厉害，是这个爆汁红烧酱料太省事。排骨焯水后放电饭锅，倒一包酱料，加半碗水，按煮饭键就行。",
+  "mp3": "s07_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a01.wav",
+  "t": 1.112,
+  "dur": 8.643
+ },
+ {
+  "speaker": "S1",
+  "text": "电饭锅能做成这样，确实不简单。",
+  "mp3": "s07_2.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "a02.wav",
+  "t": 9.815,
+  "dur": 1.893
+ },
+ {
+  "speaker": "S1",
+  "text": "你不怕扶我耽误面试？",
+  "mp3": "s07_3.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "a03.wav",
+  "t": 11.769,
+  "dur": 1.332
+ },
+ {
+  "speaker": "S2",
+  "text": "面试迟到可以解释，人摔在",
+  "mp3": "s07_4.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "a04.wav",
+  "t": 13.16,
+  "dur": 1.67
+ }
+]

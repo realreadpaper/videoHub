@@ -1,0 +1,38 @@
+════════ 后处理流水线 · film1 ════════
+工作目录 _post/film1
+
+── S4 拼接成片 ──
+   分镜 20 个
+codec_type=video
+width=768
+height=1344
+r_frame_rate=24/1
+codec_type=audio
+r_frame_rate=0/0
+duration=286.812989
+size=121817136
+
+── S5 外挂字幕重算（按实际时间轴）──
+✔ 83 条字幕 ｜ 速度 1.0194× ｜ 末句收于 285.92s ｜ 片长 286.13s
+   _post/film1/良心面试_食堂红烧（原片复刻）_全片.srt
+   _post/film1/良心面试_食堂红烧（原片复刻）_全片.vtt
+   ★ 字幕外挂、不烧画面（与成片同名同目录）
+
+── S6 校验 ──
+✔ _post/film1/良心面试_食堂红烧（原片复刻）_全片_字幕带校验.jpg
+  格数 48 ｜ 字幕带 y 66%–90% ｜ 5 列
+  ★ 逐格目视：出现的「成行汉字/数字乱码」即为违规，记下格子标签=时间码/镜号
+   → _post/film1/良心面试_食堂红烧（原片复刻）_全片_字幕带校验.jpg  ★ 逐格目视确认
+   时长 286.812989s
+
+════════ 完成 ════════
+-rw-r--r--  1 hejianglong CORP\Domain Users 1.6K 2026-09-17 13:35 _filelist.txt
+-rw-r--r--  1 hejianglong CORP\Domain Users 1.0K 2026-09-17 13:35 _post_report.txt
+drwxr-xr-x 23 hejianglong CORP\Domain Users  736 2026-09-17 13:31 s1_overlay
+drwxr-xr-x 22 hejianglong CORP\Domain Users  704 2026-09-17 13:32 s2_aligned
+drwxr-xr-x 22 hejianglong CORP\Domain Users  704 2026-09-17 13:33 s3_masked
+-rw-r--r--  1 hejianglong CORP\Domain Users 2.6K 2026-09-17 13:32 trim_report.json
+-rw-r--r--  1 hejianglong CORP\Domain Users 116M 2026-09-17 13:35 良心面试_食堂红烧（原片复刻）_全片.mp4
+-rw-r--r--  1 hejianglong CORP\Domain Users 8.4K 2026-09-17 13:35 良心面试_食堂红烧（原片复刻）_全片.srt
+-rw-r--r--  1 hejianglong CORP\Domain Users 8.4K 2026-09-17 13:35 良心面试_食堂红烧（原片复刻）_全片.vtt
+-rw-r--r--  1 hejianglong CORP\Domain Users 410K 2026-09-17 13:35 良心面试_食堂红烧（原片复刻）_全片_字幕带校验.jpg

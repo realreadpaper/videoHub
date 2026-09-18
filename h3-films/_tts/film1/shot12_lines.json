@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S1",
+  "text": "饭分给一个陌生老人，比任何面试回答都珍贵。",
+  "mp3": "s12_0.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 2.85
+ },
+ {
+  "speaker": "S2",
+  "text": "谢谢顾董。",
+  "mp3": "s12_1.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f01.wav",
+  "t": 3.14,
+  "dur": 0.67
+ },
+ {
+  "speaker": "S1",
+  "text": "林晚晴，你今天的人品这一关过了。",
+  "mp3": "s12_2.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f02.wav",
+  "t": 3.901,
+  "dur": 2.132
+ },
+ {
+  "speaker": "S2",
+  "text": "那我的面试？",
+  "mp3": "s12_3.mp3",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "clip": "f03.wav",
+  "t": 6.123,
+  "dur": 0.745
+ },
+ {
+  "speaker": "S1",
+  "text": "你应聘的是公司食堂厨师助理，光心善还不够，手艺也得过关。你刚才那块红烧排骨我还没吃够，去公司食堂厨房完整做",
+  "mp3": "s12_4.mp3",
+  "voice": "zh-CN-YunjianNeural",
+  "clip": "f04.wav",
+  "t": 6.958,
+  "dur": 7.865
+ }
+]

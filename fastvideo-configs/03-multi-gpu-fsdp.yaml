@@ -1,0 +1,42 @@
+# FastVideo 推理配置模板（多卡 FSDP 加速）
+# 关键：多卡下必须关掉 dit_layerwise 与 dit
+#   FASTVIDEO_ATTENTION_BACKEND=FLASH_ATTN fastvideo generate --config 03-multi-gpu-fsdp.yaml
+
+generator:
+  model_path: FastVideo/FastHunyuan-Diffusers
+  engine:
+    num_gpus: 4
+    execution_backend: mp        # 跨机时改 ray，并设 RAY_ADDRESS + FASTVIDEO_HOST_IP
+    use_fsdp_inference: true     # ★ 多卡推荐：权重分片
+    parallelism:
+      tp_size: 1
+      sp_size: 4                 # 序列并行，长视频友好
+    offload:
+      dit: false                 # ★ FSDP 下必须关
+      dit_layerwise: false       # ★ FSDP 下必须关（与 FSDP 不兼容）
+      pin_cpu_memory: true
+      # 仍 OOM 再逐个打开：
+      # text_encoder: true
+      # image_encoder: true
+      # vae: true
+    compile:
+      enabled: false
+  pipeline:
+    experimental:
+      embedded_cfg_scale: 6
+      flow_shift: 17
+
+request:
+  prompt: A beautiful woman in a red dress walking down a street
+  sampling:
+    seed: 1024
+    num_frames: 125
+    height: 720
+    width: 1280
+    num_inference_steps: 6
+    guidance_scale: 1
+  output:
+    output_path: outputs_video/
+
+# 注意：FP4（nvfp4_fa4 / transformer_quant=nvfp4_qat）与 use_fsdp_inference 互斥，
+#       两者不可同时开启（FSDP 分片会让 FP4 张量指针失效）。

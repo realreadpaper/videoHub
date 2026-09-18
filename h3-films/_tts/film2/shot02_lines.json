@@ -1,0 +1,47 @@
+[
+ {
+  "speaker": "S2",
+  "text": "说要给我找个妈妈吗？",
+  "mp3": "s02_0.mp3",
+  "voice": "zh-CN-YunxiaNeural",
+  "clip": "f00.wav",
+  "t": 0.2,
+  "dur": 1.116
+ },
+ {
+  "speaker": "S1",
+  "text": "爸爸要找的不是妈妈这个称号，是一个不会在爸爸看不见的时候让你受委屈的人。",
+  "mp3": "s02_1.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f01.wav",
+  "t": 1.917,
+  "dur": 4.123
+ },
+ {
+  "speaker": "S3",
+  "text": "你怎么把孩子也带来了？还是坐轮椅的。",
+  "mp3": "s02_2.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f02.wav",
+  "t": 6.64,
+  "dur": 2.54
+ },
+ {
+  "speaker": "S1",
+  "text": "他是我儿子。",
+  "mp3": "s02_3.mp3",
+  "voice": "zh-CN-YunxiNeural",
+  "clip": "f03.wav",
+  "t": 9.781,
+  "dur": 0.575
+ },
+ {
+  "speaker": "S3",
+  "text": "你早说你有这么大个拖累啊，你条件再好，带个坐轮椅的孩子也太掉",
+  "mp3": "s02_4.mp3",
+  "voice": "zh-CN-XiaoyiNeural",
+  "clip": "f04.wav",
+  "t": 10.957,
+  "dur": 3.866
+ }
+]
