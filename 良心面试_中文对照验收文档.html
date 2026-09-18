@@ -1,0 +1,623 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8">
+<title>良心面试 · 中文对照验收文档</title>
+<style>
+body{font-family:"Microsoft YaHei",sans-serif;max-width:960px;margin:24px auto;padding:0 16px;color:#1a1a1a;background:#fafafa;line-height:1.7}
+h1{font-size:22px} h2{font-size:17px;margin-top:32px;border-left:4px solid #c0392b;padding-left:10px}
+.meta{background:#eef3f8;border-radius:8px;padding:12px 16px;font-size:14px}
+.guide{background:#fff8e6;border-radius:8px;padding:12px 16px;font-size:14px}
+details.shot{background:#fff;border:1px solid #ddd;border-radius:8px;margin:10px 0;padding:0}
+details.shot summary{cursor:pointer;padding:10px 14px;font-weight:bold;font-size:15px}
+details.shot[open] summary{border-bottom:1px solid #eee}
+.no{background:#2c5f8a;color:#fff;border-radius:4px;padding:2px 8px;margin-right:6px;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{width:130px;text-align:left;vertical-align:top;padding:8px 12px;background:#f4f6f8;border-bottom:1px solid #eee}
+td{padding:8px 12px;border-bottom:1px solid #eee}
+.beat{margin:2px 0} .t{display:inline-block;width:110px;color:#888;font-size:12px}
+.check{color:#b03a00;font-weight:bold}
+.risk{background:#fdecea;color:#c0392b;padding:6px 14px;font-size:14px;font-weight:bold}
+details.en summary{cursor:pointer;color:#888;padding:8px 12px;font-size:13px}
+details.en pre{white-space:pre-wrap;word-break:break-all;font-size:12px;background:#f7f7f7;padding:12px;border-radius:6px;margin:0 12px 12px}
+</style></head><body>
+<h1>良心面试 · 食堂红烧（原片复刻） · 中文对照验收文档</h1>
+<div class="meta">
+<b>规格</b>：20 镜 × 15s ｜ 384x672 → 768x1344 ｜ 9:16 ｜ seed 20260918 ｜ 24fps 生成 / 30fps 成片<br>
+<b>使用方法</b>：生成完一个镜 → 打开对应卡片 → 对照"画面内容"看视频 → 按"验收标准"逐条检查 → 通过打勾，不通过把问题描述写下来反馈修改。
+</div>
+<h2>Prompt 结构导览（只读一次）</h2>
+<div class="guide">
+每条英文 prompt 都由固定五段组成，改中文时对应关系如下：<br>
+① <b>角色锚点</b>（Character reference）：每个出场人物的外貌/服装锁定，多人镜人物必须全写，漏写必换脸；<br>
+② <b>场景锚点</b>（Scene reference）：本镜唯一场景，写了两个场景就会闪回穿帮；<br>
+③ <b>时间轴三段</b> [0-5s][5-10s][10-15s]：动作分段——<b>与表格里"画面内容"三段一一对应</b>，这是你主要改的地方；<br>
+④ <b>音效段</b>（overall_soundscape）：与"音效"行对应；<br>
+⑤ <b>禁字尾板</b>（no subtitles/lettering…）：固定模板，禁止任何画面文字，一般不动。
+</div>
+<h2>逐镜明细（默认展开高风险镜）</h2>
+
+<details class="shot" >
+<summary><span class="no">镜 01</span> 全景 (WS) · 公司后门 · 白天 · 人物：S1 + S5 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot01_backdoor_fall</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>固定全景：食品集团办公楼后门，灰白天光——米色混凝土墙、灰色钢卷帘门、带顶棚走道。S1（顾董）停在卷帘门外面向空院；S5 身子倾向他，一脸担心。光线均匀，冷调。</div><div class="beat"><span class="t">[00:05–00:10]</span>S1 头也不回，抬手把 S5 往门口挥退；S5 犹豫着退回走道两步站定——眉头拧着、重心来回换、双手半抬，担心全写在脸上。S1 握住手推圈，让轮椅向前滑出半米进到空地。</div><div class="beat"><span class="t">[00:10–00:15]</span>轮椅倾斜，S1 滑坐到地上，单侧胯着地，一只手掌平撑水泥地。空轮椅晃两下侧翻在旁。他抬头望向紧闭的门——从容、像有预谋，而不是痛苦；表情镇定，目光锁住门口，没有笑。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：有没有人啊，扶我一把。／S5：顾董您慢点，别真摔着。／S1：别出来，今天来面试的人都从这后门进，我就看看他们见到一个摔倒的老人是扶一把还是踩一脚。／S1：哎呦，年轻人，帮帮忙，我从轮椅上摔下来了。</td></tr>
+<tr><th>音效</th><td>空旷后院环境声、微风、轮椅框架落地的金属轻响、布料蹭石面。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>低沉持续的弦乐，带一丝悬疑脉动。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">无任何字幕/文字入镜；摔倒要读得出“故意”，不是真惨</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 5&gt; (S5), a 35-year-old East Asian man in a dark navy uniform jacket and matching trousers, standing attentively beside the wheelchair&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Wide static shot of the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway. S1 is stationed just outside the roller shutter, facing the open yard; S5 leans in toward him with a worried expression. Bright even daylight, cool concrete tones.
+[00:05.000 – 00:10.000] S1 lifts one hand and waves S5 back toward the doorway without turning his head; S5 hesitates, takes two steps back under the walkway and stays there. S1 then grips both hand-rims and lets the chair roll half a metre forward onto the open concrete. S5&#x27;s worry is plain — brows knit, weight shifting, hands half-lifted.
+[00:10.000 – 00:15.000] The chair tilts and S1 slides out of it onto the ground, landing on one hip with an open palm flat on the concrete. The empty wheelchair rocks and settles on its side beside him. He looks up toward the still-closed doorway, deliberate rather than pained. S1&#x27;s face stays composed and deliberate, eyes fixed on the doorway, no smile.
+
+overall_soundscape:
+Empty rear yard ambience, a light breeze, the faint metallic rattle of a wheelchair frame settling on concrete, fabric against stone. No speech, no voices.
+
+non_diegetic_music:
+Low sustained strings with a faint pulse of suspense.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 02</span> 中景 (MS) · 公司后门 · 白天 · 人物：S1 + S3 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot02_youngman_passes</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>低角度中景：S1 坐在水泥地上，一只手臂向左伸出，抬头张望。身后空院明亮，翻倒的轮椅在手边。镇定之下脸是绷的——眉头拧紧，没有笑。</div><div class="beat"><span class="t">[00:05–00:10]</span>S3 夹黑公文包快步出门，眼角只扫袖口，从 S1 面前不到一米走过，视线自始至终不落地；擦亮的皮鞋三步穿过前景。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头缓推到 S1 伸出的手：手缓缓收回落在膝上。背景虚化处 S3 的浅灰西装从右缘消失，一次头也没回。S1 沉淀成安静的失望——嘴角抿平、目光平稳、没有笑。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：你干什么呢年轻人？我轮椅翻了，能不能扶我一把。／S3：我今天来面试主管岗，你别挡我前途，帮我叫一下保安也行。／S3：你这种老人我见多了，我要是因为你错过面试，你赔得起吗？／S5：顾董，第一个还要让他进面试吗？／S1：不用了。怕担责可以理解，但</td></tr>
+<tr><th>音效</th><td>皮鞋快步声渐远、西装布料窸窣、微风。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>弦乐下行一度，更冷。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">S3 全程不看地面；S1 不能笑</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 3&gt; (S3), a 27-year-old East Asian man with short neat black hair and a self-assured manner, wearing a light grey slim-fit suit and a white shirt with no tie, a black portfolio under his arm; &lt;Subject 5&gt; (S5), a 35-year-old East Asian man in a dark navy uniform jacket and matching trousers, standing attentively beside the wheelchair&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium shot from a low angle: S1 sits on the concrete with one arm reached out toward the left, looking up. The open yard behind him is empty and bright, the fallen wheelchair beside him. His face is drawn under the calm, brows knotted, no smile.
+[00:05.000 – 00:10.000] S3 walks briskly out of the doorway with the black portfolio under his arm, glancing at his cuff, and passes less than a metre in front of S1 without ever lowering his eyes to the ground. His polished shoes cross the foreground in three quick strides.
+[00:10.000 – 00:15.000] The camera pushes in slowly to S1&#x27;s outstretched hand as it lowers and rests on his own knee. In the background, defocused, S3&#x27;s light grey suit disappears off the right edge of frame without a single backward glance. His face settles into quiet disappointment — mouth a flat line, eyes level, no smile.
+
+overall_soundscape:
+Quick leather shoe steps crossing concrete and fading away, the rustle of a suit jacket, light wind. No speech, no voices.
+
+non_diegetic_music:
+The strings descend a step, colder.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 03</span> 中景 (MS) · 公司后门 · 白天 · 人物：S1 + S4 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot03_oldman_waits</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>中景：S1 仍坐在地上单手撑身。他挪了挪重心，手掌在裤腿上蹭掉砂粒，疼得龇了一下，然后抬头缓缓转向门口，白发被天光打亮。</div><div class="beat"><span class="t">[00:05–00:10]</span>卷帘门旁浅台阶上，S4 抱文件夹站立。她朝下扫一眼——平淡、打量、无温度——随即抬下巴把视线移向院子另一头。嘴唇始终抿紧，没有笑。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头缓推至 S1 面部特写——深法令纹、平静的眼、银发逆光。他朝她开口不急不缓，撑地的手抬起一寸又放回。神情恳切从容，目光稳定，没有笑。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：连一句求助都不愿意听完，这样的人进了公司也只会踩着别人往上爬。／S4：这什么味啊。／S1：姑娘，能不能扶我一下，我从轮椅上摔下来了。／S4：穿成这样怎么混到后门来的？／S1：我腿不方便，轮椅滑了一下，麻烦你搭把手。搭把手。我今天是来面</td></tr>
+<tr><th>音效</th><td>墙外远处车流、微风、文件夹轻磕布料。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>稀疏钢琴叠在持续弦乐上，克制。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">S4 那一眼要“冷”；S1 恳切但不谄媚</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 4&gt; (S4), a 30-year-old East Asian woman with shoulder-length dark-brown hair, sharp eyeliner and a cold appraising expression, wearing an immaculate white trouser suit and nude heels, a slim folder pressed against her chest&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium shot of S1 still seated on the concrete, propping himself up on one hand. He turns his head slowly toward the doorway, his white hair catching the daylight. He shifts his weight, brushes grit from his palm on his trouser leg, winces once, then lifts his head.
+[00:05.000 – 00:10.000] At the top of the shallow steps by the roller shutter S4 stands with her folder pressed to her chest. She looks down at him once, a flat appraising glance, then lifts her chin and looks away across the yard. Her mouth stays pressed thin — appraisal without warmth, no smile.
+[00:10.000 – 00:15.000] The camera pushes in slowly to S1&#x27;s face — deep laugh lines, calm eyes, silver hair backlit by the open sky. He speaks toward her, unhurried, and his hand rises an inch off the ground and settles again. His expression stays earnest and unhurried, eyes steady, no smile.
+
+overall_soundscape:
+Distant traffic beyond the wall, a light breeze, a folder tapping softly against fabric. No speech, no voices.
+
+non_diegetic_music:
+Sparse piano over sustained strings, restrained.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 04</span> 中景 (MS) · 公司后门 · 白天 · 人物：S1 + S4 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot04_whitesuit_cold</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>双人中景，机位在 S1 侧旁：他坐在地上用手背擦太阳穴，下颚绷紧、轻轻龇牙、没有笑；台阶上方 S4 双臂抱胸，重心压在一条腿上。</div><div class="beat"><span class="t">[00:05–00:10]</span>镜头缓缓推向 S4：下巴抬高、眉峰压低、嘴角压出不屑，一只鞋跟在水泥地敲两下，目光从 S1 身上滑过去不停留。</div><div class="beat"><span class="t">[00:10–00:15]</span>她原地转身走向门口，白色西裤裤脚扫过前景；镜头留在 S1 身上——他从地上望她离开，脸色关闭，背影没换来任何心软。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：试行政经理的，我早上没吃饭，有点头晕，你帮我叫一下保安也行。／S4：你饿关我什么事？公司不是救助站。还有，公司连后门都管不好。／S1：姑娘说话不用这么难听，我已经够客气了，赶紧保安把你弄走，别影响面试心情。／S5：顾董，第二个也不用进了吧？／S1：今天的面试已经结</td></tr>
+<tr><th>音效</th><td>风声、鞋跟敲水泥地、从容的脚步声远去。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>钢琴收薄成一个重复的单音。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">S4 的不屑要明显；离开时零回头</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 4&gt; (S4), a 30-year-old East Asian woman with shoulder-length dark-brown hair, sharp eyeliner and a cold appraising expression, wearing an immaculate white trouser suit and nude heels, a slim folder pressed against her chest; &lt;Subject 5&gt; (S5), a 35-year-old East Asian man in a dark navy uniform jacket and matching trousers, standing attentively beside the wheelchair&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium two-shot from beside S1: he sits on the concrete wiping his temple with the back of his hand, jaw tight, a small wince and no smile; above him on the shallow steps S4 stands with both arms folded, weight on one hip.
+[00:05.000 – 00:10.000] The camera pushes gently toward S4: chin raised, brows low, mouth compressed in open disdain, one shoe tapping the concrete twice, her eyes sliding past S1 rather than resting on him.
+[00:10.000 – 00:15.000] She turns on the spot and walks away toward the doorway, her white trouser leg crossing the foreground; the camera holds on S1 watching her go from the ground, his face closed, no softening at her back.
+
+overall_soundscape:
+Wind, a heel tapping concrete, then steady unhurried footsteps receding. No speech, no voices.
+
+non_diegetic_music:
+The piano thins to a single repeated note.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 05</span> 中近景 (MCU) · 公司后门 · 白天 · 人物：S1 + S2 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot05_lin_arrives</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>S2 抱皮质文件夹从卷帘门里匆匆出来，看见地上的人，第二级台阶上猛地停住。表情在一拍之内从匆忙转成担忧。</div><div class="beat"><span class="t">[00:05–00:10]</span>她把文件夹换到左臂，快步下完台阶，在他身旁屈身蹲下——一膝点地，一只手轻轻搭上他的小臂。</div><div class="beat"><span class="t">[00:10–00:15]</span>中近景：她凑近仔细查看他的头和手，眉头收紧，像细心人检查受伤的陌生人；话语轻而稳，手一直停在他手臂上。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：束一半了。／S2：大爷，您怎么摔地上了？／S1：轮椅滑了，我起不来。／S2：您先别急，有没有摔到头？手能动吗？／S1：头没事，就是没力气。你手上都是灰。／S2：早上吃饭了吗？／S1：没顾上吃，饿得有点发晕。／S2：那可不行，老人家最怕</td></tr>
+<tr><th>音效</th><td>软底鞋快步、文件夹贴上衣料、膝盖落地轻擦。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>弦乐回暖半音，钢琴重新进入。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">停步—下台阶—蹲下的动线要连贯</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] S2 hurries out through the roller shutter with the leather folder hugged against her chest and stops dead on the second step when she sees the man on the ground. Her expression shifts from hurry to concern in a single beat.
+[00:05.000 – 00:10.000] She transfers the folder to her left arm, comes down the last steps quickly, then folds down at his side, one knee on the concrete, and lays a hand lightly on his forearm.
+[00:10.000 – 00:15.000] Medium close-up: she leans in and looks carefully at his head and his hands, brow drawn, checking him the way a careful person checks an injured stranger. Her words are quiet and steady and her hand stays on his arm.
+
+overall_soundscape:
+Quick soft-soled steps on concrete, a folder pressed against cotton, the slight scrape of a knee touching down. No speech, no voices.
+
+non_diegetic_music:
+The strings warm by a semitone as the piano returns.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 06</span> 中景 (MS) · 公司后门 · 白天 · 人物：S2 + S1 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot06_meal_offered</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>贴地中景：S2 蹲在翻倒的轮椅旁，仍扶着 S1 手臂，表情坦率无防备地对他说话；S1 看着她听，带试探。</div><div class="beat"><span class="t">[00:05–00:10]</span>S2 从肩上托特包提出一只带盖的不锈钢电饭锅内胆，双手捧在胸前。笑容温暖、坦率、不急，眼神柔软。</div><div class="beat"><span class="t">[00:10–00:15]</span>她把锅递过去。S1 双手接过搁在膝上揭盖；热汽腾起，他低头看锅内又抬眼看她。戒备松动一分——眉头舒展、缓缓眨眼，信任的第一个迹象。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：饿着。我带了中午饭，您先吃几口垫垫。／S1：这不是你的午饭吗？我吃了你怎么办？／S2：我家离这边远，中午回不去。／S2：您别嫌弃，先吃点热乎的。这排骨软烂，颜色也红亮。／S1：你</td></tr>
+<tr><th>音效</th><td>布料与拉链声、金属锅盖轻响、蒸汽升起、微风。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>钢琴多出第二个更柔和的声部。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">锅是“带盖内胆”；蒸汽自然不假</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium shot at ground level: S2 crouches beside the fallen wheelchair still holding S1&#x27;s arm and speaks to him with an open, unguarded face. S1 listens with his eyes on her, testing.
+[00:05.000 – 00:10.000] S2 reaches into the tote bag on her shoulder and lifts out a round stainless rice-cooker inner pot with its lid on, holding it in both hands at chest height. Her smile is warm, unguarded and unhurried, eyes soft.
+[00:10.000 – 00:15.000] She holds the pot out toward him. S1 takes it with both hands, sets it on his knees and lifts the lid; steam rolls up into the cool air and he looks down into it, then back up at her. S1&#x27;s guarded look thaws a degree — brows easing, a slow blink, the first hint of trust.
+
+overall_soundscape:
+Fabric and a zip, the clack of a metal lid, rising steam, a light breeze. No speech, no voices.
+
+non_diegetic_music:
+The piano gains a second, gentler voice.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 07</span> 特写 (CU) · 公司后门 · 白天 · 人物：S1 + S2 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot07_pot_and_ribs</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>特写：S1 坐在地上，敞口锅架在膝上，右手拿筷。夹起排骨入口慢嚼——眼睛微睁大、下颚停一拍。这种满意是真的：眉毛挑起、低低一声认可，不是客套的笑。</div><div class="beat"><span class="t">[00:05–00:10]</span>镜头越过锅沿推进：红烧排骨码在白米饭上，深红油亮的酱汁裹着肉，热汽飘过镜头前。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头拉回，落在蹲在旁边说话的 S2 身上——一手撑膝、表情敞亮带鼓励；S1 嚼到一半转头看她，嘴角翘起。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：你自己做的？／S2：是我自己做的。但真不是我厨艺多厉害，是这个爆汁红烧酱料太省事。排骨焯水后放电饭锅，倒一包酱料，加半碗水，按煮饭键就行。／S1：电饭锅能做成这样，确实不简单。／S1：你不怕扶我耽误面试？／S2：面试迟到可以解释，人摔在</td></tr>
+<tr><th>音效</th><td>筷子碰金属、缓慢咀嚼、蒸汽、远处风声。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>温暖的钢琴，从容，近乎温柔。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">排骨色泽红亮；S1 的惊艳要真实不做作</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Close-up of S1 seated on the ground holding the open pot on his knees, chopsticks in his right hand. He lifts a piece of pork rib, puts it in his mouth and chews slowly; his eyes widen a fraction and his jaw stops moving for a beat. The delight is genuine — brows climbing, a low approving hum, no polite smile.
+[00:05.000 – 00:10.000] The camera pushes in over the rim of the pot: braised pork ribs packed in glossy deep-red sauce over a bed of white rice, steam drifting across the lens.
+[00:10.000 – 00:15.000] It pulls back and settles on S2 crouched beside him speaking, one hand on her own knee, her face open and encouraging; S1 turns his head toward her mid-chew and the corner of his mouth lifts.
+
+overall_soundscape:
+Chopsticks against metal, slow chewing, steam, distant wind. No speech, no voices.
+
+non_diegetic_music:
+Warm piano, unhurried, almost tender.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 08</span> 中景 (MS) · 公司后门 · 白天 · 人物：S2 + S1 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot08_lin_goes_in</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>中景：S2 起身掸掉黑裤上的灰，把托特包挎回肩上，朝门口一指对 S1 交代了句什么——表情坦率实在，安抚地点头；S1 的眼神淡淡的，没笑。</div><div class="beat"><span class="t">[00:05–00:10]</span>她走向卷帘门，停下，回头看地上的人最后一眼。S1 脸上有东西变了——私下评估变成认可，一直透到眼睛里：眉头松开，第一缕真暖意。</div><div class="beat"><span class="t">[00:10–00:15]</span>S2 走出卷帘门离开画面。S1 原地未动——坐在翻倒轮椅和敞口锅旁，双臂搭膝，望她离开。脸上什么也不露：平、耐心、读不出来。院子明亮静止。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：地上没人管，出事就来不及了。／S2：大爷，您要是不舒服，别一个人在后门待着，我进去帮您找人。／S1：好姑娘，你先进去。／S3：今天这个主管岗我势在必得。这种大公司最需要我这种懂形象管理的人。／S3：不好意思，我刚才在后门扶了摔倒</td></tr>
+<tr><th>音效</th><td>脚步声走远、门框在风里吱呀、纸页翻动。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>一个悬而不决的持续弦乐和弦。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">S1 必须一直在画面里（不能变空镜）；无凭空的散落纸张</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm; &lt;Subject 3&gt; (S3), a 27-year-old East Asian man with short neat black hair and a self-assured manner, wearing a light grey slim-fit suit and a white shirt with no tie, a black portfolio under his arm&gt;
+
+&lt;Scene reference — this entire shot takes place in: the rear service gate of a modern food-group office building in flat daylight: beige rendered concrete walls, a grey steel roller shutter, a covered walkway&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium shot: S2 stands up, brushes the dust off her black trousers and settles the tote bag on her shoulder. She points toward the doorway and says something brief to S1. S2&#x27;s face is open and matter-of-fact, a reassuring little nod; S1&#x27;s look is dry and unsmiling.
+[00:05.000 – 00:10.000] She walks to the roller shutter, stops, and turns back for one last look at the man on the ground. On S1&#x27;s face something shifts, private assessment turning into approval. The approval reaches his eyes — brows easing, the first real warmth.
+[00:10.000 – 00:15.000] S2 walks out past the shutter and out of frame. S1 stays exactly where he is, seated on the concrete beside the toppled wheelchair and the open rice-cooker pot, arms resting on his knees, watching her go. His face gives nothing away — level, patient, unreadable. The yard is bright, still and quiet.
+
+overall_soundscape:
+Footsteps on concrete moving away, the shutter frame creaking in the wind, paper turning over on the ground. No speech, no voices.
+
+non_diegetic_music:
+A held string chord, unresolved.</pre></details>
+</details>
+<details class="shot" open>
+<summary><span class="no">镜 09</span> 中景 (MS) · 公司会议室 · 白天 · 人物：S1 + S2 + S3 + S4 + S5 · 15s</summary>
+<div class="risk">⚠️ 五人同框——多人脸漂移最高风险镜，重点盯每张脸是否前后一致</div>
+<table>
+<tr><th>英文文件名</th><td>shot09_identity_reveal</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>明亮会议室中景：浅木长桌、黑皮椅、磨砂玻璃墙。S3、S4 坐在桌前，文件夹摊开，已放松自信——交换一个稳操胜券的眼神、笃定者才有的轻松笑意。S3 整袖口，瞟一眼门。</div><div class="beat"><span class="t">[00:05–00:10]</span>门被推开，S5 推着坐轮椅的 S1 进来。S1 仍是炭灰外套，双手交叠，神色平和。轮椅滑到主位停住，两位候选人抬头。S2 跟进来靠门边墙站定，双臂抱胸观察。</div><div class="beat"><span class="t">[00:10–00:15]</span>以长桌为前景的中景：S5 站在 S1 肩侧向全场通报身份。S3、S4 的脸僵在半途——眼睛睁大、嘴半张，S4 脸上血色褪去、文件夹在手里滑了一寸。到处没有笑意。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S3：的大爷，所以耽误了几分钟。／S4：来面试还多管闲事，难怪迟到。／S2：老人摔倒了不先确认情况，难道看着他躺在地上吗？／S4：他怎么进来了？／S5：各位，这位是顾氏食品集团董事长顾怀山，顾董。／S4：董事长？顾董，我刚才不知道</td></tr>
+<tr><th>音效</th><td>门闩响、轮椅脚轮碾地、纸张挪动、安静的空调声。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>弦乐收紧，开门瞬间一个尖锐重音。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">人物位置全程稳定不漂移；“僵住”幅度要够大</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm; &lt;Subject 3&gt; (S3), a 27-year-old East Asian man with short neat black hair and a self-assured manner, wearing a light grey slim-fit suit and a white shirt with no tie, a black portfolio under his arm; &lt;Subject 4&gt; (S4), a 30-year-old East Asian woman with shoulder-length dark-brown hair, sharp eyeliner and a cold appraising expression, wearing an immaculate white trouser suit and nude heels, a slim folder pressed against her chest; &lt;Subject 5&gt; (S5), a 35-year-old East Asian man in a dark navy uniform jacket and matching trousers, standing attentively beside the wheelchair&gt;
+
+&lt;Scene reference — this entire shot takes place in: a bright corporate meeting room with a long pale wood table, black leather chairs and a frosted glass wall&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium shot in a bright corporate meeting room with a long pale wood table, black leather chairs and a frosted glass wall. S3 and S4 sit at the long table, portfolios open in front of them, both already relaxed and self-assured. S3 straightens his cuff and glances at the door. The candidates trade a settled, self-assured glance — easy smiles of people who expect to win.
+[00:05.000 – 00:10.000] The door swings open and S5 pushes S1 in through it in the black wheelchair. S1 wears the same charcoal jacket, hands folded, expression mild. The chair rolls to the head of the table and stops. Both candidates look up. S2 slips in behind them and takes up a place by the wall near the door, arms crossed, watchful.
+[00:10.000 – 00:15.000] Medium shot with the table as foreground: S5 stands at S1&#x27;s shoulder with one hand on the chair handle, announcing him to the room. S3&#x27;s and S4&#x27;s faces freeze and S4&#x27;s folder slips an inch in her grip. Both candidates freeze mid-gesture — eyes widen, mouths half-open, the colour drops from S4&#x27;s face, no smiles anywhere.
+
+overall_soundscape:
+A door latch, chair castors on a hard floor, papers shifting, quiet air conditioning. No speech, no voices.
+
+non_diegetic_music:
+The strings tighten, one sharp accent as the door opens.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 10</span> 中景 (MS) · 公司会议室 · 白天 · 人物：S4 + S1 + S3 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot10_interview_ends</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>中景：S4 从椅上半撑起来，双手平按桌面朝主位探身，镇定碎了一地、话出口太快；身旁 S3 坐得僵直。礼貌底下全是慌——眨眼飞快、脸颊泛红、没有笑。</div><div class="beat"><span class="t">[00:05–00:10]</span>S1 坐在主位轮椅上看她，不说话，双手交叠，彻底平静，纹丝不动、不笑，只缓缓眨一次眼——让沉默自己做工。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头后拉收进整张长桌：S1 一只手从膝上抬起几寸又放回——极简的“到此为止”手势。身后大屏无可读文字。他的脸平静到最后——不得意，不笑。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S4：是您。／S1：不知道我是董事长？嫌我影响公司形象？／S4：我只是今天来面试，太紧张了。／S1：一个人最真实的样子，往往就在没人知道他身份的时候。二位，今天的面试到此结束。／S4：顾董，再给我一次机会吧。／S3：顾董，我学历很</td></tr>
+<tr><th>音效</th><td>椅子刮地、文件夹合上、满室寂静。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>音乐几乎抽空，只剩一个持续低音。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">对比要拉开：S4 慌乱 vs S1 纹丝不动</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 3&gt; (S3), a 27-year-old East Asian man with short neat black hair and a self-assured manner, wearing a light grey slim-fit suit and a white shirt with no tie, a black portfolio under his arm; &lt;Subject 4&gt; (S4), a 30-year-old East Asian woman with shoulder-length dark-brown hair, sharp eyeliner and a cold appraising expression, wearing an immaculate white trouser suit and nude heels, a slim folder pressed against her chest&gt;
+
+&lt;Scene reference — this entire shot takes place in: a bright corporate meeting room with a long pale wood table, black leather chairs and a frosted glass wall&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium shot: S4 half-rises from her chair, both hands flat on the table, leaning toward the head of the room. Her composure is gone and the words come out too fast. S3 sits rigid beside her. Panic runs under the politeness — blinking fast, colour rising in her cheeks, words tumbling, no smile.
+[00:05.000 – 00:10.000] In a bright corporate meeting room with a long pale wood table, black leather chairs and a frosted glass wall, S1 sits in his wheelchair at the head of the table looking at her without speaking, hands still folded, entirely calm. The silence does the work. He stays entirely still and unsmiling, one slow blink, letting the silence do the work.
+[00:10.000 – 00:15.000] The camera pulls back to take in the whole table as S1 lifts one hand a few inches off his knee and lets it fall back, a minimal gesture of conclusion. A large wall panel behind him carries no readable text. His face stays calm to the last — no gloating, no smile.
+
+overall_soundscape:
+A chair scraping, a folder closing, then complete room silence. No speech, no voices.
+
+non_diegetic_music:
+Music drops out almost entirely, leaving one sustained low note.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 11</span> 中景 (MS) · 公司大堂走廊 · 白天 · 人物：S1 + S2 + S3 + S4 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot11_corridor</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>大堂走廊全景：浅色大理石、长前台、磨砂玻璃墙。S4 抱文件夹沿走廊走远——鞋跟又急又脆、脊背挺直；肩膀绷着、脸关着，羞辱被压下去没消散。</div><div class="beat"><span class="t">[00:05–00:10]</span>S1 的轮椅停在走廊一侧，S3 站在旁边一边说一边比划、身子前倾——推销员式热络：眉毛抬很高、熟练的笑却到不了眼睛；S1 抬眼，平稳无波，没有笑。</div><div class="beat"><span class="t">[00:10–00:15]</span>S2 背托特包从拐角出现，几步外停住、欠身小礼等待被注意。S3 趁空当往电梯溜，回头搭着话。S2 又挪半步、眼睛向下、局促地再欠身，羞得笑不出来。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S3：高，经验也足，我真的适合这个岗位。／S1：我们公司不缺会写简历的人，缺的是有良心的人。／S2：顾董，我刚才真的不知道你是董事长。／S1：我知道。你如果知道，也就测不出真心了。／S2：那我刚才把自己的饭给您吃，会不会不太礼貌？／S1：那不是不礼貌，那是你愿意把自己的午</td></tr>
+<tr><th>音效</th><td>大理石鞋跟声渐远、远处电梯叮声、大堂低沉环境声。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>稀疏到近乎无声，一记持续的大提琴长音。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">S3 溜走方向朝电梯；S2 羞怯不笑</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm; &lt;Subject 3&gt; (S3), a 27-year-old East Asian man with short neat black hair and a self-assured manner, wearing a light grey slim-fit suit and a white shirt with no tie, a black portfolio under his arm; &lt;Subject 4&gt; (S4), a 30-year-old East Asian woman with shoulder-length dark-brown hair, sharp eyeliner and a cold appraising expression, wearing an immaculate white trouser suit and nude heels, a slim folder pressed against her chest&gt;
+
+&lt;Scene reference — this entire shot takes place in: a bright modern corporate lobby or corridor with pale marble floors, a long reception counter and a wall of frosted glass&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Wide shot of a bright modern corporate lobby or corridor with pale marble floors, a long reception counter and a wall of frosted glass. S4 walks away down the corridor with her folder hugged to her chest, heels sharp on the marble, back straight and hurried. Her shoulders are tight, face closed — humiliation banked, not gone.
+[00:05.000 – 00:10.000] S1&#x27;s wheelchair sits still at the side of the corridor while S3 stands beside it, hands moving as he talks, leaning in. S1 looks up at him with an even, unhurried expression. S3 leans in with salesman eagerness — brows high, a quick practised smile that never reaches his eyes; S1&#x27;s look stays even and unimpressed, no smile.
+[00:10.000 – 00:15.000] S2 comes around the corner of the corridor with her tote bag and stops a few paces away, gives a small bow and waits to be noticed. S3 uses the moment to slip away toward the elevators, still talking over his shoulder. S2 edges a half-step closer, eyes down, a small tentative bow, too shy to smile.
+
+overall_soundscape:
+Heels on marble fading, an elevator chime in the distance, low lobby ambience. No speech, no voices.
+
+non_diegetic_music:
+Sparse, almost silent, a single held cello note.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 12</span> 中近景 (MCU) · 公司大堂 · 白天 · 人物：S1 + S2 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot12_integrity_pass</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>大堂双人中景：S1 转动轮椅正对 S2，S2 站在他面前双手攥着托特包提带；柔和侧光勾出两人的脸。</div><div class="beat"><span class="t">[00:05–00:10]</span>镜头缓推到 S1：他的脸第一次真正打开——审视不见、暖意升上来，真实而缓慢的笑意漫进眼睛，开口时音量轻松。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头绕过 S1 肩膀轻轻弧移到 S2：嘴唇微张、眼睛发亮、听得极专注，然后点头，感激里带一点不知所措。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：饭分给一个陌生老人，比任何面试回答都珍贵。／S2：谢谢顾董。／S1：林晚晴，你今天的人品这一关过了。／S2：那我的面试？／S1：你应聘的是公司食堂厨师助理，光心善还不够，手艺也得过关。你刚才那块红烧排骨我还没吃够，去公司食堂厨房完整做</td></tr>
+<tr><th>音效</th><td>电梯叮声与关门、大堂轻软空气声、轮椅轮极轻的吱呀。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>钢琴回来了，温暖、朴素。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">S1 的笑要慢而真；弧移运镜不能跳变</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a crisp white shirt under a tailored black blazer with matching black trousers, a slim leather document folder in her arm; &lt;Subject 4&gt; (S4), a 30-year-old East Asian woman with shoulder-length dark-brown hair, sharp eyeliner and a cold appraising expression, wearing an immaculate white trouser suit and nude heels, a slim folder pressed against her chest&gt;
+
+&lt;Scene reference — this entire shot takes place in: a bright modern corporate lobby or corridor with pale marble floors, a long reception counter and a wall of frosted glass&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Medium two-shot in the bright lobby: S1 turned in his wheelchair to face S2, who stands in front of him with both hands on the strap of her tote bag; soft side light shapes their faces.
+[00:05.000 – 00:10.000] The camera pushes in slowly to S1: for the first time his face opens, the appraisal gone and something warmer taking its place, a real slow smile reaching his eyes as he speaks at an easy volume.
+[00:10.000 – 00:15.000] The camera arcs gently around S1&#x27;s shoulder onto S2: lips parted, eyes bright, listening intently, and she nods once, grateful and a little overwhelmed.
+
+overall_soundscape:
+An elevator chime and doors closing, soft lobby air, the faint squeak of a wheelchair wheel. No speech, no voices.
+
+non_diegetic_music:
+The piano comes back, warm and simple.</pre></details>
+</details>
+<details class="shot" open>
+<summary><span class="no">镜 13</span> 中景 (MS) · 食堂后厨 · 白天 · 人物：S2 + SP · 15s</summary>
+<div class="risk">⚠️ 场景纯后厨——确认没有大堂闪回</div>
+<table>
+<tr><th>英文文件名</th><td>shot13_kitchen_invite</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>食堂后厨中景——钢操作台、燃气灶、排风罩、白瓷砖墙、顶灯明亮，台面有电饭锅。S2 穿蓝衬衫系米色围裙，把红色酱料包平放在锅旁钢台上，摆正到台面前缘，下巴微收、利落点头。</div><div class="beat"><span class="t">[00:05–00:10]</span>她双手把酱料包捧到胸前，印好图案的正面正对镜头展示一拍——眉毛扬起、主播式精气神、自然微笑——再用指尖轻点着放回锅旁。</div><div class="beat"><span class="t">[00:10–00:15]</span>跨台中近景：S2 双掌撑住钢台沿，直视镜头说话，眼睛亮而稳，一只手做小幅精确的手势。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：一次给我看看。／S2：顾董，我平时自己带饭，就是因为家里这边远，今天正好带了常用的红烧酱料，我现场做一锅给您尝尝。／S2：顾董，今天我就用食堂的电饭锅给您做一道上排骨，省事还不弄得满身油烟。／S2：顾董，家人们，别再拿老一套方法做红烧排骨了。每天下班回家累得骨</td></tr>
+<tr><th>音效</th><td>食堂后厨环境声：排风罩嗡鸣、不锈钢台面共振。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>场景进入厨房，配乐转明亮中性。</td></tr>
+<tr><th>产品参考图</th><td>是（产品参考图锁定）</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">全程厨房，不能闪回大堂；S2 是围裙不是西装</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Picture 1&gt; is the authoritative reference for the product SP: a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette with a vivid tomato-red metallised front panel and a narrow ivory header band carrying a round punched hang-hole. Whenever the pouch is on screen, keep its identity, silhouette, proportions, colour, material and its own printed packaging design exactly as shown in &lt;Picture 1&gt; - do not invent, restyle, re-letter or recolour the packaging, and do not replace it with a different bag or a box; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+The supplied &lt;Picture 1&gt; reference fixes what the product is and how its packaging looks; the description below only covers staging, action, camera and timing. Do not re-describe or re-draw the packaging design beyond what &lt;Picture 1&gt; already shows.
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. The only lettering allowed in the entire frame is the printing that is physically part of the product pouch supplied as &lt;Picture 1&gt;: keep that printing exactly as supplied — same layout, colours and artwork — and in product close-ups let it read as sharp and legible as the physical print itself. Every other paper, document, folder, sign, screen or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 – 00:05.000] Medium shot in the professional canteen kitchen — stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter. S2, in her pale blue work shirt and beige apron, lays the red sauce pouch flat on the steel counter beside the rice cooker and squares it to the front edge, chin level, a small businesslike nod.
+[00:05.000 – 00:10.000] She picks the pouch up in both hands at chest height and presents its printed front panel square to the camera for a beat — brows lifted, presenter energy, an easy natural smile — then sets it down beside the pot with a light tap of her fingers.
+[00:10.000 – 00:15.000] Medium close-up from across the counter: S2 plants both palms on the stainless edge and speaks straight down the lens, eyes bright and steady, gesturing small and precise with one hand.
+
+overall_soundscape:
+Canteen kitchen ambience: extractor hum, stainless counter resonance. No speech, no voices.
+
+non_diegetic_music:
+Bright neutral cue as the scene moves into the kitchen.</pre></details>
+</details>
+<details class="shot" open>
+<summary><span class="no">镜 14</span> 中景 (MS) + 特写 · 食堂后厨 · 白天 · 人物：S2 + SP · 15s</summary>
+<div class="risk">⚠️ 启用产品参考图——包装印刷不能变形/放大/换包</div>
+<table>
+<tr><th>英文文件名</th><td>shot14_pain_kitchen</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>后厨中景：S2 站在钢台前直视镜头说话，一只手抬起作“打住”势；肘旁案板上刀压着切好的姜蒜葱，红酱料包在前景。眉毛同情地拧着、嘴角向下、没有笑。</div><div class="beat"><span class="t">[00:05–00:10]</span>她瞥一眼案板，做个共苦的表情——眉头收紧、轻轻摇头、不笑——然后用刀面把葱姜蒜扫到一边，清出操作区。</div><div class="beat"><span class="t">[00:10–00:15]</span>中近景：她凑近镜头，表情瞬间亮起——眉梢上扬、自信轻松的微笑——竖起一根手指许诺“更省事的做法”，电饭锅在身后待命。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：头都快散架，想吃口硬菜，一想到要在闷热的厨房里切葱姜蒜，忍着热气炒糖色，吃完还得刷那口油腻腻的炒锅和灶台，瞬间就想点外卖了，对不对？／S2：今天我要彻底颠覆你的做饭体验。只要你家里有个电饭锅，这道饭店级别的软烂红</td></tr>
+<tr><th>音效</th><td>排风嗡鸣、刀落案板、水声、糖稀在热锅噼啪。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>环境声下压着克制的紧张脉动。</td></tr>
+<tr><th>产品参考图</th><td>是（产品参考图锁定）</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">一镜到底无跳切；案板葱姜蒜要真实</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject P&gt; (SP), a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette with a vivid tomato-red metallised front panel and a narrow ivory header band carrying a round punched hang-hole, its printed packaging design fixed by &lt;Picture 1&gt; - keep its identity, silhouette, proportions, colour, material and printing exactly as shown in &lt;Picture 1&gt;; do not invent, restyle, re-letter or recolour the packaging, and do not replace it with a different bag or a box; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. The only lettering allowed in the entire frame is the printing that is physically part of the product pouch supplied as &lt;Picture 1&gt;: keep that printing exactly as supplied — same layout, colours and artwork — and in product close-ups let it read as sharp and legible as the physical print itself. Every other paper, document, folder, sign, screen or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 – 00:05.000] Medium shot in the canteen kitchen: S2 at the stainless counter speaking straight down the lens, one hand raised as if to stop the viewer; on the board beside her elbow a knife rests on a pile of chopped ginger, garlic and scallion, and the red sauce pouch sits in the foreground. Her brows knit in sympathy, mouth turned down at the corners, no smile.
+[00:05.000 – 00:10.000] She glances at the aromatic board and pulls a face of shared complaint — brows drawn, a small headshake, no smile — then sweeps the chopped aromatics aside with the flat of the knife, clearing her workspace.
+[00:10.000 – 00:15.000] Medium close-up: she leans in to the lens and her expression flips bright — brows up, an easy confident smile — one finger raised with the promise of the easier way, the rice cooker waiting on the counter behind her.
+
+overall_soundscape:
+Extractor hood hum, a knife on a board, water running, sugar syrup spitting in a hot wok. No speech, no voices.
+
+non_diegetic_music:
+Restrained tension pulse under the kitchen ambience.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 15</span> 中景 (MS) + 特写 · 食堂后厨 · 白天 · 人物：S2 + SP · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot15_twist_pour</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>中景：S2 对镜头说话劲头越来越足，双手配合比划；排风罩和白瓷砖墙框着她，身后电饭锅的盖开着。眉毛扬起、点头干脆、自信的半笑。</div><div class="beat"><span class="t">[00:05–00:10]</span>她探臂把两只玻璃瓶和一个小罐沿钢台推到一旁，清出台面中央；只剩酱料包独自留在那里，接住一道高光。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头推近：双手撕开酱料包口，斜到敞开的内胆上方；浓稠深红酱汁呈一条缓慢油亮的粗线浇在浅色排骨上，稠得先立住形状、再慢慢摊开。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：烧排骨，闭着眼睛都能做成。家里那些落灰的八角、桂皮、酱油、老抽统统靠边站。排骨冷水下锅焯水，捞出来用温水洗净，直接扔进电饭锅里。／S2：然后重点来了，直接撕开一包这个爆汁红烧酱料倒进去，这里面是大厨给</td></tr>
+<tr><th>音效</th><td>排风嗡鸣、玻璃瓶被推开、铝箔撕开、浓酱浇落摊平。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>脉动展开，更自信。</td></tr>
+<tr><th>产品参考图</th><td>是（产品参考图锁定）</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">酱汁要浓稠挂在排骨上；倒酱是一条慢线不散</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Picture 1&gt; is the authoritative reference for the product SP: a glossy laminated stand-up sauce pouch of tall rounded doypack silhouette with a vivid tomato-red metallised front panel and a narrow ivory header band carrying a round punched hang-hole. Whenever the pouch is on screen, keep its identity, silhouette, proportions, colour, material and its own printed packaging design exactly as shown in &lt;Picture 1&gt; - do not invent, restyle, re-letter or recolour the packaging, and do not replace it with a different bag or a box; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+The supplied &lt;Picture 1&gt; reference fixes what the product is and how its packaging looks; the description below only covers staging, action, camera and timing. Do not re-describe or re-draw the packaging design beyond what &lt;Picture 1&gt; already shows.
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. The only lettering allowed in the entire frame is the printing that is physically part of the product pouch supplied as &lt;Picture 1&gt;: keep that printing exactly as supplied — same layout, colours and artwork — and in product close-ups let it read as sharp and legible as the physical print itself. Every other paper, document, folder, sign, screen or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 – 00:05.000] Medium shot: S2 speaks to camera with growing energy, both hands moving. The extractor hood and tiled wall frame her; the rice cooker lid is open on the counter behind her. Brows up, quick emphatic nods, a confident half-smile.
+[00:05.000 – 00:10.000] She reaches past the pouch and slides two glass bottles and a small jar aside along the steel with her forearm, clearing the centre of the counter; the pouch is left alone catching a specular highlight.
+[00:10.000 – 00:15.000] The camera pushes in close as her two hands tear the top off the red pouch and tilt it over the open inner pot; a thick dark-red sauce pours out in a slow glossy ribbon over the pale ribs, heavy enough to hold its shape before it settles.
+
+overall_soundscape:
+Extractor hum, glass bottles pushed aside on steel, foil tearing, thick sauce pouring and settling. No speech, no voices.
+
+non_diegetic_music:
+The pulse opens out, more confident.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 16</span> 特写 (CU) · 食堂后厨 · 白天 · 人物：SP + S2 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot16_press_cook</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>锅内极特写：深红酱汁裹住每块排骨，油亮的酱缓缓顺着肉下滑。厨房灯光在锅沿描出一圈亮边。</div><div class="beat"><span class="t">[00:05–00:10]</span>一只手沿锅边倒入半碗清水；水面绕排骨涨起，酱汁在水中拉出一缕缕红丝。</div><div class="beat"><span class="t">[00:10–00:15]</span>电饭锅特写：拇指把煮饭键按到底，一声脆响；锅盖合拢落位、指示灯亮起。钢制锅身映出厨房柔和倒影。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：你调配好的黄金比例。加半碗清水，盖上盖子，按下煮饭键，搞定，就这么简单。／S2：接下来你就可以彻底离开厨房了，不用吸油烟，不用盯火候，你去舒舒服服洗个澡，敷个面膜，刷两集剧。听到电饭锅一</td></tr>
+<tr><th>音效</th><td>酱汁滑过内胆、倒水、按键脆响、锅盖落位。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>轻快满足的小节奏配乐。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">按键—灯亮的因果一眼看懂</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Extreme close-up inside the inner pot: the dark-red sauce coats every rib, sliding down the meat in slow glossy sheets. Bright kitchen light rings the rim of the pot.
+[00:05.000 – 00:10.000] A hand tips half a bowl of clean water in; the surface rises around the ribs and the sauce streaks into the water in red threads.
+[00:10.000 – 00:15.000] Close on the rice cooker: a thumb presses the cook lever down with a firm click, the lid settles closed and the indicator lamp comes on. The steel body holds a soft reflection of the kitchen.
+
+overall_soundscape:
+Sauce sliding on ceramic, water poured, a mechanical lever click, a lid settling. No speech, no voices.
+
+non_diegetic_music:
+Light, satisfied kitchen cue, small and rhythmic.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 17</span> 特写 (CU) · 食堂后厨 · 白天 · 人物：SP + S1 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot17_open_and_taste</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>台面电饭锅特写：蒸汽从出气口稳定冒成一股、指示灯亮着、旁边手机反扣。周围台面空净整齐。</div><div class="beat"><span class="t">[00:05–00:10]</span>锅盖掀开，一大团蒸汽涌出；锅里排骨红亮油润、酱汁收得浓稠、整块带骨形状完好。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头从锅摇起找到轮椅上的 S1：筷子夹起排骨轻轻一扯，肉整条脱骨滑进嘴里，眼角笑出纯粹的满足。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：声，直接开饭。您看这出锅的色泽，排骨吸满了浓郁的酱汁，筷子一戳直接脱骨。／S1：还真是一戳就脱骨。／S2：关键是吃完只用洗一个电饭锅内胆，简直是咱们懒人和上班族的厨房之光。它配料表干干净净，家里</td></tr>
+<tr><th>音效</th><td>出气口嘶嘶声、开盖、筷子、一声满足的轻呼气。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>温暖钢琴回来，小小得意。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">脱骨效果要干净利落；无字幕</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Close on the rice cooker on the counter: steam lifts from the vent in a steady plume, the indicator lamp lit, a mobile phone lying face-down beside it. The counter around it is empty and orderly.
+[00:05.000 – 00:10.000] The lid opens and a heavy roll of steam escapes; inside, the ribs are deep red and glossy, the sauce reduced and thick, whole pieces holding their shape on the bone.
+[00:10.000 – 00:15.000] The camera tilts up from the pot to S1 at the counter in his wheelchair: he lifts a rib with his chopsticks, tugs, and the meat slides clean off the bone into his mouth, eyes creasing with plain enjoyment.
+
+overall_soundscape:
+A steam vent hissing, a lid opening, chopsticks, a small satisfied breath. No speech, no voices.
+
+non_diegetic_music:
+Warm piano returns, small and pleased.</pre></details>
+</details>
+<details class="shot" open>
+<summary><span class="no">镜 18</span> 中景 (MS) + 特写 · 食堂后厨 · 白天 · 人物：S2 + SP · 15s</summary>
+<div class="risk">⚠️ 首帧锚定镜——首帧必须与参考一致</div>
+<table>
+<tr><th>英文文件名</th><td>shot18_product_points</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>（首帧）中景：干净厨房里，S2 双手把红酱料包举在胸前，直视镜头微笑；洗净的内胆摆在手边台面上。</div><div class="beat"><span class="t">[00:05–00:10]</span>她把酱料包再举高一点、转正，让印好的正面正对镜头接住光；镜头缓慢推进直到酱料包占满画面。</div><div class="beat"><span class="t">[00:10–00:15]</span>镜头缓缓拉回她的中近景：她把酱料包放下、一手平贴胸口、对镜头说话，笑容放软成诚恳，眨眼放慢。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：老人小孩甚至孕期嘴馋想吃点红烧口味的也能放心吃。拿它做红烧肉、红烧鱼、炖牛肉、炖羊肉，一包全部搞定。／S2：平时去超市买这么一包，少说也要七八块。今天在我们这里，点击左下角，九块九直接到手五包。还没完，现在拼手速下单的，我再自掏</td></tr>
+<tr><th>音效</th><td>厨房底噪、围裙布料、铝箔包在手里窸窣。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>明亮自信的配乐，节奏稳定。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">首帧必须与参考首帧一致；包装印刷不变形、不被放大</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject P&gt; (SP), the same glossy laminated stand-up sauce pouch of tall rounded doypack silhouette, vivid tomato-red metallised front panel with crisp white specular highlights along its folds and a faint crinkle across the surface, a narrow ivory header band across the very top carrying a round punched hang-hole - the pouch&#x27;s front panel carries its own printed packaging artwork, exactly as it appears in the opening frame; keep that printed surface identical, unchanged and physically part of the film throughout the shot; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+Start exactly from the supplied first frame; preserve its composition, framing, lighting, colour and the pouch&#x27;s printed front panel. Animate only the motion described below; do not restage the opening.
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. The only lettering allowed in the entire frame is the printed packaging artwork physically carried by the product pouch exactly as it appears in the supplied first frame: keep that printed surface identical and unchanged for the whole shot. Every other paper, document, folder, sign, screen or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 – 00:05.000] Medium shot: S2 stands in the clean kitchen holding the red pouch up in both hands at chest height, smiling straight down the lens. The washed inner pot sits on the counter beside her.
+[00:05.000 – 00:10.000] She lifts the pouch a little higher and turns it so its printed front panel catches the light square to camera; the camera pushes in slowly until the pouch fills the frame.
+[00:10.000 – 00:15.000] The camera drifts back out to her medium close-up as she sets the pouch down on the counter, one hand flat over her chest, and speaks down the lens, the smile softening into sincerity, a slower blink.
+
+overall_soundscape:
+Kitchen room tone, apron fabric, a foil pouch crinkling in the hand. No speech, no voices.
+
+non_diegetic_music:
+Bright confident cue, steady tempo.</pre></details>
+</details>
+<details class="shot" open>
+<summary><span class="no">镜 19</span> 中景 (MS) + 特写 · 食堂后厨 · 白天 · 人物：S2 + SP · 15s</summary>
+<div class="risk">⚠️ 酱料包必须 7 个（上一版错了）</div>
+<table>
+<tr><th>英文文件名</th><td>shot19_price_close</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>台面上方低机位特写：一盘做好的红烧排骨，深红油亮的酱积在盘底、撒着葱花，热汽飘过镜头；盘后整整齐齐叠摆七个一模一样的红酱料包。</div><div class="beat"><span class="t">[00:05–00:10]</span>镜头后拉升高成中景：S2 的手掌从左到右扫过这排七个酱料包逐一展示；眼睛不离镜头，亮而稳。</div><div class="beat"><span class="t">[00:10–00:15]</span>她上前贴住台沿，下巴微抬，食指举在肩侧，对镜头收口喊价——笃定的小笑保持到最后一帧。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S2：腰包多送你两包。九块九整整七包，给你包邮到家，折算下来一块多钱就能解决一顿大餐的调味。告别满身油烟。</td></tr>
+<tr><th>音效</th><td>厨房底噪、酱料包在钢面滑动、指尖轻叩台面。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>向前的推进感，最后一个强乐句。</td></tr>
+<tr><th>产品参考图</th><td>是（产品参考图锁定）</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">数一下——必须是 7 个酱料包（上一版是 6 个）</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Picture 1&gt; is the authoritative reference for the product pouch (SP): keep its silhouette, proportions, colour, material and printed packaging design exactly as shown in &lt;Picture 1&gt;; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. The only lettering allowed in the entire frame is the printing that is physically part of the product pouch supplied as &lt;Picture 1&gt;: keep that printing exactly as supplied — same layout, colours and artwork — and in product close-ups let it read as sharp and legible as the physical print itself. Every other paper, document, folder, sign, screen or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 – 00:05.000] Close view low over the counter: a white plate of finished braised ribs, deep-red glossy sauce pooling at the base, chopped scallion scattered on top, steam drifting across the lens; behind it a neat overlapping spread of seven identical red pouches.
+[00:05.000 – 00:10.000] The camera pulls back and up to a medium shot as S2&#x27;s open palm sweeps across the row of seven pouches, left to right, presenting the stack; her eyes stay on the lens, bright and unblinking.
+[00:10.000 – 00:15.000] She comes up to the counter edge, chin up, right index finger raised beside her shoulder, and delivers the closing line straight down the lens, a small confident smile holding to the last frame.
+
+overall_soundscape:
+Kitchen room tone, foil pouches sliding across steel, a light hand tap on the counter. No speech, no voices.
+
+non_diegetic_music:
+Drive forward, one strong final phrase.</pre></details>
+</details>
+<details class="shot" >
+<summary><span class="no">镜 20</span> 中景 (MS) + 特写 · 食堂后厨 · 白天 · 人物：S1 + S2 + S5 · 15s</summary>
+
+<table>
+<tr><th>英文文件名</th><td>shot20_conscience_close</td></tr>
+<tr><th>画面内容（中文母版，可改）</th><td><div class="beat"><span class="t">[00:00–00:05]</span>干净厨房全景：台面擦净、电饭锅归位、做好的排骨摆在正中。明亮、整齐、安静。</div><div class="beat"><span class="t">[00:05–00:10]</span>S5 推着 S1 的轮椅进厨房停在台旁。S2 仍穿蓝衬衫米色围裙站得笔直看他，双手交叠、姿态恭敬；S1 抬眼——温暖却仍在掂量——对她点头，转动轮椅面向镜头位。</div><div class="beat"><span class="t">[00:10–00:15]</span>S1 面部特写：银发、深纹、眼神稳。他直视镜头开口，不急不缓，目光保持到最后一帧——恳切笃定，眼角只留一丝暖意，不开怀笑。</div></td></tr>
+<tr><th>台词（仅参考，本版生成无声视频）</th><td>S1：今天你先用一份饭救了一个老人，又用一道菜证明了手艺。一个人能不能留下，不只看简历。／S1：家人们，你们说说，我一个董事长坐轮椅摔在后门测试员工，是不是太现实了？可做食品的人，手艺可以慢慢练，产品可以慢慢学，良心不能没有。</td></tr>
+<tr><th>音效</th><td>厨房底噪、脚轮碾过瓷砖又停住、安静的空气。无对白无人声。</td></tr>
+<tr><th>音乐</th><td>弦乐与钢琴汇成一个温暖的收束和弦。</td></tr>
+<tr><th>产品参考图</th><td>否</td></tr>
+<tr><th>✅ 验收标准（看完视频逐条打勾）</th><td class="check">S2 是围裙；S1 收束表情要“稳”不要煽情</td></tr>
+</table>
+<details class="en"><summary>英文 Prompt（生成唯一输入 · 改中文后由此回写，勿直接改）</summary><pre>integrated_multimodal_description:
+&lt;Character reference — every subject below keeps exactly the same face, hair, age, build and clothing in every shot of this film: &lt;Subject 1&gt; (S1), a dignified 65-year-old East Asian man with thick silver-white hair combed back, deep laugh lines, calm penetrating eyes and a neatly shaved jaw, wearing a charcoal-grey wool jacket over a dark grey knit sweater and plain dark trousers; he sits in a black manual wheelchair with chrome hand-rims; &lt;Subject 2&gt; (S2), a strikingly beautiful 20-year-old East Asian young woman with a fresh dewy youthful face, large bright almond eyes, a small straight nose, softly defined cheekbones, full natural pink lips and smooth flawless unlined porcelain skin, a tiny soft beauty mark just below her left eye, long glossy jet-black hair pulled into a high loose bun with a few strands framing her face, slim petite figure; wearing a pale blue work shirt with the sleeves rolled and a beige canvas apron over dark trousers; &lt;Subject 5&gt; (S5), a 35-year-old East Asian man in a dark navy uniform jacket and matching trousers, standing attentively beside the wheelchair&gt;
+
+&lt;Scene reference — this entire shot takes place in: a professional canteen kitchen: stainless-steel counters, a wide gas range, an extractor hood, white tiled walls and bright overhead lights, a rice cooker on the counter&gt;
+
+&lt;Style &amp; frame constraints — apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic daylight, photorealistic live-action footage. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no karaoke-style highlighted characters, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script — Chinese, Latin, digits or symbols — anywhere in the frame, especially in the lower half and along the bottom edge. Any paper, document, folder, sign, screen, package or printed surface in frame is blank or shows only soft unreadable blurred marks, never legible lettering, characters, numbers or logos.&gt;
+
+[00:00.000 – 00:05.000] Wide shot of the clean kitchen: the counter wiped down, the rice cooker back on its shelf, the finished plate of ribs in the centre. Bright, orderly, quiet.
+[00:05.000 – 00:10.000] S5 pushes S1&#x27;s wheelchair into the kitchen and stops beside the counter. S2, still in her pale blue work shirt and beige apron with her hands folded in front of her, stands straight and looks at him. S1 looks up at her, then turns his chair to face the camera position. S2&#x27;s hands are folded and her posture respectful; S1&#x27;s look is warm but appraising, and he gives her a small nod.
+[00:10.000 – 00:15.000] Close-up on S1&#x27;s face: silver hair, deep lines, steady eyes. He speaks straight down the lens, unhurried and level, and holds the look to the last frame. Level and earnest, steady eyes, only the faintest warmth at the corners — no broad smile.
+
+overall_soundscape:
+Kitchen room tone, castors rolling on tile then stopping, quiet air. No speech, no voices.
+
+non_diegetic_music:
+Strings resolve with the piano into one warm closing chord.</pre></details>
+</details>
+</body></html>

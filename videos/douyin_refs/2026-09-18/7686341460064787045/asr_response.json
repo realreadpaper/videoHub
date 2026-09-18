@@ -1,0 +1,50 @@
+{
+  "request_id": "c81edb15-7310-9aad-bfb0-1a893c5356cd",
+  "output": {
+    "task_id": "84e0b85d-553f-44aa-9f49-eb0627a9e578",
+    "task_status": "SUCCEEDED",
+    "submit_time": "2026-09-19 00:04:34.586",
+    "scheduled_time": "2026-09-19 00:04:34.623",
+    "end_time": "2026-09-19 00:04:39.649",
+    "results": [
+      {
+        "output": {
+          "file_url": "http://dashscope-file-mgr.oss-cn-beijing.aliyuncs.com/dashscope-instant/55eaa545e6eb98583e4f22f15712fdfd/2026-09-19/d3df7d6f-e52f-972b-9c14-1a2690d60237/audio_16k.mp3?Expires=1789920274&OSSAccessKeyId=LTAI5t64cnuuVx7xndFH9ULk&Signature=uV7%2FPTsOEaAkOpE%2B%2FT8mBLPazOI%3D",
+          "results": [
+            {
+              "file_url": "http://dashscope-file-mgr.oss-cn-beijing.aliyuncs.com/dashscope-instant/55eaa545e6eb98583e4f22f15712fdfd/2026-09-19/d3df7d6f-e52f-972b-9c14-1a2690d60237/audio_16k.mp3?Expires=1789920274&OSSAccessKeyId=LTAI5t64cnuuVx7xndFH9ULk&Signature=uV7%2FPTsOEaAkOpE%2B%2FT8mBLPazOI%3D",
+              "results": [],
+              "transcription_url": "https://dashscope-result-bj.oss-cn-beijing.aliyuncs.com/prod/paraformer-v2/20260919/00%3A04/cabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json?Expires=1789833879&OSSAccessKeyId=LTAI5tGzqbGcEmE58b221XQy&Signature=bUyy7yf7bInFRJT%2BElBZjvy1kug%3D&response-content-disposition=attachment%3Bfilename%3Dcabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json",
+              "subtask_status": "SUCCEEDED"
+            }
+          ],
+          "transcription_url": "https://dashscope-result-bj.oss-cn-beijing.aliyuncs.com/prod/paraformer-v2/20260919/00%3A04/cabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json?Expires=1789833879&OSSAccessKeyId=LTAI5tGzqbGcEmE58b221XQy&Signature=bUyy7yf7bInFRJT%2BElBZjvy1kug%3D&response-content-disposition=attachment%3Bfilename%3Dcabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json",
+          "subtask_status": "SUCCEEDED"
+        },
+        "file_url": "http://dashscope-file-mgr.oss-cn-beijing.aliyuncs.com/dashscope-instant/55eaa545e6eb98583e4f22f15712fdfd/2026-09-19/d3df7d6f-e52f-972b-9c14-1a2690d60237/audio_16k.mp3?Expires=1789920274&OSSAccessKeyId=LTAI5t64cnuuVx7xndFH9ULk&Signature=uV7%2FPTsOEaAkOpE%2B%2FT8mBLPazOI%3D",
+        "usage": {
+          "duration": 274
+        },
+        "request_id": "cabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1",
+        "results": [
+          {
+            "file_url": "http://dashscope-file-mgr.oss-cn-beijing.aliyuncs.com/dashscope-instant/55eaa545e6eb98583e4f22f15712fdfd/2026-09-19/d3df7d6f-e52f-972b-9c14-1a2690d60237/audio_16k.mp3?Expires=1789920274&OSSAccessKeyId=LTAI5t64cnuuVx7xndFH9ULk&Signature=uV7%2FPTsOEaAkOpE%2B%2FT8mBLPazOI%3D",
+            "results": [],
+            "transcription_url": "https://dashscope-result-bj.oss-cn-beijing.aliyuncs.com/prod/paraformer-v2/20260919/00%3A04/cabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json?Expires=1789833879&OSSAccessKeyId=LTAI5tGzqbGcEmE58b221XQy&Signature=bUyy7yf7bInFRJT%2BElBZjvy1kug%3D&response-content-disposition=attachment%3Bfilename%3Dcabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json",
+            "subtask_status": "SUCCEEDED"
+          }
+        ],
+        "transcription_url": "https://dashscope-result-bj.oss-cn-beijing.aliyuncs.com/prod/paraformer-v2/20260919/00%3A04/cabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json?Expires=1789833879&OSSAccessKeyId=LTAI5tGzqbGcEmE58b221XQy&Signature=bUyy7yf7bInFRJT%2BElBZjvy1kug%3D&response-content-disposition=attachment%3Bfilename%3Dcabd8f2f-c53d-4a78-a2c8-c6c0654a3a9e-1.json",
+        "subtask_status": "SUCCEEDED"
+      }
+    ],
+    "task_metrics": {
+      "TOTAL": 1,
+      "SUCCEEDED": 1,
+      "FAILED": 0
+    }
+  },
+  "usage": {
+    "duration": 274
+  }
+}
