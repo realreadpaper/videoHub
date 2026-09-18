@@ -14,3 +14,7 @@
 	path = TaoMate-H3
 	url = https://github.com/TaoLiveAIGC/TaoMate-H3.git
 	branch = main
+[submodule "jianying-headless"]
+	path = repos/jianying-headless
+	url = https://github.com/mcncarl/jianying-headless.git
+	branch = main

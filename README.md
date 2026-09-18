@@ -31,7 +31,7 @@ git submodule update --init
 
 ## 外部代码仓库（submodule）
 
-4 个仓库以 **git submodule** 引用（见 `.gitmodules`）：各自的 `.git`、分支、remote 完全独立，
+5 个仓库以 **git submodule** 引用（见 `.gitmodules`）：各自的 `.git`、分支、remote 完全独立，
 父仓库只记录一个提交指针，**不复制任何文件**，因此可以随时独立拉取上游更新。
 
 | 路径 | 上游（submodule url） | 本仓库记录的提交 |
@@ -40,6 +40,12 @@ git submodule update --init
 | `repos/FastVideo/` | https://github.com/hao-ai-lab/FastVideo | `c4824c77`（`main`，版本 `0.2.1`） |
 | `reelbench-skills/` | https://github.com/eternityspring/reelbench-skills | `18f2f639`（`main`） |
 | `TaoMate-H3/` | https://github.com/TaoLiveAIGC/TaoMate-H3 | `b933d8e9`（`main`） |
+| `repos/jianying-headless/` | https://github.com/mcncarl/jianying-headless | `bb1e72c`（`main`） |
+
+> `repos/jianying-headless` 是剪映专业版的本地自动化工具（非商用许可，商用需作者书面授权）。
+> 它**不是**独立剪辑软件：真正跑起来还需要本机安装剪映专业版 11.4.0/11.4.2，
+> 并且重建原生 codec 需要与固定哈希匹配的工具链（Apple clang 21 / macOS SDK 26.5）。
+> 详见该仓库的 `README.md`。
 
 submodule 的 url 统一用 **HTTPS**（公开仓库免鉴权、不受本机 22 端口阻断影响）；
 父仓库自身的 `origin` 用 SSH over 443（见「远端接入」）。
