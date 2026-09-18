@@ -1,129 +1,133 @@
 {
- "film_title": "加名之夜",
- "director_style": "奉俊昊",
- "theme": "暴雨夜半地下室公寓 × 新婚前夜逼签房产加名协议 × 沙发缝翻出一百二十万民间借贷借据 × 寄生骗局揭穿 × 新郎冷峻释然抽身入雨夜",
- "fps": 24,
- "shot_duration_sec": 15,
- "h3_length": 362,
- "refined_frames": 361,
- "aspect_ratio": "16:9",
- "resolution_stage1": "672x384",
- "resolution_stage2": "1344x768",
- "seed": 20260922,
- "prompt_schema": "github_minimax_h3_multimodal_envelope_v2",
- "shots": [
-  {
-   "no": 1,
-   "file": "shot01_semi_basement_window_bucket",
-   "framing": "中景 (MS)",
-   "duration": 11.375,
-   "character": "<Subject 1> (S1) (ENV)",
-   "dialogue_cn": "",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:03.833] Medium static shot inside a cramped, humid semi-basement apartment during torrential night rain. A low street-level transom window at the top of the concrete wall reveals passing car tires splashing muddy road water violently against the wet glass.\n[00:03.833 – 00:07.708] The camera tilts down slightly. Cold rainwater drips from a dark ceiling plaster crack in steady, hypnotic rhythm into a faded red plastic bucket already brimming to the rim on the linoleum floor.\n[00:07.708 – 00:11.542] On the low formica table in the dim foreground rests <Prop 1>, an official red-covered apartment title deed booklet and a legal property co-ownership agreement document, glowing under a naked hanging incandescent light bulb, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nViolent tire water-slosh outside the street window, rhythmic metallic plops of water droplets hitting plastic bucket, damp hum of urban humidity. No background speech.\n\nnon_diegetic_music:\nN/A\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 277,
-   "duration_frames": 273,
-   "audio_file": "tts_dry/trilogy/f3_s01_dry.wav"
+  "film_title": "加名之夜",
+  "director_style": "奉俊昊",
+  "theme": "暴雨夜半地下室公寓 × 新婚前夜逼签房产加名协议 × 沙发缝翻出一百二十万民间借贷借据 × 寄生骗局揭穿 × 新郎冷峻释然抽身入雨夜",
+  "fps": 24,
+  "shot_duration_sec": 15,
+  "h3_length": 362,
+  "refined_frames": 277,
+  "aspect_ratio": "16:9",
+  "resolution_stage1": "768x1344",
+  "resolution_stage2": null,
+  "seed": 20260922,
+  "prompt_schema": "github_minimax_h3_multimodal_envelope_v2",
+  "shots": [
+    {
+      "no": 1,
+      "file": "shot01_semi_basement_window_bucket",
+      "framing": "中景 (MS)",
+      "duration": 11.542,
+      "character": "<Subject 1> (S1) (ENV)",
+      "dialogue_cn": "",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:03.833] Medium static shot inside a cramped, humid semi-basement apartment during torrential night rain. A low street-level transom window at the top of the concrete wall reveals passing car tires splashing muddy road water violently against the wet glass.\n[00:03.833 – 00:07.708] The camera tilts down slightly. Cold rainwater drips from a dark ceiling plaster crack in steady, hypnotic rhythm into a faded red plastic bucket already brimming to the rim on the linoleum floor.\n[00:07.708 – 00:11.542] On the low formica table in the dim foreground rests <Prop 1>, an official red-covered apartment title deed booklet and a legal property co-ownership agreement document, glowing under a naked hanging incandescent light bulb, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nViolent tire water-slosh outside the street window, rhythmic metallic plops of water droplets hitting plastic bucket, damp hum of urban humidity. No background speech.\n\nnon_diegetic_music:\nN/A\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 277,
+      "duration_frames": 277,
+      "audio_file": "tts_dry/trilogy/f3_s01_dry.wav"
+    },
+    {
+      "no": 2,
+      "file": "shot02_mother_ruby_ring_pen",
+      "framing": "中近景 (MCU)",
+      "duration": 15.083,
+      "character": "<Subject 3> (S3)",
+      "dialogue_cn": "振浩啊，恩熙不是要分你的房子，女人要的是一份定心丸。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:05.042] Medium close-up with slow push-in. <Subject 3> (S3), a 56-year-old calculating East Asian mother-in-law named MADAM-HE, sharp arched eyebrows, tight bun hairstyle, wearing a deep plum-purple wool shawl over a dark velour wrap dress, sits under the harsh warm lamp, her conspicuous amber ruby ring catching a sinister gleam.\n[00:05.042 – 00:10.042] Her manicured fingers smoothly slide an open fountain pen across <Prop 1>, the legal property co-ownership agreement, toward the camera. She offers a motherly, condescending smile and speaks in a sweet, suffocating tone: <d>[Chinese] \"振浩啊，恩熙不是要分你的房子，女人要的是一份定心丸。\"</d>\n[00:10.042 – 00:15.083] <Subject 3> (S3)'s eyes narrow with unblinking predatory calculation, the pen's black nib resting directly on the dotted signature line, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nDelicate friction of steel pen nib gliding across textured paper, soft rustle of cashmere wool shawl, steady background water drops in bucket. No background speech.\n\nnon_diegetic_music:\nA delicate, unsettling harpsichord and pizzicato cello melody, cold and deceitful.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 362,
+      "duration_frames": 362,
+      "audio_file": "tts_dry/trilogy/f3_s02_dry.wav"
+    },
+    {
+      "no": 3,
+      "file": "shot03_bride_coffee_reflection",
+      "framing": "特写 (CU)",
+      "duration": 13.667,
+      "character": "<Subject 2> (S2)",
+      "dialogue_cn": "我妈也是为了咱们俩好……你签了，大家都体面。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.542] Tight close-up, static shot. In the foreground, <Subject 2> (S2), a 28-year-old refined East Asian bride-to-be named EN-XI, delicate features, sleek low ponytail, wearing an elegant ivory turtleneck cashmere knit sweater and discreet pearl earrings, cradles a steaming ceramic mug in trembling hands, blowing delicately on the instant coffee.\n[00:04.542 – 00:09.125] <Subject 2> (S2) sips nervously, her eyes darting away with guilty evasion, unable to look across the table. She lowers the mug and whispers in an uneasy, defensive murmur: <d>[Chinese] \"我妈也是为了咱们俩好……你签了，大家都体面。\"</d>\n[00:09.125 – 00:13.667] A subtle twitch at the corner of her lips betrays deep underlying anxiety. In the soft-focus background on the right sits <Subject 1> (S1), the 32-year-old slender groom in charcoal wool coat and rimless titanium spectacles, sitting completely motionless with cold detachment, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nSoft blowing of hot steam, ceramic mug clinking lightly against glass table, muffled distant thunderclap rolling across the city. No background speech.\n\nnon_diegetic_music:\nA minimalist solo viola playing a single unresolved sustained high note, generating acute claustrophobia.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 328,
+      "duration_frames": 328,
+      "audio_file": "tts_dry/trilogy/f3_s03_dry.wav"
+    },
+    {
+      "no": 4,
+      "file": "shot04_sofa_crevice_folded_paper",
+      "framing": "特写 (CU)",
+      "duration": 11.542,
+      "character": "<Subject 1> (S1)",
+      "dialogue_cn": "……什么东西卡在里面了。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:03.833] Close-up shot tilting down toward the floor beside a saggy brown fabric sofa. <Subject 1> (S1), the 32-year-old slender groom in charcoal wool trench coat and rimless spectacles, reaches down between the dusty cushions to retrieve a dropped silver lighter.\n[00:03.833 – 00:07.708] His slender fingers probe deep into the cushion crevice, encountering a stiff bundle. He pauses, slowly extracting <Prop 2>, a thick folded packet of damp yellowed handwritten debt notices, every stroke rendering as completely illegible abstract ink marks, tied with a brittle red rubber band, murmuring quietly: <d>[Chinese] \"……什么东西卡在里面了。\"</d>\n[00:07.708 – 00:11.542] Dust motes drift in the yellow light as the brittle red rubber band snaps. <Subject 1> (S1)'s slender fingers begin to unfold the stiff damp paper edges, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nCreak of old sofa springs, coarse rustle of paper dragged from foam cushion, tiny snap of perished rubber band breaking. No background speech.\n\nnon_diegetic_music:\nA sudden descent into silence, replaced by a low, ominous sub-bass pulse.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 277,
+      "duration_frames": 277,
+      "audio_file": "tts_dry/trilogy/f3_s04_dry.wav"
+    },
+    {
+      "no": 5,
+      "file": "shot05_macro_debt_contract_thumbprints",
+      "framing": "微距特写 (Macro CU)",
+      "duration": 11.542,
+      "character": "<Subject 1> (S1) (HANDS)",
+      "dialogue_cn": "",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:03.833] Macro close-up with slow steady pan. <Subject 1> (S1)'s pale slender hands spread out <Prop 2>, the damp yellowed paper, revealing an urgent private high-interest debt repayment notice.\n[00:03.833 – 00:07.708] The camera pushes in sharply on the bold handwritten ink strokes on the loan paper, stamped with row upon row of crimson thumbprints, every character and digit rendering as completely illegible abstract marks, bearing the bride's and her mother's names.\n[00:07.708 – 00:11.542] The camera holds in dead silence on the red thumbprints, illuminating the parasitism scheme to transfer the family debt onto the groom's property deed, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nSudden high-frequency tinnitus ringing sound, cold water drops in bucket echoing unnaturally loud like hammer strikes. No background speech.\n\nnon_diegetic_music:\nN/A\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 277,
+      "duration_frames": 277,
+      "audio_file": "tts_dry/trilogy/f3_s05_dry.wav"
+    },
+    {
+      "no": 6,
+      "file": "shot06_chilling_confrontation_table",
+      "framing": "中景 (MS)",
+      "duration": 15.083,
+      "character": "<Subject 1> (S1)",
+      "dialogue_cn": "原来你们要的定心丸，是一百二十万的替死鬼。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:05.042] Medium symmetrical shot across the formica table. In the foreground center sits <Subject 1> (S1), the 32-year-old slender groom in charcoal wool coat, spine straight and unnervingly calm, his rimless spectacles gleaming under the bare bulb.\n[00:05.042 – 00:10.042] <Subject 1> (S1) delicately flattens <Prop 2>, the private debt paper, with two fingers, places it squarely on top of the co-ownership agreement, and delivers an icy, detached verdict: <d>[Chinese] \"原来你们要的定心丸，是一百二十万的替死鬼。\"</d>\n[00:10.042 – 00:15.083] Beside his chair rests a black leather briefcase. Across the table, on the left sits <Subject 3> (S3), the 56-year-old mother in plum shawl, and on the right sits <Subject 2> (S2), the 28-year-old bride in ivory knit sweater, both freezing in place as all color drains from their faces into deathly pale silence, their social masks completely shattered, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nCrisp sound of debt paper resting on contract, sharp collective gasp from the mother and daughter, torrential rain drumming violently on the window. No background speech.\n\nnon_diegetic_music:\nA chilling, dissonant classical string cadence, cold, elegant, and merciless.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 362,
+      "duration_frames": 362,
+      "audio_file": "tts_dry/trilogy/f3_s06_dry.wav"
+    },
+    {
+      "no": 7,
+      "file": "shot07_door_locks_bucket_overflows",
+      "framing": "中景 (MS)",
+      "duration": 12.25,
+      "character": "<Subject 1> (S1) (DEPARTURE)",
+      "dialogue_cn": "",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.083] Medium shot facing the hallway entrance. <Subject 1> (S1), the 32-year-old slender groom in tailored charcoal wool coat and spectacles, calmly zips his black leather briefcase, opens the heavy green steel security door, and steps out into the dark corridor.\n[00:04.083 – 00:08.167] The steel door slams shut with a heavy metallic latch click. Inside the empty apartment, the overflowing red plastic bucket suddenly tilts and topples under the weight of accumulated rainwater.\n[00:08.167 – 00:12.250] Murky rainwater surges across the linoleum floor, completely submerging the abandoned contract and debt papers under dirty water, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nHeavy spring latch snapping shut, metallic bucket toppling with a dull clatter, murky water sloshing across linoleum floor. No background speech.\n\nnon_diegetic_music:\nA solitary, mournful solo piano motif playing five descending notes into silence.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 294,
+      "duration_frames": 294,
+      "audio_file": "tts_dry/trilogy/f3_s07_dry.wav"
+    },
+    {
+      "no": 8,
+      "file": "shot08_night_rain_umbrella_wipers",
+      "framing": "中远景至全景 (MLS to WS)",
+      "duration": 14.375,
+      "character": "<Subject 1> (S1)",
+      "dialogue_cn": "雨……终于淋不到我了。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.792] Medium long shot through the rain-slicked front windshield of an urban city taxi at a flooded intersection. Amber streetlights and neon signs dissolve into glistening reflections on wet asphalt.\n[00:04.792 – 00:09.583] Two black rubber wipers sweep smoothly across the glass. On the sidewalk, <Subject 1> (S1), the 32-year-old slender groom in tailored charcoal wool coat and spectacles, opens a large clean black umbrella, turns his calm face into the night breeze, and exhales a faint mist, murmuring with profound liberation: <d>[Chinese] \"雨……终于淋不到我了。\"</d>\n[00:09.583 – 00:14.375] <Subject 1> (S1) strides forward along the rain-swept sidewalk with composed, unhurried steps, disappearing gracefully into the luminous night rain as the scene fades smoothly into pure black, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nRhythmic rubber squeak of windshield wipers on glass, soothing patter of raindrops against umbrella fabric, distant city traffic hiss. No background speech.\n\nnon_diegetic_music:\nA serene, bittersweet neo-classical piano and string resolution, evoking pure liberation and clean solitude.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 345,
+      "duration_frames": 345,
+      "audio_file": "tts_dry/trilogy/f3_s08_dry.wav"
+    }
+  ],
+  "notext_patch": {
+    "applied": "2026-09-18",
+    "policy": "文字道具降级为不可辨 + 每镜末尾强制禁字段",
+    "clause_chars": 449
   },
-  {
-   "no": 2,
-   "file": "shot02_mother_ruby_ring_pen",
-   "framing": "中近景 (MCU)",
-   "duration": 15.042,
-   "character": "<Subject 3> (S3)",
-   "dialogue_cn": "振浩啊，恩熙不是要分你的房子，女人要的是一份定心丸。",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:05.042] Medium close-up with slow push-in. <Subject 3> (S3), a 56-year-old calculating East Asian mother-in-law named MADAM-HE, sharp arched eyebrows, tight bun hairstyle, wearing a deep plum-purple wool shawl over a dark velour wrap dress, sits under the harsh warm lamp, her conspicuous amber ruby ring catching a sinister gleam.\n[00:05.042 – 00:10.042] Her manicured fingers smoothly slide an open fountain pen across <Prop 1>, the legal property co-ownership agreement, toward the camera. She offers a motherly, condescending smile and speaks in a sweet, suffocating tone: <d>[Chinese] \"振浩啊，恩熙不是要分你的房子，女人要的是一份定心丸。\"</d>\n[00:10.042 – 00:15.083] <Subject 3> (S3)'s eyes narrow with unblinking predatory calculation, the pen's black nib resting directly on the dotted signature line, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nDelicate friction of steel pen nib gliding across textured paper, soft rustle of cashmere wool shawl, steady background water drops in bucket. No background speech.\n\nnon_diegetic_music:\nA delicate, unsettling harpsichord and pizzicato cello melody, cold and deceitful.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 362,
-   "duration_frames": 361,
-   "audio_file": "tts_dry/trilogy/f3_s02_dry.wav"
+  "final_patch": {
+    "applied": "2026-09-18",
+    "dialogue": 5,
+    "prompt": 7,
+    "need_tts": [
+      "f1s03",
+      "f1s06",
+      "f2s02",
+      "f2s06",
+      "f3s08"
+    ]
   },
-  {
-   "no": 3,
-   "file": "shot03_bride_coffee_reflection",
-   "framing": "特写 (CU)",
-   "duration": 13.375,
-   "character": "<Subject 2> (S2)",
-   "dialogue_cn": "我妈也是为了咱们俩好……你签了，大家都体面。",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.542] Tight close-up, static shot. In the foreground, <Subject 2> (S2), a 28-year-old refined East Asian bride-to-be named EN-XI, delicate features, sleek low ponytail, wearing an elegant ivory turtleneck cashmere knit sweater and discreet pearl earrings, cradles a steaming ceramic mug in trembling hands, blowing delicately on the instant coffee.\n[00:04.542 – 00:09.125] <Subject 2> (S2) sips nervously, her eyes darting away with guilty evasion, unable to look across the table. She lowers the mug and whispers in an uneasy, defensive murmur: <d>[Chinese] \"我妈也是为了咱们俩好……你签了，大家都体面。\"</d>\n[00:09.125 – 00:13.667] A subtle twitch at the corner of her lips betrays deep underlying anxiety. In the soft-focus background on the right sits <Subject 1> (S1), the 32-year-old slender groom in charcoal wool coat and rimless titanium spectacles, sitting completely motionless with cold detachment, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nSoft blowing of hot steam, ceramic mug clinking lightly against glass table, muffled distant thunderclap rolling across the city. No background speech.\n\nnon_diegetic_music:\nA minimalist solo viola playing a single unresolved sustained high note, generating acute claustrophobia.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 328,
-   "duration_frames": 321,
-   "audio_file": "tts_dry/trilogy/f3_s03_dry.wav"
-  },
-  {
-   "no": 4,
-   "file": "shot04_sofa_crevice_folded_paper",
-   "framing": "特写 (CU)",
-   "duration": 11.375,
-   "character": "<Subject 1> (S1)",
-   "dialogue_cn": "……什么东西卡在里面了。",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:03.833] Close-up shot tilting down toward the floor beside a saggy brown fabric sofa. <Subject 1> (S1), the 32-year-old slender groom in charcoal wool trench coat and rimless spectacles, reaches down between the dusty cushions to retrieve a dropped silver lighter.\n[00:03.833 – 00:07.708] His slender fingers probe deep into the cushion crevice, encountering a stiff bundle. He pauses, slowly extracting <Prop 2>, a thick folded packet of damp yellowed handwritten debt notices, every stroke rendering as completely illegible abstract ink marks, tied with a brittle red rubber band, murmuring quietly: <d>[Chinese] \"……什么东西卡在里面了。\"</d>\n[00:07.708 – 00:11.542] Dust motes drift in the yellow light as the brittle red rubber band snaps. <Subject 1> (S1)'s slender fingers begin to unfold the stiff damp paper edges, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nCreak of old sofa springs, coarse rustle of paper dragged from foam cushion, tiny snap of perished rubber band breaking. No background speech.\n\nnon_diegetic_music:\nA sudden descent into silence, replaced by a low, ominous sub-bass pulse.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 277,
-   "duration_frames": 273,
-   "audio_file": "tts_dry/trilogy/f3_s04_dry.wav"
-  },
-  {
-   "no": 5,
-   "file": "shot05_macro_debt_contract_thumbprints",
-   "framing": "微距特写 (Macro CU)",
-   "duration": 11.375,
-   "character": "<Subject 1> (S1) (HANDS)",
-   "dialogue_cn": "",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:03.833] Macro close-up with slow steady pan. <Subject 1> (S1)'s pale slender hands spread out <Prop 2>, the damp yellowed paper, revealing an urgent private high-interest debt repayment notice.\n[00:03.833 – 00:07.708] The camera pushes in sharply on the bold handwritten ink strokes on the loan paper, stamped with row upon row of crimson thumbprints, every character and digit rendering as completely illegible abstract marks, bearing the bride's and her mother's names.\n[00:07.708 – 00:11.542] The camera holds in dead silence on the red thumbprints, illuminating the parasitism scheme to transfer the family debt onto the groom's property deed, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nSudden high-frequency tinnitus ringing sound, cold water drops in bucket echoing unnaturally loud like hammer strikes. No background speech.\n\nnon_diegetic_music:\nN/A\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 277,
-   "duration_frames": 273,
-   "audio_file": "tts_dry/trilogy/f3_s05_dry.wav"
-  },
-  {
-   "no": 6,
-   "file": "shot06_chilling_confrontation_table",
-   "framing": "中景 (MS)",
-   "duration": 15.042,
-   "character": "<Subject 1> (S1)",
-   "dialogue_cn": "原来你们要的定心丸，是一百二十万的替死鬼。",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:05.042] Medium symmetrical shot across the formica table. In the foreground center sits <Subject 1> (S1), the 32-year-old slender groom in charcoal wool coat, spine straight and unnervingly calm, his rimless spectacles gleaming under the bare bulb.\n[00:05.042 – 00:10.042] <Subject 1> (S1) delicately flattens <Prop 2>, the private debt paper, with two fingers, places it squarely on top of the co-ownership agreement, and delivers an icy, detached verdict: <d>[Chinese] \"原来你们要的定心丸，是一百二十万的替死鬼。\"</d>\n[00:10.042 – 00:15.083] Beside his chair rests a black leather briefcase. Across the table, on the left sits <Subject 3> (S3), the 56-year-old mother in plum shawl, and on the right sits <Subject 2> (S2), the 28-year-old bride in ivory knit sweater, both freezing in place as all color drains from their faces into deathly pale silence, their social masks completely shattered, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nCrisp sound of debt paper resting on contract, sharp collective gasp from the mother and daughter, torrential rain drumming violently on the window. No background speech.\n\nnon_diegetic_music:\nA chilling, dissonant classical string cadence, cold, elegant, and merciless.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 362,
-   "duration_frames": 361,
-   "audio_file": "tts_dry/trilogy/f3_s06_dry.wav"
-  },
-  {
-   "no": 7,
-   "file": "shot07_door_locks_bucket_overflows",
-   "framing": "中景 (MS)",
-   "duration": 12.042,
-   "character": "<Subject 1> (S1) (DEPARTURE)",
-   "dialogue_cn": "",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.083] Medium shot facing the hallway entrance. <Subject 1> (S1), the 32-year-old slender groom in tailored charcoal wool coat and spectacles, calmly zips his black leather briefcase, opens the heavy green steel security door, and steps out into the dark corridor.\n[00:04.083 – 00:08.167] The steel door slams shut with a heavy metallic latch click. Inside the empty apartment, the overflowing red plastic bucket suddenly tilts and topples under the weight of accumulated rainwater.\n[00:08.167 – 00:12.250] Murky rainwater surges across the linoleum floor, completely submerging the abandoned contract and debt papers under dirty water, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nHeavy spring latch snapping shut, metallic bucket toppling with a dull clatter, murky water sloshing across linoleum floor. No background speech.\n\nnon_diegetic_music:\nA solitary, mournful solo piano motif playing five descending notes into silence.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 294,
-   "duration_frames": 289,
-   "audio_file": "tts_dry/trilogy/f3_s07_dry.wav"
-  },
-  {
-   "no": 8,
-   "file": "shot08_night_rain_umbrella_wipers",
-   "framing": "中远景至全景 (MLS to WS)",
-   "duration": 14.375,
-   "character": "<Subject 1> (S1)",
-   "dialogue_cn": "雨……终于淋不到我了。",
-   "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.792] Medium long shot through the rain-slicked front windshield of an urban city taxi at a flooded intersection. Amber streetlights and neon signs dissolve into glistening reflections on wet asphalt.\n[00:04.792 – 00:09.583] Two black rubber wipers sweep smoothly across the glass. On the sidewalk, <Subject 1> (S1), the 32-year-old slender groom in tailored charcoal wool coat and spectacles, opens a large clean black umbrella, turns his calm face into the night breeze, and exhales a faint mist, murmuring with profound liberation: <d>[Chinese] \"雨……终于淋不到我了。\"</d>\n[00:09.583 – 00:14.375] <Subject 1> (S1) strides forward along the rain-swept sidewalk with composed, unhurried steps, disappearing gracefully into the luminous night rain as the scene fades smoothly into pure black, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nRhythmic rubber squeak of windshield wipers on glass, soothing patter of raindrops against umbrella fabric, distant city traffic hiss. No background speech.\n\nnon_diegetic_music:\nA serene, bittersweet neo-classical piano and string resolution, evoking pure liberation and clean solitude.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
-   "h3_length": 345,
-   "duration_frames": 345,
-   "audio_file": "tts_dry/trilogy/f3_s08_dry.wav"
-  }
- ],
- "notext_patch": {
-  "applied": "2026-09-18",
-  "policy": "文字道具降级为不可辨 + 每镜末尾强制禁字段",
-  "clause_chars": 449
- },
- "final_patch": {
-  "applied": "2026-09-18",
-  "dialogue": 5,
-  "prompt": 7,
-  "need_tts": [
-   "f1s03",
-   "f1s06",
-   "f2s02",
-   "f2s06",
-   "f3s08"
-  ]
- }
+  "generation_mode": "one_step_768x1344",
+  "trim_applied": false,
+  "manifest_revised_at": "2026-09-18 12:38:32",
+  "manifest_revision_note": "改为一步直出 768×1344：duration/duration_frames 由 LTX trim 值改回 H3 原始帧数。prompt 时间戳未改（末段本就按 H3 全长）。"
 }
