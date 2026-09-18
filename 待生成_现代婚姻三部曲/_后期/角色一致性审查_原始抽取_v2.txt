@@ -1,0 +1,280 @@
+========================================================================================================
+【01】三十八万八 · 周星驰 · seed=20260918 · 8 镜 × 15s · 1344x768
+========================================================================================================
+
+── B. 同一 Subject 号跨镜「身份定义串」逐字比对（换脸风险核心）──
+
+  Subject 1 —— 出现在 shot [1, 1, 2, 2, 2, 5, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8]（共 16 次定义）
+     [✘] shot01  相似度=0.04  长度=425  年龄=30
+     [✘] shot01  相似度=0.42  长度=560  年龄=∅
+     [✘] shot02  相似度=0.04  长度=408  年龄=30
+     [✘] shot02  相似度=0.04  长度=256  年龄=∅
+     [✘] shot02  相似度=0.45  长度=323  年龄=∅
+     [✘] shot05  相似度=0.06  长度= 23  年龄=∅
+     [✘] shot05  相似度=0.05  长度=463  年龄=30
+     [≡] shot05  相似度=1.00  长度=627  年龄=∅
+     [≈] shot05  相似度=0.80  长度=407  年龄=∅
+     [✘] shot06  相似度=0.04  长度=448  年龄=30
+     [✘] shot06  相似度=0.13  长度=274  年龄=∅
+     [✘] shot06  相似度=0.16  长度= 69  年龄=∅
+     [✘] shot07  相似度=0.21  长度=175  年龄=30
+     [✘] shot07  相似度=0.39  长度=606  年龄=∅
+     [✘] shot08  相似度=0.21  长度=195  年龄=30
+     [✘] shot08  相似度=0.46  长度=586  年龄=∅
+     ── 基准(镜05) vs 最不像(镜02) 逐字差异 ──
+        基准: <Subject 1> (S1) bursts into three exaggerated, bitter laughs, tears spilling down his smiling cheeks, and roars with defiant fury: <d>[Chinese] "哈！哈哈哈！这婚，谁爱结谁结！"</d> [00:10.000 – 00:15.000] In the same continuous take, <Subject 1> (S1) grips the cheap plastic Groom rose on his lapel with both hands, violently rips it off, hurls it down onto the linoleum floor, and unbuttons his shirt collar, resolute fury settling across his face, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 1> (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a gaudy plastic red rose pinned to his lapel reading Groom, knocks eagerly on the metal door with a red envelope in hand, grinning with anticipation
+    replace  基准['b'] -> 镜02['a 30yearold lean east asian groom named axing slightly messy parted black hair sweating forehead tired eyes with st']
+    replace  基准['rsts into three exaggerated bitter la'] -> 镜02['bborn pride wearing an illfitting rented black polyester wedding s']
+    replace  基准['ghs tears spilling down his smiling cheeks and roars with defiant f'] -> 镜02['it with a crooked bright red polyester necktie and a ga']
+    replace  基准['ry dchinese 哈哈哈哈这婚谁爱结谁结d 0010000  0015000 in the same continuous take subject 1 s1 grips the cheap plastic groom rose on his lapel with both hands '] -> 镜02['dy plastic red rose pinned to his lapel reading groom knocks eagerly on the metal door with a red en']
+    replace  基准['iolently rips it off hurls it down onto the linoleum floor and unbuttons his shirt collar resolute fury settling across his face cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜02['elope in hand grinning with anticipation']
+
+  Subject 2 —— 出现在 shot [1, 1, 4, 4, 4, 6, 7, 7, 8, 8]（共 10 次定义）
+     [✘] shot01  相似度=0.03  长度=303  年龄=65
+     [✘] shot01  相似度=0.39  长度=344  年龄=∅
+     [✘] shot04  相似度=0.04  长度=289  年龄=65
+     [✘] shot04  相似度=0.07  长度= 33  年龄=∅
+     [✘] shot04  相似度=0.39  长度=565  年龄=∅
+     [✘] shot06  相似度=0.19  长度=181  年龄=65
+     [✘] shot07  相似度=0.16  长度=139  年龄=65
+     [✘] shot07  相似度=0.37  长度=376  年龄=∅
+     [✘] shot08  相似度=0.17  长度=122  年龄=65
+     [≡] shot08  相似度=1.00  长度=748  年龄=∅
+     ── 基准(镜08) vs 最不像(镜01) 逐字差异 ──
+        基准: <Subject 2> (S2) peels a fresh ripe orange with his calloused thumbs, raises a sweet crescent slice to his son's lips, and asks tenderly: <d>[Chinese] "甜不甜？"</d> <Subject 1> (S1) bites into the orange slice, a silent tear rolling down his smiling cheek, and murmurs softly: <d>[Chinese] "甜透了，爸。"</d> [00:10.000 – 00:15.000] The camera continues its slow steady pull-out into a wide majestic landscape shot, the father and son figures shrinking into a warm silhouette beside the white car against the glowing dusk horizon, holding steady on the final frame, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 2> (S2), a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers, clutching a small red velvet pouch against his chest
+    replace  基准['peels a fresh ripe orange with his calloused thu'] -> 镜01['a 65yearold frail stooped east asian elderly father na']
+    replace  基准['bs raises a sweet crescent slice to his sons lips and asks tenderly dchinese 甜不甜d subject 1 s1 bites into the orange slice a silent tear rolling down his s'] -> 镜01['ed oldli deep facial wrinkles wispy grey hair weathered tre']
+    replace  基准['iling cheek and '] -> 镜01['bling hands wearing a faded navy blue zipup windbreaker over a worn knitted sweater and dark cotton trousers clutching a s']
+    replace  基准['urmurs softly dchinese 甜透了爸d 0010000  0015000 the camera continues its slow steady pullout into a wide majestic landscape shot the father and son figures shrinking into a warm silhouette beside the white car against the glowing dusk horizon holding steady on the final frame cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜01['all red velvet pouch against his chest']
+
+  Subject 3 —— 出现在 shot [3, 3, 3, 3]（共 4 次定义）
+     [✘] shot03  相似度=0.04  长度=226  年龄=55
+     [✘] shot03  相似度=0.09  长度= 29  年龄=∅
+     [≡] shot03  相似度=1.00  长度=604  年龄=∅
+     [✘] shot03  相似度=0.79  长度=385  年龄=∅
+     ── 基准(镜03) vs 最不像(镜03) 逐字差异 ──
+        基准: <Subject 3> (S3) uncrosses her arms, thrusts an aggressive index finger forward toward the door, and barks in a domineering, harsh voice: <d>[Chinese] "不拿出这三十八万八，我家静静绝不下轿！"</d> [00:10.000 – 00:15.000] In the foreground <Subject 3> (S3) maintains her predatory glare, while in the soft background <Subject 4> (S4) remains completely detached, chewing gum without looking up as an old ceiling fan rotates overhead, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 3> (S3), a 55-year-old sharp-eyed domineering East Asian mother-in-law with tight permed black hair, wearing an opulent gaudy crimson and gold embroidered silk qipao dress, glaring with crossed arms toward the doorway
+    insert   基准[''] -> 镜03['a 55yearold sharpeyed domineering east asian motherinlaw with tight permed black hair wearing an op']
+    replace  基准['ncrosses her arms thr'] -> 镜03['lent ga']
+    replace  基准['sts an aggressive index finger forward toward the door and '] -> 镜03['dy crimson and gold em']
+    replace  基准['ar'] -> 镜03['roidered sil']
+    replace  基准['s in a domineering harsh voice dchinese 不拿出这三十八万八我家静静绝不下轿d 0010000  0015000 in the foreground subject 3 s3 maintains her predatory glare while in the soft background subject 4 s4 remains completely detached chewing gum without looking up as an old ceiling fan rotates overhead cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜03[' qipao dress glaring with crossed arms toward the doorway']
+
+  Subject 4 —— 出现在 shot [3, 3]（共 2 次定义）
+     [≡] shot03  相似度=1.00  长度=446  年龄=28
+     [✘] shot03  相似度=0.04  长度=308  年龄=∅
+     ── 基准(镜03) vs 最不像(镜03) 逐字差异 ──
+        基准: <Subject 4> (S4), a 28-year-old East Asian bride named JING-JING with heavy bridal makeup and a tiered white lace veil, sitting passively in an ornate white gown while scrolling a glowing smartphone; on the right stands <Subject 3> (S3), a 55-year-old sharp-eyed domineering East Asian mother-in-law with tight permed black hair, wearing an opulent gaudy crimson and gold embroidered silk qipao dress, glaring with crossed arms toward the doorway
+        差异: <Subject 4> (S4) remains completely detached, chewing gum without looking up as an old ceiling fan rotates overhead, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+    replace  基准['a 28'] -> 镜03['remains completel']
+    replace  基准['earold east asian '] -> 镜03[' detached chewing gum without looking up as an old ceiling fan rotates overhead cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no su']
+    replace  基准['ride named jingjing with heavy bridal ma'] -> 镜03['titles no captions no onscreen text no watermar']
+    replace  基准['eup and a tiered white lace veil sitting passively in an ornate white gown while scrolling a glowing smartphone on the right stands subject 3 s3 a 55yearold sharpeyed domineering east asian motherinlaw with tight permed black hair wearing an opulent gaudy crimson and gold embroidered silk qipao dress glaring with crossed arms toward the doorway'] -> 镜03[' no logo']
+
+── D. 同一人名 ↔ 多个 Subject 号（身份互换）──
+  ✅ 每个人名只绑定一个 Subject 号
+
+── A/C. character 元数据字段 vs prompt 实际出现（仅影响元数据可读性，不影响出片）──
+  · shot01: 字段=[1] prompt=[1, 2] — prompt 有角色但字段没列（同框配角）  field="<Subject 1> (S1)"
+  · shot03: 字段=[3] prompt=[3, 4] — prompt 有角色但字段没列（同框配角）  field="<Subject 3> (S3)"
+  · shot06: 字段=[1] prompt=[1, 2] — prompt 有角色但字段没列（同框配角）  field="<Subject 1> (S1)"
+  · shot07: 字段=[1] prompt=[1, 2] — prompt 有角色但字段没列（同框配角）  field="<Subject 1> (S1)"
+
+── F. dialogue_cn 字段 vs prompt 内 <d> 对白逐字对账 ──
+  ✘ shot08: 对白不一致 相似度=0.93
+      字段: 甜不甜？……甜透了，爸。
+      prompt: 甜不甜？ | 甜透了，爸。
+
+── E. 硬属性（年龄/服装）跨镜冲突 ──
+  ✅ 无冲突
+
+── G. 画面文字诱发项 / 负向提示词 ──
+  ✅ 负向词 "no subtitles": 8/8 镜
+  ✅ 负向词 "no captions": 8/8 镜
+  ✅ 负向词 "no on-screen text": 8/8 镜
+  ✅ 负向词 "no watermark": 8/8 镜
+  ✅ 负向词 "no logo": 8/8 镜
+  ✅ 对白区外无中文字面
+
+── H. Prop 编号跨镜指代 ──
+  <Prop 1> 出现于 shot[6, 8]
+      shot06: <Prop 1>, an antique dusty vintage white 1990s four-door sedan parked at the alley mouth. <Subject 1> (S1) opens the p
+      shot08: <Prop 1>, the dusty vintage white sedan, with <Subject 1> (S1), the 30-year-old lean groom in loosened black suit, and
+========================================================================================================
+【02】老子不娶了 · 姜文 · seed=20260920 · 8 镜 × 15s · 1344x768
+========================================================================================================
+
+── B. 同一 Subject 号跨镜「身份定义串」逐字比对（换脸风险核心）──
+
+  Subject 1 —— 出现在 shot [1, 5, 5, 5, 6, 6, 6, 7, 7, 8]（共 10 次定义）
+     [≡] shot01  相似度=1.00  长度=867  年龄=35
+     [✘] shot05  相似度=0.34  长度=198  年龄=35
+     [✘] shot05  相似度=0.16  长度=134  年龄=∅
+     [✘] shot05  相似度=0.35  长度=329  年龄=∅
+     [✘] shot06  相似度=0.07  长度=236  年龄=35
+     [✘] shot06  相似度=0.30  长度=537  年龄=∅
+     [✘] shot06  相似度=0.36  长度=281  年龄=∅
+     [✘] shot07  相似度=0.09  长度=278  年龄=35
+     [✘] shot07  相似度=0.34  长度=345  年龄=∅
+     [✘] shot08  相似度=0.33  长度=671  年龄=35
+     ── 基准(镜01) vs 最不像(镜06) 逐字差异 ──
+        基准: <Subject 1> (S1), a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy wool military trench coat over a bold crimson collared dress shirt, steps forward into howling gale winds that whip his coat, spits out a wooden toothpick, glares with fierce dominance, and barks with booming theatrical authority: <d>[Chinese] "吹！把唢呐给老子往死里吹！"</d> [00:10.000 – 00:15.000] Behind him in the rural brick courtyard, suona horn players puff their cheeks vigorously, crimson silk ribbons wildly dancing in the golden dusty afternoon sun, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 1> (S1), the 35-year-old rugged groom in green military trench coat, firmly wraps his heavy arm around <Subject 2> (S2), the 62-year-old lean father in black quilted coat who clutches the broken abacus tightly against his chest
+    replace  基准['a'] -> 镜06['the']
+    replace  基准['masculine east asian groom named dabiao sunbronzed s'] -> 镜06['groom in green military trench coat firmly wraps his heavy arm around subject 2 s2 the 62yearold lean father in blac']
+    replace  基准['in sharp angular ja'] -> 镜06[' quilted coat ']
+    replace  基准['line short buzz cut blac'] -> 镜06['ho clutches the bro']
+    replace  基准[' hair intense piercing falconlike eyes wearing an imposing dark olivegreen heavy wool military trench coat over a bold crimson collared dress shirt steps forward into howling gale winds that whip his coat spits out a wooden toothpick glares with fierce dominance and barks with booming theatrical authority dchinese 吹把唢呐给老子往死里吹d 0010000  0015000 behind him in the rural brick courtyard suona horn players puff their cheeks vigorously crimson silk ribbons wildly dancing in the golden dusty afternoon sun cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜06['en abacus tightly against his chest']
+
+  Subject 2 —— 出现在 shot [3, 3, 6, 7, 8]（共 5 次定义）
+     [✘] shot03  相似度=0.11  长度=342  年龄=62
+     [✘] shot03  相似度=0.43  长度=533  年龄=∅
+     [✘] shot06  相似度=0.27  长度=124  年龄=62
+     [≡] shot07  相似度=1.00  长度=579  年龄=62
+     [✘] shot08  相似度=0.49  长度=399  年龄=62
+     ── 基准(镜07) vs 最不像(镜03) 逐字差异 ──
+        基准: <Subject 2> (S2), the 62-year-old father in black quilted coat, straps vintage aviator goggles over his silver hair, clutches the abacus to his chest, and yells with wild joy: <d>[Chinese] "小兔崽子，油门给老子拧到底！"</d> [00:10.000 – 00:15.000] <Subject 1> (S1) twists the motorcycle throttle fully open, the rear tire churning up yellow dust as the sidecar rig launches forward onto the dirt road, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 2> (S2), a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles, rapidly flick polished wooden beads on <Prop 1>, an antique Chinese brass-framed wooden abacus with dark worn wooden beads
+    replace  基准['the'] -> 镜03['a']
+    insert   基准[''] -> 镜03['lean east asian rural ']
+    replace  基准['in blac'] -> 镜03['named oldwu sunburnt wrin']
+    insert   基准[''] -> 镜03['led face white stubble trembling calloused hands wearing a traditional black']
+    replace  基准['at straps vintage aviator goggles over his silver hair clutches the abacus to his chest and '] -> 镜03['tton coat and round wirerim spectacles rapidl']
+    replace  基准['ells with wild joy dchinese 小兔崽子油门给老子拧到底d 00'] -> 镜03[' flick polished wooden beads on prop ']
+    replace  基准['0000  0015000 subject 1 s1 twists the '] -> 镜03[' an antique chinese brassfra']
+    replace  基准['otorcycle throttle fully open the rear tire churning up yellow dust as the sidecar rig launches forward onto the dirt road cinematic 169 widescreen arri alexa loo'] -> 镜03['ed wooden abacus with dar']
+    replace  基准['shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜03['worn wooden beads']
+
+  Subject 3 —— 出现在 shot [2, 2, 4, 4, 5, 5, 5]（共 7 次定义）
+     [✘] shot02  相似度=0.05  长度=312  年龄=58
+     [≡] shot02  相似度=1.00  长度=391  年龄=∅
+     [✘] shot04  相似度=0.05  长度=237  年龄=58
+     [✘] shot04  相似度=0.14  长度=306  年龄=∅
+     [✘] shot05  相似度=0.18  长度= 82  年龄=58
+     [✘] shot05  相似度=0.32  长度=142  年龄=∅
+     [✘] shot05  相似度=0.06  长度=250  年龄=∅
+     ── 基准(镜02) vs 最不像(镜02) 逐字差异 ──
+        基准: <Subject 3> (S3) exhales a dense plume of pungent white tobacco smoke straight toward the camera, taps a calloused yellowed finger onto a red paper contract on the mahogany table, and sneers with nonchalant greed: <d>[Chinese] "除了那三十万，进屋前再撂二十万下车礼，给小勇凑个全款。"</d> [00:10.000 – 00:15.000] The camera tracks slowly left to reveal the bold black brush calligraphy reading twenty thousand entry fee
+        差异: <Subject 3> (S3), a 58-year-old shrewd rural East Asian father-in-law named MASTER-ZHANG, calculating narrowed eyes, wearing a dusty gray sheepskin coat over a dark navy Mao tunic jacket, sits sideways on a carved wooden armchair, taking a slow, arrogant pull from a long antique brass-tipped bamboo tobacco pipe
+    replace  基准['exhales a dense plume o'] -> 镜02['a 58yearold shrewd rural east asian ']
+    replace  基准[' pungent white tobacco smoke straight toward the camera taps a calloused yellowed'] -> 镜02['atherinlaw named masterzhang calculating narrowed eyes wearing a dusty gray sheepskin coat over a dark navy mao tunic jacket sits sideways on a carved wooden armchair taking a slow arrogant pull']
+    replace  基准['inger onto a red paper contract on the mahogany table and sneers with nonchalant greed dchinese 除了那三十万进屋前再撂二十万下车礼给小勇凑个全款d 0010000  0015000 the camera tracks slowly left to reveal the bold black brush calligraphy reading twenty thousand entry fee'] -> 镜02['rom a long antique brasstipped bamboo tobacco pipe']
+
+── D. 同一人名 ↔ 多个 Subject 号（身份互换）──
+  ✅ 每个人名只绑定一个 Subject 号
+
+── A/C. character 元数据字段 vs prompt 实际出现（仅影响元数据可读性，不影响出片）──
+  · shot05: 字段=[1] prompt=[1, 3] — prompt 有角色但字段没列（同框配角）  field="<Subject 1> (S1)"
+  · shot06: 字段=[1] prompt=[1, 2] — prompt 有角色但字段没列（同框配角）  field="<Subject 1> (S1)"
+  · shot07: 字段=[2] prompt=[1, 2] — prompt 有角色但字段没列（同框配角）  field="<Subject 2> (S2)"
+  · shot08: 字段=[1] prompt=[1, 2] — prompt 有角色但字段没列（同框配角）  field="<Subject 1> (S1)"
+
+── F. dialogue_cn 字段 vs prompt 内 <d> 对白逐字对账 ──
+  ✅ 全部逐字一致
+
+── E. 硬属性（年龄/服装）跨镜冲突 ──
+  ✅ 无冲突
+
+── G. 画面文字诱发项 / 负向提示词 ──
+  ✅ 负向词 "no subtitles": 8/8 镜
+  ✅ 负向词 "no captions": 8/8 镜
+  ✅ 负向词 "no on-screen text": 8/8 镜
+  ✅ 负向词 "no watermark": 8/8 镜
+  ✅ 负向词 "no logo": 8/8 镜
+  ✅ 对白区外无中文字面
+
+── H. Prop 编号跨镜指代 ──
+  <Prop 1> 出现于 shot[3]
+      shot03: <Prop 1>, an antique Chinese brass-framed wooden abacus with dark worn wooden beads. [00:05.000 – 00:10.000] Under unb
+  <Prop 2> 出现于 shot[7, 8]
+      shot07: <Prop 2>, a vintage matte olive-green Chang Jiang 750 sidecar motorcycle with round headlights, forcefully stomping th
+      shot08: <Prop 2>, the matte olive-green Chang Jiang 750 sidecar motorcycle, speeds toward the horizon, trailing a golden dust 
+========================================================================================================
+【03】加名之夜 · 奉俊昊 · seed=20260922 · 8 镜 × 15s · 1344x768
+========================================================================================================
+
+── B. 同一 Subject 号跨镜「身份定义串」逐字比对（换脸风险核心）──
+
+  Subject 1 —— 出现在 shot [3, 4, 4, 5, 6, 6, 7, 8, 8]（共 9 次定义）
+     [✘] shot03  相似度=0.39  长度=346  年龄=32
+     [✘] shot04  相似度=0.18  长度=177  年龄=32
+     [✘] shot04  相似度=0.41  长度=270  年龄=∅
+     [✘] shot05  相似度=0.14  长度=147  年龄=∅
+     [✘] shot06  相似度=0.12  长度=159  年龄=32
+     [≡] shot06  相似度=1.00  长度=745  年龄=56
+     [✘] shot07  相似度=0.04  长度=215  年龄=32
+     [✘] shot08  相似度=0.34  长度=675  年龄=32
+     [✘] shot08  相似度=0.38  长度=384  年龄=∅
+     ── 基准(镜06) vs 最不像(镜07) 逐字差异 ──
+        基准: <Subject 1> (S1) delicately flattens <Prop 2>, the private debt paper, with two fingers, places it squarely on top of the co-ownership agreement, and delivers an icy, detached verdict: <d>[Chinese] "原来你们要的定心丸，是一百二十万的替死鬼。"</d> [00:10.000 – 00:15.000] Across the table, on the left sits <Subject 3> (S3), the 56-year-old mother in plum shawl, and on the right sits <Subject 2> (S2), the 28-year-old bride in ivory knit sweater, both freezing in place as all color drains from their faces into deathly pale silence, their social masks completely shattered, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 1> (S1), the 32-year-old slender groom in tailored charcoal wool coat and spectacles, calmly zips his black leather briefcase, opens the heavy green steel security door, and steps out into the dark corridor
+    replace  基准['delicately '] -> 镜07['the 32yearold slender groom in tailored charcoal wool coat and spectacles calmly zips his black leather brie']
+    replace  基准['lattens prop 2 the pri'] -> 镜07['case opens the hea']
+    replace  基准['ate debt paper with two fin'] -> 镜07['y ']
+    replace  基准['ers places it sq'] -> 镜07['reen steel sec']
+    replace  基准['arely on top of the coownership agreement and delivers an icy detached verdict dchinese 原来你们要的定心丸是一百二十万的替死鬼d 0010000  0015000 across the table on the left sits s'] -> 镜07['rity door and steps o']
+    replace  基准['bject 3 s3 the 56yearold mother in plum shawl and on the right sits subject 2 s2 the 28yearold bride in ivory '] -> 镜07['t into the dar']
+    replace  基准['nit sweater both freezing in place as all color drains from their faces into deathly pale silence their social masks completely shattered cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜07[' corridor']
+
+  Subject 2 —— 出现在 shot [3, 3, 6]（共 3 次定义）
+     [✘] shot03  相似度=0.11  长度=295  年龄=28
+     [✘] shot03  相似度=0.23  长度=107  年龄=∅
+     [≡] shot06  相似度=1.00  长度=382  年龄=28
+     ── 基准(镜06) vs 最不像(镜03) 逐字差异 ──
+        基准: <Subject 2> (S2), the 28-year-old bride in ivory knit sweater, both freezing in place as all color drains from their faces into deathly pale silence, their social masks completely shattered, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 2> (S2), a 28-year-old refined East Asian bride-to-be named EUN-HEE, delicate features, sleek low ponytail, wearing an elegant ivory turtleneck cashmere knit sweater and discreet pearl earrings, cradles a steaming ceramic mug in trembling hands, blowing delicately on the instant coffee
+    replace  基准['the'] -> 镜03['a']
+    replace  基准['bride in'] -> 镜03['refined east asian bridetobe named eunhee delicate features sleek low ponytail wearing an elegant']
+    insert   基准[''] -> 镜03['turtlenec']
+    replace  基准['nit sweater both freezing in'] -> 镜03[' cashmere knit sweater and discreet']
+    replace  基准['lace as all color drains from their faces into deathly pale silence their social masks completely shattered cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜03['earl earrings cradles a steaming ceramic mug in trembling hands blowing delicately on the instant coffee']
+
+  Subject 3 —— 出现在 shot [2, 2, 6]（共 3 次定义）
+     [✘] shot02  相似度=0.07  长度=289  年龄=56
+     [✘] shot02  相似度=0.53  长度=328  年龄=∅
+     [≡] shot06  相似度=1.00  长度=460  年龄=56
+     ── 基准(镜06) vs 最不像(镜02) 逐字差异 ──
+        基准: <Subject 3> (S3), the 56-year-old mother in plum shawl, and on the right sits <Subject 2> (S2), the 28-year-old bride in ivory knit sweater, both freezing in place as all color drains from their faces into deathly pale silence, their social masks completely shattered, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo
+        差异: <Subject 3> (S3), a 56-year-old calculating East Asian mother-in-law named MADAM-PARK, sharp arched eyebrows, tight bun hairstyle, wearing a deep plum-purple wool shawl over a dark velour wrap dress, sits under the harsh warm lamp, her conspicuous amber ruby ring catching a sinister gleam
+    replace  基准['the'] -> 镜02['a']
+    replace  基准['mother in plum shawl and on the right sits subject 2 s2 the 28yearold bride in i'] -> 镜02['calculating east asian motherinlaw named madampark sharp arched eyebrows tight bun hairstyle wearing a deep plumpurple wool shawl o']
+    replace  基准['ory '] -> 镜02['er a dar']
+    replace  基准['nit sweater both freezing in place as all color drains from their faces into deathly pale silence their social masks completely shattered cinematic 169 widescreen arri alexa look shallow depth of field fine film grain naturalistic lighting photorealistic no subtitles no captions no onscreen text no watermark no logo'] -> 镜02[' velour wrap dress sits under the harsh warm lamp her conspicuous amber ruby ring catching a sinister gleam']
+
+── D. 同一人名 ↔ 多个 Subject 号（身份互换）──
+  ✅ 每个人名只绑定一个 Subject 号
+
+── A/C. character 元数据字段 vs prompt 实际出现（仅影响元数据可读性，不影响出片）──
+  · shot01: 字段=[1] prompt=[] — 字段声明了角色但 prompt 里没有  field="<Subject 1> (S1) (ENV)"
+  · shot03: 字段=[2] prompt=[1, 2] — prompt 有角色但字段没列（同框配角）  field="<Subject 2> (S2)"
+  · shot06: 字段=[1] prompt=[1, 2, 3] — prompt 有角色但字段没列（同框配角）  field="<Subject 1> (S1)"
+
+── F. dialogue_cn 字段 vs prompt 内 <d> 对白逐字对账 ──
+  ✅ 全部逐字一致
+
+── E. 硬属性（年龄/服装）跨镜冲突 ──
+  ✘ Subject 1 年龄跨镜不一: ['32', '56']  出现在 shot[3, 4, 4, 5, 6, 6, 7, 8, 8]
+
+── G. 画面文字诱发项 / 负向提示词 ──
+  ✅ 负向词 "no subtitles": 8/8 镜
+  ✅ 负向词 "no captions": 8/8 镜
+  ✅ 负向词 "no on-screen text": 8/8 镜
+  ✅ 负向词 "no watermark": 8/8 镜
+  ✅ 负向词 "no logo": 8/8 镜
+  ✅ 对白区外无中文字面
+
+── H. Prop 编号跨镜指代 ──
+  <Prop 1> 出现于 shot[1, 2]
+      shot01: <Prop 1>, an official red-covered apartment title deed booklet and a printed legal property co-ownership agreement doc
+      shot02: <Prop 1>, the printed legal property co-ownership agreement, toward the camera. She offers a motherly, condescending s
+  <Prop 2> 出现于 shot[4, 5, 6]
+      shot04: <Prop 2>, a thick folded packet of damp yellowed handwritten debt notices tied with a brittle red rubber band, murmuri
+      shot05: <Prop 2>, the damp yellowed paper, revealing an urgent private high-interest debt repayment notice. [00:05.000 – 00:10
+      shot06: <Prop 2>, the private debt paper, with two fingers, places it squarely on top of the co-ownership agreement, and deliv
+
+========================================================================================================
+汇总：以上为静态审查原始结论。逐字差异 = 换脸风险，需在开跑前统一为同一段描述文本。
+========================================================================================================

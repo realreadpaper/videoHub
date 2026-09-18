@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第一镜 A/B 对照与「效果不好」根因诊断</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1c2024; --ink2:#5a6472; --ink3:#8b95a3;
+    --line:#e3e7ec; --accent:#c0392b; --accent2:#2471a3; --ok:#1e8449; --warn:#b9770e;
+    --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 28px 72px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:32px}
+  h1{margin:0 0 10px;font-size:27px;letter-spacing:-.3px;line-height:1.35}
+  .sub{color:var(--ink2);font-size:14px}
+  .kicker{display:inline-block;background:var(--accent);color:#fff;font-size:12px;
+    padding:3px 10px;border-radius:3px;letter-spacing:.5px;margin-bottom:12px}
+  h2{font-size:19px;margin:44px 0 14px;padding-left:11px;border-left:4px solid var(--accent)}
+  h3{font-size:15.5px;margin:26px 0 10px;color:var(--ink)}
+  p{margin:10px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;
+    padding:20px 22px;margin:16px 0;box-shadow:0 1px 2px rgba(20,30,45,.04)}
+  .verdict{background:#fdf3f2;border:1px solid #f2cfca;border-left:4px solid var(--accent)}
+  .good{background:#f1f9f4;border:1px solid #c9e6d4;border-left:4px solid var(--ok)}
+  .note{background:#fdf8ee;border:1px solid #f0e0bf;border-left:4px solid var(--warn)}
+  .info{background:#f1f7fc;border:1px solid #cadff0;border-left:4px solid var(--accent2)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th,td{padding:9px 11px;border-bottom:1px solid var(--line);text-align:left}
+  th{background:#f0f2f5;font-weight:600;font-size:12.5px;color:var(--ink2);
+    text-transform:none;letter-spacing:.2px}
+  td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:none}
+  .win{color:var(--ok);font-weight:600}
+  .lose{color:var(--accent);font-weight:600}
+  .flat{color:var(--ink3)}
+  code{font-family:var(--mono);font-size:12.5px;background:#eef1f4;
+    padding:1.5px 5px;border-radius:3px;color:#2c3e50}
+  pre{background:#f4f6f8;border:1px solid var(--line);border-radius:6px;
+    padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.6;margin:12px 0}
+  figure{margin:18px 0;background:var(--card);border:1px solid var(--line);
+    border-radius:8px;padding:10px}
+  figure img{width:100%;display:block;border-radius:4px}
+  figcaption{font-size:12.5px;color:var(--ink2);padding:9px 4px 2px;line-height:1.6}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:6px 0}
+  .tag{display:inline-block;font-size:11.5px;padding:1.5px 7px;border-radius:10px;
+    border:1px solid;margin-right:5px;vertical-align:1px}
+  .t-model{color:#7d3c98;border-color:#d7bde2;background:#f5eef8}
+  .t-prompt{color:#c0392b;border-color:#f2cfca;background:#fdf3f2}
+  .t-pipe{color:#1a5276;border-color:#aed6f1;background:#eaf4fc}
+  .big{font-size:26px;font-weight:700;font-family:var(--mono)}
+  .kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+  @media(max-width:760px){.kpi{grid-template-columns:repeat(2,1fr)}}
+  .kpi div{background:var(--card);border:1px solid var(--line);border-radius:8px;
+    padding:14px 16px;text-align:center}
+  .kpi .v{font-size:22px;font-weight:700;font-family:var(--mono);line-height:1.2}
+  .kpi .k{font-size:12px;color:var(--ink2);margin-top:5px}
+  footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">A/B 实跑对照 · 2026-09-15</div>
+  <h1>「效果不好」到底是模型不行，还是用法错了？</h1>
+  <div class="sub">
+    对象：《三十八万八》第一镜 · 同一条 15.08 秒草稿（672×384 × 362 帧）<br>
+    方法：只换 Stage2 解码器跑两遍 —— A 官方 TAEHV ／ B A1 完整 VAE。所有结论均有量化指标支撑。
+  </div>
+</header>
+
+<h2>一、先回答你问的对照：A1 完胜，但它治的不是你看到的病</h2>
+
+<p>你要的两种方式跑完了。同一份草稿、同一个 seed、同一个 3 步精修，<strong>唯一的区别是出片最后一步的解码器</strong>：</p>
+
+<div class="kpi">
+  <div><div class="v win">-2.55 dB</div><div class="k">448px 往返 PSNR<br>（越低＝真实高频越多）</div></div>
+  <div><div class="v win">+78%</div><div class="k">拉普拉斯锐度<br>9.0 → 16.0</div></div>
+  <div><div class="v flat">2 → 2</div><div class="k">镜内硬切尖峰<br><strong>一处没少</strong></div></div>
+  <div><div class="v flat">≈0</div><div class="k">峰值显存差<br>21.578 → 21.485 GiB</div></div>
+</div>
+
+<table>
+  <tr>
+    <th>指标</th><th class="num">A · TAEHV（官方）</th><th class="num">B · 完整 VAE（A1）</th><th class="num">差异</th><th>谁赢</th>
+  </tr>
+  <tr><td>有效分辨率 448px</td><td class="num">45.61</td><td class="num">43.06</td><td class="num">−2.55</td><td class="win">B</td></tr>
+  <tr><td>有效分辨率 560px</td><td class="num">47.83</td><td class="num">45.34</td><td class="num">−2.49</td><td class="win">B</td></tr>
+  <tr><td>有效分辨率 672px</td><td class="num">49.68</td><td class="num">47.33</td><td class="num">−2.35</td><td class="win">B</td></tr>
+  <tr><td>有效分辨率 896px</td><td class="num">51.53</td><td class="num">49.92</td><td class="num">−1.61</td><td class="win">B</td></tr>
+  <tr><td>有效分辨率 1008px</td><td class="num">53.01</td><td class="num">51.60</td><td class="num">−1.42</td><td class="win">B</td></tr>
+  <tr><td>锐度（拉普拉斯方差均值）</td><td class="num">9.0</td><td class="num">16.0</td><td class="num">+78%</td><td class="win">B</td></tr>
+  <tr><td><strong>镜内硬切尖峰</strong></td><td class="num">2</td><td class="num">2</td><td class="num">0</td><td class="flat">平手</td></tr>
+  <tr><td>峰值显存</td><td class="num">21.578 GiB</td><td class="num">21.485 GiB</td><td class="num">≈0</td><td class="flat">平手</td></tr>
+</table>
+
+<figure>
+  <img src="第一镜AB对照/AB_细节放大.png" alt="A/B 细节放大对比">
+  <figcaption><strong>帧 180 中央区域放大 3 倍。</strong>左（A·TAEHV）皮肤有灰蒙噪块、发丝与背景粘连、牙齿边缘发毛；右（B·A1）结构清楚、发丝分明、牙齿轮廓锐利。两版内容逐帧 MAE 仅 1~2（与「同图 JPEG 重压」同量级），所以差异纯粹是解码质量，不是画面内容不同。</figcaption>
+</figure>
+
+<div class="card good">
+  <strong>结论 1：A1 这个改动本身是对的，可以保留。</strong>
+  有效分辨率五档全降、锐度 +78%，而且不吃显存（峰值由 22B transformer 决定，与解码器无关）。你之前觉得「模」，这一半确实是 TAEHV 造成的。
+</div>
+
+<div class="note card">
+  <strong>⚠ 但耗时对比不可信，别拿它做决策。</strong>
+  本轮顺序是「先 A 后 B」→ A 用了 154.4s ／ B 用了 90.5s；上一轮顺序是「先 B 后 A」→ B 用 174.8s ／ A 用 80.6s。<strong>谁后跑谁快，两轮完全反了。</strong>差的是模型权重加载开销，不是解码器算力。真实增量要看热模型状态，按上一轮口径 A1 约 +90s／镜。
+</div>
+
+<h2>二、你看到的「效果不好」，主因不是画质 —— 是这三个</h2>
+
+<p>我把新版第一镜抽帧逐条看了一遍。锐度之外，有三个问题在伤害观感，其中两个是<strong>旧版完全没有</strong>的：</p>
+
+<h3>① 镜内硬切 —— 伤害最大 <span class="tag t-prompt">prompt 结构</span></h3>
+
+<p>15 秒里模型自己切了 <strong>3 个不同镜头</strong>。帧差 MAE 在中位 5 附近平稳运行，突然飙到 <strong>54 / 72</strong>（正常运镜的 10~14 倍）：</p>
+
+<figure>
+  <img src="第一镜AB对照/硬切点_帧序列.png" alt="硬切点帧序列">
+  <figcaption>
+    <strong>★ 帧 211（8.79s）</strong>：新郎正脸近景 → 一步跳到走廊远景，人物变成背影、父亲突然出现。<br>
+    <strong>★ 帧 291（12.12s）</strong>：双人远景 → 跳到父亲特写。<br>
+    这不是运镜，是硬切。两个位置正好落在 prompt 标注的段落切换处。
+  </figcaption>
+</figure>
+
+<div class="card verdict">
+  <strong>决定性证据：硬切与解码器毫无关系。</strong>
+  <table style="margin-top:12px">
+    <tr><th>版本</th><th>Prompt 结构</th><th>解码器</th><th class="num">硬切尖峰</th><th>位置</th></tr>
+    <tr><td>旧版 shot01</td><td>单段连续描述</td><td>TAEHV</td><td class="num win">0</td><td>—</td></tr>
+    <tr><td>A 版（本轮）</td><td>三段式时间轴</td><td>TAEHV</td><td class="num lose">2</td><td>8.79s / 12.12s</td></tr>
+    <tr><td>B 版（本轮）</td><td>三段式时间轴</td><td>完整 VAE</td><td class="num lose">2</td><td>8.79s / 12.12s</td></tr>
+  </table>
+  <p style="margin-bottom:0">
+    <strong>旧 prompt + TAEHV = 零硬切；新 prompt + TAEHV = 2 处硬切；新 prompt + 完整 VAE = 还是 2 处硬切。</strong>
+    解码器改不动它，因为根子在 prompt —— 单次 15 秒生成里塞进了 3 个不同景别／机位的事件，模型只能用「跳」来兑现。
+  </p>
+</div>
+
+<h3>② 画面内文字全是乱码 <span class="tag t-model">模型上限</span>＋<span class="tag t-prompt">prompt 自找</span></h3>
+
+<figure>
+  <img src="_旧版对照_TAEHVv1/look/strip_s2.png" alt="镜02 抽帧">
+  <figcaption>新版镜 02 抽帧。门上「囍」字周围的装饰文字是小方块乱码；纸条上本该写彩礼金额，结果是 <code>388ouie</code> ／ <code>pairir purring slot fee</code> 这种无意义字符。</figcaption>
+</figure>
+
+<p>对比旧版同位置：纸条写的是 <code>38800</code> + <code>xining wedding fee</code> —— <strong>数字至少是对的</strong>。原因很直接：新版 prompt 里明确写着要模型「显示这行字」：</p>
+
+<pre>… the white paper displaying bold black marker characters
+   reading "388000 yuan parking slot fee"</pre>
+
+<p>现有视频模型画中文／小字基本必崩，而剧本里有 <strong>5 处</strong>这样的显式文字诉求（<code>388000 yuan parking slot fee</code>、<code>Twenty Thousand Additional Entry Fee</code>、<code>signature line</code>、<code>written loan figure: "1…"</code>、胸花 <code>reading Groom</code>）。</p>
+
+<div class="card info">
+  <strong>这处是「可以完全规避」的。</strong>把文字诉求从 prompt 里删掉，改成后期用 Pillow 渲染一张纸条再 overlay 上去 —— 字绝对正确、清晰度可控、还能随时改文案。这条路的成本几乎为零。
+</div>
+
+<h3>③ 画面里自发烧了中文硬字幕（且乱码） <span class="tag t-prompt">prompt 副作用</span></h3>
+
+<figure>
+  <img src="_旧版对照_TAEHVv1/look2/new_s2_full.png" alt="新版自发字幕">
+  <figcaption>新版镜 02 底部烧进了中文字幕：<code>大喜的子开门，大舅 大舅哥</code>。正确台词是「大喜的日子，开开门啦，大舅哥！」—— <strong>前半句已经崩成乱码</strong>，而且它是烙进画面的，去不掉。</figcaption>
+</figure>
+
+<figure>
+  <img src="_旧版对照_TAEHVv1/look2/old_s2_full.png" alt="旧版无字幕">
+  <figcaption>旧版同一位置：<strong>画面干净，完全没有字幕</strong>。字幕是自己后期外挂的，可控。</figcaption>
+</figure>
+
+<div class="card verdict">
+  <strong>根因：prompt 里的对白标签 <code>&lt;d&gt;[Chinese] "…"&lt;/d&gt;</code> 让模型把台词画进了画面。</strong>
+  <p>同时注意：prompt 结尾明明写了 <code>no subtitles, no captions, no on-screen text, no watermark, no logo</code> —— <strong>这些负向词完全无效</strong>，模型该烧还是烧。所以别指望用 negative prompt 解决，得从源头（对白标签的位置／写法）入手。</p>
+</div>
+
+<h2>三、哪些是模型的天花板，哪些是用法问题</h2>
+
+<table>
+  <tr><th>现象</th><th>性质</th><th>能不能修</th><th>怎么修</th></tr>
+  <tr>
+    <td>画面偏软、细节少</td>
+    <td><span class="tag t-pipe">管线</span></td>
+    <td class="win">已修好</td>
+    <td>A1 完整 VAE 解码（本轮已验证）</td>
+  </tr>
+  <tr>
+    <td>镜内硬切、观感断裂</td>
+    <td><span class="tag t-prompt">用法</span></td>
+    <td class="win">能修</td>
+    <td>一镜一事件；要分段叙事改用 Prompt Relay 节点，别在正文写时间轴</td>
+  </tr>
+  <tr>
+    <td>纸条／招牌文字乱码</td>
+    <td><span class="tag t-prompt">用法</span></td>
+    <td class="win">能修</td>
+    <td>从 prompt 删掉文字诉求，后期 overlay 贴真字</td>
+  </tr>
+  <tr>
+    <td>自发光硬字幕</td>
+    <td><span class="tag t-prompt">用法</span></td>
+    <td class="win">能修</td>
+    <td>改对白标签写法；必要时后期 <code>delogo</code> 清残字</td>
+  </tr>
+  <tr>
+    <td>人脸「AI 感」、手部奇怪</td>
+    <td><span class="tag t-model">模型上限</span></td>
+    <td class="lose">难</td>
+    <td>H3 22B 的固有能力边界，换模型或加 FaceRefine 才有实质改善</td>
+  </tr>
+</table>
+
+<div class="card good">
+  <strong>结论 2：不全是模型的问题。</strong>
+  你看到的「不好」里，<strong>硬切、文字乱码、自发字幕这三项全部是用法问题</strong>，都可规避；真正属于模型天花板的是人脸质感和手部结构。<br>
+  换句话说：现在这版是在一个可修的问题上反复调解码器 —— <strong>方向偏了。</strong>
+</div>
+
+<h2>四、官方其实有专门的分段机制，我们用错了</h2>
+
+<p>H3 的工作流目录里有一整套 <code>14-prompt-relay</code>（分段提示词时间线），它的设计是：</p>
+
+<ul>
+  <li><strong>全局约束</strong>（人物、服装、场景、风格、镜头连续性）写进 <code>global_prompt</code>，全程常驻；</li>
+  <li><strong>局部事件</strong>用独立的 <code>Prompt Relay Event</code> 节点绑定时间段，通过<strong>显式 chunk bias 路由注意力</strong>，而不是在正文里写「[00:05–00:10] 现在切换到…」；</li>
+  <li><code>04-long-video</code> 目录专门做分段长视频与断点续跑。</li>
+</ul>
+
+<p>对比我们的做法：把三段事件全写进同一段文本、靠 <code>[00:00.000 – 00:05.000]</code> 标记分段。模型确实读懂了（所以它才在 8.8s／12.1s 切），但它只能用硬切兑现 —— <strong>等于把「换镜头」的指令喂给了一个单镜生成器。</strong></p>
+
+<h2>五、建议的下一步</h2>
+
+<ol>
+  <li><strong>先别再调解码器了。</strong> A1 已经证明有效、保留即可，继续在这个维度抠是边际收益递减。</li>
+  <li><strong>重写第一镜 prompt 做一次验证</strong>：一镜一事件、连续运镜；删掉所有画面文字诉求；调整对白标签避免烧字幕。同样跑 15 秒 × 362 帧，直接用本轮 A 版当基线对比。</li>
+  <li><strong>验收标准（量化）</strong>：硬切尖峰从 2 → 0，且有效分辨率不低于 A1 版。这两条同时满足才算过关。</li>
+  <li>如确需镜内多事件叙事，再上 <code>Prompt Relay</code> 节点做正式方案，而不是在 prompt 正文写时间轴。</li>
+</ol>
+
+<div class="note card">
+  <strong>关于「都要一次生成 15s」：</strong>本轮两版都是标准单次生成 —— 草稿 362 帧（15.08s）一次出，精修输出 361 帧，<strong>没有任何分段拼接</strong>。判据里的跳变全部来自 prompt 引导的内容切换，不是生成能力不够。
+</div>
+
+<footer>
+  数据来源：本轮远端实跑（同草稿 362 帧，两版各一次精修）＋ 帧差／PSNR／拉普拉斯三类量化探针。<br>
+  探针脚本：<code>_后期/qc_shot_analyzer.py</code>（三类指标一次跑完）、<code>_后期/make_cut_sheet.py</code>（硬切帧序列可视化）。<br>
+  对照素材：<code>第一镜AB对照/</code>（A_TAEHV.mp4 ／ B_A1FullVAE.mp4）。
+</footer>
+
+</div>
+</body>
+</html>

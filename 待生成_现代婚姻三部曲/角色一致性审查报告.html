@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>现代婚姻三部曲 · 角色一致性审查报告</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --line:#e4e7ec; --ink:#1b1f26; --ink2:#5b6472; --ink3:#8b95a3;
+    --red:#d64545; --redbg:#fdf1f1; --amber:#c07a12; --amberbg:#fdf7ec; --green:#2e8b57; --greenbg:#f0f8f3;
+    --blue:#2f5fd0; --bluebg:#eff3fd; --code:#f2f4f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+  h1{font-size:29px;margin:0 0 8px;letter-spacing:-.4px}
+  .sub{color:var(--ink2);font-size:14px}
+  .meta{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:12.5px;color:var(--ink2)}
+  .chip.ok{border-color:#b6e0c6;background:var(--greenbg);color:var(--green)}
+  .chip.warn{border-color:#ecd9a8;background:var(--amberbg);color:var(--amber)}
+  .chip.bad{border-color:#eec2c2;background:var(--redbg);color:var(--red)}
+
+  h2{font-size:20px;margin:44px 0 14px;padding-left:12px;border-left:4px solid var(--ink)}
+  h3{font-size:16px;margin:26px 0 10px}
+  p{margin:10px 0}
+  .muted{color:var(--ink2)}
+  .small{font-size:13.5px}
+  code{background:var(--code);border:1px solid var(--line);border-radius:4px;padding:1px 5px;
+    font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#2b3440;word-break:break-word}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:8px;padding:14px 16px;overflow-x:auto;
+    font:12.5px/1.7 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#2b3440;white-space:pre-wrap;word-break:break-word}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .kpi .n{font-size:27px;font-weight:650;letter-spacing:-.5px;line-height:1.2}
+  .kpi .l{font-size:12.5px;color:var(--ink3);margin-top:4px}
+  .kpi.r .n{color:var(--red)} .kpi.a .n{color:var(--amber)} .kpi.g .n{color:var(--green)} .kpi.b .n{color:var(--blue)}
+
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f0f2f5;font-weight:600;font-size:12.5px;color:var(--ink2);white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td.c,th.c{text-align:center}
+  .tag{display:inline-block;border-radius:5px;padding:1px 7px;font-size:11.5px;font-weight:600;line-height:1.7;white-space:nowrap}
+  .t-full{background:var(--greenbg);color:var(--green);border:1px solid #b6e0c6}
+  .t-mid{background:var(--amberbg);color:var(--amber);border:1px solid #ecd9a8}
+  .t-short,.t-bad{background:var(--redbg);color:var(--red);border:1px solid #eec2c2}
+  .t-none{background:#f0f2f5;color:var(--ink3);border:1px solid var(--line)}
+  .sev{font-weight:700;white-space:nowrap}
+  .sev.h{color:var(--red)} .sev.m{color:var(--amber)} .sev.l{color:var(--ink3)}
+
+  .flow{display:grid;grid-template-columns:1fr 46px 1fr;align-items:center;gap:0;margin:18px 0}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px}
+  .box b{display:block;font-size:13.5px;margin-bottom:4px}
+  .arrow{text-align:center;color:var(--ink3);font-size:20px}
+  .callout{border-left:4px solid var(--blue);background:var(--bluebg);border-radius:0 8px 8px 0;padding:12px 16px;margin:16px 0;font-size:14px}
+  .callout.warn{border-color:var(--amber);background:var(--amberbg)}
+  .callout.bad{border-color:var(--red);background:var(--redbg)}
+  .callout.ok{border-color:var(--green);background:var(--greenbg)}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px}
+  @media (max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>现代婚姻三部曲 · 角色一致性审查报告</h1>
+  <div class="sub">静态审查剧本本体（manifest 提示词）· 未连接远端 · 未触发任何渲染 · 未改动原 manifest</div>
+  <div class="meta">
+    <span class="chip">审查时间 2026-09-15 23:1x</span>
+    <span class="chip">范围 3 部 / 24 镜</span>
+    <span class="chip bad">高危角色 8 个</span>
+    <span class="chip warn">中危 2 处</span>
+    <span class="chip ok">结构验证零异常</span>
+  </div>
+</header>
+
+<div class="kpis">
+  <div class="kpi b"><div class="n">24</div><div class="l">镜头总数（三部 × 8 镜）</div></div>
+  <div class="kpi"><div class="n">35</div><div class="l">角色出现槽位（角色 × 镜次）</div></div>
+  <div class="kpi r"><div class="n">21 / 35</div><div class="l">身份定义不完整或跨镜不一致（60%）</div></div>
+  <div class="kpi a"><div class="n">28</div><div class="l">已生成补丁的身份描述段</div></div>
+</div>
+
+<div class="callout bad">
+  <b>一句话结论：</b>三部片的角色描写都在"越写越省"——主角在前 1–2 镜给了完整定义（姓名＋五官＋服装），后面切到简写（只剩 <code>the 30-year-old groom in black suit</code>）。
+  而 H3 / LTX 管线是<b>逐镜独立生成、镜头之间没有任何记忆</b>：模型每开一镜都从零开始"画"这个人。写法一换，等于换了一个人。
+  <b>其中《加名之夜》最严重——男主角 6 个镜次里一次都没给姓名和五官。</b>
+</div>
+
+<h2>一、为什么"剧本写法"直接决定换脸</h2>
+
+<p>这套管线里，每一镜是一次独立的推理：Stage1 草稿吃 <code>shot["prompt"]</code> 生成低分辨率视频，Stage2 精修再吃<b>同一段文本</b>做重扩散。两次之间、镜头之间，<b>除 seed 之外没有任何角色记忆传递</b>（seed 全片固定，但固定 seed 只保证同一段文本出同一张脸，不保证两段不同文本出同一张脸）。</p>
+
+<div class="flow">
+  <div class="box"><b>镜 01 的文本</b><code>…groom named A-XING, slightly messy parted black hair, tired eyes with stubborn pride…</code></div>
+  <div class="arrow">≠</div>
+  <div class="box"><b>镜 08 的文本</b><code>…the 30-year-old lean groom in loosened black suit…</code></div>
+</div>
+
+<p class="muted small">两段文本描述的是同一个人，但对模型来说是两套不同的条件 → 采样落在两个不同的"人脸盆地"里 → 观众看到换脸。这不是模型能力问题，是提示词工程问题。</p>
+
+<div class="callout">
+  <b>推论（也是修复原则）：</b>想让角色跨镜长得像，唯一可靠办法是让每一镜里该角色的<b>身份描述逐字相同</b>；镜头内"会变化"的部分（西装有没有解开、玫瑰还在不在、脸上有没有泪）另起短语写在动作句里，不进身份串。
+</div>
+
+<h2>二、逐片锚点覆盖矩阵</h2>
+
+<p class="small muted">判定口径：<span class="tag t-full">FULL</span> 有姓名 <code>named X</code> ＋ 五官锚点；<span class="tag t-mid">MID</span> 只有年龄＋服装，无姓名、无五官；<span class="tag t-short">SHORT</span> 连年龄都缺。数字为该镜身份串里命中的"五官锚点数"（hair / eyes / jawline / features / skin / stubble / wrinkle）。</p>
+
+<h3>01《三十八万八》· 周星驰 &nbsp;<span class="muted small">seed 20260918</span></h3>
+<table>
+  <tr><th>角色</th><th>出现镜次</th><th class="c">形态序列</th><th class="c">五官锚点</th><th>风险</th></tr>
+  <tr><td>S1 阿星（新郎）</td><td>1 · 2 · 5 · 6 · 7 · 8</td>
+      <td class="c"><span class="tag t-full">FULL</span>×5 <span class="tag t-mid">MID</span>×1</td>
+      <td class="c">2,2,2,1,1,<b>0</b></td>
+      <td><span class="sev h">高</span> 镜 08 退化为简写，全脸锚点归零</td></tr>
+  <tr><td>S2 老李（父亲）</td><td>1 · 4 · 6 · 7 · 8</td>
+      <td class="c"><span class="tag t-full">FULL</span>×2 <span class="tag t-mid">MID</span>×3</td>
+      <td class="c">2,2,<b>0,0,0</b></td>
+      <td><span class="sev h">高</span> 后 3 镜丢掉姓名＋皱纹＋白发</td></tr>
+  <tr><td>S3 岳母</td><td>3</td>
+      <td class="c"><span class="tag t-mid">MID</span>×1</td>
+      <td class="c">1</td>
+      <td><span class="sev m">中</span> 全片仅 1 镜、无姓名（无跨镜风险，但无锚可复述）</td></tr>
+  <tr><td>S4 静静（新娘）</td><td>3</td>
+      <td class="c"><span class="tag t-full">FULL</span>×1</td>
+      <td class="c">0（有 makeup/veil）</td>
+      <td><span class="sev l">低</span> 仅 1 镜，自洽</td></tr>
+</table>
+
+<h3>02《老子不娶了》· 姜文 &nbsp;<span class="muted small">seed 20260920</span></h3>
+<table>
+  <tr><th>角色</th><th>出现镜次</th><th class="c">形态序列</th><th class="c">五官锚点</th><th>风险</th></tr>
+  <tr><td>S1 大彪（新郎）</td><td>1 · 5 · 6 · 7 · 8</td>
+      <td class="c"><span class="tag t-full">FULL</span>×2 <span class="tag t-mid">MID</span>×3</td>
+      <td class="c">4,2,<b>0,1,0</b></td>
+      <td><span class="sev h">高</span> 镜 06/08 丢掉 sun-bronzed skin / jawline / falcon eyes</td></tr>
+  <tr><td>S2 老吴（父亲）</td><td>3 · 6 · 7 · 8</td>
+      <td class="c"><span class="tag t-full">FULL</span>×1 <span class="tag t-mid">MID</span>×3</td>
+      <td class="c">2,<b>0,1,0</b></td>
+      <td><span class="sev h">高</span> 后 3 镜只剩 "father in black quilted coat"</td></tr>
+  <tr><td>S3 张master（岳父）</td><td>2 · 4 · 5</td>
+      <td class="c"><span class="tag t-full">FULL</span>×1 <span class="tag t-mid">MID</span>×2</td>
+      <td class="c">1,<b>0,0</b></td>
+      <td><span class="sev h">高</span> 镜 04/05 丢掉 calculating narrowed eyes</td></tr>
+</table>
+
+<h3>03《加名之夜》· 奉俊昊 &nbsp;<span class="muted small">seed 20260922</span></h3>
+<table>
+  <tr><th>角色</th><th>出现镜次</th><th class="c">形态序列</th><th class="c">五官锚点</th><th>风险</th></tr>
+  <tr><td>S1 新郎</td><td>3 · 4 · 5 · 6 · 7 · 8</td>
+      <td class="c"><span class="tag t-mid">MID</span>×5 <span class="tag t-short">SHORT</span>×1</td>
+      <td class="c"><b>0,0,0,0,0,0</b></td>
+      <td><span class="sev h">最高</span> 全片 6 镜<b>从未给姓名、从未给五官</b>，只有"charcoal wool coat ＋ spectacles"</td></tr>
+  <tr><td>S2 恩熙（新娘）</td><td>3 · 6</td>
+      <td class="c"><span class="tag t-full">FULL</span>×1 <span class="tag t-mid">MID</span>×1</td>
+      <td class="c">1,<b>0</b></td>
+      <td><span class="sev h">高</span> 镜 06 丢掉 delicate features / ponytail</td></tr>
+  <tr><td>S3 朴女士（岳母）</td><td>2 · 6</td>
+      <td class="c"><span class="tag t-full">FULL</span>×1 <span class="tag t-mid">MID</span>×1</td>
+      <td class="c">1,<b>0</b></td>
+      <td><span class="sev h">高</span> 镜 06 丢掉 arched eyebrows / bun</td></tr>
+</table>
+
+<div class="callout warn">
+  <b>另一个叠加风险——三角色同框。</b>03 部镜 06 是三部曲里唯一的三角色同框镜（新郎 + 新娘 + 岳母），而这一镜里<b>三个人的身份串全部是简写</b>。三张没有锚点的脸在同一画面里，互换/混脸的概率是全片最高的。这是开跑前最该补的一镜。
+</div>
+
+<h2>三、附带发现（不影响出片，但会误导下游工具）</h2>
+
+<div class="card">
+<p class="small"><b>1. <code>character</code> 字段不参与生成。</b>我核对了 <code>10_run_film.py</code>：脚本只读 <code>shot["prompt"]</code> / <code>file</code> / <code>no</code> / <code>framing</code> / <code>duration</code> / <code>dialogue_cn</code>，<code>character</code> 字段既不拼进 Stage1 也不拼进 Stage2 —— 它是纯人读元数据。</p>
+<p class="small"><b>2. 后缀 <code>(ENV)</code> / <code>(HANDS)</code> / <code>(DEPARTURE)</code> 只出现在《加名之夜》的 character 字段里</b>（镜 01 / 05 / 07），不进模型，不影响出片；但它会让自动解析工具（比如本次审查脚本）把 Subject token 读错，建议统一去掉。</p>
+<p class="small"><b>3. character 字段在多角色同框镜次漏列配角</b>——《三十八万八》镜 01/03/06/07、《老子不娶了》镜 05/06/07/08、《加名之夜》镜 03/06 都只写了主角色。</p>
+<p class="small"><b>4. 《加名之夜》镜 01 是纯环境镜</b>（屋檐漏水 × 红桶 × 房产证），但 character 字段写的是 <code>&lt;Subject 1&gt; (S1) (ENV)</code> —— 标注与内容不符。</p>
+<p class="small"><b>5. 《加名之夜》镜 05 是手部微距镜</b>，prompt 里只有 <code>&lt;Subject 1&gt; (S1)'s pale slender hands</code>，没有任何身份锚点。作为手部特写可接受，但若希望手型/袖口跨镜一致，建议补 <code>dark shirt cuff</code> 一类锚点。</p>
+<p class="small"><b>6. 对白对账全部通过</b>（24 镜的 <code>dialogue_cn</code> 与 prompt 内 <code>&lt;d&gt;[Chinese]</code> 逐字一致；《三十八万八》镜 08 只是字段用 <code>……</code>、prompt 用两个独立 <code>&lt;d&gt;</code> 段分隔，内容相同）。画面文字诱发项为零，24 镜 × 5 项负向词全部覆盖。</p>
+</div>
+
+<div class="callout warn">
+  <b>叙事连续性（不属于角色一致性，顺带提一句）：</b>《三十八万八》镜 03 岳母台词是"不拿出这三十八万八，我家静静绝不下轿"，但同一镜画面里静静已经穿着婚纱坐在卧室刷手机——"不下轿"与"已在新房"并存，观众会读成逻辑漏洞。
+</div>
+
+<h2>四、修复方案（已生成补丁，待你点头）</h2>
+
+<p>已为三部片每个角色固化一段<b>标准身份串（CANON）</b>，逐字取自片中已存在的最完整定义，未新增任何设定；只在每镜该角色<b>首次出现</b>处注入。</p>
+
+<h3>《三十八万八》</h3>
+<pre>S1 A-XING  a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie
+S2 OLD-LI  a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers
+S3 岳母    a 55-year-old sharp-eyed domineering East Asian mother-in-law with tight permed black hair, wearing an opulent gaudy crimson and gold embroidered silk qipao dress
+S4 JINGJING a 28-year-old East Asian bride named JING-JING with heavy bridal makeup and a tiered white lace veil, wearing an ornate white gown</pre>
+
+<h3>《老子不娶了》</h3>
+<pre>S1 DA-BIAO     a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy wool military trench coat over a bold crimson collared dress shirt
+S2 OLD-WU      a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles
+S3 MASTER-ZHANG a 58-year-old shrewd rural East Asian father-in-law named MASTER-ZHANG, calculating narrowed eyes, wearing a dusty gray sheepskin coat over a dark navy Mao tunic jacket</pre>
+
+<h3>《加名之夜》</h3>
+<pre>S1 新郎  a 32-year-old slender East Asian groom named JIN-HO, calm composed features, neat short black hair, wearing rimless titanium spectacles and a tailored charcoal wool coat over a dark shirt   ← 姓名与五官为补写，待你拍板
+S2 EUN-HEE   a 28-year-old refined East Asian bride-to-be named EUN-HEE, delicate features, sleek low ponytail, wearing an elegant ivory turtleneck cashmere knit sweater and discreet pearl earrings
+S3 MADAM-PARK a 56-year-old calculating East Asian mother-in-law named MADAM-PARK, sharp arched eyebrows, tight bun hairstyle, wearing a deep plum-purple wool shawl over a dark velour wrap dress</pre>
+
+<h3>改动量与验证</h3>
+<div class="grid2">
+  <div class="card">
+    <b>改动范围</b>
+    <ul class="small">
+      <li>共 <b>28 处</b>身份描述段（原始文件中 21 个槽位定义不完整＋7 处措辞微差）</li>
+      <li>逐部：《三十八万八》11 处 / 《老子不娶了》10 处 / 《加名之夜》7 处</li>
+      <li>动作、机位、时间码、对白、道具引用<b>一律未动</b></li>
+      <li>"会变化"的状态单独保留在身份串之后：玫瑰撕掉 / 领口解开 / 领带松 / 飞行风镜 / 红丝绒袋</li>
+    </ul>
+  </div>
+  <div class="card">
+    <b>结构完整性验证（逐镜比对）</b>
+    <ul class="small">
+      <li>时间码段数 <b>24/24 一致</b></li>
+      <li>Subject token 序列 <b>24/24 一致</b></li>
+      <li>中英对白 <b>24/24 逐字一致</b></li>
+      <li>Prop 引用 <b>24/24 一致</b></li>
+      <li>负向提示词 <b>24/24 一致</b></li>
+      <li class="muted">结构性异常：<b>0 镜</b></li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout ok">
+  <b>产物位置（原文件未被触碰）：</b><br>
+  <code>01_周星驰_三十八万八/manifest.identity_locked.json</code><br>
+  <code>02_姜文_老子不娶了/manifest.identity_locked.json</code><br>
+  <code>03_奉俊昊_加名之夜/manifest.identity_locked.json</code><br>
+  逐处 diff：<code>_后期/角色一致性_补丁diff.txt</code>　·　审查原始抽取：<code>_后期/角色一致性审查_锚点矩阵.txt</code>　·　脚本：<code>_后期/audit_char_consistency_v3.py</code>、<code>_后期/fix_manifest_identity.py</code>
+</div>
+
+<h2>五、需要你拍板的两件事</h2>
+<div class="card">
+<p><b>① 《加名之夜》男主角叫什么？</b>剧中岳母台词喊他"振浩"，但原提示词 6 镜一次都没给姓名，也没有五官。我按韩式罗马化体系（与 MADAM-PARK / EUN-HEE 同系）暂定 <code>JIN-HO</code>，五官暂定 <code>calm composed features, neat short black hair</code>。要改名字或改五官，说一声我改 CANON 重出。</p>
+<p><b>② 要不要启用锁定版？</b>确认后我会把 <code>manifest.identity_locked.json</code> 覆盖回 <code>manifest.json</code>（原文件先备份），此后跑片即用统一身份串。不改也行，只当审查结论留着。</p>
+<p class="muted small">注：文件名 <code>manifest.identity_locked.json</code> 与 <code>manifest.json</code> 同目录，跑片脚本读的是后者，所以现在这一版<b>不会影响任何后续生成</b>——要生效必须显式覆盖。</p>
+</div>
+
+<footer>
+  本报告由静态文本分析生成，全程未连接远端、未调用 ComfyUI、未占用 GPU。<br>
+  判定依据：<code>shot["prompt"]</code> 中的 <code>&lt;Subject N&gt;</code> 身份定义串；运行脚本字段核对来源 <code>10_run_film.py</code>。
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+integrated_multimodal_description:
+[00:00.000 – 00:04.333] Medium shot across the mahogany tea table. <Subject 3> (S3), the 58-year-old shrewd rural father-in-law in dusty gray sheepskin coat, raises his long bamboo pipe and violently knocks the burning bronze bowl against the table edge, showering the red paper with glowing fiery sparks.
+[00:04.333 – 00:08.625] <Subject 3> (S3) points the scorched pipe stem toward the doorway, his calculating eyes narrowed with tyrannical rural finality, and barks: <d>[Chinese] "规矩不能坏，差一分钱，这闺女今天绝不出门坎。"</d>
+[00:08.625 – 00:12.958] In the blurred background, an elderly village woman cracks sunflower seeds with a contemptuous sneer. Sparks slowly burn charred holes into the red paper, smoke curling upward into the rafters, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Heavy metallic bang of pipe bowl hitting mahogany, sharp sizzling pop of scattered sparks, rhythmic crunching of sunflower seed shells. No background speech.
+
+non_diegetic_music:
+A tense, dissonant orchestral drone with sudden sharp metallic percussion strikes.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.

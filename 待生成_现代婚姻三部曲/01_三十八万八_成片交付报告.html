@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>《三十八万八》成片交付报告 · v4</title>
+<style>
+  :root{
+    --ink:#1a1c1e; --ink2:#4a4f55; --ink3:#7c848c;
+    --line:#e3e6ea; --line2:#eef1f4;
+    --bg:#ffffff; --bg2:#f7f9fb; --bg3:#f1f4f7;
+    --ok:#1a7f4b; --okbg:#eaf7ef;
+    --bad:#c0392b; --badbg:#fdeeec;
+    --warn:#b8730a; --warnbg:#fdf6e8;
+    --acc:#2b6cb0; --accbg:#eef4fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg2);color:var(--ink);
+       font:15px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:34px 26px 70px}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:12px;
+        padding:26px 28px;margin:0 0 20px}
+  h1{margin:0 0 6px;font-size:27px;letter-spacing:-.3px}
+  .sub{color:var(--ink3);font-size:13.5px;margin-bottom:26px}
+  h2{font-size:18px;margin:0 0 14px;padding-left:11px;border-left:3px solid var(--acc);
+     line-height:1.3}
+  h3{font-size:15px;margin:22px 0 9px;color:var(--ink2)}
+  p{margin:0 0 12px}
+  .lede{background:var(--accbg);border:1px solid #d3e2f4;border-radius:10px;
+        padding:16px 20px;margin:0 0 22px;font-size:15.5px;line-height:1.75}
+  .lede b{color:var(--acc)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0 6px}
+  th,td{padding:9px 11px;border-bottom:1px solid var(--line2);text-align:left}
+  th{background:var(--bg3);font-weight:600;color:var(--ink2);font-size:12.5px;
+     letter-spacing:.2px;-webkit-font-smoothing:antialiased}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:hover{background:#fafcfe}
+  .ok{color:var(--ok);font-weight:600}
+  .bad{color:var(--bad);font-weight:600}
+  .mut{color:var(--ink3)}
+  .pill{display:inline-block;padding:1.5px 9px;border-radius:20px;font-size:12px;
+        font-weight:600;line-height:1.6}
+  .pill.ok{background:var(--okbg);color:var(--ok)}
+  .pill.bad{background:var(--badbg);color:var(--bad)}
+  .pill.warn{background:var(--warnbg);color:var(--warn)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .kv{background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:15px 17px}
+  .kv .t{font-size:12px;color:var(--ink3);letter-spacing:.3px;margin-bottom:5px}
+  .kv .v{font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+  .kv .d{font-size:12.5px;color:var(--ink3);margin-top:3px}
+  img{max-width:100%;border:1px solid var(--line);border-radius:9px;display:block;margin:12px 0 6px}
+  .cap{font-size:12.5px;color:var(--ink3);margin:0 0 18px}
+  ul{margin:0 0 12px;padding-left:20px}
+  li{margin:0 0 7px}
+  code{background:var(--bg3);padding:1.5px 6px;border-radius:5px;font-size:12.5px;
+       font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#334}
+  .flow{display:flex;align-items:stretch;gap:0;margin:16px 0 8px}
+  .step{flex:1;background:var(--bg2);border:1px solid var(--line);padding:14px 15px;position:relative}
+  .step:first-child{border-radius:9px 0 0 9px}
+  .step:last-child{border-radius:0 9px 9px 0}
+  .step + .step{border-left:none}
+  .step .n{font-size:11.5px;color:var(--ink3);letter-spacing:.4px}
+  .step .h{font-weight:600;margin:3px 0 5px;font-size:14px}
+  .step .b{font-size:12.5px;color:var(--ink2);line-height:1.6}
+  .step.now{background:var(--okbg);border-color:#cfe9db}
+  .step.bad{background:var(--badbg);border-color:#f4d5d0}
+  .step.mid{background:var(--warnbg);border-color:#f0e0c0}
+  .foot{color:var(--ink3);font-size:12.5px;text-align:center;margin-top:26px}
+  .tag{display:inline-block;background:var(--bg2);border:1px solid var(--line);
+       border-radius:5px;padding:0 6px;font-size:11.5px;color:var(--ink2);
+       font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>《三十八万八》成片交付报告</h1>
+  <div class="sub">01 · 周星驰风格 · 8 镜 × 15 s = 120.5 s · 1344×768 · v4 终版 · 2026-09-15</div>
+
+  <div class="lede">
+    <b>一句话：从「每镜 1~2 处镜内硬切」压到「8 镜全零硬切」，同时画质、字幕、响度全部达标。</b><br>
+    关键不在模型，在提示词写法。三轮迭代把 <code>[00:00–05][05–10][10–15]</code> 这套「到点切镜头」的分段结构
+    彻底拆掉，改成单段连续叙述，模型才真正给出「一个镜头演完一件事」。
+  </div>
+
+  <!-- ============ 交付 ============ -->
+  <div class="card">
+    <h2>一、成品清单</h2>
+    <table>
+      <thead><tr><th>文件</th><th>说明</th><th class="num">大小</th></tr></thead>
+      <tbody>
+        <tr><td><code>周星驰_三十八万八_全片.mp4</code></td>
+            <td>主交付 · 无字幕成片，可直接送审/二创</td><td class="num">34.5 MB</td></tr>
+        <tr><td><code>周星驰_三十八万八_字幕.srt</code></td>
+            <td>外挂字幕（播放器/剪辑软件挂载）</td><td class="num">677 B</td></tr>
+        <tr><td><code>周星驰_三十八万八_字幕.vtt</code></td>
+            <td>外挂字幕 Web 版</td><td class="num">685 B</td></tr>
+        <tr><td><code>shots/shot01..08.mp4</code></td>
+            <td>8 个分镜底片，便于单镜重出或剪辑</td><td class="num">≈33 MB</td></tr>
+        <tr><td><code>8镜总览_v4.png</code></td>
+            <td>8 镜中点帧总览，快速过目</td><td class="num">0.9 MB</td></tr>
+      </tbody>
+    </table>
+
+    <h3>成片技术规格</h3>
+    <div class="grid2">
+      <div class="kv"><div class="t">画面</div><div class="v">1344 × 768 · 24 fps</div>
+        <div class="d">H.264 · 2094 kbps · 2888 帧 · 120.47 s</div></div>
+      <div class="kv"><div class="t">响度（EBU R128，两遍 loudnorm）</div><div class="v">−16.1 LUFS</div>
+        <div class="d">True Peak −1.2 dBTP · LRA 13.3 LU</div></div>
+    </div>
+    <img src="01_周星驰_三十八万八/8镜总览_v4.png" alt="8 镜总览">
+    <p class="cap">8 镜中点帧总览：楼梯间告别 → 铁门加价 → 婚房对峙 → 父亲递折 → 阿星撕花 → 上车 → 公路 → 高原日落。</p>
+  </div>
+
+  <!-- ============ 迭代 ============ -->
+  <div class="card">
+    <h2>二、三轮迭代：硬切是怎么被打掉的</h2>
+    <p>同一套模型、同一个 seed、同样的 A1 完整 VAE 解码 —— <b>唯一变量是 prompt 的写法</b>。</p>
+
+    <div class="flow">
+      <div class="step bad">
+        <div class="n">v2 · 原始</div>
+        <div class="h">三段式时间轴</div>
+        <div class="b">每段以 <code>At 00:05.000,</code> 开头，段间换视角/换主体。<br>
+          <span class="bad">镜内硬切 5 处 / 3 镜</span></div>
+      </div>
+      <div class="step mid">
+        <div class="n">v3 · 第一步</div>
+        <div class="h">保留分段 + 加锁定语</div>
+        <div class="b">删时间戳前缀、加 <code>single continuous take</code>、首段交代人物入画、删画面文字诉求。<br>
+          <span class="warn">01–05 归零，06/07/08 各剩 1 处</span></div>
+      </div>
+      <div class="step now">
+        <div class="n">v4 · 终版</div>
+        <div class="h">单段连续叙述</div>
+        <div class="b">把三段时间轴<b>彻底压成一段</b>，动作靠「先…接着…然后…」串联，不留任何分段标记。<br>
+          <span class="ok">8 镜全零硬切</span></div>
+      </div>
+    </div>
+
+    <h3>为什么分段标本身就是硬切的诱因</h3>
+    <p>
+      <code>[00:00–00:05] … [00:05–00:10] … [00:10–00:15]</code> 这套写法对单镜生成器来说，
+      等价于「这里是一个新镜头」的强暗示 —— 即便正文已经写明
+      <code>single continuous take, no cuts</code>，模型仍会按段兑现成硬切。
+      最刺眼的是镜08：前 5 秒是<b>完全静止</b>的远景（帧差 0.1~0.4），第 5.54 秒突然跳到 43.9
+      （<b>68 倍</b>），因为 prompt 写了 <code>the camera fully static at first</code>。
+      v4 删掉这句、让镜头从头到尾都在缓慢推进，同一时刻的最大帧差就掉到 <b>4.48</b>。
+    </p>
+
+    <h3>06 / 07 / 08 三镜的 v3 → v4 实测</h3>
+    <table>
+      <thead><tr><th>镜头</th><th class="num">v3 最大帧差</th><th class="num">v4 最大帧差</th>
+        <th class="num">降幅</th><th>v3 硬切位置</th><th>v4</th></tr></thead>
+      <tbody>
+        <tr><td>镜06 小巷上车</td><td class="num">47.38</td><td class="num ok">22.67</td>
+            <td class="num">−52.2%</td><td class="mut">8.62 s（3.6×）</td><td><span class="pill ok">0 处</span></td></tr>
+        <tr><td>镜07 车内公路</td><td class="num">61.47</td><td class="num ok">12.74</td>
+            <td class="num">−79.3%</td><td class="mut">7.71 s（22.8×）</td><td><span class="pill ok">0 处</span></td></tr>
+        <tr><td>镜08 高原日落</td><td class="num">43.85</td><td class="num ok">4.48</td>
+            <td class="num"><b>−89.8%</b></td><td class="mut">5.54 s（68.3×）</td><td><span class="pill ok">0 处</span></td></tr>
+      </tbody>
+    </table>
+    <p class="cap">判据：帧差峰值 ÷ 邻域中位（±5 帧）。硬切是孤立单帧突变（比值 ≥ 8），连续运镜是渐变（1.0~1.8）。</p>
+
+    <h3>镜01：三段式 vs 单镜连续（同 seed、同解码器）</h3>
+    <img src="第一镜AB对照/v3验证/硬切点_v2vs_v3.png" alt="硬切点对比">
+    <p class="cap">上排 v2：帧 211 与 291 处画面被整帧替换，是标准硬切。下排 v3 同一时刻：前后帧连续，只是运镜速度变化。</p>
+  </div>
+
+  <!-- ============ 验收 ============ -->
+  <div class="card">
+    <h2>三、8 镜验收总检（全 PASS）</h2>
+    <table>
+      <thead><tr><th>镜</th><th>景别</th><th class="num">分辨率</th><th class="num">帧数</th>
+        <th class="num">时长</th><th class="num">镜内硬切</th><th>画面残字</th><th>判定</th></tr></thead>
+      <tbody>
+        <tr><td>01</td><td>中近景</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+        <tr><td>02</td><td>近景</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+        <tr><td>03</td><td>中景</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+        <tr><td>04</td><td>特写</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+        <tr><td>05</td><td>面部特写</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+        <tr><td>06</td><td>全景</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+        <tr><td>07</td><td>中景</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+        <tr><td>08</td><td>中远景→全景</td><td class="num">1344×768</td><td class="num">361</td><td class="num">15.04 s</td><td class="num ok">0</td><td class="ok">✔</td><td><span class="pill ok">PASS</span></td></tr>
+      </tbody>
+    </table>
+    <p class="cap">全片整体扫描的 7 处帧差尖峰 = 8 镜之间的 7 个接缝（每 15 s 一次），属正常蒙太奇切换，非镜内硬切。</p>
+
+    <h3>画质链路（本片沿用并保持）</h3>
+    <table>
+      <thead><tr><th>环节</th><th>设置</th><th>效果</th></tr></thead>
+      <tbody>
+        <tr><td>Stage 1 草稿</td><td>MiniMax H3 T2VA · 672×384 × 362 帧 × 4 步</td><td class="mut">约 124 s / 镜</td></tr>
+        <tr><td>Stage 2 精修</td><td>LTX-2.5 3 步蒸馏 · <b>节点换成标准 VAEDecode</b></td><td class="ok">有效分辨率 −2.35 dB、锐度 +78%（对照实测）</td></tr>
+        <tr><td>靶面</td><td>1344 × 768</td><td class="mut">峰值显存 21.5 GiB（上限 23.5，有 2 GiB 余量）</td></tr>
+        <tr><td>响度</td><td>两遍 loudnorm I=−16 TP=−1.5 LRA=11</td><td class="ok">实测 −16.1 LUFS / −1.2 dBTP</td></tr>
+      </tbody>
+    </table>
+    <p class="cap">
+      「节点换成标准 VAEDecode」指的是：精修工作流原先走 TAEHV 预览级解码器出片，
+      已在 <code>workflows/stage2_vaedecode.json</code> 里改为完整 LTX-2.5 VAE 解码。
+      这是本片画质提升的最大单点收益。
+    </p>
+  </div>
+
+  <!-- ============ 字幕 ============ -->
+  <div class="card">
+    <h2>四、字幕与「不烧进画面」</h2>
+    <ul>
+      <li><b>成片全程无烧入字幕</b>，8 镜残字扫描全绿。镜02 上一版曾糊着一行乱码中文硬字幕，
+          根因是 prompt 里明写「画面显示这行字」，v3 起已删除，本次该位置画面干净。</li>
+      <li>字幕以独立 <code>.srt</code> / <code>.vtt</code> 交付，与成片同目录同名，可随时开关、改字不用重编码。</li>
+      <li><b>待优化项</b>：目前 8 条字幕里只有镜02 靠静音检测对齐了真实语音（5.54~11.68 s），
+          其余 7 条因 H3 原生音轨被环境音盖满（有声占比 90~100%），回退成「整镜覆盖」。
+          下一版可接 TTS 重配音，用唇动检测自动定位口型区间，把字幕和配音一起对齐。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 复现 ============ -->
+  <div class="card">
+    <h2>五、怎么复现这一版</h2>
+    <p>全部脚本在 <code>待生成_现代婚姻三部曲/_后期/</code>，远端工程目录 <code>/workspace/films/thirty_eight_eight/</code>。</p>
+    <table>
+      <thead><tr><th>步骤</th><th>命令</th></tr></thead>
+      <tbody>
+        <tr><td>1. 生成 v4 剧本</td>
+            <td><code>python3 _后期/rewrite_prompts_v4.py --src 01_周星驰_三十八万八/manifest.json --out 01_周星驰_三十八万八/manifest_v4.json --shots 6,7,8</code></td></tr>
+        <tr><td>2. 上机出片</td>
+            <td><code>cp manifest_v4.json manifest.json</code> → <code>python 10_run_film.py --shots 1-8</code></td></tr>
+        <tr><td>3. 拉回底片</td>
+            <td><code>scp root@…:final/shot0N.mp4 01_周星驰_三十八万八/shots/</code></td></tr>
+        <tr><td>4. 一键验收</td>
+            <td><code>python3 _后期/acceptance_check.py --film 01_周星驰_三十八万八</code></td></tr>
+        <tr><td>5. 合成成片</td>
+            <td><code>python3 _后期/finish_film.py --film 01_周星驰_三十八万八</code></td></tr>
+      </tbody>
+    </table>
+    <p class="cap">
+      可回滚：远端留有 <code>manifest_v2_backup.json</code> / <code>manifest_v3_backup.json</code>，
+      v2 全套产物归档在 <code>/workspace/v2_baseline_3seg/</code>。
+    </p>
+  </div>
+
+  <!-- ============ 遗留 ============ -->
+  <div class="card">
+    <h2>六、还没做的（按价值排序）</h2>
+    <table>
+      <thead><tr><th>项</th><th>价值</th><th>成本</th></tr></thead>
+      <tbody>
+        <tr><td><b>字幕时序 + 配音对齐</b>（TTS 重配音 + 唇动检测定位口型区间）</td>
+            <td class="ok">高 · 目前最影响观感的一项</td><td>本机可做，不占 GPU。首次 1.5 h，之后每片 10 min</td></tr>
+        <tr><td><b>装 Sol-Attn 加速后端</b>：工作流名为 Super Acceleration，但本机既无
+            <code>ComfyUI-SolAttn_triton</code> 也无审计过的 <code>Saganaki22/ComfyUI-sol-attn</code>，
+            47 层稀疏注意力从未生效，Stage2 一直跑稠密</td>
+            <td class="ok">高 · 纯提速，不动画质</td><td>需先做命名兼容审计（模块名对不上）</td></tr>
+        <tr><td>靶面提到 1920×1088 再下采样</td>
+            <td class="warn">中 · 显存 21.5 / 23.5 GiB 尚有余量</td><td>约 +60% 精修耗时</td></tr>
+        <tr><td>三部曲 02《老子不娶了》/ 03《加名之夜》</td>
+            <td class="ok">高 · 剧本已就绪</td><td>用 v4 模板套一遍即可，24 镜约 2 h</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot">
+    01《三十八万八》· v4 终版 · 生成于 2026-09-15 · 8 镜 / 120.5 s / 1344×768
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>投产方案（待审）· 现代婚姻三部曲</title>
+<style>
+  :root {
+    --bg:#f7f8fa; --card:#fff; --ink:#1c1f23; --ink2:#4a5158; --ink3:#7b848d;
+    --line:#e3e7eb; --line2:#eef1f4;
+    --red:#c0392b; --green:#1e7a4b; --amber:#a86400; --blue:#1a5fb4;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; padding:36px 28px 80px; background:var(--bg); color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1120px; margin:0 auto; }
+  header { border-bottom:2px solid var(--ink); padding-bottom:18px; margin-bottom:28px; }
+  h1 { font-size:26px; margin:0 0 8px; letter-spacing:-.3px; }
+  .meta { color:var(--ink3); font-size:13px; }
+  h2 { font-size:19px; margin:40px 0 14px; padding-left:11px; border-left:4px solid var(--ink); }
+  h3 { font-size:15.5px; margin:24px 0 9px; }
+  h4 { font-size:14px; margin:18px 0 7px; color:var(--ink2); }
+  p { margin:11px 0; color:var(--ink2); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:18px 22px; margin:15px 0; }
+  .now   { border-left:5px solid var(--red);   background:#fffafa; }
+  .do    { border-left:5px solid var(--green); background:#fafdfb; }
+  .note  { border-left:5px solid var(--amber); background:#fffdf6; }
+  .info  { border-left:5px solid var(--blue);  background:#fafcff; }
+  .card p:first-child { margin-top:0; }
+  .card p:last-child { margin-bottom:0; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line);
+          border-radius:8px; overflow:hidden; font-size:13.5px; margin:11px 0; }
+  th { background:#f0f3f6; text-align:left; padding:9px 11px; font-weight:600; color:var(--ink2);
+       font-size:12.5px; border-bottom:1px solid var(--line); }
+  td { padding:8px 11px; border-bottom:1px solid var(--line2); color:var(--ink2); vertical-align:top; }
+  tr:last-child td { border-bottom:none; }
+  .num { text-align:right; font-variant-numeric:tabular-nums;
+         font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; white-space:nowrap; }
+  code { background:#eef1f4; padding:1px 5px; border-radius:4px;
+         font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; color:#334; }
+  pre { background:#f4f6f8; border:1px solid var(--line); border-radius:8px; padding:13px 15px;
+        overflow-x:auto; font-size:12.5px; line-height:1.62; margin:12px 0;
+        font-family:ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--ink); }
+  ul, ol { margin:10px 0; padding-left:21px; color:var(--ink2); }
+  li { margin:6px 0; }
+  .ok { color:var(--green); font-weight:600; }
+  .bad { color:var(--red); font-weight:600; }
+  .amb { color:var(--amber); font-weight:600; }
+  .tag { display:inline-block; border-radius:4px; padding:1px 7px; font-size:11.5px; font-weight:600; margin-right:5px; }
+  .t1 { background:#fbeceb; color:var(--red); }
+  .t2 { background:#eaf1fb; color:var(--blue); }
+  .t3 { background:#eaf5ee; color:var(--green); }
+  .tree { background:#f4f6f8; border:1px solid var(--line); border-radius:8px; padding:16px 18px;
+          font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; line-height:1.85;
+          color:var(--ink); overflow-x:auto; white-space:pre; margin:12px 0; }
+  .tree .dim { color:var(--ink3); }
+  .tree .new { color:var(--green); font-weight:600; }
+  .tree .del { color:var(--red); }
+  footer { margin-top:46px; padding-top:16px; border-top:1px solid var(--line); color:var(--ink3); font-size:12.5px; }
+  .flow { display:flex; gap:0; align-items:stretch; margin:16px 0; flex-wrap:wrap; }
+  .flow .box { flex:1; min-width:200px; border:1px solid var(--line); background:var(--card);
+               padding:12px 14px; font-size:13px; border-radius:8px; }
+  .flow .arw { align-self:center; padding:0 12px; color:var(--ink3); font-size:19px; }
+  .flow .box b { display:block; margin-bottom:5px; font-size:13.5px; }
+  .flow .box span { color:var(--ink2); font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>投产方案（待审）· 《现代婚姻三部曲》24 镜</h1>
+  <div class="meta">2026-09-18 · 渲染端 A100-PCIE-40GB · H3 草稿 → LTX-2.5 精修 · 本文档只说明做法，<b>未改动任何工程文件</b></div>
+</header>
+
+<div class="card note">
+  <p><b>先说一个更正。</b>上一轮我说"24 镜里 12 镜要求画面出现文字"，这个数字<b>偏大</b>——当时把
+  <code>document</code> / <code>paper</code> / <code>certificate</code> 这类词也算进去了，它们只描述物件、不要求画出可读内容。
+  按"是否真的要求模型写出可读字符"重新筛，实际是 <b>7 镜</b>。清单在本文件第二节，逐镜列出了原文。</p>
+  <p style="margin-bottom:0"><b>另一个更正</b>：禁字短语 24 镜<b>全都写了</b>
+  （<code>no subtitles, no captions, no on-screen text</code>）——不是缺，是<b>位置不对</b>：
+  夹在第一段描述末尾当形容词用，不是独立强制段。</p>
+</div>
+
+<!-- ══════════ 第一点 ══════════ -->
+<h2><span class="tag t1">一</span>流水线必须两段分离，且写死</h2>
+
+<div class="card now">
+  <h4 style="margin-top:0">现状：单循环逐镜交替</h4>
+  <p><code>10_run_film.py</code> 的 <code>main()</code> 是一个 <code>for s in sel</code> 循环，
+  每镜内部先 <code>stage1_draft()</code> 再 <code>stage2_refine()</code>。虽然有
+  <code>--stage draft</code> / <code>--stage refine</code> 可以手动分段，但默认值是 <code>both</code>，
+  也就是<b>逐镜交替</b>——这正是最慢的那种跑法。</p>
+  <p style="margin-bottom:0"><b>为什么这样不行：</b>Stage1 用 H3 权重（UNET 20.97 GB），Stage2 用 LTX-2.5 22B（另一套）。
+  交替跑等于每镜都要装卸一次 ~20 GB 权重。本机实测过的两个口径：<b>批处理 149 s/镜</b> vs
+  <b>逐镜交替 248 s/镜</b>，差 66%。24 镜算下来多付约 40 分钟，全是搬运，一帧画面都没多出来。</p>
+</div>
+
+<div class="card do">
+  <h4 style="margin-top:0">怎么干</h4>
+  <div class="flow">
+    <div class="box"><b>① 阶段 A · 全部草稿</b><span>遍历 24 镜跑 Stage1<br>H3 权重常驻，只装卸一次</span></div>
+    <div class="arw">→</div>
+    <div class="box"><b>② 阶段门 · 强制释放</b><span><code>POST /free</code><br>unload_models + free_memory</span></div>
+    <div class="arw">→</div>
+    <div class="box"><b>③ 阶段 B · 全部精修</b><span>遍历 24 镜跑 Stage2<br>LTX 权重常驻，只装卸一次</span></div>
+    <div class="arw">→</div>
+    <div class="box"><b>④ 收尾</b><span>再次释放<br>写门状态 + 成片清单</span></div>
+  </div>
+  <ul style="margin-bottom:0">
+    <li><b>删掉 <code>both</code></b> —— 它就是现在这个逐镜交替，留着就会有人误用。
+        <code>--stage</code> 只留三个值：<code>all</code>（默认，两阶段批）／<code>draft</code>／<code>refine</code>（断点续跑）。</li>
+    <li><b>段边界释放是硬步骤，不是可选优化</b> —— 写在两阶段之间，失败了就中止，不带着脏显存进下一阶段。</li>
+    <li><b>阶段门落盘</b> —— 每阶段结束写 <code>_pipeline/gates/&lt;片&gt;.stage_gate.json</code>
+        （记录哪些镜成功、耗时、产物路径）。中途崩了可以只补失败的镜，不用从头跑。</li>
+    <li><b>Stage2 参数在阶段 B 开始前一次性加载</b> —— 精修是这条线的本质，LTX 权重、identity 预设
+        （Sigma 0.5 保脸）、分辨率都在进阶段 B 时统一设好，之后 24 镜共用，不再逐镜变。</li>
+  </ul>
+</div>
+
+<!-- ══════════ 第二点 ══════════ -->
+<h2><span class="tag t2">二</span>禁字：拆互斥 + 加独立强制段</h2>
+
+<div class="card now">
+  <h4 style="margin-top:0">真问题不是"没写禁字"，是"写了禁字又要求画字"</h4>
+  <p>24 镜结尾都挂着 <code>no subtitles, no captions, no on-screen text</code>，
+  但同时有 <b>7 镜</b>在正文明令模型画出可读内容。模型收到两条互斥指令，
+  产出的是<b>半生不熟的伪汉字</b>——比纯乱码更难看，因为它"像"字但读不通。</p>
+  <table>
+    <thead><tr><th>片</th><th>镜</th><th>景别</th><th>prompt 原文（诱发项）</th><th>处置</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="2">三十八万八</td><td>1</td><td>中近景</td>
+          <td><code>rose pinned to his lapel reading Groom</code></td>
+          <td>只描述胸花外形质地，删 <code>reading Groom</code></td></tr>
+      <tr><td>2</td><td>近景</td>
+          <td><code>camera pushes in ... onto the handwritten paper slip reading thirty-eight thousand eight hundred yuan parking fee</code></td>
+          <td class="bad">最重之一：推近去读</td></tr>
+      <tr><td>老子不娶了</td><td>2</td><td>中近景</td>
+          <td><code>bold black brush calligraphy reading twenty thousand entry fee</code></td>
+          <td>改成"笔势张扬的毛笔字"，不指定内容</td></tr>
+      <tr><td rowspan="4">加名之夜</td><td>1</td><td>中景</td>
+          <td><code>a printed legal property co-ownership agreement document</code></td>
+          <td>保留物件外观，去掉"可读"暗示</td></tr>
+      <tr><td>2</td><td>中近景</td>
+          <td><code>slide an open fountain pen across ... the printed legal property co-ownership agreement</code></td>
+          <td>同上</td></tr>
+      <tr><td>4</td><td>特写</td>
+          <td><code>a thick folded packet of damp yellowed handwritten debt notices</code></td>
+          <td>改成"潦草不可辨的手写笔迹"</td></tr>
+      <tr><td>5</td><td>微距特写</td>
+          <td><code>pushes in sharply on the bold handwritten loan figure: "1,200,000 RMB", stamped with five vivid crimson thumbprints</code></td>
+          <td class="bad">最重：微距 + 引号内明确数字 + 手写体</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-bottom:0"><b>片3 镜5 是全片风险最高的一镜</b>：微距特写把像素全给了一串手写数字，
+  等于用最贵的画面去写模型最不会写的东西。</p>
+</div>
+
+<div class="card do">
+  <h4 style="margin-top:0">怎么干：两层处置</h4>
+  <p><b>A · 拆互斥（根治）</b>——上面 7 镜逐条改写。原则：<b>要"看得出性质"，不要"读得出内容"</b>。
+  一张红皮房产证观众看得懂是房产证，不需要它上面的字清晰；一张欠条观众看得懂是欠条，
+  不需要金额可读。改写后互斥消失，模型不用再在两条指令之间猜。</p>
+  <p><b>B · 独立强制段（兜底）</b>——每镜 prompt 末尾<b>新增独立段落</b>，不再夹在描述里：</p>
+<pre>strict_output_constraints:
+Absolutely no subtitles, no captions, no burned-in text, no watermarks, no logos.
+No legible written characters anywhere in the frame. Any document, slip, note or
+sign that appears must render as illegible abstract strokes — never as readable
+text. Text is forbidden even when a prop in the scene would normally carry it.</pre>
+  <p style="margin-bottom:0">这段话<b>单点定义</b>在 <code>_pipeline/no_text_clause.txt</code>，
+  由构建脚本注入每镜，不手写——避免 24 份各写各的又出现参差。</p>
+</div>
+
+<div class="card info">
+  <p style="margin:0"><b>三层防线：</b>① prompt 强制段（上面 B）
+  ② 构建脚本终检 —— 每镜 prompt 生成后校验必含锚点短语，缺了直接报错退出，不产出
+  ③ 出片后 <code>_后期/scan_text_band.py</code> 目视抽验（OCR 对 H3 伪汉字不可靠，只能人眼看）。</p>
+</div>
+
+<!-- ══════════ 第三点 ══════════ -->
+<h2><span class="tag t3">三</span>manifest 重审：合并成一份权威，老的归档</h2>
+
+<div class="card now">
+  <h4 style="margin-top:0">现状：一个片目录里躺着 4 份 manifest，且驱动只读其中一份</h4>
+  <table>
+    <thead><tr><th>文件</th><th>状态</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td><code>manifest.json</code></td><td class="ok">在用</td><td>已重定时（10–15s 弹性）。<b>驱动脚本只读这份</b></td></tr>
+      <tr><td><code>manifest.identity_locked.json</code></td><td class="bad">从未被加载</td><td>身份补丁版。<code>10_run_film.py</code> 第 48 行读的是 <code>manifest.json</code>——<b>补丁白做了</b></td></tr>
+      <tr><td><code>manifest.json.orig_retime</code></td><td class="amb">备份</td><td>重定时前的快照</td></tr>
+      <tr><td><code>manifest.orig_20260915.json</code></td><td class="amb">备份</td><td>9-15 那轮的身份补丁前快照</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-bottom:0">另外顶层混着 <b>2026-09-15/16 那一代</b>的产物：
+  <code>成片/</code>（三片 mp4 共 147 MB + 接触表 + QC 日志）、<code>_旧版对照_TAEHVv1/</code>、
+  以及 <code>01_三十八万八_成片交付报告.html</code>、<code>时间成本估算.html</code>、
+  <code>第一镜步数对照_3步vs8步.html</code>、<code>角色一致性审查报告.html</code> 等 8 份旧报告。</p>
+</div>
+
+<div class="card do">
+  <h4 style="margin-top:0">怎么干</h4>
+  <ol>
+    <li><b>三合一</b> —— 生成新的 <code>manifest.json</code>，同时含
+        ① 重定时结果（<code>h3_length</code> / <code>duration</code> / 三段时间戳）
+        ② identity 身份补丁（原来只在 <code>identity_locked</code> 里的那份）
+        ③ 禁字强制段。<b>这是唯一权威文件</b>。</li>
+    <li><b>删掉 <code>manifest.identity_locked.json</code> 这个中间态</b> —— 它的存在本身就是 bug 来源：
+        补丁写在这份、驱动读那份，改了等于没改。合并后这个问题从结构上消失。</li>
+    <li><b>归档</b> —— 老产物全部移进 <code>_archive/</code>，按日期分层。</li>
+    <li><b>逐镜再审一遍</b> —— 重定时只是改了时长，prompt 内容本身还没过。要过的是：
+        禁字互斥（7 镜）、身份锚点（6 个镜次锚点归零，其中 4 个是多人同框）、
+        逻辑硬伤（片1镜3「不下轿」但新娘已在婚房／片2镜2「三十万」来路不明＋「小勇」凭空出现／
+        片2镜6 崩了珠的算盘又完好／片3镜8「雨……终于停不下来了」病句）。</li>
+  </ol>
+</div>
+
+<h3>归档后的目录结构</h3>
+<div class="tree">待生成_现代婚姻三部曲/
+│
+├── <span class="new">00_方案_待审_20260918.html</span>          <span class="dim">← 本文档</span>
+├── 00_投产前审核结论_20260918.html
+├── 01_重定时结论_20260918.html
+│
+├── <span class="new">_archive/</span>                             <span class="dim">← 新建：只读参考，不参与生产</span>
+│   ├── <span class="new">2026-09-15_首轮产物/</span>
+│   │   ├── 成片/                       <span class="dim">三片 mp4（147 MB）+ 接触表 + QC 日志</span>
+│   │   ├── _旧版对照_TAEHVv1/
+│   │   ├── 01_三十八万八_成片交付报告.html
+│   │   ├── 01_三十八万八_耗时明细报告.html
+│   │   ├── 01_单镜290秒解剖报告.html
+│   │   ├── 第一镜对照与问题诊断.html
+│   │   ├── 第一镜步数对照_3步vs8步.html
+│   │   ├── 时间成本估算.html
+│   │   ├── 角色一致性审查报告.html
+│   │   ├── README_三部曲交付说明.md
+│   │   └── 00_三部曲生产调度总览.md
+│   └── <span class="new">2026-09-18_重定时前/</span>
+│       ├── 01_三十八万八/manifest.json
+│       ├── 02_老子不娶了/manifest.json
+│       └── 03_加名之夜/manifest.json
+│
+├── <span class="new">_pipeline/</span>                            <span class="dim">← 新建：流水线唯一入口</span>
+│   ├── run_pipeline.py                <span class="dim">两阶段批处理，写死段边界释放</span>
+│   ├── stage1_template.json           <span class="dim">H3 草稿模板</span>
+│   ├── stage2_template.json           <span class="dim">LTX 精修模板（identity 预设）</span>
+│   ├── no_text_clause.txt             <span class="dim">禁字强制段，单点定义</span>
+│   ├── build_manifest.py              <span class="dim">生成三合一 manifest + 注入禁字段</span>
+│   └── gates/                         <span class="dim">阶段门：每阶段完成状态，支持断点续跑</span>
+│       └── &lt;片&gt;.stage_gate.json
+│
+├── _后期/                              <span class="dim">保留</span>
+│   ├── retime_shots.py                <span class="dim">重定时 + 边界硬校验</span>
+│   ├── make_subs.py                   <span class="dim">外挂字幕（ffprobe 实测累加）</span>
+│   ├── scan_text_band.py              <span class="dim">出片后目视抽验</span>
+│   └── ...
+│
+├── 01_周星驰_三十八万八/
+│   ├── <span class="new">manifest.json</span>                <span class="dim">← 唯一权威（重定时 + identity + 禁字 三合一）</span>
+│   ├── 10_run_film.py                 <span class="dim">瘦身为「单镜函数库」，调度交给 _pipeline</span>
+│   ├── workflows/
+│   └── 《三十八万八》完整工程台本.html
+├── 02_姜文_老子不娶了/                  <span class="dim">同构</span>
+└── 03_奉俊昊_加名之夜/                  <span class="dim">同构</span>
+
+<span class="del">已移除：</span>
+  <span class="del">各片 manifest.identity_locked.json</span>   <span class="dim">→ 并入 manifest.json</span>
+  <span class="del">各片 *.orig_retime / manifest.orig_20260915.json</span> <span class="dim">→ _archive/</span>
+  <span class="del">顶层成片/ 、_旧版对照_TAEHVv1/ 、8 份旧报告</span>  <span class="dim">→ _archive/2026-09-15_首轮产物/</span></div>
+
+<!-- ══════════ 必答题 ══════════ -->
+<h2>四、绕不开的一个前置：执行器丢了</h2>
+
+<div class="card now">
+  <p>三个 <code>10_run_film.py</code> 都调用
+  <code>/workspace/h3scripts/80_run_workflow_remote.py</code>。刚才在 A100 上全盘找过：
+  <span class="bad">这个文件不存在</span>。按现状跑，第一镜就崩。</p>
+  <p style="margin-bottom:0"><span class="ok">好消息：</span><code>/root/ui_to_api.py</code> <b>在</b>，
+  而且自带 <code>--submit --timeout</code>（UI→API 转换 + 提交 + 轮询），只缺一个能力：<code>--set</code>
+  （按 <code>节点.参数=值</code> 覆盖）。而三个驱动脚本全靠 <code>--set</code> 传参。</p>
+</div>
+
+<div class="card do">
+  <h4 style="margin-top:0">两条路，我推荐 B</h4>
+  <table>
+    <thead><tr><th></th><th>A · 给 ui_to_api.py 补 <code>--set</code></th><th>B · 逐镜生成完整 API JSON</th></tr></thead>
+    <tbody>
+      <tr><td>做法</td><td>转换时按节点号改值</td><td>参数直接写进每镜一份 JSON，提交即跑</td></tr>
+      <tr><td>改动量</td><td>小</td><td>中（要写一个生成脚本）</td></tr>
+      <tr><td>风险</td><td class="bad">踩过坑：<code>SaveVideo.format/codec</code> 是
+          <code>COMFY_DYNAMICCOMBO_V3</code>，白名单不认 → 参数连键带值消失，
+          前面节点全跑完才报 <code>missing 'format'</code></td>
+          <td class="ok">绕开全部 <code>--set</code> 相关坑</td></tr>
+      <tr><td>可复现</td><td>差（参数散在命令行）</td><td class="ok">好（每镜 JSON 可存档、可 diff）</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-bottom:0"><b>选 B。</b>顺带把 <code>s2_adapt.py --preset identity</code> 生成的精修工作流也走同一条路——
+  服务器上保脸版工作流和节点类都是现成的，换掉官方 Sigma 0.91 版本<b>零成本</b>。</p>
+</div>
+
+<!-- ══════════ 执行顺序 ══════════ -->
+<h2>五、执行顺序</h2>
+<table>
+  <thead><tr><th>#</th><th>步骤</th><th>产出 / 验收</th></tr></thead>
+  <tbody>
+    <tr><td class="num">1</td><td>归档老产物 → <code>_archive/</code></td><td>顶层只剩 3 份报告 + 3 个片目录 + <code>_后期</code> + <code>_pipeline</code></td></tr>
+    <tr><td class="num">2</td><td>写 <code>build_manifest.py</code>：三合一 + 注入禁字段</td><td>3 份新 <code>manifest.json</code>，老的进归档</td></tr>
+    <tr><td class="num">3</td><td>拆互斥：改写 7 镜 prompt</td><td>全文扫描：0 处 <code>reading "..."</code> / <code>handwritten ... figure</code></td></tr>
+    <tr><td class="num">4</td><td>重建执行器（方案 B）+ stage1/stage2 模板</td><td>单镜干跑通过，产物 mp4 落盘</td></tr>
+    <tr><td class="num">5</td><td>写 <code>run_pipeline.py</code>：两段批 + 段门释放</td><td>阶段门 JSON 正常落盘</td></tr>
+    <tr><td class="num">6</td><td><b>单镜验证</b>：片3镜5（验禁字）+ 片3镜6（验三人同框）</td><td>两镜出片，人工过目</td></tr>
+    <tr><td class="num">7</td><td>全量 24 镜</td><td>成片 + 外挂字幕（不烧字幕）</td></tr>
+  </tbody>
+</table>
+
+<div class="card note">
+  <p style="margin:0"><b>第 6 步不能省。</b>前 5 步全是"应该能跑"，只有真出两镜片子才知道
+  identity 预设保不保得住脸、短窗下禁字有没有效、LTX 裁剪有没有把字幕轴带偏。</p>
+</div>
+
+<h2>六、要你拍板的三件事</h2>
+<div class="card">
+  <ol>
+    <li><b>执行器走 A 还是 B？</b>我推荐 B（逐镜 JSON），稳但多写一个脚本。A 快但踩过坑。</li>
+    <li><b>7 镜的"文字道具"要不要保？</b>我的方案是全部改成"字迹不可辨"。
+        如果你坚持某几镜必须让观众看清数字（比如 <code>1,200,000</code> 是剧情信息），
+        那只有一条路：<b>生成后合成贴图</b>——让模型画字是概率性的，100% 正确必须后期兜底。</li>
+    <li><b>身份补丁要不要跟禁字一起合进 manifest？</b>我建议一起合，一次改完。
+        但身份补丁本身还有 4 处拼接 bug（<code>rosessweat</code>、<code>trousers[00:00</code> 等），
+        合之前得先修——要不要这次一并修掉？</li>
+  </ol>
+</div>
+
+<footer>
+  本方案基于 2026-09-18 对本地工程与 A100 服务器的实测勘察。<code>length</code> 栅格与 LTX
+  <code>trim_to_8n_plus_1</code> 均在服务器 <code>/object_info</code> 上核实过，不是推断。
+</footer>
+
+</div>
+</body>
+</html>

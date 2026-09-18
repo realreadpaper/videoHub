@@ -1,0 +1,12 @@
+integrated_multimodal_description:
+[00:00.000 – 00:05.042] Medium close-up, the camera moves backward in a slow steady tracking shot up a narrow peeling concrete stairwell of a 1990s tenement building. <Subject 1> (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a gaudy plastic red rose pinned to his lapel, climbs toward the camera clutching a bouquet of slightly wilted red roses, sweat dripping down his temple. Already inside the same frame two steps below him walks <Subject 2> (S2), a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers, clutching a small red velvet pouch against his chest.
+[00:05.042 – 00:10.042] The camera continues retreating smoothly. <Subject 1> (S1) pauses on a concrete step, turns his head back over his shoulder toward his father with a strained optimistic grin, and says: <d>[Chinese] "爸，等会儿进去你别紧张，一切有我。"</d>
+[00:10.042 – 00:15.083] Behind him, <Subject 2> (S2) nods hesitantly, his calloused fingers clutching the red velvet pouch tighter as dusty midday sunbeams slice through the barred window, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Rhythmic heavy leather shoes scraping on concrete stairs, muffled distant crackle of firecrackers outside the stairwell, heavy breathing and fabric rustle. No background speech.
+
+non_diegetic_music:
+A whimsical, nostalgic acoustic guitar fingerpicking tune with a faint comedic undertone, light and bittersweet.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.

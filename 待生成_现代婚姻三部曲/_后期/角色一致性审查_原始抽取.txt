@@ -1,0 +1,122 @@
+====================================================================================================
+【01】三十八万八 / 周星驰  seed=20260918 stage1=672x384 stage2=1344x768 h3_length=362 refined=361
+====================================================================================================
+
+--- A. character 字段 vs prompt 内 Subject token ---
+   ⚠️ shot01: character字段=[1]  prompt内=[1, 2]   raw="<Subject 1> (S1)"
+   ⚠️ shot03: character字段=[3]  prompt内=[3, 4]   raw="<Subject 3> (S3)"
+   ⚠️ shot06: character字段=[1]  prompt内=[1, 2]   raw="<Subject 1> (S1)"
+   ⚠️ shot07: character字段=[1]  prompt内=[1, 2]   raw="<Subject 1> (S1)"
+
+--- B. 同一 Subject 序号的定义漂移 ---
+   Subject 1: 出现于 shot[1, 2, 5, 6, 7, 8]  人名=['A-XING', 'ARRI?']  年龄=['30'] ⚠️ 人名不一 ⚠️ 服装描述不一
+       · 服装: an ill-fitting rented black polyester wedding suit with a cr
+       · 服装: an ill-fitting rented black polyester wedding suit with plas
+   Subject 2: 出现于 shot[1, 4, 6, 7, 8]  人名=['ARRI?', 'OLD-LI']  年龄=['65'] ⚠️ 人名不一
+       · 服装: a faded navy blue zip-up windbreaker over a worn knitted swe
+   Subject 3: 出现于 shot[3]  人名=['ARRI?']  年龄=['55']
+       · 服装: an opulent gaudy crimson and gold embroidered silk qipao dre
+   Subject 4: 出现于 shot[3]  人名=['ARRI?', 'JING-JING']  年龄=['28'] ⚠️ 人名不一
+
+--- C. 同一人名 ↔ 多个 Subject 序号（身份互换风险）---
+   ⚠️ 人名 ARRI 被用于 Subject [1, 2, 3, 4]
+
+--- D. 后缀与命名规范 ---
+   出现的后缀: ∅（全部为纯 (Sx)）
+
+--- E. Prop 编号分布 ---
+   <Prop 1> 出现于 shot[6, 8]
+
+--- F. 可能诱发画面文字的写法 ---
+   ✅ 对白区外无中文字面
+   负向提示词覆盖: {'no subtitles': 8, 'no captions': 8, 'no on-screen text': 8, 'no watermark': 8, 'no logo': 8} （应每镜 5 项 × 8 镜）
+
+--- 逐镜速览 ---
+   shot01 | 中近景 (MCU) | 15s | char="<Subject 1> (S1)" | file=shot01_staircase_sweat | 对白=有
+   shot02 | 近景 (CU) | 15s | char="<Subject 1> (S1)" | file=shot02_locked_security_door | 对白=有
+   shot03 | 中景 (MS) | 15s | char="<Subject 3> (S3)" | file=shot03_bedroom_mother_in_law | 对白=有
+   shot04 | 特写 (CU) | 15s | char="<Subject 2> (S2)" | file=shot04_father_trembling_passbook | 对白=有
+   shot05 | 面部特写 (CU) | 15s | char="<Subject 1> (S1)" | file=shot05_axing_laughter_tears | 对白=有
+   shot06 | 全景 (WS) | 15s | char="<Subject 1> (S1)" | file=shot06_turning_around_tenement | 对白=有
+   shot07 | 中景 (MS) | 15s | char="<Subject 1> (S1)" | file=shot07_highway_wind_escape | 对白=有
+   shot08 | 中远景至全景 (MLS to WS) | 15s | char="<Subject 1> (S1) & <Subject 2> (S2)" | file=shot08_plateau_sunset_orange | 对白=有
+====================================================================================================
+【02】老子不娶了 / 姜文  seed=20260920 stage1=672x384 stage2=1344x768 h3_length=362 refined=361
+====================================================================================================
+
+--- A. character 字段 vs prompt 内 Subject token ---
+   ⚠️ shot05: character字段=[1]  prompt内=[1, 3]   raw="<Subject 1> (S1)"
+   ⚠️ shot06: character字段=[1]  prompt内=[1, 2]   raw="<Subject 1> (S1)"
+   ⚠️ shot07: character字段=[2]  prompt内=[1, 2]   raw="<Subject 2> (S2)"
+   ⚠️ shot08: character字段=[1]  prompt内=[1, 2]   raw="<Subject 1> (S1)"
+
+--- B. 同一 Subject 序号的定义漂移 ---
+   Subject 1: 出现于 shot[1, 5, 6, 7, 8]  人名=['ARRI?', 'DA-BIAO']  年龄=['35'] ⚠️ 人名不一
+       · 服装: an imposing dark olive-green heavy wool military trench coat
+   Subject 2: 出现于 shot[3, 6, 7, 8]  人名=['ARRI?', 'OLD-WU']  年龄=['62'] ⚠️ 人名不一
+       · 服装: a traditional black quilted cotton coat and round wire-rim s
+   Subject 3: 出现于 shot[2, 4, 5]  人名=['ARRI?', 'MASTER-ZHANG']  年龄=['58'] ⚠️ 人名不一
+       · 服装: a dusty gray sheepskin coat over a dark navy Mao tunic jacke
+
+--- C. 同一人名 ↔ 多个 Subject 序号（身份互换风险）---
+   ⚠️ 人名 ARRI 被用于 Subject [1, 2, 3]
+
+--- D. 后缀与命名规范 ---
+   出现的后缀: ∅（全部为纯 (Sx)）
+
+--- E. Prop 编号分布 ---
+   <Prop 1> 出现于 shot[3]
+   <Prop 2> 出现于 shot[7, 8]
+
+--- F. 可能诱发画面文字的写法 ---
+   ✅ 对白区外无中文字面
+   负向提示词覆盖: {'no subtitles': 8, 'no captions': 8, 'no on-screen text': 8, 'no watermark': 8, 'no logo': 8} （应每镜 5 项 × 8 镜）
+
+--- 逐镜速览 ---
+   shot01 | 中景 (MS) | 15s | char="<Subject 1> (S1)" | file=shot01_courtyard_boots_wind | 对白=有
+   shot02 | 中近景 (MCU) | 15s | char="<Subject 3> (S3)" | file=shot02_fatherinlaw_smoke_contract | 对白=有
+   shot03 | 特写 (CU) | 15s | char="<Subject 2> (S2)" | file=shot03_father_abacus_bead_snap | 对白=有
+   shot04 | 中景 (MS) | 15s | char="<Subject 3> (S3)" | file=shot04_pipe_knock_ultimatum | 对白=有
+   shot05 | 面部特写至中景 (CU to MS) | 15s | char="<Subject 1> (S1)" | file=shot05_dabiao_table_smash | 对白=有
+   shot06 | 全景 (WS) | 15s | char="<Subject 1> (S1)" | file=shot06_torn_double_happiness | 对白=有
+   shot07 | 中景 (MS) | 15s | char="<Subject 2> (S2)" | file=shot07_sidecar_engine_ignition | 对白=有
+   shot08 | 远景至全景 (LS to WS) | 15s | char="<Subject 1> (S1)" | file=shot08_gobi_sunset_laugh | 对白=有
+====================================================================================================
+【03】加名之夜 / 奉俊昊  seed=20260922 stage1=672x384 stage2=1344x768 h3_length=362 refined=361
+====================================================================================================
+
+--- A. character 字段 vs prompt 内 Subject token ---
+   ⚠️ shot01: character字段=[1]  prompt内=[]   raw="<Subject 1> (S1) (ENV)"
+   ⚠️ shot03: character字段=[2]  prompt内=[1, 2]   raw="<Subject 2> (S2)"
+   ⚠️ shot06: character字段=[1]  prompt内=[1, 2, 3]   raw="<Subject 1> (S1)"
+
+--- B. 同一 Subject 序号的定义漂移 ---
+   Subject 1: 出现于 shot[3, 4, 5, 6, 7, 8]  人名=['ARRI?', 'RMB?']  年龄=['32'] ⚠️ 人名不一
+   Subject 2: 出现于 shot[3, 6]  人名=['ARRI?', 'EUN-HEE']  年龄=['28'] ⚠️ 人名不一
+       · 服装: an elegant ivory turtleneck cashmere knit sweater and discre
+   Subject 3: 出现于 shot[2, 6]  人名=['ARRI?', 'MADAM-PARK']  年龄=['56'] ⚠️ 人名不一
+       · 服装: a deep plum-purple wool shawl over a dark velour wrap dress
+
+--- C. 同一人名 ↔ 多个 Subject 序号（身份互换风险）---
+   ⚠️ 人名 ARRI 被用于 Subject [1, 2, 3]
+
+--- D. 后缀与命名规范 ---
+   出现的后缀: {'charfield:ENV': [1], 'charfield:HANDS': [5], 'charfield:DEPARTURE': [7]}
+
+--- E. Prop 编号分布 ---
+   <Prop 1> 出现于 shot[1, 2]
+   <Prop 2> 出现于 shot[4, 5, 6]
+
+--- F. 可能诱发画面文字的写法 ---
+   ✅ 对白区外无中文字面
+   负向提示词覆盖: {'no subtitles': 8, 'no captions': 8, 'no on-screen text': 8, 'no watermark': 8, 'no logo': 8} （应每镜 5 项 × 8 镜）
+
+--- 逐镜速览 ---
+   shot01 | 中景 (MS) | 15s | char="<Subject 1> (S1) (ENV)" | file=shot01_semi_basement_window_bucket | 对白=无
+   shot02 | 中近景 (MCU) | 15s | char="<Subject 3> (S3)" | file=shot02_mother_ruby_ring_pen | 对白=有
+   shot03 | 特写 (CU) | 15s | char="<Subject 2> (S2)" | file=shot03_bride_coffee_reflection | 对白=有
+   shot04 | 特写 (CU) | 15s | char="<Subject 1> (S1)" | file=shot04_sofa_crevice_folded_paper | 对白=有
+   shot05 | 微距特写 (Macro CU) | 15s | char="<Subject 1> (S1) (HANDS)" | file=shot05_macro_debt_contract_thumbprints | 对白=无
+   shot06 | 中景 (MS) | 15s | char="<Subject 1> (S1)" | file=shot06_chilling_confrontation_table | 对白=有
+   shot07 | 中景 (MS) | 15s | char="<Subject 1> (S1) (DEPARTURE)" | file=shot07_door_locks_bucket_overflows | 对白=无
+   shot08 | 中远景至全景 (MLS to WS) | 15s | char="<Subject 1> (S1)" | file=shot08_night_rain_umbrella_wipers | 对白=有

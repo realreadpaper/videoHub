@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>画质优化 · 时间成本与旋钮对照</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#fff; --ink:#1d2129; --ink2:#4e5969; --ink3:#86909c;
+    --line:#e5e6eb; --line2:#f0f1f3;
+    --red:#c9302c; --redbg:#fdf0ef;
+    --amber:#c8811a; --amberbg:#fdf6ec;
+    --green:#2e7d32; --greenbg:#eef6ef;
+    --blue:#1a5fb4; --bluebg:#eef4fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px 20px 80px;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:14px;line-height:1.75;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin:0 auto}
+  header{margin-bottom:26px;padding-bottom:20px;border-bottom:2px solid var(--line)}
+  h1{font-size:24px;margin:0 0 8px;letter-spacing:-.3px}
+  .sub{color:var(--ink3);font-size:13px}
+  h2{font-size:18px;margin:38px 0 13px;padding-left:11px;border-left:4px solid var(--blue)}
+  h3{font-size:15px;margin:22px 0 9px}
+  p{margin:9px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:14px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;background:var(--card)}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f2f3f5;font-weight:600;color:var(--ink2)}
+  td code,li code,p code{background:#f2f3f5;padding:1px 5px;border-radius:4px;
+    font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#b0365f}
+  .bad{background:var(--redbg);border-left:4px solid var(--red);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .warn{background:var(--amberbg);border-left:4px solid var(--amber);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .good{background:var(--greenbg);border-left:4px solid var(--green);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .note{background:var(--bluebg);border-left:4px solid var(--blue);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+  .tag{display:inline-block;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:600;line-height:1.7;white-space:nowrap}
+  .t-hi{background:var(--redbg);color:var(--red)}
+  .t-mid{background:var(--amberbg);color:var(--amber)}
+  .t-low{background:var(--greenbg);color:var(--green)}
+  .num{font-family:ui-monospace,Menlo,monospace;font-weight:600}
+  .big{font-size:15px;font-weight:700}
+  .hl{background:#fff6d9}
+  .rowhl{background:#fffaf0}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:12px 0}
+  .steps li{counter-increment:s;position:relative;padding:10px 0 10px 42px;border-top:1px solid var(--line2)}
+  .steps li:first-child{border-top:none}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:11px;width:26px;height:26px;
+    background:var(--blue);color:#fff;border-radius:50%;text-align:center;line-height:26px;font-size:13px;font-weight:700}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12px}
+  ul{margin:8px 0;padding-left:20px}
+  li{margin:4px 0}
+  .small{font-size:12px;color:var(--ink3)}
+  .eq{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#f2f3f5;
+    padding:10px 14px;border-radius:8px;display:inline-block;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>画质优化 · 时间成本与旋钮对照</h1>
+  <div class="sub">回答「只把 3 步改到 8 步要多久」 · 2026-09-15 · <strong>结论先说：这个旋钮不存在，而且真拧了会变差</strong></div>
+</header>
+
+<div class="bad">
+  <strong>先纠正我上一版方案里的一个硬伤：A2「3 步改 8 步」在技术上是错的。</strong><br><br>
+  回看远端抓到的节点 10 <code>MiniMaxH3SolEngineLTXRefinerSetupT8Advanced</code> 的完整 schema，它只有 6 个输入：
+  <code>model</code> / <code>enabled</code> / <code>attention_backend</code> / <code>min_tokens</code> / <code>kernel_precision</code> / <code>verbose</code>
+  ——<strong>没有任何步数或 sigma 参数</strong>。调度值是硬编码在节点里的。<br><br>
+  节点自己的描述原文：<code>Configures the official LTX-2.5 Stage-2 Euler schedule [0.909375, 0.725, 0.421875, 0] ... Apply the official LTX-2.5 distilled LoRA at the returned 0.8 strength</code><br><br>
+  也就是说：<strong>3 步是官方的 Stage-2 标准调度</strong>，配套的 distilled LoRA（strength 0.8）就是<strong>专门为这 3 个噪声水平蒸馏训练的</strong>。你把它插值成 8 步，中间那 5 个噪声水平模型从来没训过，它会给出错误预测——<strong>花更多时间买更差的画质</strong>。这是 diffusion 蒸馏的基本约束，不是调参问题。
+</div>
+
+<h2>一、先回答：硬按线性算会是多少</h2>
+
+<p>要算这个，得先把 Stage2 的 76 秒拆开。用实测总时长反推：</p>
+
+<div class="card">
+  <table>
+    <thead><tr><th style="width:210px">组成</th><th style="width:120px">耗时</th><th>来源</th></tr></thead>
+    <tbody>
+      <tr><td>固定开销<br><span class="small">latent ×2 上采样 + 编码输出 + IO</span></td><td class="num">≈ 26 s</td><td>与步数、分辨率无关</td></tr>
+      <tr><td>采样（3 步）</td><td class="num">≈ 40 s</td><td>→ <strong>约 13.3 s / 步</strong></td></tr>
+      <tr><td>TAEHV 解码</td><td class="num">≈ 10 s</td><td>轻量解码器，所以快</td></tr>
+      <tr><td><strong>Stage2 合计</strong></td><td class="num big">76 s</td><td>26 + 40 + 10 ✓ 与实测吻合</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p>于是一步之差的线性外推：</p>
+
+<div class="card">
+  <div class="eq">8 步采样 = 13.3 × 8 = 106.7 s　→　单镜精修 = 26 + 106.7 + 10 = <strong>143 s</strong>（基线 76 s，<strong>+67 s / +88%</strong>）</div>
+  <table>
+    <thead><tr><th>范围</th><th>基线（3 步）</th><th>改 8 步</th><th>增量</th></tr></thead>
+    <tbody>
+      <tr><td>单镜精修</td><td class="num">76 s</td><td class="num">143 s</td><td class="num hl">+67 s</td></tr>
+      <tr><td>8 镜（只重跑精修）</td><td class="num">10.1 分钟</td><td class="num">19.1 分钟</td><td class="num hl">+9 分钟</td></tr>
+      <tr><td>24 镜（三部曲全部）</td><td class="num">30.4 分钟</td><td class="num">57.2 分钟</td><td class="num hl">+27 分钟</td></tr>
+    </tbody>
+  </table>
+  <p class="small">这是「如果开关存在」的答案。8 镜多花 9 分钟，单看时间成本并不高——问题不在时间，在收益为负。</p>
+</div>
+
+<h2>二、真正值得拧的旋钮：时间-画质效率对照</h2>
+
+<p>把所有能"用时间换画质"的旋钮放在同一张表里比，单镜基线 76 s：</p>
+
+<table>
+<thead><tr>
+  <th style="width:220px">旋钮</th><th style="width:92px">单镜</th><th style="width:92px">8 镜</th>
+  <th style="width:86px">增量</th><th style="width:110px">画质收益</th><th>说明</th>
+</tr></thead>
+<tbody>
+<tr class="rowhl">
+  <td><strong>A1 · TAEHV → 完整 VAE 解码</strong></td>
+  <td class="num">126 s</td><td class="num">17 分钟</td><td class="num">+7 分钟</td>
+  <td><span class="tag t-low">★★★ 最高</span></td>
+  <td>解码 10 s → 60 s。<strong>不改模型行为，纯粹把已经算出来的 latent 完整还原</strong>，无损。唯一稳赚的一项。</td>
+</tr>
+<tr>
+  <td><strong>A3 · 靶面 → 1920×1088，出片再降采样</strong></td>
+  <td class="num">≈156 s</td><td class="num">21 分钟</td><td class="num">+11 分钟</td>
+  <td><span class="tag t-low">★★☆ 高</span></td>
+  <td>token ×2.05，采样与解码同时翻倍。超采样是真实增益。但 22.22 GiB 已逼近 22.03 GiB 上限，<span class="tag t-hi">显存高危</span></td>
+</tr>
+<tr>
+  <td><strong>Sol-Attn → dense 精确注意力</strong></td>
+  <td class="num">156~236 s</td><td class="num">21~31 分钟</td><td class="num">+11~21 分钟</td>
+  <td><span class="tag t-mid">★★☆ 中高</span></td>
+  <td>把 <code>attention_backend</code> 从 <code>auto_sol_attn</code> 改成 <code>dense_reference</code>。47 层稀疏近似换成精确计算，消除近似误差。<strong>这是个被忽略的旋钮</strong></td>
+</tr>
+<tr>
+  <td><em>3 步 → 8 步</em></td>
+  <td class="num">143 s</td><td class="num">19 分钟</td><td class="num">+9 分钟</td>
+  <td><span class="tag t-hi">★☆☆ 可能为负</span></td>
+  <td><strong>参数不存在，且违背 distilled 训练假设。</strong>不推荐</td>
+</tr>
+<tr>
+  <td><strong>原生 20 步 + CFG</strong><span class="small">（换 Identity 调度节点）</span></td>
+  <td class="num">≈618 s</td><td class="num">1.4 小时</td><td class="num">+110 分钟</td>
+  <td><span class="tag t-mid">★★☆ 中高</span></td>
+  <td>唯一"真正加步数"的正路：换 <code>MiniMaxH3SolEngineLTXIdentityRefinerSetupT8Advanced</code>（Identity = 非蒸馏调度）+ 关掉或降低 distilled LoRA + 恢复 CFG 3~5。<strong>比基线慢 8 倍</strong></td>
+</tr>
+<tr>
+  <td>A5 · 编码 CRF ≤ 14</td>
+  <td class="num">+1~2 s</td><td class="num">≈0</td><td class="num">≈0</td>
+  <td><span class="tag t-low">★★☆ 中</span></td>
+  <td>几乎不耗时。但注意：<strong>只对重跑有效</strong>，现有成片是 <code>-c copy</code> 直通的，重编码救不回已丢的细节</td>
+</tr>
+</tbody>
+</table>
+
+<div class="good">
+  <strong>这张表最值得看的一列是「增量」。</strong>A1 只多花 7 分钟，却是唯一无损、无争议的增益；3→8 步多花 9 分钟，收益可能为负。<strong>「加步数」是本组里性价比最差的一个选项</strong>——这是 distill 管线的特性，不是这次配置的问题。
+</div>
+
+<div class="note">
+  <strong>顺带一个技术提醒：</strong>如果后面真要走「原生多步」，单镜 618 s 里 CFG 占一半——因为 CFG 每个 sigma 要跑两次完整前向（条件 + 无条件）。而当前配置 <code>CFGGuider = 1.0</code> 正是 distilled 管线的标志（distilled 不需要 CFG）。所以「加步数」和「加 CFG」是两个必须一起动的开关，别只动一个。
+</div>
+
+<h2>三、修正后的优先级</h2>
+
+<table>
+<thead><tr><th style="width:66px">优先级</th><th style="width:230px">动作</th><th style="width:110px">代价（8 镜）</th><th>理由</th></tr></thead>
+<tbody>
+<tr><td class="big">1</td><td><strong>A1 · 换完整 VAE 解码</strong></td><td class="num">+7 分钟</td><td>不动模型行为，纯信息还原。<strong>先做且必做</strong></td></tr>
+<tr><td class="big">2</td><td><strong>Sol-Attn → dense</strong>（可先单镜试）</td><td class="num">+11~21 分钟</td><td>免费消除近似误差，被忽略的旋钮；dense 慢但确定性强</td></tr>
+<tr><td class="big">3</td><td><strong>A3 · 靶面 1920×1088 + 降采样</strong></td><td class="num">+11 分钟</td><td>真增益，但显存踩线，需要先验证</td></tr>
+<tr><td class="big">4</td><td>A5 · 编码 CRF ≤ 14</td><td class="num">≈0</td><td>顺手改，防止重跑结果被编码再抹一层</td></tr>
+<tr><td class="big">5</td><td><em>原生多步（换 Identity 节点）</em></td><td class="num">+110 分钟</td><td>成本高，且"重画"会偏离草稿构图。放最后，作为 A1~A3 都不满意时的重型手段</td></tr>
+<tr><td class="big">✕</td><td><em>3 步 → 8 步</em></td><td>—</td><td><span class="tag t-hi">删除</span> 参数不存在 + 收益为负</td></tr>
+</tbody>
+</table>
+
+<h2>四、音画组（不依赖 GPU，随时可做）</h2>
+
+<table>
+<thead><tr><th style="width:60px">项</th><th style="width:210px">动作</th><th style="width:130px">首次<br>（含开发调试）</th><th style="width:110px">跑通后<br>每片</th><th>环境</th></tr></thead>
+<tbody>
+<tr><td><strong>B2</strong></td><td>MediaPipe 唇动检测定位口型区间</td><td class="num">60~90 分钟</td><td class="num">3~5 分钟</td><td>M1 Pro，2888 帧约 100~145 s</td></tr>
+<tr><td><strong>B1</strong></td><td>Edge TTS 重配台词 + 混环境底噪</td><td class="num">60~90 分钟</td><td class="num">8~10 分钟</td><td>8 句台词，生成 30 s</td></tr>
+<tr><td><strong>B3</strong></td><td>只重写字幕时序（低成本版）</td><td class="num">20~30 分钟</td><td class="num">3 分钟</td><td>复用 B2 的检测结果</td></tr>
+</tbody>
+</table>
+
+<p class="small">本机实测：Apple M1 Pro / 10 核 / 16 GB，ffmpeg 9.0.1 带 <code>h264_videotoolbox</code> 硬编，已有 numpy + pillow；<code>mediapipe</code> / <code>edge-tts</code> 未装（安装约 2 分钟）。</p>
+
+<h2>五、24 镜返工的完整账</h2>
+
+<p>总控台显示 01 / 02 / 03 <strong>已全部出片</strong>，返工是 24 镜不是 8 镜：</p>
+
+<table>
+<thead><tr><th style="width:190px">方案</th><th style="width:140px">只重跑精修</th><th style="width:140px">连草稿重跑</th><th>决策要点</th></tr></thead>
+<tbody>
+<tr class="rowhl"><td>A1（仅换 VAE 解码）</td><td class="num">≈ 50 分钟</td><td class="num">≈ 1.4 小时</td><td><strong>性价比最高，优先验证</strong></td></tr>
+<tr><td>A1 + dense 注意力</td><td class="num">≈ 1.0~1.3 小时</td><td class="num">≈ 1.8 小时</td><td>—</td></tr>
+<tr><td>A1 + A3（1920 靶面）</td><td class="num">≈ 1.0 小时</td><td class="num">≈ 1.6 小时</td><td><span class="tag t-hi">显存高危</span></td></tr>
+<tr><td>原生多步</td><td class="num">≈ 4.1 小时</td><td class="num">≈ 4.5 小时</td><td>重型方案，最后考虑</td></tr>
+</tbody>
+</table>
+
+<h2>六、建议顺序</h2>
+
+<ol class="steps">
+  <li><strong>现在就做音画组（本地，约 1.5 小时）：</strong>不需要 GPU，风险为零，解决的是观感伤害更大的问题——观众能忍画质软，忍不了嘴在动声音不对。</li>
+  <li><strong>机器恢复后第一件事：</strong><code>ls /workspace/films/*/output</code> 确认 672×384 草稿还在不在。草稿在，返工只跑精修；草稿没了，成本翻倍。这条直接决定后面所有排期。</li>
+  <li><strong>跑单镜对照实验（约 15 分钟）：</strong>A1 / A1+dense 各一镜，用 PSNR 探针打分 + 记录显存峰值，用数据定案，别盲跑。</li>
+  <li><strong>再决定返工范围：</strong>只返 01，还是 24 镜一起。若 GPU 按时计费，这步要先把账单估出来。</li>
+</ol>
+
+<div class="warn">
+  <strong>远端 4090 仍处于下线状态</strong>（16:05 实测 ping 100% 丢包，端口 22 / 23 / 8188 全超时）。所以上面所有 GPU 侧旋钮暂时<strong>都只是推演、无法验证</strong>；而音画组和 A5 是本地能做的。
+</div>
+
+<footer>
+  估算基线：README 实测（Stage1 草稿 70.0 s/镜、Stage2 精修 76 s/镜，热模型）。<br>
+  节点参数依据：远端 <code>h3_t8/nodes_sol_engine_h3_super_advanced.py</code> 的 schema 与 description 原文（2026-09-15 抓取）。<br>
+  所有数值为热模型、无排队、无失败重试的推演值；实际建议乘 1.2~1.5 的经验系数。本文件为推演，未触发任何生成任务。
+</footer>
+
+</div>
+</body>
+</html>

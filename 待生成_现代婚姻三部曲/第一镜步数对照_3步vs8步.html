@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第一镜 · 「3步改8步」实测判定</title>
+<style>
+  :root{
+    --ink:#1b1f24; --ink2:#3d4650; --ink3:#6b7683; --line:#e3e7ec;
+    --bg:#fbfcfd; --card:#ffffff; --mute:#f4f6f8;
+    --red:#c8362f; --redbg:#fdf1f0;
+    --green:#1f7a4d; --greenbg:#eef8f2;
+    --amber:#a06406; --amberbg:#fdf6e6;
+    --blue:#1f5fa8; --bluebg:#eef4fb;
+    --violet:#6a4bb5; --violetbg:#f3f0fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.72 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:56px 32px 96px}
+  header{border-bottom:3px solid var(--ink);padding-bottom:26px;margin-bottom:40px}
+  .kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+  h1{font-size:31px;line-height:1.28;margin:14px 0 12px;letter-spacing:-.015em}
+  .sub{color:var(--ink2);font-size:15px;max-width:74ch}
+  .meta{margin-top:18px;font-size:13px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 20px}
+  .meta b{color:var(--ink2);font-weight:600}
+  h2{font-size:21px;margin:52px 0 8px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:11px}
+  h2 .n{font-size:13px;font-weight:700;color:#fff;background:var(--ink);
+    width:24px;height:24px;line-height:24px;text-align:center;border-radius:6px;flex:0 0 auto;
+    transform:translateY(-2px)}
+  h3{font-size:16px;margin:30px 0 8px;color:var(--ink)}
+  p{margin:10px 0}
+  .lead{color:var(--ink2)}
+
+  /* 结论卡 */
+  .verdict{border:1px solid #d9dee4;border-left:5px solid var(--violet);
+    background:var(--card);border-radius:10px;padding:22px 24px;margin:24px 0 8px;
+    box-shadow:0 1px 2px rgba(20,30,50,.04)}
+  .verdict h3{margin:0 0 10px;font-size:17px}
+  .verdict p{margin:8px 0}
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin:18px 0 6px}
+  .vcell{background:var(--mute);border-radius:8px;padding:13px 15px}
+  .vcell .k{font-size:12px;color:var(--ink3);letter-spacing:.02em}
+  .vcell .v{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
+  .vcell .d{font-size:12px;color:var(--ink3);margin-top:2px}
+  .up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--ink3)}
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;
+    background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--mute);font-size:12.5px;color:var(--ink2);font-weight:600;letter-spacing:.02em;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .win{font-weight:700;color:var(--green)}
+  .lose{color:var(--red)}
+
+  code{background:#eef1f4;padding:1.5px 6px;border-radius:4px;
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#232a33}
+  pre{background:#f5f7f9;border:1px solid var(--line);border-radius:8px;padding:15px 17px;
+    overflow-x:auto;font:12.5px/1.65 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#242b34}
+  pre code{background:none;padding:0}
+
+  .note{border-radius:8px;padding:14px 17px;margin:16px 0;font-size:14px;border:1px solid}
+  .note b{display:block;margin-bottom:4px}
+  .n-red{background:var(--redbg);border-color:#f2c9c5}
+  .n-green{background:var(--greenbg);border-color:#c3e2d1}
+  .n-amber{background:var(--amberbg);border-color:#ecd9a8}
+  .n-blue{background:var(--bluebg);border-color:#c6d9ef}
+
+  figure{margin:20px 0 26px}
+  figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block;background:#fff}
+  figcaption{font-size:12.5px;color:var(--ink3);margin-top:9px;line-height:1.6}
+
+  .bars{margin:18px 0;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+  .bar{display:grid;grid-template-columns:190px 1fr 96px;align-items:center;gap:12px;margin:11px 0;font-size:13.5px}
+  .bar .lbl{color:var(--ink2)}
+  .bar .track{background:var(--mute);border-radius:4px;height:20px;position:relative;overflow:hidden}
+  .bar .fill{height:100%;border-radius:4px}
+  .bar .val{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink2);white-space:nowrap}
+  .f-a{background:#9fb4c9} .f-b{background:var(--violet)} .f-c{background:#c9d2da}
+  .barhead{font-size:12.5px;color:var(--ink3);margin-bottom:14px}
+  .legend{display:flex;gap:18px;font-size:12.5px;color:var(--ink3);margin-top:14px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:6px 0;color:var(--ink2)}
+  li b{color:var(--ink)}
+  .files{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:14px}
+  .file{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px 15px;font-size:13px}
+  .file b{display:block;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--ink);margin-bottom:3px}
+  .file span{color:var(--ink3)}
+  footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kick">《三十八万八》· 镜 01 · 步数对照实测</div>
+  <h1>把「3 步」改成「8 步」——会好，但好得太少，不值这个价</h1>
+  <p class="sub">同草稿、同提示词、同 seed、同注意力后端、同解码器，唯一变量是 sigma 序列。三臂实测给出可复现的判定：
+    锐度确实涨了约 16%，有效分辨率只挪 0.16&nbsp;dB，而镜内硬切一处没修，代价是多花 39% 时间。</p>
+  <div class="meta">
+    <span><b>日期</b> 2026-09-15</span>
+    <span><b>算力</b> RTX 4090 · 峰值显存 21.518 GiB（三臂完全一致）</span>
+    <span><b>结论</b> 不采纳 8 步，保留 3 步 + A1 解码</span>
+  </div>
+</header>
+
+<div class="verdict">
+  <h3>一句话判定</h3>
+  <p><b>8 步不是"没效果"，是"性价比崩了"。</b>它带来约 <b>16.5% 的锐度提升</b>（361 帧里 317 帧胜出，可复现），
+     但有效分辨率探针只挪 <b>0.16&nbsp;dB</b>——只有上一轮 A1 解码器修正收益（2.35&nbsp;dB）的 <b>约 7%</b>，
+     代价却是单镜从 <b>172 秒涨到 239 秒（+39%）</b>。</p>
+  <p>而它<b>完全没能修掉你真正看出来的毛病</b>：镜内硬切仍是 2 处，位置分毫不动（8.79s / 12.12s）。</p>
+  <p>更关键的是原理层面：这 3 个噪声水平是<b>配套蒸馏 LoRA 训练过的</b>，往中间插值属于分布外（OOD）。
+     官方把这个路线明确标成实验性、<code>official_stage2_parity = False</code>。</p>
+
+  <div class="vgrid">
+    <div class="vcell">
+      <div class="k">单镜耗时</div>
+      <div class="v">172 → 239 s</div>
+      <div class="d down">＋67 s ／ ＋39%</div>
+    </div>
+    <div class="vcell">
+      <div class="k">峰值显存</div>
+      <div class="v">21.518 GiB</div>
+      <div class="d flat">两臂完全相同（由 22B 主干决定）</div>
+    </div>
+    <div class="vcell">
+      <div class="k">锐度（拉普拉斯方差均值）</div>
+      <div class="v up">76.1 → 88.6</div>
+      <div class="d up">＋16.5% ／ 361 帧中 317 帧胜出</div>
+    </div>
+    <div class="vcell">
+      <div class="k">有效分辨率（672px 往返 PSNR）</div>
+      <div class="v">47.33 → 47.17</div>
+      <div class="d">−0.16 dB，几乎不动</div>
+    </div>
+    <div class="vcell">
+      <div class="k">镜内硬切</div>
+      <div class="v down">2 处 → 2 处</div>
+      <div class="d down">位置完全相同，零改善</div>
+    </div>
+    <div class="vcell">
+      <div class="k">画面变化幅度（逐帧 MAE）</div>
+      <div class="v">3.37</div>
+      <div class="d">比 A1 换解码器那次（1.17~2.06）还大</div>
+    </div>
+  </div>
+</div>
+
+<h2><span class="n">1</span>步数到底藏在哪：它不是参数，是硬编码</h2>
+
+<p class="lead">这是整件事的关键。翻源码后确认：<b>Stage2 没有"步数"这个旋钮可拧。</b></p>
+
+<pre><code># h3_t8/sol_engine_h3_super_advanced.py:16
+OFFICIAL_STAGE2_SIGMAS = (0.909375, 0.725, 0.421875, 0.0)   # ← 3 步调度写死在这里
+
+# 节点 MiniMaxH3SolEngineLTXRefinerSetupT8Advanced 的全部输入只有 6 个：
+#   model / enabled / attention_backend / min_tokens / kernel_precision / verbose
+# 没有任何 steps / sigmas 参数。它把 sampler 和 sigmas 一起当输出吐给采样器：
+#   outputs = [model, sampler, sigmas, refiner_lora_strength, report_json]</code></pre>
+
+<p>也就是说，工作流里那个"3-Step Refiner Setup"节点，是把调度**打包在代码里**输出给
+   <code>SamplerCustomAdvanced</code> 的。想改步数，只有一条官方留的门：</p>
+
+<div class="note n-blue">
+  <b>官方手动入口 = 同族的 Identity 精修节点</b>
+  <code>MiniMaxH3SolEngineLTXIdentityRefinerSetupT8Advanced</code> 带
+  <code>schedule_mode</code>（<code>manual_exp</code>）+ <code>manual_sigmas</code> 字符串，可以直接写任意 sigma 序列。<br>
+  <b>而且它是无损替换</b>：这个节点的 5 个输出与原节点<b>逐位一致</b>（model / sampler / sigmas / refiner_lora_strength / report_json），
+  所以换类型后原来的 5 条连线一条都不用动。这一点我做了断言验证（见第 3 节）。
+</div>
+
+<h3>8 步是怎么构造的</h3>
+<p>不破坏官方锚点、也不改端点，只把三段间隔等分：</p>
+<pre><code>官方 3 步：0.909375 → 0.725 → 0.421875 → 0
+间隔      ：   0.184375     0.303125    0.421875
+8 步切分  ：   ÷3           ÷3          ÷2      （合计 8 个区间）
+
+0.909375 → 0.847917 → 0.786458 → 0.725 → 0.623958
+         → 0.522917 → 0.421875 → 0.210938 → 0</code></pre>
+
+<h2><span class="n">2</span>为什么说"理论上也不该指望它"</h2>
+
+<p>这不是我推测，是官方节点自己的描述和报告字段写的：</p>
+
+<table>
+  <thead><tr><th style="width:210px">证据</th><th>原文 / 含义</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>调度与 LoRA 是配套的</td>
+      <td>官方节点说明：<code>"Configures the official LTX-2.5 Stage-2 Euler schedule
+        [0.909375, 0.725, 0.421875, 0] … Apply the official LTX-2.5 distilled LoRA at the returned 0.8 strength"</code>
+        —— 蒸馏 LoRA <b>就是为这 3 个噪声水平训练的</b>，强度 0.8 是配套值。</td>
+    </tr>
+    <tr>
+      <td>节点自带"非等价"声明</td>
+      <td>Identity 节点的报告里固定写 <code>official_stage2_parity: False</code>，
+        <code>pipeline: ltx25_stage2_identity_preserve_low_sigma_exp</code>，
+        <code>is_experimental = True</code>。它不是官方 3 步的等价替代，是一条实验支线。</td>
+    </tr>
+    <tr>
+      <td>注意力加速策略无法沿用</td>
+      <td>官方 per-step tau 递进是 <code>(1.0, 1.25, 1.5)</code>，与那 3 个 knot 一一绑定。自定义 knot
+        <b>无法映射</b>，只能退成常数 tau=1.0。本机没装 sol 后端（见第 5 节），这层本轮不影响结果，
+        但一旦将来装上，自定义步数就天然失去官方调优。</td>
+    </tr>
+    <tr>
+      <td>官方自己的边界说明</td>
+      <td>报告里写着：<code>"it is not NVIDIA's official distilled Stage-2 schedule and needs
+        human identity/detail review"</code> —— 需要人工复核主体一致性与细节。</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>一句话：<b>插值出来的中间噪声水平，模型没被训练过该在那儿做什么预测。</b>
+   多走几步并不会自动变成"更精细的积分"，因为每步的落点都偏了。</p>
+
+<h2><span class="n">3</span>这轮对照为什么可信</h2>
+
+<p class="lead">跑之前我先把唯一变量锁死。三臂的<b>输入完全相同</b>：</p>
+
+<table>
+  <thead><tr><th>项</th><th>取值</th><th>是否变化</th></tr></thead>
+  <tbody>
+    <tr><td>草稿（Stage2 的输入）</td><td><code>draft_shot01_staircase_sweat_00001_.mp4</code> · 672×384 · 362 帧</td><td>不变</td></tr>
+    <tr><td>提示词（节点 12）</td><td>与草稿逐字一致的 manifest prompt</td><td>不变</td></tr>
+    <tr><td>随机种子（节点 15）</td><td>RandomNoise = 42 / fixed</td><td>不变</td></tr>
+    <tr><td>输出靶面（节点 3）</td><td>1344 × 768</td><td>不变</td></tr>
+    <tr><td>注意力后端</td><td>本机无 sol 后端 → 两臂均回退稠密</td><td>不变</td></tr>
+    <tr><td>解码器</td><td>完整 LTX VAE（A1 补丁版）</td><td>不变</td></tr>
+    <tr><td>蒸馏 LoRA 强度</td><td>0.8（两节点都用同一常量）</td><td>不变</td></tr>
+    <tr><td><b>sigma 序列</b></td><td><b>3 步 vs 8 步</b></td><td><b>← 唯一变量</b></td></tr>
+  </tbody>
+</table>
+
+<div class="note n-green">
+  <b>控制组验证：A 臂与 C 臂逐帧 MAE = 0.000</b>
+  <b>A 臂</b>（Identity 节点 + 官方 3 个 sigma）与 <b>C 臂</b>（原官方节点 + 自动调度）在 361 帧上<b>像素级完全相同</b>，
+  均值与最大值都是 0.000。这同时证明两件事：<br>
+  ① 换节点在同等 sigma 下<b>行为完全等价</b>，我引入的改动零副作用；<br>
+  ② <b>整条 Stage2 是确定性的</b>——固定 seed 下没有任何随机性。
+</div>
+
+<div class="note n-amber">
+  <b>顺带得出一个反直觉的推论</b>
+  既然流程完全确定，<b>"同一配置重跑一遍换个更好的"这件事不存在</b>——重跑一万次也是同一帧。
+  想换一版，必须改输入：提示词、种子、或调度。<br>
+  这条也意味着：本页所有差异都是<b>真实可复现的效应</b>，不是随机波动，不能拿"噪声"解释掉。
+</div>
+
+<h3>三臂符号</h3>
+<table>
+  <thead><tr><th>臂</th><th>精修节点</th><th>sigma 序列</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td><b>C</b></td><td>官方 <code>LTXRefinerSetup</code></td><td>官方 3 步（代码内建）</td><td>原有基线</td></tr>
+    <tr><td><b>A</b></td><td>Identity <code>manual_exp</code></td><td>0.909375 / 0.725 / 0.421875 / 0</td><td>控制组（与 C 应等价）</td></tr>
+    <tr><td><b>B</b></td><td>Identity <code>manual_exp</code></td><td>上述 8 步细分</td><td>实验组</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="n">4</span>数据</h2>
+
+<table>
+  <thead>
+    <tr><th>指标</th><th class="num">C 官方节点 3 步</th><th class="num">A 控制组 3 步</th><th class="num">B 实验组 8 步</th><th>判读</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>单镜耗时</td><td class="num">—</td><td class="num">172.0 s</td><td class="num lose">239.1 s</td><td class="lose">＋39%</td></tr>
+    <tr><td>峰值显存</td><td class="num">21.518 GiB</td><td class="num">21.518 GiB</td><td class="num">21.518 GiB</td><td>完全相同，与步数无关</td></tr>
+    <tr><td>码率</td><td class="num">1752 kbps</td><td class="num">1752 kbps</td><td class="num">1907 kbps</td><td>8 步写入更多高频</td></tr>
+    <tr><td>硬切尖峰数</td><td class="num">2</td><td class="num">2</td><td class="num lose">2</td><td class="lose">零改善</td></tr>
+    <tr><td>硬切位置</td><td class="num">8.79s / 12.12s</td><td class="num">8.79s / 12.12s</td><td class="num">8.79s / 12.12s</td><td>一模一样</td></tr>
+    <tr><td>有效分辨率 448px</td><td class="num">43.06</td><td class="num">43.06</td><td class="num win">42.83</td><td>8 步略胜 0.23 dB</td></tr>
+    <tr><td>有效分辨率 560px</td><td class="num">45.34</td><td class="num">45.34</td><td class="num win">45.19</td><td>8 步略胜 0.15 dB</td></tr>
+    <tr><td>有效分辨率 672px</td><td class="num">47.33</td><td class="num">47.33</td><td class="num win">47.17</td><td>8 步略胜 0.16 dB</td></tr>
+    <tr><td>有效分辨率 896px</td><td class="num">49.92</td><td class="num">49.92</td><td class="num win">49.77</td><td>8 步略胜 0.15 dB</td></tr>
+    <tr><td>有效分辨率 1008px</td><td class="num">51.60</td><td class="num">51.60</td><td class="num win">51.38</td><td>8 步略胜 0.22 dB</td></tr>
+    <tr><td>锐度均值（361 帧）</td><td class="num">—</td><td class="num">76.096</td><td class="num win">88.624</td><td class="win">＋16.46%</td></tr>
+    <tr><td>锐度中位（361 帧）</td><td class="num">—</td><td class="num">59.887</td><td class="num win">65.327</td><td class="win">＋9.08%</td></tr>
+    <tr><td>逐帧锐度胜出</td><td class="num">—</td><td colspan="2" class="num">8 步 317 / 361 帧</td><td class="win">87.8%，非偶然</td></tr>
+    <tr><td>A↔B 逐帧 MAE</td><td class="num">—</td><td colspan="2" class="num">均值 3.370 · 中位 3.335 · 最大 4.186</td><td>变化幅度不小</td></tr>
+  </tbody>
+</table>
+
+<div class="bars">
+  <div class="barhead">收益量级对比：672px 往返 PSNR 的下降幅度（<b>降得越多＝真实高频越多</b>）。
+    两行都取自<b>同一份草稿的受控对照</b>，不跨片比。</div>
+  <div class="bar">
+    <div class="lbl">A1 换完整 VAE 解码</div>
+    <div class="track"><div class="fill f-a" style="width:100%"></div></div>
+    <div class="val">−2.35 dB</div>
+  </div>
+  <div class="bar">
+    <div class="lbl">3 步 → 8 步细分</div>
+    <div class="track"><div class="fill f-b" style="width:6.8%"></div></div>
+    <div class="val">−0.16 dB</div>
+  </div>
+  <div class="legend">
+    <span>参照量级：8 步买到的只有 A1 那次的 <b>6.8%</b></span>
+  </div>
+</div>
+
+<figure>
+  <img src="第一镜AB对照/步数对照/步数_细节放大_帧60.png" alt="帧60 细节放大对比">
+  <figcaption><b>帧 60（0.0–5s 段）</b>：左 3 步、右 8 步。两版构图已有轻微位移（模型主体偏右约 20px），
+    这正是 MAE 3.37 的来源——sigma 变了，轨迹就变了。细节上 8 步略多一点发丝与皮肤结构，但幅度很小。</figcaption>
+</figure>
+
+<figure>
+  <img src="第一镜AB对照/步数对照/步数_细节放大_帧180.png" alt="帧180 细节放大对比">
+  <figcaption><b>帧 180（7.5s，已过第一次硬切）</b>：这一帧位置在 8.79s 硬切之前，两版均处于运镜中段。
+    注意人物在画面中的位置差异——说明两版不是同一画面的"清晰度差异"，而是轨道有别的两个版本。</figcaption>
+</figure>
+
+<figure>
+  <img src="第一镜AB对照/步数对照/步数_细节放大_帧300.png" alt="帧300 细节放大对比">
+  <figcaption><b>帧 300（12.5s，第二次硬切之后）</b>：这是 12.12s 跳到父亲特写之后的画面。
+    两版都到了同一内容（父亲抱红包），构图差一个身位。8 步版墙面纹理略实，但两级都不是"质变"。</figcaption>
+</figure>
+
+<h3>代价换算</h3>
+<table>
+  <thead><tr><th>手段</th><th class="num">单镜增量</th><th class="num">672px 收益</th><th class="num">锐度收益</th><th class="num">每 1 dB 的时间成本</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>A1 换完整 VAE 解码</td>
+      <td class="num">＋94 s <sup>*</sup></td>
+      <td class="num win">−2.35 dB</td>
+      <td class="num win">＋78%</td>
+      <td class="num">≈ 40 s／dB</td>
+    </tr>
+    <tr>
+      <td>3 步 → 8 步</td>
+      <td class="num">＋67 s</td>
+      <td class="num">−0.16 dB</td>
+      <td class="num">＋16.5%</td>
+      <td class="num lose">≈ 419 s／dB</td>
+    </tr>
+  </tbody>
+</table>
+<p style="font-size:13px;color:var(--ink3)"><sup>*</sup> A1 的耗时增量取自早前那次受控对照（TAEHV 80.6 s → 完整 VAE 174.8 s）。
+  但同批次另有一次测出 TAEHV 154.4 s / 完整 VAE 90.5 s，<b>方向相反</b>——说明该数字被权重加载顺序污染，
+  不如"步数"那一栏可靠（步数两臂是本轮同一脚本串行对测，间隔都做了 /free，+67 s ÷ 5 个额外 NFE = 13.4 s/步，一致性好）。
+  但<b>收益量级</b>的对比不受影响：两者都是同一份草稿下的受控 A/B。</p>
+
+<h2><span class="n">5</span>顺带挖到两件比步数更要紧的事</h2>
+
+<div class="note n-red">
+  <b>① 所谓 "Sol-Engine 加速" 在这台机上是空名——Stage2 一直在跑稠密注意力</b>
+  工作流文件名写着 <code>Super_Acceleration_LTX25</code>，官方节点也提供 <code>auto_sol_attn</code> 后端。
+  但实测本机 <b>既没装 <code>ComfyUI-SolAttn_triton</code>，也没装包内文档审计过的
+  <code>Saganaki22/ComfyUI-sol-attn</code></b>（<code>custom_nodes</code> 下无相关目录，
+  <code>/object_info</code> 里也没有对应节点）。<br>
+  源码 <code>find_loaded_sol_attn_backend()</code> 找不到模块就返回 None，两个精修节点都<b>静默回退稠密</b>。
+  也就是说：那 47 层稀疏近似根本没生效，一直按精确注意力在算。<br>
+  <b>这是纯加速机会，不涉及画质取舍</b>——但有个坑要先排：Sol-Engine 节点找的是路径含
+  <code>solattn_triton</code> 的模块，而包内文档普遍<b>不认证</b> triton 变体、只认 Saganaki22 那套。
+  两条路的名字对不上，装之前得先做一次兼容性审计，别直接上。
+</div>
+
+<div class="note n-green">
+  <b>② 烧字幕复查：镜 01 两版都干净，你要的"不进视频"已满足</b>
+  用项目里已验证的残字扫描器（v3：形状 + 锐利度 + 跨帧持续三重判据）跑实验版：
+  <code>B_exp_8step.mp4 → ✔ 干净</code>，控制组与基线像素等同，同样干净。<br>
+  <b>镜 01 本来就不烧字</b>——它的对白虽然是 <code>&lt;d&gt;[Chinese] "爸，等会儿进去你别紧张，一切有我。"&lt;/d&gt;</code>，
+  但模型没有把它烙成字幕。真正烧字的是<b>镜 02</b>，根因是它的 prompt 里<b>明写要画面显示文字</b>：
+  <code>white paper displaying bold black marker characters reading "388000 yuan parking slot fee"</code>，
+  结果渲染成 <code>388ouie / pairir purring slot fee</code>。<br>
+  按你的要求，<b>字幕一律走外挂文件</b>（与成片同名同目录的 .srt/.vtt），后续再优化，不烙进画面。
+</div>
+
+<h2><span class="n">6</span>建议</h2>
+
+<ol>
+  <li><b>保留当前配置</b>：3 步 + A1 完整 VAE 解码。远端 <code>final/shot01.mp4</code> 与
+    <code>workflows/stage2_vaedecode.json</code> <b>已还原</b>到这套（8 步只是实验，不进入生产）。</li>
+  <li><b>别再往步数上花时间。</b>要提清晰度，下一个值得试的杠杆按优先级是：
+    <b>①</b> 装 sol-attn 拿免费提速（先做兼容审计）；<b>②</b> 靶面恢复 1920×1088 再下采样（显存高危，本机 21.5/23.5 GiB 还剩余量）；
+    <b>③</b> 换取景/打光更简单的提示词，让模型少猜。</li>
+  <li><b>真正的病是提示词。</b>硬切 2 处、且三次实验（旧版零切、A 臂 2 切、B 臂 2 切）都指向同一结论：
+    问题出在<b>把 15 秒拆成三段并逐段写时间轴</b>，不是解码器也不是步数。<br>
+    修法：一镜一事件连续运镜 + 删掉所有"画面里显示某行字"的诉求 + 对白标签外移到后期 TTS。
+    <b>验收标准就一条：硬切 2 → 0。</b>GPU 空着，一镜约 3 分钟（草稿 70s + 精修 172s）能出结论。</li>
+  <li><b>提醒</b>：流程完全确定性 ⇒ 单镜一轮（草稿 70 s + 精修 172 s）约 4 分钟，
+    三部曲 24 镜一轮约 <b>1.6 小时</b>。配置定案前的任何重跑都是白烧 GPU，别再盲跑。</li>
+</ol>
+
+<h2><span class="n">7</span>复现方式</h2>
+
+<pre><code># 1) 生成「改步数」的工作流（本地/远端均可，只改节点 10 的类型与 widgets，连线零改动）
+python3 _后期/patch_stage2_steps.py --src workflows/stage2_vaedecode.json --inspect
+python3 _后期/patch_stage2_steps.py --src workflows/stage2_vaedecode.json \
+    --sigmas "0.909375, 0.725, 0.421875, 0" --out workflows/stage2_ctl_3step.json
+python3 _后期/patch_stage2_steps.py --src workflows/stage2_vaedecode.json \
+    --sigmas "0.909375, 0.8479167, 0.7864583, 0.725, 0.6239583, 0.5229167, 0.421875, 0.2109375, 0" \
+    --out workflows/stage2_exp_8step.json
+
+# 2) 两臂都只跑精修（草稿复用），跑完自动归档
+bash /workspace/h3scripts/ab_steps_run.sh
+
+# 3) 量化对比（有效分辨率 / 锐度 / 硬切尖峰）
+python3 _后期/qc_shot_analyzer.py 三个mp4 --frames 60,180,300
+
+# 4) 烧字幕巡检
+python3 _后期/detect_residual_sub.py B_exp_8step.mp4      # 只取单个 mp4
+python3 _后期/check_burnin.py 片子.mp4 --out 巡检图.png     # 底带 + 全帧网格总览图</code></pre>
+
+<h3>本轮产物</h3>
+<div class="files">
+  <div class="file"><b>_后期/patch_stage2_steps.py</b><span>步数补丁器（新增）。自省式定位节点、断言 5 个输出槽与连线号不变、sigma 严格校验、悬空 link 自检</span></div>
+  <div class="file"><b>_后期/check_burnin.py</b><span>烧字巡检总览图生成（新增）。底带条 + 全帧网格</span></div>
+  <div class="file"><b>第一镜AB对照/步数对照/</b><span>三臂成片 A_ctl_3step / B_exp_8step / C_official_node_3step_solattn</span></div>
+  <div class="file"><b>第一镜AB对照/步数对照/步数_细节放大_帧*.png</b><span>帧 60 / 180 / 300 三处 3× 细节放大对比</span></div>
+  <div class="file"><b>远端 /workspace/films/thirty_eight_eight/ab_steps/</b><span>三臂成片远端留档</span></div>
+  <div class="file"><b>远端 /workspace/h3scripts/ab_steps_run.sh</b><span>两臂串行执行脚本（含 /free、耗时统计、自动还原）</span></div>
+</div>
+
+<footer>
+  实测环境：RTX 4090 · 有效显存 23.518 GiB · ComfyUI 0.35.0 · 无 sol-attn 后端（全程稠密注意力）<br>
+  草稿 672×384×362 帧 → 精修 1344×768×361 帧 · 完整 LTX VAE 解码（A1）· RandomNoise seed 42 fixed<br>
+  判定方法：逐帧 MAE + 下采样往返 PSNR 探针 + 拉普拉斯方差 + 帧差尖峰检测；控制组 A↔C 逐帧 MAE = 0.000
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+================================================================================================================
+■ 01_周星驰_三十八万八  (8 镜)
+================================================================================================================
+  shot01 · Subject 1
+    −, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a gaudy plastic red rose pinned to h
+    +, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie, gaudy plastic red rose pinned to his la
+
+  shot02 · Subject 1
+    −, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a gaudy plastic red rose pinned to h
+    +, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie, gaudy plastic red rose pinned to his la
+
+  shot03 · Subject 4
+    −, a 28-year-old East Asian bride named JING-JING with heavy bridal makeup and a tiered white lace veil,
+    +, a 28-year-old East Asian bride named JING-JING with heavy bridal makeup and a tiered white lace veil, wearing an ornate white gown
+
+  shot04 · Subject 2
+    −, a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater,
+    +, a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers
+
+  shot05 · Subject 1
+    −a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a plastic red rose on his lapel, stare
+    +a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie
+
+  shot06 · Subject 1
+    −, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, wearing an ill-fitting rented black polyester wedding suit with plastic rose torn off, white shirt collar unbuttoned, and red tie loosened,
+    +, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie, plastic rose torn off, white shirt coll
+
+  shot06 · Subject 2
+    −, a 65-year-old frail stooped East Asian elderly father in a faded navy blue zip-up windbreaker, leading him in a decisive run away from the bewildered wedding crowd. ⏎ 
+    +, a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers
+
+  shot07 · Subject 1
+    −, a 30-year-old lean East Asian groom named A-XING, messy parted black hair, in his unbuttoned rented black suit and loosened red tie,
+    +, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie
+
+  shot07 · Subject 2
+    −, the 65-year-old frail elderly father in his faded navy blue windbreaker,
+    +, a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers
+
+  shot08 · Subject 1
+    −, the 30-year-old lean groom in loosened black suit, and 
+    +, a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie, loosened black suit
+
+  shot08 · Subject 2
+    −, the 65-year-old frail father in navy windbreaker,
+    +, a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers
+
+  → 已写出 /Users/hejianglong/Desktop/story/待生成_现代婚姻三部曲/01_周星驰_三十八万八/manifest.identity_locked.json
+================================================================================================================
+■ 02_姜文_老子不娶了  (8 镜)
+================================================================================================================
+  shot03 · Subject 2
+    −, a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble,
+    +, a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles
+
+  shot04 · Subject 3
+    −, the 58-year-old shrewd rural father-in-law in dusty gray sheepskin coat,
+    +, a 58-year-old shrewd rural East Asian father-in-law named MASTER-ZHANG, calculating narrowed eyes, wearing a dusty gray sheepskin coat over a dark navy Mao tunic jacket
+
+  shot05 · Subject 1
+    −, the 35-year-old rugged masculine groom named DA-BIAO, buzz cut black hair, dark green wool military trench coat over bold crimson shirt,
+    +, a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy wool military trench coat over a bold crimson collared dress shirt
+
+  shot05 · Subject 3
+    −, the 58-year-old calculating father-in-law in gray sheepskin coat. ⏎ 
+    +, a 58-year-old shrewd rural East Asian father-in-law named MASTER-ZHANG, calculating narrowed eyes, wearing a dusty gray sheepskin coat over a dark navy Mao tunic jacket
+
+  shot06 · Subject 1
+    −, the 35-year-old rugged groom in green military trench coat,
+    +, a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy wool military trench coat over a bold crimson collared dress shirt
+
+  shot06 · Subject 2
+    −, the 62-year-old lean father in black quilted coat 
+    +, a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles
+
+  shot07 · Subject 1
+    −, the 35-year-old rugged groom with buzz cut hair and green military trench coat,
+    +, a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy wool military trench coat over a bold crimson collared dress shirt
+
+  shot07 · Subject 2
+    −, the 62-year-old father in black quilted coat,
+    +, a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles
+
+  shot08 · Subject 1
+    −, the 35-year-old groom in billowing green military coat,
+    +, a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy wool military trench coat over a bold crimson collared dress shirt
+
+  shot08 · Subject 2
+    −, the 62-year-old father with aviator goggles,
+    +, a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles, aviator goggles
+
+  → 已写出 /Users/hejianglong/Desktop/story/待生成_现代婚姻三部曲/02_姜文_老子不娶了/manifest.identity_locked.json
+================================================================================================================
+■ 03_奉俊昊_加名之夜  (8 镜)
+================================================================================================================
+  shot03 · Subject 1
+    −, the 32-year-old slender groom in charcoal wool coat and rimless titanium spectacles,
+    +, a 32-year-old slender East Asian groom named JIN-HO, calm composed features, neat short black hair, wearing rimless titanium spectacles and a tailored charcoal wool coat over a dark shirt
+
+  shot04 · Subject 1
+    −, the 32-year-old slender groom in charcoal wool trench coat and rimless spectacles,
+    +, a 32-year-old slender East Asian groom named JIN-HO, calm composed features, neat short black hair, wearing rimless titanium spectacles and a tailored charcoal wool coat over a dark shirt
+
+  shot06 · Subject 1
+    −, the 32-year-old slender groom in charcoal wool coat,
+    +, a 32-year-old slender East Asian groom named JIN-HO, calm composed features, neat short black hair, wearing rimless titanium spectacles and a tailored charcoal wool coat over a dark shirt
+
+  shot06 · Subject 3
+    −, the 56-year-old mother in plum shawl, and on the right sits 
+    +, a 56-year-old calculating East Asian mother-in-law named MADAM-PARK, sharp arched eyebrows, tight bun hairstyle, wearing a deep plum-purple wool shawl over a dark velour wrap dress
+
+  shot06 · Subject 2
+    −, the 28-year-old bride in ivory knit sweater,
+    +, a 28-year-old refined East Asian bride-to-be named EUN-HEE, delicate features, sleek low ponytail, wearing an elegant ivory turtleneck cashmere knit sweater and discreet pearl earrings
+
+  shot07 · Subject 1
+    −, the 32-year-old slender groom in tailored charcoal wool coat and spectacles,
+    +, a 32-year-old slender East Asian groom named JIN-HO, calm composed features, neat short black hair, wearing rimless titanium spectacles and a tailored charcoal wool coat over a dark shirt
+
+  shot08 · Subject 1
+    −, the 32-year-old slender groom in tailored charcoal wool coat and spectacles,
+    +, a 32-year-old slender East Asian groom named JIN-HO, calm composed features, neat short black hair, wearing rimless titanium spectacles and a tailored charcoal wool coat over a dark shirt
+
+  → 已写出 /Users/hejianglong/Desktop/story/待生成_现代婚姻三部曲/03_奉俊昊_加名之夜/manifest.identity_locked.json
+
+【跳过（无需注入）】
+  03_奉俊昊_加名之夜 shot05 Subject 1 — 身体局部镜，全镜无身份定义
+
+合计改动 28 处身份描述段。

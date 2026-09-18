@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>现代婚姻三部曲 · 投产前审核结论</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#ffffff; --ink:#1c1f26; --sub:#5b6472; --line:#e3e6ec;
+    --red:#c8322b; --redbg:#fdf1f0; --amber:#a86a00; --amberbg:#fdf7e8;
+    --green:#1d7a4c; --greenbg:#eef8f2; --blue:#2458a6; --bluebg:#eff4fc;
+    --graybg:#f2f4f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:14px;line-height:1.72;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:40px 28px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:28px}
+  h1{font-size:25px;margin:0 0 8px;letter-spacing:-.3px}
+  .meta{color:var(--sub);font-size:12.5px}
+  .meta b{color:var(--ink);font-weight:600}
+  h2{font-size:17px;margin:40px 0 12px;padding-left:10px;border-left:4px solid var(--ink)}
+  h3{font-size:14.5px;margin:24px 0 8px;color:var(--ink)}
+  p{margin:8px 0}
+  code{background:var(--graybg);padding:1px 5px;border-radius:3px;font-size:12.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#a3322b}
+  .verdict{background:var(--redbg);border:1px solid #f0cbc8;border-left:5px solid var(--red);
+    border-radius:6px;padding:20px 22px;margin:22px 0}
+  .verdict .tagline{font-size:19px;font-weight:700;color:var(--red);margin-bottom:10px}
+  .verdict ol{margin:10px 0 0;padding-left:22px}
+  .verdict li{margin:7px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0 6px;background:var(--panel);
+    font-size:12.8px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  th{background:#eef0f4;text-align:left;padding:9px 10px;font-weight:600;
+    border-bottom:1px solid var(--line);white-space:nowrap;font-size:12.5px}
+  td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even){background:#fbfcfd}
+  .pill{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11.5px;
+    font-weight:600;white-space:nowrap;line-height:1.6}
+  .p-red{background:var(--redbg);color:var(--red);border:1px solid #f0cbc8}
+  .p-amber{background:var(--amberbg);color:var(--amber);border:1px solid #f2dcae}
+  .p-green{background:var(--greenbg);color:var(--green);border:1px solid #c6e5d5}
+  .p-blue{background:var(--bluebg);color:var(--blue);border:1px solid #cbd9f0}
+  .p-gray{background:var(--graybg);color:var(--sub);border:1px solid var(--line)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:16px 18px;margin:12px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  .kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px}
+  .kv:last-child{border-bottom:none}
+  .kv span:first-child{color:var(--sub)}
+  .kv span:last-child{font-weight:600}
+  .note{background:var(--amberbg);border-left:4px solid var(--amber);padding:12px 16px;
+    border-radius:0 5px 5px 0;margin:12px 0;font-size:13px}
+  .good{background:var(--greenbg);border-left:4px solid var(--green);padding:12px 16px;
+    border-radius:0 5px 5px 0;margin:12px 0;font-size:13px}
+  ul{margin:8px 0;padding-left:22px}
+  li{margin:5px 0}
+  .p0{border-left:4px solid var(--red)}
+  .p1{border-left:4px solid var(--amber)}
+  .p2{border-left:4px solid var(--blue)}
+  .fix{background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:14px 18px;margin:10px 0}
+  .fix h4{margin:0 0 6px;font-size:13.5px}
+  .fix .why{color:var(--sub);font-size:12.5px;margin:4px 0 8px}
+  .fix .act{font-size:13px}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);
+    color:var(--sub);font-size:12px}
+  .num{font-variant-numeric:tabular-nums}
+  .small{font-size:12.3px;color:var(--sub)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>现代婚姻三部曲 · 投产前审核结论</h1>
+  <div class="meta">
+    范围：<b>3 部 / 24 镜 / 360 秒</b> · 审核对象：本地工程 <code>待生成_现代婚姻三部曲</code> × 远程 A100 实际环境<br>
+    远程目标：<b>kehu（49.0.196.218）· NVIDIA A100-PCIE-40GB · SM 8.0 · 驱动 580.178.04</b><br>
+    审核时间：2026-09-18 · 静态审核（未触发任何渲染）
+  </div>
+</header>
+
+<div class="verdict">
+  <div class="tagline">总判定：红灯 — 不建议按现状直接投产</div>
+  三条硬理由，任何一条单独都足以让这 24 镜白跑：
+  <ol>
+    <li><b>24 镜里有 12 镜明确要求画面中出现文字</b>，其中 4 镜还要求"镜头推近去读这行字"。这与每镜结尾统一写着的 <code>no on-screen text</code> 直接自相矛盾 —— 直接违反你的第 1 条要求，且必然产出伪汉字乱码。</li>
+    <li><b>角色一致性补丁已经生成，但驱动脚本读的不是它</b>；同时 Stage2 精修走的是官方 <b>0.91 Sigma（91% 噪声重画）</b>。换脸在这条管线上是机理决定的必然结果，不是概率问题。</li>
+    <li><b>驱动脚本引用的 4 个关键依赖（1 个 runner + 3 个权重）在 A100 上都不存在。</b>现在按"跑"会立刻失败，连第一镜都到不了。</li>
+  </ol>
+</div>
+
+<!-- ============ 一 ============ -->
+<h2>一、你的三项要求 · 逐条判定</h2>
+
+<table>
+  <thead>
+    <tr><th style="width:15%">要求</th><th style="width:11%">判定</th><th>现状与根因</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>① 不出现字幕</b></td>
+      <td><span class="pill p-amber">半达标</span></td>
+      <td>
+        <b>成片不烧字幕 —— 这一层是达标的。</b><code>10_run_film.py</code> 的 <code>concat()</code> 只走 ffmpeg concat，没有任何 <code>drawtext</code>／<code>subtitles</code> 滤镜。字幕由服务器上独立的 <code>make_subs.py</code> 外挂生成，符合你"字幕独立交付"的铁律。<br><br>
+        <b>但第二层（画面内不出现文字）大面积失守：</b>12/24 镜的 prompt 里明确写了要画面出现文字 —— 手写纸条、毛笔字、借据金额、房产证、胸花印字、霓虹招牌。H3 和 LTX 都没有可靠的中文字形能力，结果必然是伪汉字／乱码。更糟的是每镜结尾又写着 <code>no on-screen text</code>，模型收到两条互斥指令，产出会退化成"半生不熟的伪字"，比纯乱码更难看。
+      </td>
+    </tr>
+    <tr>
+      <td><b>② 角色一致、不突变</b></td>
+      <td><span class="pill p-red">不达标</span></td>
+      <td>
+        <b>三重缺口叠加：</b><br>
+        <b>a. 零参考图。</b>Stage1 走 <code>T2VA</code>，<code>ref_images</code> 是空的 —— 没有把角色"钉住"的硬约束。prompt 里的身份描写对模型只是<b>形容词</b>，不是同一张脸的保证。<b>24 镜 = 24 次独立摇号。</b><br>
+        <b>b. 身份描写逐镜退化。</b>后段镜头普遍砍掉姓名与五官锚点。<b>6 个镜次身份锚点归零</b>，其中 3 个还是双人/三人同框镜（最危险的一类）。<br>
+        <b>c. 补丁未生效 + Stage2 重画。</b>工程里已有 <code>manifest.identity_locked.json</code>，但脚本第 48 行 <code>MANIFEST = .../manifest.json</code> 读的是<b>原始版</b>，补丁等于白做；且那份补丁本身有拼接 bug。真正的杀手是 Stage2 的 <code>#10</code> 走官方 Sigma <code>0.909375</code> 起步 —— <b>等于把才刚锁定的脸再用 91% 的噪声重画一遍</b>。
+      </td>
+    </tr>
+    <tr>
+      <td><b>③ 画面清晰、逻辑明白</b></td>
+      <td><span class="pill p-amber">半达标</span></td>
+      <td>
+        <b>清晰度这一侧底子是好的：</b>A1 解码器补丁（TAEHV → 完整 <code>VAEDecode</code>）已经打进去了，这是所有画质项里唯一"无损"的一项；Stage2 出 1344×768 也够看。<br><br>
+        <b>但有三个折损点：</b>① Stage2 那 0.91 Sigma 的重画会把精修的细节红利吃掉大半；② <code>#3</code> 的 <code>target_width / target_height</code> <b>不是 widget input</b>，脚本的 <code>--set 3.target_width=1344</code> 大概率设不进去，实际会按工作流里写死的 <b>1920×1088</b> 跑（更慢、更可能 OOM）；③ 全片固定噪声种子 <code>#15 seed=42</code>，八个镜头从同一个噪声出发重画，构图会往一个方向漂。<br><br>
+        <b>逻辑层面另有 6 处硬伤</b>，详见下一节逐镜表。
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <b>成本提示：</b>A100 热态下 362 帧满窗单镜约 <b>149 秒</b>（草稿 74.3 + 精修 75.3）。24 镜全量两阶段批处理 ≈ <b>68 分钟</b>；若按现在的 1920×1088 跑、再叠上保脸版 dense 注意力，实测要 <b>1.4–1.6 小时</b>。也就是说，<b>按现状硬跑一次，白烧一个半小时机时，产出的 24 镜里有一半画面带乱码、且主角跨镜头不是同一张脸。</b>
+</div>
+
+<!-- ============ 二 ============ -->
+<h2>二、分镜级审核 · 24 镜逐条</h2>
+<p class="small">判定口径：<span class="pill p-red">高危</span> 必改，不改这一镜一定废 · <span class="pill p-amber">中危</span> 建议改 · <span class="pill p-green">可过</span> 保持原样即可。<br>
+「锚点」= 该镜 prompt 里该角色的五官/身份描写命中数（姓名 / 发 / 眼 / 颧 / 肤 / 须 / 皱 / 眉 / 髻）。</p>
+
+<h3>01《三十八万八》· 周星驰风格 · seed 20260918 · 8 镜 × 15s</h3>
+<table>
+  <thead><tr><th style="width:5%">镜</th><th style="width:13%">景别</th><th style="width:31%">内容</th><th style="width:13%">角色锚点</th><th>问题</th><th style="width:9%">判定</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>中近景 MCU</td><td>阿星爬老楼楼梯，回头对父亲说"你别紧张，一切有我"</td><td>S1: <b>4</b><br>S2: <b>4</b></td><td><b>文字诱发：</b>胸花 <code>pinned to his lapel reading Groom</code>。中国婚礼胸花写英文"Groom"既出戏又必出伪字。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>2</td><td>近景 CU</td><td>砸钢门要红包，门缝递出纸条</td><td>S1: <b>3</b></td><td><b>双问题：</b>① 文字诱发 <code>handwritten paper slip reading thirty-eight thousand eight hundred yuan parking fee</code>，而且是"镜头慢推上去读这行字"—— 必乱码；② 台词喊"大舅哥"，但全片没有这个人物出场，第 3 镜又变成岳母主事，称呼口径不统一。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>3</td><td>中景 MS</td><td>婚房内岳母逼钱，新娘坐着刷手机</td><td>S3: <b>3</b><br>S4: <b>1</b></td><td><b>逻辑硬伤：</b>岳母台词"不拿出这三十八万八，我家静静绝不下轿"，但同一画面里新娘已经穿着婚纱坐在卧室床上 —— "不下轿"与"已在新房"并存，观众会直接读成穿帮。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>4</td><td>特写 CU</td><td>父亲颤抖的手掏出存折</td><td>S2: <b>4</b></td><td>文字诱发较轻：<code>three dog-eared bank deposit passbooks</code>（存折封面有印字）。俯拍改侧逆光可规避。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>5</td><td>面部特写 CU</td><td>阿星大笑撕花吼"这婚谁爱结谁结"</td><td>S1: <b>3</b></td><td>无。全片情绪最高点，构图和台词都在位。</td><td><span class="pill p-green">可过</span></td></tr>
+    <tr><td>6</td><td>全景 WS</td><td>拉着父亲跑出巷子冲向老爷车</td><td>S1: <b>2</b><br>S2: <b>2</b></td><td>身份描写已退化（只留姓名+发）。双人同框，需补锚点。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>7</td><td>中景 MS</td><td>车内迎着风大笑"够咱们加满一千箱油"</td><td>S1: <b>3</b><br>S2: <b>2</b></td><td>身份退化。台词数字倒是对的（38.8 万 ÷ 油价 ≈ 1100 箱，经得起算）。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>8</td><td>中远景→全景</td><td>高原夕阳，父子靠着车吃橘子</td><td><b style="color:var(--red)">S1: 0<br>S2: 0</b></td><td><b>全片最危险一镜：</b>双人同框，两个人的身份描写<b>同时归零</b>，只剩 "the 30-year-old lean groom in loosened black suit"。这一镜出两个陌生人毫不意外。另：第 7 镜还在市区公路，15 秒后已在雪线高原，叙事跳跃。</td><td><span class="pill p-red">高危</span></td></tr>
+  </tbody>
+</table>
+
+<h3>02《老子不娶了》· 姜文风格 · seed 20260920 · 8 镜 × 15s</h3>
+<table>
+  <thead><tr><th style="width:5%">镜</th><th style="width:13%">景别</th><th style="width:31%">内容</th><th style="width:13%">角色锚点</th><th>问题</th><th style="width:9%">判定</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>中景 MS</td><td>军靴落地，大彪下车吼"唢呐给老子往死里吹"</td><td>S1: <b>5</b></td><td>无。人物定义最完整的一镜（肤/颧/眼/发/姓名全在）。</td><td><span class="pill p-green">可过</span></td></tr>
+    <tr><td>2</td><td>中近景 MCU</td><td>岳父抽烟加价"再撂二十万下车礼"</td><td>S3: <b>4</b></td><td><b>双问题：</b>① 文字诱发 <code>bold black brush calligraphy reading twenty thousand entry fee</code>，还是"镜头左移揭示"—— 毛笔字必乱码；② 台词里"除了那三十万"的三十万前文毫无交代，"给小勇凑个全款"里的小勇全片没出现过，观众接不住。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>3</td><td>特写 CU</td><td>父亲打算盘，算珠崩飞，说"账算不平了"</td><td>S2: <b>4</b></td><td>无。三部曲里情感最扎实的一镜。</td><td><span class="pill p-green">可过</span></td></tr>
+    <tr><td>4</td><td>中景 MS</td><td>岳父敲烟锅下最后通牒</td><td>S3: <b>2</b></td><td>身份描写从第 2 镜的 4 个锚点掉到 2 个（丢姓名、丢"calculating narrowed eyes"）。同一场景相邻两镜，最容易看出换脸。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>5</td><td>面部特写→中景</td><td>大彪砸碎茶几、撕凭证、吼"老子不娶了"</td><td>S1: <b>4</b></td><td>轻微文字诱发（红色银行凭证被撕）。整体是全片最强镜。</td><td><span class="pill p-green">可过</span></td></tr>
+    <tr><td>6</td><td>全景 WS</td><td>挽着父亲走出大院，双喜剪纸被风撕开</td><td><b style="color:var(--red)">S1: 0<br>S2: 0</b></td><td><b>最危险一镜：</b>双人同框 + 锚点双归零。另有道具连续性 bug —— 父亲怀里抱的算盘在第 3 镜已经崩珠碎裂，这里又完好无损。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>7</td><td>中景 MS</td><td>挎斗摩托点火，父亲戴飞行镜喊"油门拧到底"</td><td>S1: <b>1</b><br>S2: <b>1</b></td><td>锚点几乎归零，只剩发色。双人同框。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>8</td><td>远景→全景</td><td>戈壁血橙色落日，摩托冲向地平线</td><td><b style="color:var(--red)">S1: 0<br>S2: 0</b></td><td>同镜 6，双人同框双归零。收尾镜头，脸不对最刺眼。</td><td><span class="pill p-red">高危</span></td></tr>
+  </tbody>
+</table>
+
+<h3>03《加名之夜》· 奉俊昊风格 · seed 20260922 · 8 镜 × 15s</h3>
+<table>
+  <thead><tr><th style="width:5%">镜</th><th style="width:13%">景别</th><th style="width:31%">内容</th><th style="width:13%">角色锚点</th><th>问题</th><th style="width:9%">判定</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>中景 MS</td><td>半地下公寓漏水，红桶接水，桌上摊着房产文件</td><td>环境镜 —</td><td><b>文字诱发：</b><code>official red-covered apartment title deed booklet and a printed legal property co-ownership agreement document</code>。房产证+协议正对镜头摊在桌上，必出伪字。改为"文件背扣、只见红封面色块"即可。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>2</td><td>中近景 MCU</td><td>岳母滑过钢笔，"女人要的是一份定心丸"</td><td>S3: <b>5</b></td><td><b>文字诱发：</b>协议纸 + <code>the pen's black nib resting directly on the dotted signature line</code>（笔尖停在签名虚线上）。画面正中就是"要写字的纸"，必出乱码。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>3</td><td>特写 CU</td><td>新娘捧着速溶咖啡，眼神闪躲</td><td>S2: <b>5</b></td><td>无。人物定义完整。另注意镜 5 与镜 6 同框时她的锚点会掉。</td><td><span class="pill p-green">可过</span></td></tr>
+    <tr><td>4</td><td>特写 CU</td><td>沙发缝里摸出借据，橡皮筋崩断</td><td>S1: <b>2</b></td><td>主角锚点只剩眼镜一项 —— 而这部片男主<b>从第 3 镜到第 8 镜六个镜次里，一次都没给过姓名和五官</b>。这是三部曲里一致性最差的一个角色。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>5</td><td><b>微距特写</b> Macro CU</td><td>推近手写借据上的借款金额与五个红手印</td><td>手部镜 —</td><td><b>全片最贵、也最必废的一镜：</b><code>The camera pushes in sharply on the bold handwritten loan figure: "1,200,000 RMB", stamped with five vivid crimson thumbprints</code>。微距特写 + 明确给出阿拉伯数字 + 手写体，等于让模型用满屏像素去写它最不会写的东西。这一镜的时长成本是满窗 362 帧，产出概率上就是一张乱码糊图。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>6</td><td>中景 MS</td><td>三人桌前对峙，男主摊开借据下判决</td><td>S1: <b>1</b><br>S2: 0<br>S3: 0</td><td><b>最危险一镜：</b>三部曲里唯一的三角色同框镜，而三个人的身份描写<b>全部是简写</b>。三张没有锚点的脸放在一个画面里，互换/混脸概率全片最高。</td><td><span class="pill p-red">高危</span></td></tr>
+    <tr><td>7</td><td>中景 MS</td><td>拉包走人，铁门关上，红桶倾倒淹了文件</td><td>S1: <b>1</b></td><td>文字诱发较轻（文件被脏水淹，已模糊）。男主锚点仍只有眼镜。</td><td><span class="pill p-amber">中危</span></td></tr>
+    <tr><td>8</td><td>中远景→全景</td><td>雨中撑伞走入夜色，慢慢隐入纯黑</td><td>S1: <b>1</b></td><td><b>台词是病句：</b>"雨……终于停不下来了" —— "终于"与"停不下来"语义互斥（像是想表达"终于，雨停不下来了"的解脱感，但字面读不通）。另有霓虹招牌诱发轻微伪字。男主锚点仍只有眼镜。</td><td><span class="pill p-amber">中危</span></td></tr>
+  </tbody>
+</table>
+
+<div class="card">
+  <b>分镜审核汇总</b>
+  <div class="kv"><span>24 镜判定分布</span><span><span class="pill p-red">高危 8</span> &nbsp; <span class="pill p-amber">中危 11</span> &nbsp; <span class="pill p-green">可过 5</span></span></div>
+  <div class="kv"><span>含画面文字诱发项</span><span style="color:var(--red)">12 / 24 镜（50%），其中 4 镜要求"推近读字"</span></div>
+  <div class="kv"><span>身份锚点归零的镜次</span><span style="color:var(--red)">6 个，其中 4 个是多人同框镜</span></div>
+  <div class="kv"><span>跨镜道具／称呼／台词连续性 bug</span><span>6 处（算盘状态、大舅哥、三十万、小勇、不下轿、语病）</span></div>
+  <div class="kv"><span>时长结构</span><span>固定 15s/镜 × 8 镜 = 120s/片，全片只有 8 个剪辑点</span></div>
+</div>
+
+<div class="note">
+  <b>关于节奏（额外提醒）：</b>你上一轮已经反馈过"节奏过慢"。这一版仍然是 <b>15 秒一镜、全片仅 8 个剪辑点</b>。抖音/短视频叙事的常规切点是 2–4 秒，15 秒一镜等于把 8 个镜头当成 8 张会动的照片。这不在你这次的三条要求里，但它是成片观感的第一杀手，且改起来几乎零成本 —— H3 的 <code>length</code> 参数支持 17n+5 栅格上的任意短窗（例如 3.0s = 73 帧，实测只要 19 秒，比满窗快 8 倍）。如果你要动，现在是唯一划算的时机。
+</div>
+
+<!-- ============ 三 ============ -->
+<h2>三、远程 A100 环境核对（kehu）</h2>
+<p>我把脚本里引用到的每一个依赖，跟 A100 上的实际文件做了逐一比对。结论是：<b>这套工程是按 4090 那台机器写的，跟 A100 上的真实环境几乎完全对不上。</b></p>
+
+<table>
+  <thead><tr><th style="width:30%">脚本里写的</th><th style="width:24%">A100 上实际有的</th><th>结论</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>/workspace/h3scripts/80_run_workflow_remote.py</code></td>
+      <td>该目录<b>不存在</b>（全盘 find 无结果）</td>
+      <td><span class="pill p-red">致命</span> 三个脚本的每一次 <code>run_workflow()</code> 都从这里起手，文件不在，<b>第一镜就崩</b>。</td>
+    </tr>
+    <tr>
+      <td>CLIP：<code>qwen3vl_32b_minimax_h3_nvfp4_awq</code></td>
+      <td>只有 <code>qwen3vl_32b_minimax_h3_int8_convrot</code>（27.14 GB）</td>
+      <td><span class="pill p-red">致命</span> NVFP4 是 Blackwell（SM 12.0）原生格式，<b>A100 的 SM 8.0 不支持</b>。必须换成 int8_convrot 版 —— 服务器上装的就是这个正确版本。</td>
+    </tr>
+    <tr>
+      <td>Stage2 UNET：<code>ltx-2.5-22b-dev-transformer-comfy-int8-convrot</code></td>
+      <td>只有 <code>ltx-2.5-22b-distilled-transformer-comfy-int8-convrot</code>（21.5 GB，融合版）</td>
+      <td><span class="pill p-red">致命</span> 融合版就是 dev + 蒸馏 LoRA 的等价体，本身是正解路径，但工程里的工作流还指着 dev 版。</td>
+    </tr>
+    <tr>
+      <td>Stage2 LoRA：<code>ltx-2.5-22b-distilled-lora-450-bf16</code></td>
+      <td><b>没有</b></td>
+      <td><span class="pill p-red">致命</span> 用融合版后须把 <code>LoraLoaderModelOnly</code> 节点整个摘掉、直连 UNET。服务器上现成的 <code>s2_adapt.py</code> 正是干这个的。</td>
+    </tr>
+    <tr>
+      <td>Stage2 精修 Sigma 起点（<code>#10</code> 节点）</td>
+      <td>工程走 <code>MiniMaxH3SolEngineLTXRefinerSetupT8Advanced</code>，即官方 0.909375 起步</td>
+      <td><span class="pill p-red">致命</span> 服务器上<b>已有官方保脸版工作流</b> <code>2026-08-30_..._Identity_Preserve_3Step_Advanced_EXP.json</code>（0.5 起步），节点类也已注册可用。直接换掉即可，且几乎零时间成本。</td>
+    </tr>
+    <tr>
+      <td><code>#3.target_width / target_height</code> 用 <code>--set</code> 注入</td>
+      <td><code>#3</code> 的 inputs 里<b>只有 frames 和 fps</b>，两个 target 是纯 widget</td>
+      <td><span class="pill p-amber">隐患</span> <code>--set</code> 大概率打不进去 → 实际按工作流写死的 <b>1920×1088</b> 出图，比预期的 1344×768 慢得多，显存也更紧张。</td>
+    </tr>
+    <tr>
+      <td>ComfyUI 可用显存</td>
+      <td>ComfyUI 正在跑（pid 88272，已 12 小时），<b>常驻占用 29.5 / 40 GB</b></td>
+      <td><span class="pill p-amber">隐患</span> 只剩 ~10 GB，而单套权重就要 21 GB。<b>必须重启 ComfyUI 干净起跑</b>，否则直接 OOM。</td>
+    </tr>
+    <tr>
+      <td>工程目录 <code>/workspace/films/&lt;slug&gt;/</code></td>
+      <td>只有 h3-films 那套（douyin-office / douyin-blinddate 等），<b>没有这三部片</b></td>
+      <td><span class="pill p-amber">待办</span> 需要部署。</td>
+    </tr>
+    <tr>
+      <td>Stage1 模板 <code>2026-08-06_H3_Turbo_Stable_4V4A.json</code></td>
+      <td><b>存在</b></td>
+      <td><span class="pill p-green">就绪</span></td>
+    </tr>
+    <tr>
+      <td>其余权重（H3 UNET / turbo LoRA / LTX VAE / 上采样器 / gemma4）</td>
+      <td><b>全部存在</b></td>
+      <td><span class="pill p-green">就绪</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="good">
+  <b>好消息：A100 上的"正解"其实已经躺在那儿了。</b>服务器上有 h3-films 那套成熟管线 —— <code>s2_adapt.py</code>（建工作流 + 保脸预设）、<code>check_no_text.py</code> / <code>scan_text_band.py</code>（禁字检查）、<code>make_subs.py</code>（外挂字幕）、<code>11_run_voice_film.py</code>（中文干声锁音轨）—— 全都在。真正缺的只是<strong>把这三部片的工程"翻译"成 A100 版</strong>，不是从零搭。
+</div>
+
+<!-- ============ 四 ============ -->
+<h2>四、修复清单</h2>
+
+<h3>P0 — 不改必废（4 项）</h3>
+
+<div class="fix p0">
+  <h4>P0-1 · 铲掉 12 处画面文字诱发项</h4>
+  <div class="why">这是你第 1 条要求的正面冲突点，也是唯一一个"不改就一定出废画面"的问题。</div>
+  <div class="act">
+    <b>动作：</b>逐镜改写那 12 处，原则是"信息保留、文字消失"——<br>
+    · 纸条 → 改成"手指捏着的纸角 / 纸片被门缝的阴影吞掉大半"；<br>
+    · 毛笔字契约 → 改成"红纸被烟锅火星烫出焦洞"（把视觉焦点移到火星和焦痕上）；<br>
+    · 借据金额（镜 5 微距）→ 这是最难的一镜，建议<b>整镜改为手部动作特写</b>：手指抚过纸面、五个红手印入画，金额用景深虚化掉；<br>
+    · 房产证 → 改成"红封面色块 + 手指压住一角"，不给正面；<br>
+    · 胸花 "Groom" → 直接删掉 <code>reading Groom</code> 四个词；<br>
+    · 霓虹招牌 → 改成 "rain-slicked neon glow"（只留光晕，不留字形）。<br>
+    <b>同时删掉每镜结尾自相矛盾的 <code>no on-screen text</code> 之外，把负向词统一加固为</b> <code>no text, no lettering, no calligraphy, no numerals, no signage, unreadable blur</code>。
+  </div>
+</div>
+
+<div class="fix p0">
+  <h4>P0-2 · Stage2 切到保脸版（identity）</h4>
+  <div class="why">这是"角色突变"的机理级根因：官方 0.91 Sigma 起步 = 把脸用 91% 噪声重画一遍。</div>
+  <div class="act">
+    <b>动作：</b>把 <code>#10</code> 换成 <code>MiniMaxH3SolEngineLTXIdentityRefinerSetupT8Advanced</code>，Sigma 序列改 <code>0.5, 0.412, 0.350, 0</code>。服务器上已有官方现成工作流可直接作模板。<b>时间成本 ≈ 0</b>（0.5 起步反而更快）。
+  </div>
+</div>
+
+<div class="fix p0">
+  <h4>P0-3 · 让身份一致性补丁真正生效（并修掉它的拼接 bug）</h4>
+  <div class="why">补丁已生成但没被加载；且现有补丁本身有 4 处拼接错误（如 <code>rosessweat</code>、<code>trousers[00:05</code>、<code>suit&lt;Subject 2&gt;</code>），直接启用会打乱 prompt 语法。</div>
+  <div class="act">
+    <b>动作：</b>① 修掉拼接处，保证注入后语句合法；② 把 <code>10_run_film.py</code> 第 48 行的 <code>MANIFEST</code> 改指向 <code>manifest.identity_locked.json</code>；③ <b>优先补齐 6 个锚点归零的镜次</b>（片1镜8、片2镜6/8、片3镜6，以及片3男主全局）。
+  </div>
+</div>
+
+<div class="fix p0">
+  <h4>P0-4 · 把工程"翻译"成 A100 版</h4>
+  <div class="why">换 CLIP 权重名、换 Stage2 UNET 名并摘掉 LoRA 节点、重建缺失的 runner、重启 ComfyUI 释放显存、部署工程目录。</div>
+  <div class="act">
+    <b>动作：</b>五项一起做。其中 runner 是共用件 —— 建议直接复用 h3-films 那套已验证的调用方式，而不是再造一个。
+  </div>
+</div>
+
+<h3>P1 — 影响成片质量（4 项）</h3>
+
+<div class="fix p1">
+  <h4>P1-1 · Stage1 加角色参考图（ref_images）</h4>
+  <div class="why">prompt 是形容词，参考图才是硬约束。这是把"摇号"变成"锁脸"的关键一步。</div>
+  <div class="act"><b>动作：</b>为每部片的每个主要角色生成 1 张定妆照，常驻 S1 的 <code>ref_images</code> 槽（上限 9 张）。服务器上有 <code>make_first_frame.py</code> / <code>make_product_refs.py</code> 可复用。注意换装镜要给两个造型各配一张。</div>
+</div>
+
+<div class="fix p1">
+  <h4>P1-2 · 台词改走"中文干声锁音轨"（audio-lock）</h4>
+  <div class="why">现在走 T2VA，让 H3 自己说中文 —— 服务器上 <code>11_run_voice_film.py</code> 的注释已经明确说过这条路"台词不稳"。而且 24 镜独立生成语音，同一个角色的音色跨镜会变。</div>
+  <div class="act"><b>动作：</b>Stage1 换 <code>stage1_audio_lock.json</code>（<code>lock_source</code> + TTS 干声），成片音轨锁定为 TTS 干声，中文 100% 可控。</div>
+</div>
+
+<div class="fix p1">
+  <h4>P1-3 · 修 6 处逻辑硬伤</h4>
+  <div class="act">① 片1镜3："不下轿"与"新娘已在婚房"二选一；② 片1镜2：删掉"大舅哥"或改为"屋里人"；③ 片2镜2：补一句"三十万"的来路，"小勇"给出身份；④ 片2镜6：算盘状态与镜3对齐；⑤ 片3镜8：改掉"终于停不下来了"；⑥ 片2镜4 对齐镜2 的身份描写。</div>
+</div>
+
+<div class="fix p1">
+  <h4>P1-4 · 收住 <code>#15</code> 的固定噪声种子</h4>
+  <div class="why">全片 8 镜共用一个 seed=42，配合 0.91 Sigma 会让构图往一个方向漂。</div>
+  <div class="act"><b>动作：</b>改成 <code>SEED + shot_no</code> 的派生式，一致性交给 identity 预设和参考图去保证。</div>
+</div>
+
+<h3>P2 — 可选优化（3 项）</h3>
+
+<div class="fix p2">
+  <h4>P2-1 · 重做时长结构（最划算的一项）</h4>
+  <div class="act">维持 120s 成片，把 8×15s 改成约 20 镜 × 4–6s。按实测幂律，短窗更便宜：480 帧总长拆碎后单镜成本反而下降，同时剪辑点从 8 个变成 20 个，节奏问题一次解决。</div>
+</div>
+
+<div class="fix p2">
+  <h4>P2-2 · <code>#3</code> 分辨率改用正确的注入方式</h4>
+  <div class="act">把 target_width/height 转成真正的 input 再 <code>--set</code>，或直接在工作流文件里写死 1344×768，避免 1920×1088 的隐性超支。</div>
+</div>
+
+<div class="fix p2">
+  <h4>P2-3 · 加一道自动禁字验收</h4>
+  <div class="act">出片后跑服务器上现成的 <code>scan_text_band.py</code>，逐帧扫文字带，把"有没有伪字"变成可量化的验收项，而不是靠肉眼。</div>
+</div>
+
+<!-- ============ 五 ============ -->
+<h2>五、三条路线 · 时间与产出对照</h2>
+<table>
+  <thead><tr><th style="width:22%">路线</th><th style="width:13%">A100 机时</th><th>产出预期</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><b>A. 按现状硬跑</b><br><span class="small">不改任何东西</span></td>
+      <td class="num">≈ <b>1.4–1.6 h</b><br><span class="small">且大概率第一镜就崩（runner 缺失）</span></td>
+      <td><span class="pill p-red">不可接受</span> 即使先补上 runner 硬跑，结果是：24 镜里 12 镜画面带乱码伪字、主角跨镜不连戏、原定的 1344×768 静默变成 1920×1088。等于白烧一小时半。</td>
+    </tr>
+    <tr>
+      <td><b>B. 只做 P0</b><br><span class="small">4 项，纯技术性修改</span></td>
+      <td class="num">≈ <b>1.0–1.2 h</b><br><span class="small">identity 版更快，抵消分辨率超支</span></td>
+      <td><span class="pill p-amber">可交付</span> 无乱码、脸基本连戏、清晰度在线。仍会残留：同一角色音色跨镜有差异（P1-2 未做）、后段镜头锚点偏弱（P1-1 未做）、节奏慢（P2-1 未做）。</td>
+    </tr>
+    <tr>
+      <td><b>C. P0 + P1</b><br><span class="small">推荐路径</span></td>
+      <td class="num">≈ <b>1.2–1.5 h</b></td>
+      <td><span class="pill p-green">推荐</span> 三条要求全部落地，且台词音色、角色锁脸、叙事逻辑都补齐。这是"能拿出去给人看"的版本。</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="note">
+  <b>机时换算：</b>A100 按 2.60 元/卡时计，路线 C 一轮 1.5 小时约 <b>3.9 元</b>。相对而言，<b>按现状硬跑一轮再返工重跑一轮，才是真正贵的那个选项</b> —— 贵的不只是钱，是你出门这段时间里 A100 白转两小时。
+</div>
+
+<!-- ============ 六 ============ -->
+<h2>六、结论与建议</h2>
+
+<div class="card">
+  <p><b>一句话结论：分镜的骨架是好的，但现在这套工程不能直接投产 —— 它会同时踩中你三条要求里的第 1 条和第 2 条，而且连"跑起来"这一步都过不去。</b></p>
+  <p>剧本层面，《三部曲》的三个故事都有自己的记忆点（撕花调头、砸桌撕单、借据翻盘），镜 5/6 这几处情绪高点写得很准；问题集中在<b>提示词的工程细节</b>上：不该出现的文字出现得太频繁，该锁死的身份反而在越写越省。这两件事都不是模型能力问题，是写法问题，改起来成本很低。</p>
+  <p>环境层面则是典型的"<b>工程写在 4090 时代、机器换成了 A100</b>"—— 权重名、CLIP 精度、工作流选型、显存预算全部需要重新对齐。好消息是 A100 上该有的正解（保脸工作流、禁字工具、锁音轨驱动、正确精度的 CLIP）都已经躺在 <code>/workspace/films/</code> 里，是"翻译"不是"重建"。</p>
+</div>
+
+<div class="card">
+  <b>我的建议动作顺序</b>
+  <ol>
+    <li><b>先做 P0-1（铲文字）</b> —— 这是唯一一个"不改就一定出废画面"的问题，且不需要动任何服务器环境，纯本地改 prompt。</li>
+    <li><b>再做 P0-2 / P0-3（切保脸版 + 激活身份补丁）</b> —— 一次性解决换脸，时间成本几乎为零。</li>
+    <li><b>然后 P0-4（翻译成 A100 版）</b> —— 顺手重启 ComfyUI 释放那 29.5 GB。</li>
+    <li><b>先跑单镜验证</b>（建议跑片 3 的镜 5 和镜 6：一个是微距文字镜、一个是三人同框镜，两镜能同时验掉文字和一致性两个风险），确认没问题再全量。</li>
+    <li>P1 里如果只挑一件做，挑 <b>P1-1 参考图</b>；它比 P1-2 更能肉眼看出差别。</li>
+  </ol>
+</div>
+
+<footer>
+  本报告全部结论来自实际文件比对：本地 3 份 manifest 的逐字扫描 ／ 3 份驱动脚本与 3 份 Stage2 工作流的节点级回溯 ／ 通过 <code>ssh kehu</code> 对 A100 的权重目录、<code>/object_info</code> 节点注册表、显存占用与工作流模板做的逐一核对。未触发任何渲染，未修改任何原始文件。
+</footer>
+
+</div>
+</body>
+</html>

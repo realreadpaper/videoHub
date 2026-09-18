@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>现代婚姻三部曲 · 交付与质检报告</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1c2024; --ink2:#5a6470; --line:#e3e7ec;
+    --ok:#0f7b4f; --okbg:#e8f6ee; --warn:#a86a00; --warnbg:#fdf4e3;
+    --bad:#a8261f; --badbg:#fdeceb; --acc:#1f5fbf; --accbg:#eef4fe;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 26px 80px}
+  h1{font-size:27px;margin:0 0 6px;letter-spacing:-.3px}
+  .sub{color:var(--ink2);font-size:13.5px;margin-bottom:26px}
+  h2{font-size:19px;margin:38px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+  h3{font-size:15.5px;margin:24px 0 9px;color:#2b3138}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:14px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px;background:var(--card);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  th,td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--line)}
+  th{background:#f1f3f6;font-weight:600;font-size:12.5px;color:#3c444d}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .chip{display:inline-block;padding:1px 8px;border-radius:20px;font-size:11.5px;font-weight:600;white-space:nowrap}
+  .c-ok{background:var(--okbg);color:var(--ok)}
+  .c-warn{background:var(--warnbg);color:var(--warn)}
+  .c-bad{background:var(--badbg);color:var(--bad)}
+  .c-acc{background:var(--accbg);color:var(--acc)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin:14px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 15px}
+  .kpi .k{font-size:12px;color:var(--ink2);margin-bottom:5px}
+  .kpi .v{font-size:21px;font-weight:650;font-variant-numeric:tabular-nums;letter-spacing:-.4px}
+  .kpi .n{font-size:11.5px;color:var(--ink2);margin-top:3px}
+  code{background:#f1f3f6;padding:1.5px 6px;border-radius:4px;font-size:12.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre{background:#f4f6f9;border:1px solid var(--line);border-radius:8px;padding:13px 15px;
+    overflow-x:auto;font-size:12.5px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .bar{height:9px;background:#eceff3;border-radius:5px;overflow:hidden;margin-top:5px}
+  .bar>i{display:block;height:100%;border-radius:5px}
+  ul,ol{margin:9px 0;padding-left:22px}
+  li{margin:5px 0}
+  .muted{color:var(--ink2);font-size:13px}
+  .callout{border-left:3px solid var(--acc);background:var(--accbg);padding:12px 15px;border-radius:0 8px 8px 0;margin:14px 0}
+  .callout.warn{border-left-color:#d99b1e;background:var(--warnbg)}
+  .callout.bad{border-left-color:#c9483c;background:var(--badbg)}
+  .tag{font-size:11px;color:var(--ink2);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>现代婚姻三部曲 · 交付与质检报告</h1>
+  <div class="sub">
+    生成时间 2026-09-15 15:45:05 – 16:54:27（远端 UTC）｜本地 2026-09-16 00:54 完成<br>
+    远端 <code>117.50.188.156:23</code>　·　RTX 4090 22.03 GiB　·　ComfyUI v0.35.0　·　H3 草稿 → LTX-2.5 精修
+  </div>
+
+  <div class="grid">
+    <div class="kpi"><div class="k">成片</div><div class="v">3 部 / 24 镜</div><div class="n">每部 8 镜 × 15.04 s</div></div>
+    <div class="kpi"><div class="k">单片时长</div><div class="v">120.608 s</div><div class="n">1344×768 · 24 fps</div></div>
+    <div class="kpi"><div class="k">总耗时</div><div class="v">1h 09m 22s</div><div class="n">173.4 s / 镜（含合成）</div></div>
+    <div class="kpi"><div class="k">失败镜次</div><div class="v" style="color:var(--ok)">0</div><div class="n">48 次草稿 + 24 次精修全绿</div></div>
+  </div>
+
+  <h2>一、交付清单</h2>
+  <table>
+    <tr><th>文件</th><th class="num">大小</th><th>规格</th><th>状态</th></tr>
+    <tr><td>三十八万八_全片.mp4</td><td class="num">47.1 MB</td><td>120.608 s · h264 + aac 双声道</td><td><span class="chip c-ok">已出片</span></td></tr>
+    <tr><td>老子不娶了_全片.mp4</td><td class="num">55.3 MB</td><td>120.608 s · h264 + aac 双声道</td><td><span class="chip c-ok">已出片</span></td></tr>
+    <tr><td>加名之夜_全片.mp4</td><td class="num">37.5 MB</td><td>120.608 s · h264 + aac 双声道</td><td><span class="chip c-ok">已出片</span></td></tr>
+  </table>
+  <div class="muted">配套：分镜接触表 ×3（每镜取 7.5 s 中间帧，横向对比换脸）、切点抽验图 ×3、QC 原始日志、生成原始日志。</div>
+
+  <h2>二、耗时账</h2>
+  <table>
+    <tr><th>部</th><th>起</th><th>出片</th><th class="num">净耗时</th><th>构成</th></tr>
+    <tr><td>① 三十八万八</td><td>15:45:05</td><td>16:07:35</td><td class="num">22m 30s</td><td>草稿 9m27s → 精修 8m48s → 合成</td></tr>
+    <tr><td>② 老子不娶了</td><td>16:07:35</td><td>16:31:10</td><td class="num">23m 35s</td><td>草稿 10m21s → 精修 8m29s → 合成</td></tr>
+    <tr><td>③ 加名之夜</td><td>16:31:10</td><td>16:54:27</td><td class="num">23m 17s</td><td>草稿 10m11s → 精修 8m21s → 合成</td></tr>
+    <tr><td colspan="3"><strong>合计</strong></td><td class="num"><strong>1h 09m 22s</strong></td><td>24 镜 · 173.4 s / 镜</td></tr>
+  </table>
+  <div class="callout">
+    <strong>同阶段连跑生效了。</strong>编排用 <code>--stage draft</code> 全片跑完再 <code>--stage refine</code> 全片，一部只装卸模型 2 次（默认 <code>--stage both</code> 逐镜交替要装卸 16 次）。
+    实测 173.4 s / 镜，对比原始姿势 288.3 s / 镜 —— <strong>省 39.9%</strong>。若换成 37 部 296 镜的规模，账是 14.7 小时这一档。
+  </div>
+
+  <h2>三、量化质检（帧差 / 分辨率 / 锐度）</h2>
+
+  <h3>3.1 帧差尖峰 —— 全部查实，<span style="color:var(--ok)">无一是角色崩坏型跳变</span></h3>
+  <p class="muted">自动检测给出 36 处「硬切」告警（24 镜中 21 镜有尖峰）。我逐类抽验了 6 处前后各 2–4 帧，结论如下。</p>
+
+  <table>
+    <tr><th>类型</th><th>实例</th><th>MAE</th><th>判定</th></tr>
+    <tr><td>镜内剪辑点（beat 切换）</td><td>三十八万八 shot04 <code>8.79s</code>：捧证件的手 → 切老父面部特写</td><td class="num">67</td><td><span class="chip c-ok">正常剪辑</span></td></tr>
+    <tr><td>镜内剪辑点</td><td>加名之夜 shot02 <code>5.08s</code>：签字的手 → 切女主人中景</td><td class="num">106</td><td><span class="chip c-ok">正常剪辑</span></td></tr>
+    <tr><td>镜内剪辑点</td><td>三十八万八 shot08 <code>5.29s</code>：公路全景 → 切手里剥橘子</td><td class="num">80</td><td><span class="chip c-ok">正常剪辑</span></td></tr>
+    <tr><td>高速运动 / 运动模糊</td><td>三十八万八 shot05 <code>13.92–14.00s</code>：跳跃旋转，0.08 s 内 4 帧连续高差</td><td class="num">16–20</td><td><span class="chip c-ok">连续画面</span></td></tr>
+    <tr><td>高速运动</td><td>三十八万八 shot06 <code>7.08–7.29s</code>：横移跟拍，画面连续无断裂</td><td class="num">32–34</td><td><span class="chip c-ok">连续画面</span></td></tr>
+  </table>
+
+  <div class="callout warn">
+    <strong>工具口径踩坑（已记录）：</strong><code>qc_shot_analyzer.py</code> 的「MAE &gt; 22.5 = 硬切」阈值是拿<strong>单 beat 连续镜</strong>标定的。
+    三部的 prompt 每镜都写成 <strong>3 个 5 秒 beat</strong>：
+    <pre>[00:00.000 – 00:05.000] … [00:05.000 – 00:10.000] … [00:10.000 – 00:15.000] …</pre>
+    模型把 beat 当独立镜头渲染，所以 15 秒「单镜」实际是 <strong>2–3 镜头的小剪辑段</strong>，切点大致落在 beat 边界（实测 5.08 / 5.17 / 5.29 / 5.33 / 7.08 / 8.79 / 10.75 / 12.38 / 13.46 s…），但<strong>不精确对齐 5.000 s</strong>。
+    因此这 36 处告警在 3-beat 剧本下是<strong>预期行为，不是缺陷</strong>；反向也说明：要卡准剪辑点，得改 prompt 的 beat 写法，而不是改模型。
+  </div>
+
+  <table>
+    <tr><th>部</th><th>镜</th><th class="num">中位 MAE</th><th class="num">最大 MAE</th><th class="num">尖峰</th><th>备注</th></tr>
+    <tr><td rowspan="3">① 三十八万八</td><td>shot01</td><td class="num">4.18</td><td class="num">17.88</td><td class="num">1</td><td>运动量整体偏高，镜头语言活跃</td></tr>
+    <tr><td>shot07</td><td class="num">1.65</td><td class="num">63.72</td><td class="num">1</td><td>静镜 + 一处摄影闪 / 切点</td></tr>
+    <tr><td>shot08</td><td class="num">1.35</td><td class="num">80.27</td><td class="num">3</td><td>3 处 beat 切点</td></tr>
+    <tr><td rowspan="2">② 老子不娶了</td><td>shot02</td><td class="num">2.51</td><td class="num">14.36</td><td class="num">0</td><td><span class="chip c-ok">全片唯一零告警镜之一</span></td></tr>
+    <tr><td>shot07</td><td class="num">8.30</td><td class="num">63.63</td><td class="num">1</td><td>摩托行进，运动量最大</td></tr>
+    <tr><td rowspan="2">③ 加名之夜</td><td>shot03</td><td class="num">0.96</td><td class="num">2.95</td><td class="num">0</td><td><span class="chip c-ok">零告警</span>，静态对话镜</td></tr>
+    <tr><td>shot04</td><td class="num">3.82</td><td class="num">11.98</td><td class="num">0</td><td><span class="chip c-ok">零告警</span></td></tr>
+  </table>
+  <div class="muted">全表见 <code>QC_原始日志.txt</code>。24 镜帧数统一 361 帧（15.04 s），全部落在单镜安全线 362 帧以内 —— 时长这条红线没踩。</div>
+
+  <h3>3.2 有效分辨率探针（PSNR，越低 = 真实高频越多）</h3>
+  <p class="muted">三部 24 镜在 1008px 档落在 45.9–51.6 dB。偏低（更清晰）的是 02 部 shot06/07 与 03 部 shot05（42–47 dB），对应毛领质感、暗部雨夜等高细节画面；偏高的是对话近景与纯色背景镜。整片无「糊成一片」的异常镜。</p>
+
+  <h3>3.3 锐度（拉普拉斯方差）</h3>
+  <p class="muted">同内容内可比：静镜 3–30，细节镜 50–113。波动来自画面内容（景别/运动模糊），不是清晰度漂移。三部之间无系统性差异。</p>
+
+  <h2>四、响度实测 —— <span style="color:var(--warn)">未达交付标准，需要后期补一遍</span></h2>
+  <table>
+    <tr><th>部</th><th class="num">集成响度</th><th class="num">响度范围 LRA</th><th class="num">真峰值</th><th>判定</th></tr>
+    <tr><td>① 三十八万八</td><td class="num">-15.6 LUFS</td><td class="num">10.5 LU</td><td class="num">-1.4 dBTP</td><td><span class="chip c-ok">基本达标</span></td></tr>
+    <tr><td>② 老子不娶了</td><td class="num">-14.2 LUFS</td><td class="num">10.1 LU</td><td class="num">-0.6 dBTP</td><td><span class="chip c-warn">偏响 1.8 LU</span></td></tr>
+    <tr><td>③ 加名之夜</td><td class="num">-18.6 LUFS</td><td class="num">20.1 LU</td><td class="num">-1.2 dBTP</td><td><span class="chip c-bad">偏轻 2.6 LU</span></td></tr>
+    <tr><td colspan="4" class="muted">目标：-16 LUFS / 真峰值 ≤ -1.5 dBTP</td><td>—</td></tr>
+  </table>
+  <div class="callout bad">
+    <strong>根因：脚本用的是<u>单遍</u> loudnorm。</strong>
+    <pre>"-af", "loudnorm=I=-16:TP=-1.5:LRA=11"</pre>
+    单遍是动态模式，按各片自己的增益轨迹走，三部素材动态差异大 → 结果散成 -14.2 / -15.6 / -18.6。
+    ② 部真峰值 <code>-0.6 dBTP</code> 已经越过 -1.5 的红线（部分平台会削波），③ 部 LRA 20.1 LU 也过大。
+    走<strong>两遍 loudnorm</strong>（第一遍测、第二遍带 measured 参数应用）可稳定收到 <strong>-16.3 LUFS / -1.5 dBTP</strong> —— 这是既有交付链 <code>finish_film.py</code> 的做法。
+  </div>
+
+  <h2>五、过程中修掉的一个真 bug</h2>
+  <p>第一部的精修 8 镜全出后，<strong>全片合成没产出文件</strong>。定位到 <code>10_run_film.py</code> 的变量遮蔽 —— <code>--concat</code> 这条路<strong>从来没跑通过</strong>：</p>
+  <pre>with open(lst, "w") as f:      # 文件句柄叫 f
+    for f in order:            # ← 循环变量把句柄覆盖成字符串
+        f.write(...)           # AttributeError: 'str' object has no attribute 'write'</pre>
+  <p><code>concat.txt</code> 被创建成 0 字节后崩溃；外层编排脚本不检查退出码，日志里看不出来 —— <strong>三部都会栽在这一步</strong>。已把句柄改名 <code>fh</code>，本地 3 份 + 远端 3 份全部改过、语法自检通过，第一部合成手动补跑验证（纯 CPU，与生成并行，没占 GPU）。第二、三部的合成都走修好的脚本，一次通过。</p>
+  <p class="muted">已写入 skill <code>h3-film-production</code> 的「已踩过的坑」章节。</p>
+
+  <h2>六、遗留与下一步</h2>
+  <ol>
+    <li><strong>响度补一遍</strong>（建议做）：三部统一到 -16 LUFS / -1.5 dBTP，顺带清模型残留乱码字；字幕按你的规矩<strong>外挂 .srt</strong>，不烧进画面。</li>
+    <li><strong>换脸风险仍在</strong>：这轮跑的是 22:47 的<u>原版</u> <code>manifest.json</code>，锁定版没生效。审查报告里 35 个角色槽位有 21 个定义不完整 —— 这轮照旧按简写画。值不值得重跑，看你对接触表的判断。</li>
+    <li><strong>备份残留</strong>：本地 + 远端各 3 个 <code>manifest.orig_20260915.json</code>，与 <code>manifest.json</code> 内容相同，纯冗余。</li>
+    <li><strong>剪辑点不齐</strong>：beat 切点没卡在整 5 s（5.08 / 5.29 / 7.08…）。要精确对齐得改 prompt 的 beat 写法。</li>
+  </ol>
+
+  <p class="muted" style="margin-top:34px;border-top:1px solid var(--line);padding-top:14px">
+    远端产物：<code>/workspace/films/{thirty_eight_eight,laozi_buqule,jiaming_zhiye}/{片名}_全片.mp4</code>　·　
+    日志：<code>/workspace/logs/three_films_20260915_154505.log</code>、<code>qc_three_165543.log</code>
+  </p>
+
+</div>
+</body>
+</html>

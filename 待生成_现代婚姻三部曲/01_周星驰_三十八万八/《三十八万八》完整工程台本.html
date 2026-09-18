@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>《三十八万八》完整工程台本 · 8镜AI微电影生产册</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#f4f2ee; --paper:#ffffff; --ink:#22201d; --ink2:#4a463f; --muted:#8a8378;
+--line:#e3ded5; --line2:#cec7ba;
+--red:#a8322a; --redbg:#fdf1ef;
+--amber:#a06a12; --amberbg:#fdf6e8;
+--teal:#1f6f63; --tealbg:#edf7f5;
+--blue:#2c5f8f; --bluebg:#eef4fa;
+--violet:#5c4a86; --violetbg:#f4f1fa;
+--serif:"Songti SC","SimSun","Source Han Serif SC",Georgia,serif;
+--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+--mono:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.75;
+  font-size:15px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 26px 90px}
+
+header.top{background:var(--paper);border-bottom:1px solid var(--line);
+  padding:44px 0 34px;margin-bottom:30px}
+header.top .wrap{padding-bottom:0}
+.kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;
+  color:var(--red);text-transform:uppercase;margin-bottom:14px}
+h1{font-family:var(--serif);font-size:42px;line-height:1.18;letter-spacing:.01em;margin-bottom:6px}
+h1 small{display:block;font-size:15px;font-weight:400;color:var(--muted);
+  font-family:var(--mono);letter-spacing:.08em;margin-top:8px}
+.lead{margin-top:18px;font-size:16px;color:var(--ink2);max-width:760px}
+.lead b{color:var(--red)}
+
+h2{font-family:var(--serif);font-size:25px;margin:52px 0 8px;padding-top:26px;
+  border-top:2px solid var(--ink);display:flex;align-items:baseline;gap:12px}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--muted);font-weight:400}
+h3{font-size:17px;margin:30px 0 12px;padding-left:11px;border-left:3px solid var(--red)}
+h4{font-size:14.5px;margin:20px 0 8px;color:var(--ink2)}
+p{margin:10px 0}
+a{color:var(--blue);text-decoration:none;border-bottom:1px solid var(--line2)}
+a:hover{border-bottom-color:var(--blue)}
+code{font-family:var(--mono);font-size:12.5px;background:#efece5;
+  padding:1.5px 5px;border-radius:3px;color:#7a4a20}
+
+.grid{display:grid;gap:13px;margin:16px 0}
+.g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:16px 18px}
+.card .k{font-size:11.5px;font-family:var(--mono);color:var(--muted);letter-spacing:.09em;
+  text-transform:uppercase;margin-bottom:7px}
+.card .v{font-family:var(--serif);font-size:25px;line-height:1.15}
+.card .v small{font-size:13px;color:var(--muted);font-family:var(--sans);margin-left:3px}
+.card .d{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.55}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+th{background:#ebe7df;text-align:left;padding:10px 13px;font-weight:600;
+  font-size:12.5px;color:var(--ink2);border-bottom:1px solid var(--line2)}
+td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num,th.num{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+
+.box{border-radius:8px;padding:14px 17px;margin:16px 0;font-size:13.5px;border:1px solid}
+.box .t{display:block;font-weight:700;margin-bottom:6px;font-size:13.5px}
+.b-red{background:var(--redbg);border-color:#eccfc9} .b-red .t{color:var(--red)}
+.b-amber{background:var(--amberbg);border-color:#e8d9b5} .b-amber .t{color:var(--amber)}
+.b-teal{background:var(--tealbg);border-color:#c8e2dc} .b-teal .t{color:var(--teal)}
+.b-blue{background:var(--bluebg);border-color:#cddff0} .b-blue .t{color:var(--blue)}
+.b-violet{background:var(--violetbg);border-color:#d8cff0} .b-violet .t{color:var(--violet)}
+
+/* 分镜 */
+.shot{background:var(--paper);border:1px solid var(--line);border-radius:10px;
+  margin:18px 0;overflow:hidden}
+.shot-h{display:flex;align-items:center;gap:13px;padding:13px 18px;
+  background:linear-gradient(180deg,#fbfaf8,#f4f1ea);border-bottom:1px solid var(--line)}
+.shot-no{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--red);
+  min-width:44px}
+.shot-h .ti{font-family:var(--serif);font-size:18px;flex:1}
+.tag{font-family:var(--mono);font-size:11px;padding:2.5px 8px;border-radius:20px;
+  border:1px solid var(--line2);color:var(--ink2);background:#fff;white-space:nowrap}
+.shot-b{padding:16px 18px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));
+  gap:9px;margin-bottom:14px}
+.meta div{font-size:12.5px}
+.meta .k{font-family:var(--mono);font-size:10.5px;color:var(--muted);
+  letter-spacing:.08em;text-transform:uppercase}
+.dia{margin:12px 0;padding:11px 15px;background:var(--redbg);
+  border-left:3px solid var(--red);border-radius:0 6px 6px 0;font-size:13.5px}
+.dia .who{font-family:var(--mono);font-size:11px;color:var(--red);
+  letter-spacing:.08em;display:block;margin-bottom:3px}
+pre{background:#2c2a26;color:#e8e4dc;padding:14px 16px;border-radius:7px;
+  overflow-x:auto;font-family:var(--mono);font-size:12px;line-height:1.62;
+  margin:10px 0;white-space:pre-wrap;word-break:break-word}
+pre.prose{background:#f7f5f1;color:#3a352d;border:1px solid var(--line);
+  font-family:var(--sans);font-size:13px}
+.toc{background:var(--paper);border:1px solid var(--line);border-radius:9px;
+  padding:18px 22px;margin:22px 0}
+.toc ol{list-style:none;counter-reset:t;columns:2;column-gap:34px}
+.toc li{counter-increment:t;font-size:13.5px;padding:3.5px 0;break-inside:avoid}
+.toc li::before{content:counter(t,decimal-leading-zero);font-family:var(--mono);
+  font-size:11px;color:var(--red);margin-right:9px}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--muted);text-align:center}
+.cap{font-size:12.5px;color:var(--muted);margin-top:-6px}
+@media(max-width:760px){
+  h1{font-size:29px} .g2,.g3,.g4{grid-template-columns:1fr}
+  .toc ol{columns:1} .wrap{padding:0 15px 60px}
+}
+</style></head><body>
+<header class="top"><div class="wrap">
+<div class="kicker">AI 微电影工程台本 · 自建 H3 两阶段管线出片</div>
+<h1>《三十八万八》<small>周星驰 · 周星驰 风格单元</small></h1>
+<p class="lead">全片 <b>8 镜 · 120 秒</b>，1344×768 / 24 fps，含原生中文对白音轨。主题：迎亲临时加价38万8车位费 × 老父亲卑微存折 × 阿星大笑撕花调头自驾川藏线。</p>
+</div></header><div class="wrap">
+<div class="grid g4">
+<div class="card"><div class="k">镜头数</div><div class="v">8<small>镜</small></div><div class="d">每镜 362 帧 / 15.083 秒</div></div>
+<div class="card"><div class="k">成片时长</div><div class="v">120<small>秒</small></div><div class="d">24 fps · 电影帧率</div></div>
+<div class="card"><div class="k">成片分辨率</div><div class="v">1344×768<small></small></div><div class="d">长宽比 1.75</div></div>
+<div class="card"><div class="k">生成成本</div><div class="v">0<small>元</small></div><div class="d">自有 4090，未用付费 API</div></div>
+</div>
+<div class="toc"><ol>
+<li><a href="#s1">影片规格与生产路径</a></li>
+<li><a href="#s2">一致性锚点（防漂移）</a></li>
+<li><a href="#s3">8 镜完整分镜台本</a></li>
+<li><a href="#s4">生产参数与一键复现</a></li>
+<li><a href="#s5">真机实测记录</a></li>
+<li><a href="#s6">已知限制与优化方向</a></li>
+</ol></div>
+<h2 id="s1"><span class="n">01</span>影片规格与生产路径</h2>
+<table><tbody>
+<tr><td style="width:150px;color:#8a8378">片名</td><td>《三十八万八》</td></tr>
+<tr><td style="width:150px;color:#8a8378">风格 / 系列</td><td>周星驰 / 周星驰 风格单元</td></tr>
+<tr><td style="width:150px;color:#8a8378">主题</td><td>迎亲临时加价38万8车位费 × 老父亲卑微存折 × 阿星大笑撕花调头自驾川藏线</td></tr>
+<tr><td style="width:150px;color:#8a8378">画面规格</td><td>1344×768，24 fps，H.264 + AAC</td></tr>
+<tr><td style="width:150px;color:#8a8378">单镜帧数</td><td>362 帧（草稿）→ 361 帧（精修裁切后，15.042 秒）</td></tr>
+<tr><td style="width:150px;color:#8a8378">时长</td><td>8 镜 × 15.042 秒 = 120 秒</td></tr>
+<tr><td style="width:150px;color:#8a8378">引擎</td><td>MiniMax H3（pruned INT8-ConvRot）+ LTX-2.5 精修</td></tr>
+<tr><td style="width:150px;color:#8a8378">硬件</td><td>RTX 4090 单卡 / 92 GiB 内存 / 自建 ComfyUI</td></tr>
+<tr><td style="width:150px;color:#8a8378">成本</td><td>0 元（不走付费 API）</td></tr>
+</tbody></table>
+<h3>为什么是两阶段</h3>
+<p>草稿阶段用 <b>672×384 / 4 步</b> 快速生成，再交给 <b>LTX-2.5</b> 精修到 <b>1344×768</b>。这条路径把"试错"和"出画质"分开：调提示词时只跑草稿，定稿后再精修，重跑成本低。</p>
+<div class="box b-amber"><span class="t">帧数必须落在 17n+5 网格上</span><p style="margin:0">H3 的 <code>length</code> 只接受 <b>17n+5</b>（≈24 fps）。本片取 <b>362 帧</b>（15.083 秒）；精修阶段 LTX-2.5 的 <code>frame_policy=trim_to_8n_plus_1</code> 再裁到 <b>361 帧</b>（8n+1），最终 <b>15.042 秒</b>。乱填帧数会直接报错或产生音画错位。</p></div>
+<h2 id="s2"><span class="n">02</span>一致性锚点（防漂移）</h2>
+<p>AI 视频的头号敌人是<b>角色一致性</b>。文生视频模式下无法锁脸，本片用的是最稳的做法：把同一段角色特征 Token 在 8 镜里<b>逐字机械复制</b>，绝不换同义词。</p>
+<h3>角色锚点</h3><p><code>&lt;Subject 1&gt; (S1)</code>、<code>&lt;Subject 1&gt; (S1) &amp; &lt;Subject 2&gt; (S2)</code>、<code>&lt;Subject 2&gt; (S2)</code>、<code>&lt;Subject 3&gt; (S3)</code></p>
+<h3>镜 01 Prompt 全文（其余各镜同一写法，角色段逐字复制）</h3><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up, the camera moves backward in a slow steady tracking shot up a narrow peeling concrete stairwell of a 1990s tenement building. &lt;Subject 1&gt; (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a gaudy plastic red rose pinned to his lapel reading Groom, climbs toward the camera clutching a bouquet of slightly wilted red roses, sweat dripping down his temple. Already inside the same frame two steps below him walks &lt;Subject 2&gt; (S2), a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers, clutching a small red velvet pouch against his chest.
+[00:05.000 – 00:10.000] The camera continues retreating smoothly. &lt;Subject 1&gt; (S1) pauses on a concrete step, turns his head back over his shoulder toward his father with a strained optimistic grin, and says: &lt;d&gt;[Chinese] "爸，等会儿进去你别紧张，一切有我。"&lt;/d&gt;
+[00:10.000 – 00:15.000] Behind him, &lt;Subject 2&gt; (S2) nods hesitantly, his calloused fingers clutching the red velvet pouch tighter as dusty midday sunbeams slice through the barred window, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Rhythmic heavy leather shoes scraping on concrete stairs, muffled distant crackle of firecrackers outside the stairwell, heavy breathing and fabric rustle. No background speech.
+
+non_diegetic_music:
+A whimsical, nostalgic acoustic guitar fingerpicking tune with a faint comedic undertone, light and bittersweet.</pre>
+<div class="box b-teal"><span class="t">全局同 seed：20260918</span><p style="margin:0">文生视频锁不住脸，<b>同 seed 是最省力的稳定杠杆</b>：内容由 Prompt 决定（景别、动作都能被正确执行），噪声基底一致让同一张脸在各镜之间更稳。要工业化复用同一角色时，应升级到 <code>fl2va</code> 首尾帧驱动路径。</p></div>
+<h2 id="s3"><span class="n">03</span>8 镜完整分镜台本</h2>
+<p class="cap">每镜均含景别 / 时长 / 画面调度 / 台词 / 可直接复制的生成 Prompt。</p>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">01</span><span class="ti">中近景</span><span class="tag">中近景 (MCU)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>00:00 – 00:15</div><div><div class="k">景别</div>中近景 (MCU)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>爸，等会儿进去你别紧张，一切有我。</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium close-up, the camera moves backward in a slow steady tracking shot up a narrow peeling concrete stairwell of a 1990s tenement building. &lt;Subject 1&gt; (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a gaudy plastic red rose pinned to his lapel reading Groom, climbs toward the camera clutching a bouquet of slightly wilted red roses, sweat dripping down his temple. Already inside the same frame two steps below him walks &lt;Subject 2&gt; (S2), a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and dark cotton trousers, clutching a small red velvet pouch against his chest.
+[00:05.000 – 00:10.000] The camera continues retreating smoothly. &lt;Subject 1&gt; (S1) pauses on a concrete step, turns his head back over his shoulder toward his father with a strained optimistic grin, and says: &lt;d&gt;[Chinese] "爸，等会儿进去你别紧张，一切有我。"&lt;/d&gt;
+[00:10.000 – 00:15.000] Behind him, &lt;Subject 2&gt; (S2) nods hesitantly, his calloused fingers clutching the red velvet pouch tighter as dusty midday sunbeams slice through the barred window, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Rhythmic heavy leather shoes scraping on concrete stairs, muffled distant crackle of firecrackers outside the stairwell, heavy breathing and fabric rustle. No background speech.
+
+non_diegetic_music:
+A whimsical, nostalgic acoustic guitar fingerpicking tune with a faint comedic undertone, light and bittersweet.</pre>
+</div></div>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">02</span><span class="ti">近景</span><span class="tag">近景 (CU)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>00:15 – 00:30</div><div><div class="k">景别</div>近景 (CU)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>大喜的日子，开开门啦，大舅哥！</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Close-up static shot facing a heavy rust-spotted steel security door decorated with a faded red Double Happiness paper-cut. &lt;Subject 1&gt; (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a gaudy plastic red rose pinned to his lapel reading Groom, knocks eagerly on the metal door with a red envelope in hand, grinning with anticipation.
+[00:05.000 – 00:10.000] &lt;Subject 1&gt; (S1) knocks again with eager knuckles, leaning closer to the door crack, and shouts in a cheerful, resonant voice: &lt;d&gt;[Chinese] "大喜的日子，开开门啦，大舅哥！"&lt;/d&gt; Suddenly the metal peephole slides open, and a white paper slip is pushed through the door gap.
+[00:10.000 – 00:15.000] The camera pushes in at slow speed onto the handwritten paper slip reading thirty-eight thousand eight hundred yuan parking fee. &lt;Subject 1&gt; (S1)'s beaming wedding smile instantly freezes into a stiff, bewildered grimace as cold sweat trickles down his temple, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Hollow metallic thuds of fist knocking on steel door, sharp squeak of the sliding peephole latch, faint sound of sunflower seeds being cracked from inside. No background speech.
+
+non_diegetic_music:
+An awkward, sudden record-scratch silence, replaced by a single low, discordant comedic woodblock tap.</pre>
+</div></div>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">03</span><span class="ti">中景</span><span class="tag">中景 (MS)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>00:30 – 00:45</div><div><div class="k">景别</div>中景 (MS)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>不拿出这三十八万八，我家静静绝不下轿！</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot inside a stuffy bridal bedroom decorated with gaudy pink balloons. The camera pans right in a slow steady move across the room: on the left on the red satin bed sits &lt;Subject 4&gt; (S4), a 28-year-old East Asian bride named JING-JING with heavy bridal makeup and a tiered white lace veil, sitting passively in an ornate white gown while scrolling a glowing smartphone; on the right stands &lt;Subject 3&gt; (S3), a 55-year-old sharp-eyed domineering East Asian mother-in-law with tight permed black hair, wearing an opulent gaudy crimson and gold embroidered silk qipao dress, glaring with crossed arms toward the doorway.
+[00:05.000 – 00:10.000] The camera holds framing on &lt;Subject 3&gt; (S3) on the right. &lt;Subject 3&gt; (S3) uncrosses her arms, thrusts an aggressive index finger forward toward the door, and barks in a domineering, harsh voice: &lt;d&gt;[Chinese] "不拿出这三十八万八，我家静静绝不下轿！"&lt;/d&gt;
+[00:10.000 – 00:15.000] In the foreground &lt;Subject 3&gt; (S3) maintains her predatory glare, while in the soft background &lt;Subject 4&gt; (S4) remains completely detached, chewing gum without looking up as an old ceiling fan rotates overhead, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Continuous metallic hum of an old oscillating ceiling fan, faint muffled tinny audio from the glowing smartphone, aggressive silk qipao fabric rustle. No background speech.
+
+non_diegetic_music:
+A tense, satirical orchestral staccato with plucked strings emphasizing greed and bureaucratic absurdity.</pre>
+</div></div>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">04</span><span class="ti">特写</span><span class="tag">特写 (CU)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>00:45 – 01:00</div><div><div class="k">景别</div>特写 (CU)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>亲家母，我这还有张两万的存折……你看行不行？</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Top-down macro close-up with slow steady push-in. The weathered trembling hands of &lt;Subject 2&gt; (S2), a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater, carefully unzips an inner chest pocket and unfolds a faded tea-stained cotton handkerchief.
+[00:05.000 – 00:10.000] The camera tilts up smoothly to &lt;Subject 2&gt; (S2)'s weathered face. &lt;Subject 2&gt; (S2) raises his tear-rimmed eyes with deep humility, his chin trembling, and stammers in a pleading voice: &lt;d&gt;[Chinese] "亲家母，我这还有张两万的存折……你看行不行？"&lt;/d&gt;
+[00:10.000 – 00:15.000] The camera tilts gently down back to his trembling hands as they present three dog-eared bank deposit passbooks, edges frayed from decades of physical labor, under harsh fluorescent light, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Crisp sound of aged paper unfolding, faint zipper slide, shaky shallow breathing of the elderly father, mocking whispers of wedding onlookers in the blurred background. No background speech.
+
+non_diegetic_music:
+A solitary, heartbreaking cello melody played in a minor key, deep and melancholic.</pre>
+</div></div>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">05</span><span class="ti">面部特写</span><span class="tag">面部特写 (CU)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>01:00 – 01:15</div><div><div class="k">景别</div>面部特写 (CU)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>哈！哈哈哈！这婚，谁爱结谁结！</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:04.500] Tight close-up, static shot with subtle hand-held breathing. Locked on &lt;Subject 1&gt; (S1)'s face. &lt;Subject 1&gt; (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester wedding suit with a crooked bright red polyester necktie and a plastic red rose on his lapel, stares down at his humiliated father, his clenched jaw twitching violently and tears welling in his reddened eyes as grief turns into Stephen Chow-style manic realization.
+[00:04.500 – 00:10.000] The camera pushes in at slow speed. &lt;Subject 1&gt; (S1) bursts into three exaggerated, bitter laughs, tears spilling down his smiling cheeks, and roars with defiant fury: &lt;d&gt;[Chinese] "哈！哈哈哈！这婚，谁爱结谁结！"&lt;/d&gt;
+[00:10.000 – 00:15.000] In the same continuous take, &lt;Subject 1&gt; (S1) grips the cheap plastic Groom rose on his lapel with both hands, violently rips it off, hurls it down onto the linoleum floor, and unbuttons his shirt collar, resolute fury settling across his face, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Stuffy indoor room echo, explosive manic laughter turning into a roar, sharp polyester fabric tearing sound, plastic rose clattering on hard floor. No background speech.
+
+non_diegetic_music:
+A sudden explosive clash of Cantonese rock electric guitar and driving brass, triumphantly shattering the minor sorrow.</pre>
+</div></div>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">06</span><span class="ti">全景</span><span class="tag">全景 (WS)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>01:15 – 01:30</div><div><div class="k">景别</div>全景 (WS)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>走！爸，我带你去看真正的海！</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Dynamic wide tracking shot, camera moving backward at medium steady speed down a narrow tenement alley. &lt;Subject 1&gt; (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, wearing an ill-fitting rented black polyester wedding suit with plastic rose torn off, white shirt collar unbuttoned, and red tie loosened, firmly grasps the arm of &lt;Subject 2&gt; (S2), a 65-year-old frail stooped East Asian elderly father in a faded navy blue zip-up windbreaker, leading him in a decisive run away from the bewildered wedding crowd.
+[00:05.000 – 00:10.000] They arrive at &lt;Prop 1&gt;, an antique dusty vintage white 1990s four-door sedan parked at the alley mouth. &lt;Subject 1&gt; (S1) opens the passenger door, helps his elderly father inside, straightens up with a wild triumphant grin, and shouts toward the sky: &lt;d&gt;[Chinese] "走！爸，我带你去看真正的海！"&lt;/d&gt;
+[00:10.000 – 00:15.000] &lt;Subject 1&gt; (S1) slips into the driver's seat and pulls the door shut. The dusty white sedan accelerates smoothly away down the sunlit asphalt road over scattered red firecracker paper, the camera holding steady as the car departs into the distance, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Running footsteps on asphalt, metallic car door opened and shut, old engine revving with a guttural roar, tires rolling over firecracker paper and gravel. No background speech.
+
+non_diegetic_music:
+High-octane retro 1990s rock 'n' roll with driving drums and upbeat bassline, celebrating wild escape.</pre>
+</div></div>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">07</span><span class="ti">中景</span><span class="tag">中景 (MS)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>01:30 – 01:45</div><div><div class="k">景别</div>中景 (MS)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>爸，三十八万八省下来，够咱们加满一千箱油！</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium interior shot mounted on the dashboard framing both front seats, with subtle road vibration. Golden afternoon sunlight floods through fully rolled-down windows. On the left, &lt;Subject 1&gt; (S1), a 30-year-old lean East Asian groom named A-XING, messy parted black hair, in his unbuttoned rented black suit and loosened red tie, grips the steering wheel. On the right, &lt;Subject 2&gt; (S2), the 65-year-old frail elderly father in his faded navy blue windbreaker, sits peacefully gazing ahead at the open highway.
+[00:05.000 – 00:10.000] A ferocious headwind tosses their hair. &lt;Subject 1&gt; (S1) throws his head back with exuberant laughter, turns toward his father, and hollers into the rush of wind: &lt;d&gt;[Chinese] "爸，三十八万八省下来，够咱们加满一千箱油！"&lt;/d&gt;
+[00:10.000 – 00:15.000] The camera slowly pans right to settle on &lt;Subject 2&gt; (S2), whose weathered wrinkled profile gradually softens from bewilderment into a relieved, peaceful smile, while an old cassette tape spins steadily in the dashboard deck, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Roaring turbulent highway wind rushing through open windows, mechanical hum of a 1990s car engine, cassette tape spindle clicking softly. No background speech.
+
+non_diegetic_music:
+Soaring, spirited Cantonese acoustic folk-rock with harmonica and warm acoustic guitar chords.</pre>
+</div></div>
+<div class="shot">
+<div class="shot-h"><span class="shot-no">08</span><span class="ti">中远景至全景</span><span class="tag">中远景至全景 (MLS to WS)</span><span class="tag">15s</span></div>
+<div class="shot-b">
+<div class="meta"><div><div class="k">时间码</div>01:45 – 02:00</div><div><div class="k">景别</div>中远景至全景 (MLS to WS)</div><div><div class="k">帧数</div>362 → 361</div><div><div class="k">台词</div>有</div></div>
+<div class="dia"><span class="who">台词</span>甜不甜？……甜透了，爸。</div>
+<h4>生成 Prompt</h4><pre>integrated_multimodal_description:
+[00:00.000 – 00:05.000] Medium shot on an elevated plateau roadside overlook at sunset, the camera pulling out at a very slow continuous speed throughout the take. Snow-capped mountains glow in blazing orange-magenta twilight. Parked beside the gravel road is &lt;Prop 1&gt;, the dusty vintage white sedan, with &lt;Subject 1&gt; (S1), the 30-year-old lean groom in loosened black suit, and &lt;Subject 2&gt; (S2), the 65-year-old frail father in navy windbreaker, leaning shoulder-to-shoulder against the warm car hood.
+[00:05.000 – 00:10.000] &lt;Subject 2&gt; (S2) peels a fresh ripe orange with his calloused thumbs, raises a sweet crescent slice to his son's lips, and asks tenderly: &lt;d&gt;[Chinese] "甜不甜？"&lt;/d&gt; &lt;Subject 1&gt; (S1) bites into the orange slice, a silent tear rolling down his smiling cheek, and murmurs softly: &lt;d&gt;[Chinese] "甜透了，爸。"&lt;/d&gt;
+[00:10.000 – 00:15.000] The camera continues its slow steady pull-out into a wide majestic landscape shot, the father and son figures shrinking into a warm silhouette beside the white car against the glowing dusk horizon, holding steady on the final frame, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+
+overall_soundscape:
+Quiet mountain plateau breeze whistling softly, crisp peel of citrus fiber, calm deep inhalation of cold fresh air, gentle crunch of gravel under shoes. No background speech.
+
+non_diegetic_music:
+A tender, nostalgic nylon-string guitar outro, resolving on a peaceful, warm major chord that fades into silence.</pre>
+</div></div>
+</div>
+<h2 id="s4"><span class="n">04</span>生产参数与一键复现</h2>
+<h3>阶段 1 · H3 草稿</h3>
+<table><thead><tr><th>项</th><th>值</th></tr></thead><tbody>
+<tr><td style="width:130px">工作流</td><td><code>01-basic-generation/2026-08-06_H3_Turbo_Stable_4V4A.json</code></td></tr>
+<tr><td style="width:130px">unet_name</td><td><code>minimax_h3_fl2va_pruned_int8_convrot.safetensors</code></td></tr>
+<tr><td style="width:130px">lora_name</td><td><code>minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors</code></td></tr>
+<tr><td style="width:130px">clip_name</td><td><code>minimax_h3/qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors</code></td></tr>
+<tr><td style="width:130px">节点 6</td><td><code>prompt / width=672 / height=384 / length=362 / task_type=T2VA</code></td></tr>
+<tr><td style="width:130px">节点 7</td><td><code>steps=4 / shift_video=12.0 / shift_audio=3.0</code></td></tr>
+<tr><td style="width:130px">节点 9</td><td><code>noise_seed=20260918</code></td></tr>
+</tbody></table>
+<h3>阶段 2 · LTX-2.5 精修</h3>
+<table><thead><tr><th>项</th><th>值</th></tr></thead><tbody>
+<tr><td style="width:130px">工作流</td><td>22-sol-engine-h3-super/2026-08-29_..._LTX25_Advanced_EXP.json</td></tr>
+<tr><td style="width:130px">节点 1 file</td><td>上一步草稿（须放入 ComfyUI/input/）</td></tr>
+<tr><td style="width:130px">节点 3</td><td>target_width=1344 / target_height=768 / frame_policy=trim_to_8n_plus_1</td></tr>
+<tr><td style="width:130px">节点 12 text</td><td>与阶段 1 <b>逐字完全相同</b>的 Prompt</td></tr>
+<tr><td style="width:130px">节点 9</td><td>LTX 蒸馏 LoRA 强度 0.8</td></tr>
+</tbody></table>
+<h3>一键命令</h3><pre># 全套 8 镜（草稿 + 精修）
+/workspace/venv/bin/python /workspace/films/01_周星驰_三十八万八/10_run_film.py --shots 1-8
+
+# 推荐分两趟（先全草稿再全精修，省掉逐镜换模型的开销）
+10_run_film.py --shots 1-8 --stage draft
+10_run_film.py --shots 1-8 --stage refine
+
+# 只跑某一镜
+10_run_film.py --shots 3
+
+# 断点续跑（已存在的自动跳过）
+10_run_film.py --shots 2-8
+
+# 合成全片（含响度归一化）
+10_run_film.py --concat</pre>
+<h2 id="s5"><span class="n">05</span>真机实测记录</h2>
+<p class="cap">（实测数据将在成片跑完后回填）</p>
+<h2 id="s6"><span class="n">06</span>已知限制与优化方向</h2>
+<ol style="padding-left:22px;font-size:14px">
+<li style="margin:8px 0"><b>单镜安全上限 15.08 秒（362 帧）。</b>实测 17 秒起必然出现帧间跳变（帧差 MAE 从 2.5 跃到 38 以上）。人物特写是最敏感题材，动作/多主体镜头余量更小，上排产前先拿目标镜头单发验证。</li>
+<li style="margin:8px 0"><b>角色一致性靠 Token 复述 + 同 seed，不是锁脸。</b>工业化复用同一角色时，应改用 <code>fl2va</code>（首尾帧驱动）路径：先生成定妆图，再以首帧垫图驱动每一镜，漂移率可再降一个量级。</li>
+<li style="margin:8px 0"><b>模型会自发在台词镜烧中文字幕，且渲染不稳、常出乱码。</b>本片 Prompt 已显式抑制（<code>no subtitles, no captions, no on-screen text</code>），中文硬字幕由本地后期用 Pillow 渲染 + overlay 烧入。</li>
+<li style="margin:8px 0"><b>台词为模型原生生成</b>，个别字可能音近而非精确。某镜台词不达标时，<b>只需重跑该镜</b>，画面无需单独重生成。</li>
+<li style="margin:8px 0"><b>音轨电平天然不齐</b>（各镜独立生成）。合成阶段必须做两遍 <code>loudnorm</code>（I=-16 / TP=-1.5 / LRA=11）——单遍是动态估计，实测只能到 -18.5 LUFS。</li>
+<li style="margin:8px 0"><b>画面文字需节制</b>：ASCII 数字渲染干净；中文界面文字会糊，原稿的中文 HUD 应改写成纯数字。</li>
+<li style="margin:8px 0"><b>原稿的 <code>--no watermark,...</code> 是 Midjourney 语法</b>，H3 不认，改用自然语言负向约束写在 Prompt 尾部。</li>
+</ol>
+<footer>《三十八万八》完整工程台本 · 由自建 H3 两阶段管线生产 · 生成于 2026-09-14</footer>
+</div></body></html>

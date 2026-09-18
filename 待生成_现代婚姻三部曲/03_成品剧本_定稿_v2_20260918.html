@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang='zh-CN'><head><meta charset='utf-8'>
+<title>现代婚姻三部曲 · 成品剧本定稿 v2</title><style>
+:root{--bg:#f7f8fa;--card:#fff;--line:#e3e6ea;--tx:#1f2328;--tx2:#5b6570;--acc:#c0392b;--p0:#c0392b;--p1:#b7791f}
+*{box-sizing:border-box}body{margin:0;padding:34px 30px;background:var(--bg);color:var(--tx);
+font:14px/1.72 -apple-system,'PingFang SC','Helvetica Neue',Arial,sans-serif}
+.wrap{max-width:1360px;margin:0 auto}h1{font-size:26px;margin:0 0 8px}
+.sub{color:var(--tx2);margin:0 0 20px;font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px 24px;margin-bottom:20px}
+.card h2{font-size:20px;margin:0 0 4px;color:var(--acc)}
+.style{color:var(--tx2);font-size:13px;margin:0 0 12px}
+.syn{background:#fafbfc;border-left:3px solid var(--acc);padding:10px 14px;margin:10px 0 16px;font-size:13.5px}
+.meta{font-size:12.5px;color:var(--tx2);margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:8px}
+th{background:#eef1f4;text-align:left;padding:9px 10px;font-weight:600;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid #f0f2f4;vertical-align:top}
+tr:hover td{background:#fafbfc}
+.c{text-align:center;white-space:nowrap}
+code{background:#f2f4f6;padding:1px 5px;border-radius:3px;font-size:12px}
+.dlg{color:var(--acc);font-weight:600}
+.mute{color:#9aa3ad}
+.lv{display:inline-block;color:#fff;padding:1px 7px;border-radius:4px;font-size:11.5px;font-weight:700}
+.p0{background:var(--p0)}.p1{background:var(--p1)}
+.old{color:#a04040;text-decoration:line-through}
+.new{color:#1a7a45;font-weight:600}
+.note{background:#fffdf5;border:1px solid #f0e3b8;border-radius:8px;padding:14px 16px;font-size:13px}
+.note b{color:#8a6d00}
+ol{padding-left:20px}</style></head><body><div class='wrap'>
+<h1>《现代婚姻三部曲》成品剧本 · 定稿 v2</h1>
+<p class='sub'>2026-09-18 · 逻辑审查后修正 · 3 部 × 8 镜 = 24 镜</p>
+<div class='note'><b>生产约束（已写死在流水线，不可绕过）</b><ol>
+<li><b>两段流水线</b>：Stage1 全部 24 镜草稿跑完 → 强制释放显存 → 才加载 Stage2 权重精修。绝不逐镜交替。</li>
+<li><b>零字幕</b>：成片不烧字幕，字幕独立外挂；画面内所有文字道具降级为「字迹不可辨」，每镜末尾注入 <code>strict_output_constraints</code> 强制段。</li>
+<li><b>时长栅格</b>：H3 <code>length</code> ∈ 17n+5，LTX 再裁到 8n+1。<b>成片时长 ≠ H3 帧数÷24</b>，字幕轴必须按成片时长算。</li>
+</ol></div>
+<div class='card'>
+<h2>《三十八万八》</h2><p class='style'>周星驰 · 市井荒诞</p>
+<div class='syn'>迎亲当天被临时加价三十八万八的「停车费」：老父亲掏空存折仍不够，新郎阿星先大笑后落泪，撕碎胸花，拉上父亲自驾川藏线。</div>
+<p class='meta'>成片 108.667 秒 · 1344×768 横屏 · 24 fps</p>
+<table><tr><th>角色</th><th>代号</th><th>外形与气质</th></tr>
+<tr><td><b>阿星 A-XING</b></td><td class='c'>S1</td><td>30 岁新郎，瘦削、汗湿额头、眼里带倔。租来的黑西装 + 歪红领带</td></tr>
+<tr><td><b>老李 OLD-LI</b></td><td class='c'>S2</td><td>65 岁父亲，佝偻、手抖、灰白发。褪色藏蓝冲锋衣，胸前紧抱红绒布袋</td></tr>
+<tr><td><b>丈母娘</b></td><td class='c'>S3</td><td>55 岁，烫发、大红金旗袍，双臂抱胸</td></tr>
+<tr><td><b>静静 JING-JING</b></td><td class='c'>S4</td><td>28 岁新娘，浓妆白纱，全程刷手机</td></tr>
+</table>
+<table><tr><th>镜</th><th>Key</th><th>场景</th><th>景别</th><th>时长</th><th>H3帧</th><th>画面要点</th><th>台词</th></tr>
+<tr><td class='c'><b>1</b></td><td class='c'><code>f1s01</code></td><td>楼梯间·汗</td><td class='c'>中近景 MCU</td><td class='c'>15.042s</td><td class='c'>362</td><td>阿星捧着微蔫的玫瑰回头安慰父亲；两步之下，老李紧抱红绒布袋跟上，汗从鬓角淌下。</td><td><span class='dlg'>爸，等会儿进去你别紧张，一切有我。</span></td></tr>
+<tr><td class='c'><b>2</b></td><td class='c'><code>f1s02</code></td><td>防盗门·纸条</td><td class='c'>近景 CU</td><td class='c'>12.708s</td><td class='c'>311</td><td>铁门上褪色的红双喜剪纸。阿星敲门递红包，猫眼滑开，一张纸条从门缝塞出，他的笑瞬间冻住。</td><td><span class='dlg'>大喜的日子，开开门啦，大舅哥！</span></td></tr>
+<tr><td class='c'><b>3</b></td><td class='c'><code>f1s03</code></td><td>闺房·丈母娘</td><td class='c'>中景 MS</td><td class='c'>13.375s</td><td class='c'>328</td><td>粉色气球婚床上静静低头刷手机；右侧丈母娘旗袍抱胸，指门叫价。吊扇在头顶转。</td><td><span class='dlg'>不拿出这三十八万八，我家静静绝不出这个门！</span></td></tr>
+<tr><td class='c'><b>4</b></td><td class='c'><code>f1s04</code></td><td>父亲·存折</td><td class='c'>特写 CU</td><td class='c'>14.375s</td><td class='c'>345</td><td>进屋后，老李解开胸前的红绒布袋，展开茶渍手帕里包着的两万存折，抬头卑微哀求。围观者窃语。</td><td><span class='dlg'>亲家母，我这还有张两万的存折……你看行不行？</span></td></tr>
+<tr><td class='c'><b>5</b></td><td class='c'><code>f1s05</code></td><td>阿星·笑与泪</td><td class='c'>面部特写 CU</td><td class='c'>12.042s</td><td class='c'>294</td><td>先是爆发大笑，笑到眼眶发红，一把扯碎胸前的塑料红胸花。</td><td><span class='dlg'>哈！哈哈哈！这婚，谁爱结谁结！</span></td></tr>
+<tr><td class='c'><b>6</b></td><td class='c'><code>f1s06</code></td><td>楼下·调头</td><td class='c'>全景 WS</td><td class='c'>13.375s</td><td class='c'>328</td><td>扯掉领带扔在地上，拉起父亲下楼离开筒子楼。</td><td><span class='dlg'>走！爸，我带你去看真正的天地！</span></td></tr>
+<tr><td class='c'><b>7</b></td><td class='c'><code>f1s07</code></td><td>高速·车窗风</td><td class='c'>中景 MS</td><td class='c'>12.708s</td><td class='c'>311</td><td>白色轿车疾驰，风灌进车窗，父亲安静地剥橘子。</td><td><span class='dlg'>爸，三十八万八省下来，够咱们加满一千箱油！</span></td></tr>
+<tr><td class='c'><b>8</b></td><td class='c'><code>f1s08</code></td><td>高原·日落</td><td class='c'>中远景→全景</td><td class='c'>15.042s</td><td class='c'>362</td><td>海拔公路边停车，雪山在橙紫暮色中发亮。父子分食一只橘子。</td><td><span class='dlg'>甜不甜？……甜透了，爸。</span></td></tr>
+</table></div>
+<div class='card'>
+<h2>《老子不娶了》</h2><p class='style'>姜文 · 雄性荷尔蒙</p>
+<div class='syn'>北方大院迎亲，老丈人在红木桌上用毛笔追加二十万「下车礼」。老父亲拨算盘算到珠子崩飞，儿子大彪掀翻八仙桌，撕碎双喜，扶爹骑挎斗摩托走人。</div>
+<p class='meta'>成片 107.334 秒 · 1344×768 横屏 · 24 fps</p>
+<table><tr><th>角色</th><th>代号</th><th>外形与气质</th></tr>
+<tr><td><b>大彪</b></td><td class='c'>S1</td><td>30 岁新郎，寸头、黑皮夹克、皮靴。雄性、干脆、爆发力强</td></tr>
+<tr><td><b>老父亲</b></td><td class='c'>S2</td><td>62 岁，佝偻、指甲缝带泥。拨了一辈子算盘</td></tr>
+<tr><td><b>老丈人</b></td><td class='c'>S3</td><td>58 岁，中山装、旱烟袋、红木桌后的当家人</td></tr>
+</table>
+<table><tr><th>镜</th><th>Key</th><th>场景</th><th>景别</th><th>时长</th><th>H3帧</th><th>画面要点</th><th>台词</th></tr>
+<tr><td class='c'><b>1</b></td><td class='c'><code>f2s01</code></td><td>大院·唢呐</td><td class='c'>中景 MS</td><td class='c'>13.375s</td><td class='c'>328</td><td>皮靴砸在青砖上，大彪冲唢呐班吼：往死里吹。红双喜贴在土墙。</td><td><span class='dlg'>吹！把唢呐给老子往死里吹！</span></td></tr>
+<tr><td class='c'><b>2</b></td><td class='c'><code>f2s02</code></td><td>红木桌·契约</td><td class='c'>中近景 MCU</td><td class='c'>15.042s</td><td class='c'>362</td><td>老丈人抽烟，红纸契约上毛笔字淋漓，慢悠悠追加二十万下车礼。</td><td><span class='dlg'>除了那三十万彩礼，进屋前再撂二十万下车礼——我得给小勇买房凑全款。</span></td></tr>
+<tr><td class='c'><b>3</b></td><td class='c'><code>f2s03</code></td><td>算盘·崩珠</td><td class='c'>特写 CU</td><td class='c'>12.042s</td><td class='c'>294</td><td>父亲的手拨算盘，一颗算盘珠突然崩飞弹出，木框开裂。</td><td><span class='dlg'>亲家，两代人的骨髓刮干净了，账……算不平了。</span></td></tr>
+<tr><td class='c'><b>4</b></td><td class='c'><code>f2s04</code></td><td>旱烟袋·通牒</td><td class='c'>中景 MS</td><td class='c'>12.708s</td><td class='c'>311</td><td>旱烟袋敲在红木桌上：规矩不能坏，差一分不出门坎。</td><td><span class='dlg'>规矩不能坏，差一分钱，这闺女今天绝不出门坎。</span></td></tr>
+<tr><td class='c'><b>5</b></td><td class='c'><code>f2s05</code></td><td>掀桌</td><td class='c'>面部特写→中景</td><td class='c'>14.375s</td><td class='c'>345</td><td>大彪双目通红，一把掀翻八仙桌，碗碟与算盘齐飞。</td><td><span class='dlg'>你这是在卖牲口，不是嫁闺女！老子不娶了！</span></td></tr>
+<tr><td class='c'><b>6</b></td><td class='c'><code>f2s06</code></td><td>撕双喜</td><td class='c'>全景 WS</td><td class='c'>12.042s</td><td class='c'>294</td><td>撕碎墙上的红双喜剪纸，扶起父亲大步走出院门。</td><td><span class='dlg'>爹，把算盘拿好，咱们爷俩走大路！</span></td></tr>
+<tr><td class='c'><b>7</b></td><td class='c'><code>f2s07</code></td><td>挎斗摩托</td><td class='c'>中景 MS</td><td class='c'>12.708s</td><td class='c'>311</td><td>长江 750 挎斗摩托点火，父亲坐进挎斗吼：油门拧到底。</td><td><span class='dlg'>小兔崽子，油门给老子拧到底！</span></td></tr>
+<tr><td class='c'><b>8</b></td><td class='c'><code>f2s08</code></td><td>戈壁·日落</td><td class='c'>远景→全景</td><td class='c'>15.042s</td><td class='c'>362</td><td>摩托在戈壁公路上远去，太阳照常升起。</td><td><span class='dlg'>太阳照常升起！走喽——！</span></td></tr>
+</table></div>
+<div class='card'>
+<h2>《加名之夜》</h2><p class='style'>奉俊昊 · 阴冷悬疑</p>
+<div class='syn'>雨夜的半地下室，丈母娘以「定心丸」为名要求房产加名。新郎振浩捡打火机时从沙发缝里摸出一沓欠条——一百二十万的债，正等着被一并过户到他名下。</div>
+<p class='meta'>成片 104.001 秒 · 1344×768 横屏 · 24 fps</p>
+<table><tr><th>角色</th><th>代号</th><th>外形与气质</th></tr>
+<tr><td><b>振浩</b></td><td class='c'>S1</td><td>32 岁新郎，清瘦、炭灰羊毛大衣、无边眼镜。冷静、克制</td></tr>
+<tr><td><b>恩熙 EN-XI</b></td><td class='c'>S2</td><td>28 岁新娘，低马尾、米色针织衫。眼神回避</td></tr>
+<tr><td><b>何女士 MADAM-HE</b></td><td class='c'>S3</td><td>56 岁丈母娘，尖眉、紧发髻、红宝石戒指。精算</td></tr>
+</table>
+<table><tr><th>镜</th><th>Key</th><th>场景</th><th>景别</th><th>时长</th><th>H3帧</th><th>画面要点</th><th>台词</th></tr>
+<tr><td class='c'><b>1</b></td><td class='c'><code>f3s01</code></td><td>半地下室·水桶</td><td class='c'>中景 MS</td><td class='c'>11.375s</td><td class='c'>277</td><td>雨夜。天花板裂缝的水一滴滴落进红塑料桶，水面已齐桶沿。矮桌上摊着房产加名协议。</td><td><span class='mute'>—</span></td></tr>
+<tr><td class='c'><b>2</b></td><td class='c'><code>f3s02</code></td><td>红宝石·钢笔</td><td class='c'>中近景 MCU</td><td class='c'>15.042s</td><td class='c'>362</td><td>丈母娘转着钢笔，把加名协议推过来：女人要的是一份定心丸。</td><td><span class='dlg'>振浩啊，恩熙不是要分你的房子，女人要的是一份定心丸。</span></td></tr>
+<tr><td class='c'><b>3</b></td><td class='c'><code>f3s03</code></td><td>咖啡·倒影</td><td class='c'>特写 CU</td><td class='c'>13.375s</td><td class='c'>328</td><td>恩熙搅咖啡，杯中倒影晃动，始终不看他。</td><td><span class='dlg'>我妈也是为了咱们俩好……你签了，大家都体面。</span></td></tr>
+<tr><td class='c'><b>4</b></td><td class='c'><code>f3s04</code></td><td>沙发缝·欠条</td><td class='c'>特写 CU</td><td class='c'>11.375s</td><td class='c'>277</td><td>俯身捡掉落的银色打火机，指尖从沙发缝里抽出一沓发黄折叠欠条。</td><td><span class='dlg'>……什么东西卡在里面了。</span></td></tr>
+<tr><td class='c'><b>5</b></td><td class='c'><code>f3s05</code></td><td>微距·欠条与手印</td><td class='c'>微距特写</td><td class='c'>11.375s</td><td class='c'>277</td><td>推近：手写墨迹与一排排鲜红手印。死寂。</td><td><span class='mute'>—</span></td></tr>
+<tr><td class='c'><b>6</b></td><td class='c'><code>f3s06</code></td><td>桌·对峙</td><td class='c'>中景 MS</td><td class='c'>15.042s</td><td class='c'>362</td><td>三人同框。振浩把欠条压在加名协议上，说出冰冷结论。椅子旁放着黑色公文包。</td><td><span class='dlg'>原来你们要的定心丸，是一百二十万的替死鬼。</span></td></tr>
+<tr><td class='c'><b>7</b></td><td class='c'><code>f3s07</code></td><td>门锁·倾倒</td><td class='c'>中景 MS</td><td class='c'>12.042s</td><td class='c'>294</td><td>钢门重重合上。屋内红桶忽然倾倒，积水漫开。</td><td><span class='mute'>—</span></td></tr>
+<tr><td class='c'><b>8</b></td><td class='c'><code>f3s08</code></td><td>夜雨·伞</td><td class='c'>中远景→全景</td><td class='c'>14.375s</td><td class='c'>345</td><td>撑伞走入雨夜街道，车灯与雨刷交替扫过。</td><td><span class='dlg'>雨……终于淋不到我了。</span></td></tr>
+</table></div>
+<div class='card'><h2 style='color:#1f2328'>本轮修改记录（v1 → v2）</h2>
+<table><tr><th style='width:50px'>级别</th><th style='width:110px'>位置</th><th>原文</th><th>改为</th><th>为什么</th></tr>
+<tr><td class='c'><span class='lv p0'>P0</span></td><td>片1 镜6</td><td><span class='old'>走！爸，我带你去看真正的海！</span></td><td><span class='new'>走！爸，我带你去看真正的天地！</span></td><td>结局是高原雪山，且主题为自驾川藏线——到不了海。改台词比改结局便宜得多。</td></tr>
+<tr><td class='c'><span class='lv p0'>P0</span></td><td>片2 镜2</td><td><span class='old'>除了那三十万，进屋前再撂二十万下车礼，给小勇凑个全款。</span></td><td><span class='new'>除了那三十万彩礼，进屋前再撂二十万下车礼——我得给小勇买房凑全款。</span></td><td>「三十万」性质全片未交代，「小勇」无身份说明，而这句正是加价二十万的唯一动机。</td></tr>
+<tr><td class='c'><span class='lv p0'>P0</span></td><td>片3 镜8</td><td><span class='old'>雨……终于停不下来了。</span></td><td><span class='new'>雨……终于淋不到我了。</span></td><td>「终于」＝好事达成，「停不下来」＝坏事持续，语义打架；且与「解脱」情绪、仍在下雨的画面双冲突。</td></tr>
+<tr><td class='c'><span class='lv p0'>P0</span></td><td>片3 镜1</td><td><span class='old'>水一滴滴落进红塑料桶</span></td><td><span class='new'>水一滴滴落进水面已齐桶沿的红塑料桶</span></td><td>靠滴水接满一桶需数小时，而剧情内只有几分钟。把「满」前置，镜7 的倾倒才成立。</td></tr>
+<tr><td class='c'><span class='lv p1'>P1</span></td><td>片1 镜3</td><td><span class='old'>不拿出这三十八万八，我家静静绝不下轿！</span></td><td><span class='new'>不拿出这三十八万八，我家静静绝不出这个门！</span></td><td>场景是娘家闺房，新娘尚未出门，谈不上「下轿」。</td></tr>
+<tr><td class='c'><span class='lv p1'>P1</span></td><td>片1 镜4</td><td><span class='old'>拉开内胸口袋取存折</span></td><td><span class='new'>解开胸前的红绒布袋取存折</span></td><td>镜1 起紧抱的红绒布袋在镜4 凭空消失。改回绒布袋，保住道具的情感重量。</td></tr>
+<tr><td class='c'><span class='lv p1'>P1</span></td><td>片1 镜4</td><td><span class='old'>（无过渡）</span></td><td><span class='new'>补入「被勉强让进喜房后」</span></td><td>镜2 还在门外被塞纸条，镜4 已在屋内掏存折，中间过程缺失。</td></tr>
+<tr><td class='c'><span class='lv p1'>P1</span></td><td>片2 镜6</td><td><span class='old'>爹，把算盘收好</span></td><td><span class='new'>爹，把算盘拿好</span></td><td>镜3 算盘已崩珠开裂，「收好」用于完好之物。</td></tr>
+<tr><td class='c'><span class='lv p1'>P1</span></td><td>片3 镜2/3</td><td><span class='old'>MADAM-PARK / EUN-HEE</span></td><td><span class='new'>MADAM-HE（何女士）/ EN-XI（恩熙）</span></td><td>韩式命名与人民币、房产加名的中文语境撕裂。</td></tr>
+<tr><td class='c'><span class='lv p1'>P1</span></td><td>片3 镜5</td><td><span class='old'>五个红手印对应两个人的名字</span></td><td><span class='new'>一排排红手印</span></td><td>5 个手印 vs 2 个人，关系说不清。去掉具体数字。</td></tr>
+<tr><td class='c'><span class='lv p1'>P1</span></td><td>片3 镜6</td><td><span class='old'>（公文包未铺垫）</span></td><td><span class='new'>补入「椅子旁放着黑色公文包」</span></td><td>镜7 拉上的公文包此前 6 镜从未出现。</td></tr>
+</table>
+<div class='note' style='margin-top:16px'><b>明确不改的三条</b><ol><li><b>片2 新娘全片缺席</b> —— 纯雄性视角（大院/唢呐/摩托/戈壁）是风格选择，硬加反而破坏调性。</li><li><b>片1 与片2 结构雷同</b> —— 都是「加价 → 父亲卑微 → 爆发 → 逃离 → 日落远景」。先保单片成立，差异化留到下一轮。</li><li><b>片3 镜4 的打火机</b> —— 偶然发现秘密正是奉俊昊式的冷峻偶然性，生活里也说得通。</li></ol></div></div>
+</div></body></html>

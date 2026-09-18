@@ -1,0 +1,147 @@
+================================================================================================================
+【01】三十八万八 · 周星驰 · 8 镜 × 15s
+================================================================================================================
+
+▌Subject 1  出现镜次: [1, 2, 5, 6, 7, 8]
+  基准镜: shot05  [FULL]  name=A-XING age=30 role=groom
+  基准身份串: <Subject 1> (S1)'s face. <Subject 1> (S1), a 30-year-old lean East Asian groom named A-XING, slightly messy parted black hair, sweating forehead, tired eyes with stubborn pride, wearing an ill-fitting rented black polyester weddin
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     1  FULL       A-XING   30  face                         齐全                     ill-fitting rented black polyester wedding sui
+     2  FULL       A-XING   30  face                         齐全                     ill-fitting rented black polyester wedding sui
+     5  FULL       A-XING   30  齐全                           齐全                     ill-fitting rented black polyester wedding sui
+     6  FULL       A-XING   30  eyes,face,forehead           齐全                     ill-fitting rented black polyester wedding sui
+     7  FULL       A-XING   30  eyes,face,forehead           齐全                     his unbuttoned rented black suit and loosened 
+     8   MID            ∅   30  eyes,face,forehead,hair      齐全                     loosened black suit ⚠️
+  → 形态分布: FULL=5 / MID=1 / SHORT=0   无姓名镜次=1/6
+  → 🔴 高危：同一角色存在 1 个镜头使用简写定义（缺人脸锚点）→ 换脸
+
+▌Subject 2  出现镜次: [1, 4, 6, 7, 8]
+  基准镜: shot01  [FULL]  name=OLD-LI age=65 role=father
+  基准身份串: <Subject 2> (S2), a 65-year-old frail stooped East Asian elderly father named OLD-LI, deep facial wrinkles, wispy grey hair, weathered trembling hands, wearing a faded navy blue zip-up windbreaker over a worn knitted sweater and d
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     1  FULL       OLD-LI   65  齐全                           齐全                     faded navy blue zip-up windbreaker over a worn
+     4  FULL       OLD-LI   65  齐全                           齐全                     faded navy blue zip-up windbreaker over a worn
+     6   MID            ∅   65  hair                         齐全                     faded navy blue zip-up windbreaker ⚠️
+     7   MID            ∅   65  hair                         齐全                     his faded navy blue windbreaker ⚠️
+     8   MID            ∅   65  hair                         齐全                     navy windbreaker ⚠️
+  → 形态分布: FULL=2 / MID=3 / SHORT=0   无姓名镜次=3/5
+  → 🔴 高危：同一角色存在 3 个镜头使用简写定义（缺人脸锚点）→ 换脸
+
+▌Subject 3  出现镜次: [3]
+  基准镜: shot03  [MID]  name=∅ age=55 role=mother-in-law
+  基准身份串: <Subject 3> (S3), a 55-year-old sharp-eyed domineering East Asian mother-in-law with tight permed black hair, wearing an opulent gaudy crimson and gold embroidered silk qipao dress, glaring with crossed arms toward the doorway. 
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     3   MID            ∅   55  齐全                           齐全                     opulent gaudy crimson and gold embroidered sil
+  → 形态分布: FULL=0 / MID=1 / SHORT=0   无姓名镜次=1/1
+  → 🟠 中危：全片无一次带 named 的完整定义，角色锚点全靠年龄+服装
+
+▌Subject 4  出现镜次: [3]
+  基准镜: shot03  [FULL]  name=JING-JING age=28 role=bride
+  基准身份串: <Subject 4> (S4), a 28-year-old East Asian bride named JING-JING with heavy bridal makeup and a tiered white lace veil, sitting passively in an ornate white gown while scrolling a glowing smartphone; on the right stands <Subject 3
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     3  FULL    JING-JING   28  齐全                           齐全                     ornate white gown while scrolling a glowing sm
+  → 形态分布: FULL=1 / MID=0 / SHORT=0   无姓名镜次=0/1
+  → ✅ 全部镜头均使用完整定义
+
+── 片内 Subject 号 ↔ 固定角色 映射核对 ──
+  Subject 1: 人名=['A-XING'] 年龄=['30'] 角色=['groom']
+  Subject 2: 人名=['OLD-LI'] 年龄=['65'] 角色=['father']
+  Subject 3: 人名=['∅'] 年龄=['55'] 角色=['mother-in-law']
+  Subject 4: 人名=['JING-JING'] 年龄=['28'] 角色=['bride']
+
+── character 元数据 vs prompt 实际 ──
+  · shot01: 字段=[1] prompt=[1, 2]  field="<Subject 1> (S1)"
+  · shot03: 字段=[3] prompt=[3, 4]  field="<Subject 3> (S3)"
+  · shot06: 字段=[1] prompt=[1, 2]  field="<Subject 1> (S1)"
+  · shot07: 字段=[1] prompt=[1, 2]  field="<Subject 1> (S1)"
+================================================================================================================
+【02】老子不娶了 · 姜文 · 8 镜 × 15s
+================================================================================================================
+
+▌Subject 1  出现镜次: [1, 5, 6, 7, 8]
+  基准镜: shot01  [FULL]  name=DA-BIAO age=35 role=groom
+  基准身份串: <Subject 1> (S1), a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy woo
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     1  FULL      DA-BIAO   35  齐全                           齐全                     imposing dark olive-green heavy wool military 
+     5  FULL      DA-BIAO   35  jawline,skin                 齐全                     ∅
+     6   MID            ∅   35  eyes,hair,jawline,skin       齐全                     green military trench coat ⚠️
+     7   MID            ∅   35  eyes,jawline,skin            齐全                     ∅ ⚠️
+     8   MID            ∅   35  eyes,hair,jawline,skin       齐全                     billowing green military coat ⚠️
+  → 形态分布: FULL=2 / MID=3 / SHORT=0   无姓名镜次=3/5
+  → 🔴 高危：同一角色存在 3 个镜头使用简写定义（缺人脸锚点）→ 换脸
+
+▌Subject 2  出现镜次: [3, 6, 7, 8]
+  基准镜: shot03  [FULL]  name=OLD-WU age=62 role=father
+  基准身份串: <Subject 2> (S2), a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles, rapidly fl
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     3  FULL       OLD-WU   62  齐全                           齐全                     traditional black quilted cotton coat and roun
+     6   MID            ∅   62  face,stubble                 齐全                     black quilted coat who clutches the broken aba ⚠️
+     7   MID            ∅   62  face,stubble                 齐全                     black quilted coat ⚠️
+     8   MID            ∅   62  face,stubble                 齐全                     roaring laughter as the motorcycle accelerates ⚠️
+  → 形态分布: FULL=1 / MID=3 / SHORT=0   无姓名镜次=3/4
+  → 🔴 高危：同一角色存在 3 个镜头使用简写定义（缺人脸锚点）→ 换脸
+
+▌Subject 3  出现镜次: [2, 4, 5]
+  基准镜: shot02  [FULL]  name=MASTER-ZHANG age=58 role=father-in-law
+  基准身份串: <Subject 3> (S3), a 58-year-old shrewd rural East Asian father-in-law named MASTER-ZHANG, calculating narrowed eyes, wearing a dusty gray sheepskin coat over a dark navy Mao tunic jacket, sits sideways on a carved wooden armchair,
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     2  FULL MASTER-ZHANG   58  齐全                           齐全                     dusty gray sheepskin coat over a dark navy Mao
+     4   MID            ∅   58  eyes                         齐全                     dusty gray sheepskin coat ⚠️
+     5   MID            ∅   58  eyes                         齐全                     gray sheepskin coat ⚠️
+  → 形态分布: FULL=1 / MID=2 / SHORT=0   无姓名镜次=2/3
+  → 🔴 高危：同一角色存在 2 个镜头使用简写定义（缺人脸锚点）→ 换脸
+
+── 片内 Subject 号 ↔ 固定角色 映射核对 ──
+  Subject 1: 人名=['DA-BIAO'] 年龄=['35'] 角色=['groom']
+  Subject 2: 人名=['OLD-WU'] 年龄=['62'] 角色=['father']
+  Subject 3: 人名=['MASTER-ZHANG'] 年龄=['58'] 角色=['father-in-law']
+
+── character 元数据 vs prompt 实际 ──
+  · shot05: 字段=[1] prompt=[1, 3]  field="<Subject 1> (S1)"
+  · shot06: 字段=[1] prompt=[1, 2]  field="<Subject 1> (S1)"
+  · shot07: 字段=[2] prompt=[1, 2]  field="<Subject 2> (S2)"
+  · shot08: 字段=[1] prompt=[1, 2]  field="<Subject 1> (S1)"
+================================================================================================================
+【03】加名之夜 · 奉俊昊 · 8 镜 × 15s
+================================================================================================================
+
+▌Subject 1  出现镜次: [3, 4, 5, 6, 7, 8]
+  基准镜: shot08  [MID]  name=∅ age=32 role=groom
+  基准身份串: <Subject 1> (S1), the 32-year-old slender groom in tailored charcoal wool coat and spectacles, opens a large clean black umbrella, turns his calm face into the night breeze, and exhales a faint mist, murmuring with profound libera
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     3   MID            ∅   32  face                         齐全                     charcoal wool coat and rimless titanium specta
+     4   MID            ∅   32  face                         齐全                     charcoal wool trench coat and rimless spectacl
+     5 SHORT            ∅    ∅  face                         齐全                     ∅
+     6   MID            ∅   32  face                         齐全                     charcoal wool coat
+     7   MID            ∅   32  face                         齐全                     tailored charcoal wool coat and spectacles
+     8   MID            ∅   32  齐全                           齐全                     tailored charcoal wool coat and spectacles
+  → 形态分布: FULL=0 / MID=5 / SHORT=1   无姓名镜次=6/6
+  → 🟠 中危：全片无一次带 named 的完整定义，角色锚点全靠年龄+服装
+
+▌Subject 2  出现镜次: [3, 6]
+  基准镜: shot03  [FULL]  name=EUN-HEE age=28 role=bride
+  基准身份串: <Subject 2> (S2), a 28-year-old refined East Asian bride-to-be named EUN-HEE, delicate features, sleek low ponytail, wearing an elegant ivory turtleneck cashmere knit sweater and discreet pearl earrings, cradles a steaming ceramic
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     3  FULL      EUN-HEE   28  齐全                           齐全                     elegant ivory turtleneck cashmere knit sweater
+     6   MID            ∅   28  features                     齐全                     ivory knit sweater ⚠️
+  → 形态分布: FULL=1 / MID=1 / SHORT=0   无姓名镜次=1/2
+  → 🔴 高危：同一角色存在 1 个镜头使用简写定义（缺人脸锚点）→ 换脸
+
+▌Subject 3  出现镜次: [2, 6]
+  基准镜: shot02  [FULL]  name=MADAM-PARK age=56 role=mother-in-law
+  基准身份串: <Subject 3> (S3), a 56-year-old calculating East Asian mother-in-law named MADAM-PARK, sharp arched eyebrows, tight bun hairstyle, wearing a deep plum-purple wool shawl over a dark velour wrap dress, sits under the harsh warm lamp
+     镜    形态           姓名   年龄  缺面部锚点                        缺配件                    服装写法
+     2  FULL   MADAM-PARK   56  齐全                           齐全                     deep plum-purple wool shawl over a dark velour
+     6   MID            ∅   56  齐全                           ring                   plum shawl ⚠️
+  → 形态分布: FULL=1 / MID=1 / SHORT=0   无姓名镜次=1/2
+  → 🔴 高危：同一角色存在 1 个镜头使用简写定义（缺人脸锚点）→ 换脸
+
+── 片内 Subject 号 ↔ 固定角色 映射核对 ──
+  Subject 1: 人名=['∅'] 年龄=['32'] 角色=['groom']
+  Subject 2: 人名=['EUN-HEE'] 年龄=['28'] 角色=['bride']
+  Subject 3: 人名=['MADAM-PARK'] 年龄=['56'] 角色=['bride', 'mother-in-law'] ✘角色词不一
+
+── character 元数据 vs prompt 实际 ──
+  · shot01: 字段=[1] prompt=[]  field="<Subject 1> (S1) (ENV)"
+  · shot03: 字段=[2] prompt=[1, 2]  field="<Subject 2> (S2)"
+  · shot06: 字段=[1] prompt=[1, 2, 3]  field="<Subject 1> (S1)"

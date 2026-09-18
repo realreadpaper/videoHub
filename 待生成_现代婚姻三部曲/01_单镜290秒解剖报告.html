@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单镜 290 秒解剖 —— 15 秒视频的时间都去哪了</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#fff; --line:#e3e8ef; --line2:#eef2f7;
+    --ink:#1a1d21; --ink2:#5b6470; --ink3:#8b95a3;
+    --load:#d9534f; --sample:#2f6fed; --vae:#e8963a; --ok:#2e9e6b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);line-height:1.65;font-size:14px;
+    font-family:-apple-system,"PingFang SC","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 80px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:36px}
+  .eyebrow{font-size:12px;letter-spacing:.14em;color:var(--ink3);text-transform:uppercase;margin-bottom:10px}
+  h1{font-size:28px;font-weight:700;letter-spacing:-.01em;line-height:1.32}
+  h1 small{display:block;font-size:14px;font-weight:400;color:var(--ink2);margin-top:8px;letter-spacing:0}
+  h2{font-size:17px;font-weight:600;margin:44px 0 16px;padding-left:11px;border-left:3px solid var(--ink)}
+  h2 span{font-size:12px;font-weight:400;color:var(--ink3);margin-left:9px}
+  h3{font-size:14px;font-weight:600;margin:24px 0 11px}
+  .hero{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:30px 34px;display:grid;grid-template-columns:repeat(3,1fr)}
+  .hero .k{padding-right:22px;border-right:1px solid var(--line2)}
+  .hero .k:last-child{border-right:none;padding-right:0}
+  .hero .k .lab{font-size:12px;color:var(--ink3);margin-bottom:8px}
+  .hero .k .val{font-size:26px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .hero .k .val u{text-decoration:none;font-size:14px;font-weight:500;color:var(--ink3);margin-left:3px}
+  .hero .k .sub{font-size:11.5px;color:var(--ink3);margin-top:6px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:26px 28px}
+  table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+  th{font-size:11.5px;font-weight:600;color:var(--ink3);text-align:right;padding:9px 10px;
+    border-bottom:1.5px solid var(--ink);white-space:nowrap}
+  th:first-child{text-align:left}
+  td{padding:9px 10px;border-bottom:1px solid var(--line2);text-align:right;font-size:13px}
+  td:first-child{text-align:left;font-weight:500}
+  tr.tot td{border-top:1.5px solid var(--ink);border-bottom:none;font-weight:700;background:#fafbfd}
+  .dim{color:var(--ink3)}
+  .hi{background:#fdf3e3;box-shadow:inset 2px 0 0 var(--vae)}
+  .bar{height:30px;border-radius:6px;overflow:hidden;display:flex;margin:6px 0 4px}
+  .bar i{display:block;height:100%}
+  .lg{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin:10px 0 0}
+  .lg b{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  code{background:#eef2f7;padding:2px 6px;border-radius:4px;font-size:12.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  pre{background:#f8fafc;border:1px solid var(--line2);border-radius:8px;padding:14px 16px;
+    font-size:12px;line-height:1.7;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink2)}
+  ul{padding-left:20px}li{margin:7px 0}
+  .note{font-size:12.5px;color:var(--ink3);margin-top:12px;line-height:1.75}
+  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .kpi .b{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+  .kpi .b .t{font-size:11.5px;color:var(--ink3);margin-bottom:9px}
+  .kpi .b .n{font-size:22px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .kpi .b .n em{font-style:normal;font-size:12px;color:var(--ink3);font-weight:500}
+  .kpi .b .d{font-size:11.5px;color:var(--ink3);margin-top:5px}
+  .pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:10px;margin-left:6px;vertical-align:1px}
+  .p-ok{background:#e8f6ef;color:#2e9e6b}
+  .p-warn{background:#fdf3e3;color:#b57516}
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink3)}
+  @media(max-width:820px){.hero{grid-template-columns:1fr;gap:20px}
+    .hero .k{border-right:none;padding-right:0}.kpi{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Cost Breakdown of One Shot</div>
+  <h1>单镜 290 秒解剖：15 秒视频的时间都去哪了
+    <small>《三十八万八》镜 01 ｜ 草稿 672×384×362帧 → 精修 1344×768×361帧 ｜ 单张 RTX 4090（有效显存 22.03 GiB）｜ 数据源：ComfyUI 主日志 tqdm 进度条 + 冷热对照实测</small>
+  </h1>
+</header>
+
+<div class="hero">
+  <div class="k">
+    <div class="lab">真正「生成」的时间</div>
+    <div class="val">86<u>秒</u></div>
+    <div class="sub">7 步采样 · 仅占 29.8%</div>
+  </div>
+  <div class="k">
+    <div class="lab">搬模型的时间</div>
+    <div class="val">125<u>秒</u></div>
+    <div class="sub">每镜都要重来一遍 · 占 43.4%</div>
+  </div>
+  <div class="k">
+    <div class="lab">编解码的时间</div>
+    <div class="val">77<u>秒</u></div>
+    <div class="sub">VAE 编解码 + H.264 · 占 26.7%</div>
+  </div>
+</div>
+
+<p class="note">
+  三块相加 288.3 秒，正是每镜的实际开销。也就是说——<b>你付出的 290 秒里，AI 真正在"想"这个画面的只有 86 秒，其余 202 秒（70%）是这台机器为了把 35 GB 的模型塞进 22 GiB 的显存而付出的搬运代价。</b>
+</p>
+
+<h2>一、单镜的三段计时 <span>来自 ComfyUI 主日志的 tqdm 进度条</span></h2>
+
+<div class="card">
+<h3 style="margin-top:0">Stage1 草稿 · 672×384 × 362 帧 × 4 步 ＝ 120.6 s（冷）</h3>
+<pre>[INFO] Requested to load MiniMaxH3TEModel_   →  14956MB Staged
+[INFO] Requested to load MiniMaxH3            →  19995MB Staged
+  0/4 [00:27.5,  Model Initialization complete!]     ← 装载 27.5 s
+  1/4 [00:23]  2/4 [00:23]  3/4 [00:35]  4/4 [00:44]  ← 采样 44 s（第1步含warmup）
+[INFO] Requested to load MiniMaxH3VideoVAE   →   4965MB Staged
+[INFO] Requested to load MiniMaxH3AudioVAE   →    576MB Staged
+[INFO] Prompt executed in 124.42 seconds</pre>
+
+<h3>Stage2 精修 · →1344×768 × 361 帧 × 3 步 ＝ 167.7 s（冷）</h3>
+<pre>[INFO] Requested to load VideoVAE             →   1384MB Staged
+[INFO] Requested to load LatentUpsampler     →    949MB Staged
+[INFO] Requested to load LTXAVTEModel_       →  14612MB Staged   ← 打印两次
+[INFO] Requested to load LTXAV               →  20484MB Staged. 1660 patches attached.
+  0/3 [01:01.7,  Model Initialization complete!]     ← 装载 61.7 s
+  1/3 [00:28]  2/3 [00:28]  3/3 [00:42]              ← 采样 42 s（14 s/步）
+[INFO] Model VideoVAE prepared for dynamic VRAM loading. 1384MB Staged.  ← 解码前再装一次
+[INFO] Prompt executed in 166.46 seconds</pre>
+<p class="note">
+  注意精修那行 <code>1660 patches attached</code> —— LTX-2 的 19B 主干是 fp8 存的，上面还要把 7.15 GB 的 distilled LoRA 拆成 <b>1660 个补丁逐个贴上去</b>。这是纯 CPU 运算，且每次模型重载都要重做。
+</p>
+</div>
+
+<h2>二、冷热对照实测 <span>把「装载」单独揪出来称重</span></h2>
+
+<div class="card">
+<p style="margin-bottom:16px">
+  做法：先 <code>POST /free</code> 清空显存跑一次（冷），紧接着用<b>改动过的 prompt</b>（末尾加空格，避开 ComfyUI 节点缓存）再跑一次（热）。两次差的就纯粹是模型装载。
+</p>
+<table>
+  <thead><tr><th>阶段</th><th>冷跑（装载 + 计算）</th><th>热跑（模型驻留）</th><th>差值 ＝ 装载开销</th><th>占单镜</th></tr></thead>
+  <tbody>
+    <tr><td>Stage1 草稿</td><td>120.6 s</td><td><b>72.5 s</b></td><td>48.1 s</td><td>16.7%</td></tr>
+    <tr><td>Stage2 精修</td><td>167.7 s</td><td><b>90.6 s</b></td><td>77.1 s</td><td>26.7%</td></tr>
+    <tr class="tot"><td>单镜合计</td><td>288.3 s</td><td><b>163.1 s</b></td><td><b>125.2 s</b></td><td><b>43.4%</b></td></tr>
+  </tbody>
+</table>
+
+<p class="note" style="margin-top:16px">
+  <b>交叉验证：</b>冷跑实测（草稿 120.6 / 精修 167.7）与正式跑片日志（草稿 124.0 / 精修 166.5）几乎完全一致 ——
+  <b>这证明正式跑片时，每一镜都在重新支付全额装载成本，一次都没省下。</b>
+</p>
+</div>
+
+<h2>三、为什么装载这么贵 <span>模型比显存大 1.5 倍，而且住在云上</span></h2>
+
+<div class="card">
+<table>
+  <thead><tr><th>阶段</th><th>组件</th><th>文件</th><th>体积</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="3">Stage1<br>草稿</td><td>主干（int8）</td><td class="dim" style="text-align:right;font-size:12px">minimax_h3_fl2va_pruned_int8_convrot</td><td>19.53 GB</td></tr>
+    <tr><td>文本编码器（nvfp4）</td><td class="dim" style="text-align:right;font-size:12px">qwen3vl_32b_minimax_h3_nvfp4_awq</td><td>14.61 GB</td></tr>
+    <tr><td>Turbo LoRA</td><td class="dim" style="text-align:right;font-size:12px">minimax_h3_turbo_v4_step600_ema</td><td>0.58 GB</td></tr>
+    <tr><td rowspan="3">Stage2<br>精修</td><td>主干（fp8）</td><td class="dim" style="text-align:right;font-size:12px">ltx-2-19b-dev-fp8</td><td>25.22 GB</td></tr>
+    <tr><td>文本编码器</td><td class="dim" style="text-align:right;font-size:12px">LTXAVTEModel_</td><td>14.61 GB</td></tr>
+    <tr><td>Distilled LoRA 384</td><td class="dim" style="text-align:right;font-size:12px">ltx-2-19b-distilled-lora-384 → 1660 patches</td><td>7.15 GB</td></tr>
+  </tbody>
+</table>
+<p class="note">
+  <b>Stage1 需要 34.7 GB，Stage2 需要 36 GB —— 而有效显存只有 22.03 GiB（≈23.65 GB）。模型是显存的 1.5 倍，物理上装不进去。</b><br>
+  ComfyUI 只能退而求其次：把权重留在系统内存，<b>每跑一层就换进来一层</b>（日志原文 <code>prepared for dynamic VRAM loading</code>）。这就是那 11–14 秒/步和 48–77 秒/次的真正来源。
+</p>
+
+<h3>三个把装载拖慢的配置（都已查实）</h3>
+<table>
+  <thead><tr><th>发现</th><th>实测值</th><th>影响</th></tr></thead>
+  <tbody>
+    <tr class="hi"><td><b>权重住在云上</b><br><span class="dim">/model 是网络文件系统</span></td><td><code>fuse.upfs</code><br>40 TB 云存储</td><td>不是本地盘，每一次权重换页都可能走网络。<br>本地盘只剩 <b>67 GB</b> 可用，装不下全部 70 GB 权重。</td></tr>
+    <tr class="hi"><td><b>mmap 被关掉</b><br><span class="dim">ComfyUI 启动参数</span></td><td><code>--disable-mmap</code></td><td>禁用了按需分页。正常 mmap 下模型加载是"用到才读"，关掉后必须显式搬运。</td></tr>
+    <tr><td>显存余量钳制</td><td><code>--vram-headroom 1</code></td><td>只保留 1 GB 余量，边界上更容易触发模型驱逐。</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>四、为什么每步要 11–14 秒 <span>一个反证</span></h2>
+
+<div class="card">
+<table>
+  <thead><tr><th>阶段</th><th>分辨率</th><th>像素量</th><th>每步耗时</th></tr></thead>
+  <tbody>
+    <tr><td>Stage1 草稿</td><td>672×384</td><td>0.258 MP</td><td>11.0 s</td></tr>
+    <tr><td>Stage2 精修</td><td>1344×768</td><td><b>1.032 MP（4 倍）</b></td><td><b>14.2 s（仅 +27%）</b></td></tr>
+  </tbody>
+</table>
+<p class="note">
+  <b>这是本题最有力的证据。</b>如果瓶颈在算力，4 倍像素（注意力还要按平方增长）该让每步慢好几倍。实测只慢 27%。<br>
+  <b>说明每步的绝大部分时间不是花在算，而是花在把权重从内存搬进显存 —— 搬运量只跟模型大小有关，跟画面分辨率几乎无关。</b><br>
+  4090 的算力大部分时间在空转等数据。这也解释了为什么"加分辨率"相对便宜、"换更大模型"极其昂贵。
+</p>
+</div>
+
+<h2>五、那 77 秒编解码是什么 <span>VAE 是另一个隐藏成本</span></h2>
+
+<div class="card">
+<table>
+  <thead><tr><th>阶段</th><th>要做的事</th><th>额外加载</th><th>耗时</th></tr></thead>
+  <tbody>
+    <tr><td>草稿</td><td>解码 <b>两套</b> VAE（视频 + 音频，因为 H3 是 T2VA 音视频联合生成）→ H.264 编码 → 存盘</td><td>VideoVAE 4965 MB<br>AudioVAE 576 MB</td><td>约 28.5 s</td></tr>
+    <tr><td>精修</td><td>① VAE encode：把草稿视频<b>压回 latent</b><br>② LatentUpsampler 上采样<br>③ VAE decode：输出 1344×768<br>④ H.264 编码 → 存盘<br><span class="dim">同一段视频要过两遍 VAE</span></td><td>VideoVAE 1384 MB<br>LatentUpsampler 949 MB</td><td>约 48.6 s</td></tr>
+  </tbody>
+</table>
+<p class="note">
+  <b>A1 画质修复的真实代价就在这里。</b>把官方的 TAEHV 微解码器换成完整 VAE，精修从 76 s 涨到 167 s ——
+  多出的 91 秒基本全在这段 VAE 解码上。1344×768 × 361 帧用完整 VAE 分块解码，就是值这个钱。换来的是清晰度 +78%。
+</p>
+</div>
+
+<h2>六、能省多少 <span>一个已经验证过、脚本自带的 41% 优化</span></h2>
+
+<div class="card">
+<p>
+  <b>根因：脚本按「镜1草稿 → 镜1精修 → 镜2草稿 → 镜2精修」交替跑。</b><br>
+  而草稿用的是 MiniMax H3（35 GB），精修用的是 LTX-2（36 GB）—— <b>两套毫不相干的模型</b>。
+  每跑完一镜精修要跑下一镜草稿时，必须把 LTX 全部卸掉、再把 H3 装回来。单镜来回两次，8 镜就是 <b>16 次全量装载</b>。
+</p>
+<p style="margin-top:14px">
+  <b>修法：把同阶段连起来跑。脚本已经支持，不用改代码。</b>
+</p>
+<pre># 当前（交替，每镜付两次装载）
+python3 10_run_film.py --shots 1-8
+
+# 改成（同阶段连跑，装载从 16 次降到 2 次）
+python3 10_run_film.py --shots 1-8 --stage draft
+python3 10_run_film.py --shots 1-8 --stage refine</pre>
+
+<table style="margin-top:18px">
+  <thead><tr><th>口径</th><th>单镜</th><th>8 镜全片</th><th>三部曲（24 镜）</th><th>37 部（296 镜）</th></tr></thead>
+  <tbody>
+    <tr><td>当前（交替跑）</td><td>288.3 s</td><td>40 分 27 秒</td><td>2.02 小时</td><td>24.9 小时</td></tr>
+    <tr class="hi"><td><b>改同阶段连跑</b></td><td><b>163.1 s</b></td><td><b>23 分 50 秒</b></td><td><b>1.19 小时</b></td><td><b>14.7 小时</b></td></tr>
+    <tr class="tot"><td>节省</td><td>−125.2 s<br><span class="dim">(−43%)</span></td><td><b>−16 分 37 秒</b><br><span class="dim">(−41%)</span></td><td>−0.83 小时</td><td><b>−10.2 小时</b></td></tr>
+  </tbody>
+</table>
+<p class="note">
+  算法：草稿 120.6 + 7×72.5 = 628.1 s，精修 167.7 + 7×90.6 = 801.9 s，合计 1430.0 s = 23 分 50 秒。
+  已经实测确认「同阶段第二镜起模型确实驻留」（热跑 72.5 / 90.6 s 就是证据）。
+</p>
+
+<h3 style="margin-top:26px">其余两项（收益小于上面，但可叠加）</h3>
+<table>
+  <thead><tr><th>优化项</th><th>预计收益</th><th>可行性</th></tr></thead>
+  <tbody>
+    <tr><td><b>权重挪到本地盘 / 重开 mmap</b><br><span class="dim">/model 是 FUSE 云盘 + 启动禁了 mmap，是装载慢的上游原因</span></td><td>进一步压缩装载时间<br><span class="dim">（本次实测的 125 s 里有一部分来自此）</span></td><td><span class="pill p-warn">中</span> 本地盘只剩 67 GB，只够放两个主干（44.8 GB），须挑着放并改 <code>extra_model_paths.yaml</code></td></tr>
+    <tr><td><b>装上 Sol-Attn 稀疏注意力后端</b></td><td>最多省采样那 86 s 的一部分<br><span class="dim">（工作流名叫 Super Acceleration，但后端至今没装，47 层稀疏注意力从未生效）</span></td><td><span class="pill p-ok">高</span> 纯安装，但装前要做兼容审计</td></tr>
+    <tr><td><b>提高画质时不要连草稿一起重跑</b><br><span class="dim">只升级解码器/精修参数时，草稿可复用</span></td><td>省掉全部草稿时间</td><td><span class="pill p-warn">中</span> 仅适用于不动 prompt、不动时长的改动</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>七、一句话总结</h2>
+<div class="card">
+<p style="font-size:15px;line-height:1.85">
+  15 秒的视频要跑 290 秒，<b>不是因为模型算得慢，而是因为 35 GB 的模型要塞进 22 GiB 的显存</b> ——
+  每跑一步都得把权重从系统内存搬一遍，而权重还存放在一台网络文件系统上（<code>fuse.upfs</code>）且按需分页被关闭（<code>--disable-mmap</code>）。<br><br>
+  更要命的是脚本让草稿和精修交替跑，<b>每镜把这两套 35 GB 的模型来回换两次</b>，8 镜就白付了 16 次装载。<br><br>
+  把同阶段连起来跑（命令已经写好，只是当初没用），<b>单镜 290 秒→163 秒，整片 40 分→24 分，37 部片子从 24.9 小时降到 14.7 小时。</b>
+</p>
+</div>
+
+<footer>
+  数据源：<code>/workspace/logs/comfyui_20260915_105236.log</code>（91 KB，含每次采样的 tqdm 进度条）、
+  冷热对照实测 <code>/workspace/bench_cold_hot.out</code>（脚本 <code>_后期/bench_cold_hot.py</code>）、
+  <code>findmnt -T /model</code>、<code>ps -eo cmd</code>、模型清单 <code>stat</code>。<br>
+  生成日期 2026-09-15 ｜ 单卡 RTX 4090（有效显存 22.03 GiB ／ cgroup 内存 86.00 GiB ／ 无 swap）｜ 权重经 FUSE 云存储挂载。
+</footer>
+
+</div>
+</body>
+</html>
