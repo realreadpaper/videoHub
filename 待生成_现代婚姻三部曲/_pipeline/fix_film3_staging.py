@@ -30,12 +30,9 @@ WF_DIR = os.path.join(ROOT, "_pipeline/wf")
 WF_ONE_DIR = os.path.join(ROOT, "_pipeline/wf_one")
 PROMPTS_DIR = os.path.join(ROOT, "_pipeline/prompts")
 
+# 前导段口径：manifest 存纯描述；wf/wf_one = PREAMBLE_FULL + 描述（build_stage1 口径）。
+# 本脚本是已完成的一次性修复记录（数据已按此口径归一，见审查报告第四节）。
 PREAMBLE_TAG = "<Audio 1>"
-PREAMBLE_FULL = (
-    "<Audio 1> carries the original soundtrack of this scene: the actors' real voices, ambience and music. "
-    "Keep the visual timing, phrasing, lip movement and performance locked to <Audio 1> exactly. "
-    "Follow the shot description below exactly.\n\n"
-)
 
 # ---------- A. f3s06 三段替换 ----------
 OLD1 = (
