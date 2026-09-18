@@ -157,3 +157,23 @@ T2V(f1 16) → T2V(f2 18) → I2V(f1 7) → I2V(f2 7)」；`keys.txt` 前 34 个
 3. **时间轴口径** —— 字幕绝对时间 = Σ前序镜实际时长 + 镜内时间/倍率，绝不能用 `(镜号-1)×单镜时长`。
 4. **产品镜权威来源** —— prompt 用 `<Subject P>` 锚定，**不能搜 "pack"**（STYLE 含 package 会全命中）；
    参考图路线须用 `<Picture N>` 标签否则不被认领。
+
+## 现代婚姻三部曲（2026-09-18 从 story 迁入 videoHub）
+
+路径 `~/Desktop/videoHub/待生成_现代婚姻三部曲/`，已入 videoHub git（提交 28dfce2 / 197961c）。
+3 部片 × 8 镜 = 24 镜。服务器 kehu（A100 40G），ComfyUI 8188，提交器 `/root/s2/submit_api.py`。
+
+**生成模式：一步直出 768×1344**（2026-09-18 从两阶段切换，因精修版糊）。
+- 与 v3run **同一个工作流**（fl2va UNET + 4 步 dual_clock_euler + native_flow，无图片输入）。
+  两阶段里那个 384×672 的 stage1 就是它降分辨率的版本 —— 一步生成只改分辨率、跳过 stage2。
+- 实测 **466 s/镜**（v3 47 样本 @297 帧）；我们 324 帧上修 → **508–525 s/镜**，
+  **24 镜 ≈ 3.4–3.6 h**。两阶段 ≈1.1 h。比值 3.2×。
+
+**★★ 一步模式不用 LTX trim**：成片帧数 = H3 `length`（17n+5 栅格），
+manifest 的 duration/duration_frames 必须存 H3 值（例 311帧/12.958s），
+不是两阶段那套 trim 后的 8n+1 值（305帧/12.708s）。**字幕轴按 H3 值算**，
+混用会累积漂移（全片 +3.75 s）。prompt 时间戳与干声本就按 H3 全长，无需重出。
+
+**坑位**（详见 AGENTS.md 十一/十二节与 2026-09-18.md）：
+s2_adapt UI/API 格式陷阱 · ComfyUI 跑完不释放显存（须主动 /free）·
+`pkill -f <name>` 会自杀 · stage2 草稿前缀 f1s02 vs f1_s02。

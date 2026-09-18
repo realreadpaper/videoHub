@@ -62,10 +62,10 @@ id_ed25519*
 *.gz
 *.7z
 
-# ---- 外部代码仓库（各自有独立 remote，本仓库只做引用说明）----
-repos/
-reelbench-skills/
-TaoMate-H3/
+# ---- 外部代码仓库以 submodule 形式引用（见 .gitmodules）----
+# repos/hypit、repos/FastVideo、reelbench-skills、TaoMate-H3 保留各自 .git，
+# 因此这里不对其内部文件做任何忽略或忽略规则覆盖。
+repos/.DS_Store
 
 # ---- 依赖 / 缓存 / 运行时产物 ----
 node_modules/

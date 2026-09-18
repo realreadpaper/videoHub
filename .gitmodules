@@ -1,0 +1,16 @@
+[submodule "hypit"]
+	path = repos/hypit
+	url = https://github.com/hypit-ai/hypit.git
+	branch = main
+[submodule "fastvideo"]
+	path = repos/FastVideo
+	url = https://github.com/hao-ai-lab/FastVideo.git
+	branch = main
+[submodule "reelbench-skills"]
+	path = reelbench-skills
+	url = https://github.com/eternityspring/reelbench-skills.git
+	branch = main
+[submodule "taomate-h3"]
+	path = TaoMate-H3
+	url = https://github.com/TaoLiveAIGC/TaoMate-H3.git
+	branch = main
