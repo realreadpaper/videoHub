@@ -584,3 +584,68 @@ H3 是音频驱动视频，**干声决定口型**，但面部肌肉/神态由 pr
 - `_pipeline/review_v3.py` — 自动扫描器（`--html` 出报告）
 - `_pipeline/patch_prompts_v3{,b,c}.py` — 三轮优化脚本
 - 归档：`_archive/2026-09-18_pre_review_v3{,b,c}/`
+
+---
+
+## 十七、f3s06 隔桌对峙空间调度彻底纠偏（2026-09-18 傍晚）
+
+### 用户驳回与事故复盘
+前一轮修复虽然去除了字幕和多余肢体，但用户明确指出：
+> **"这个版本还是不行，理论上男主 和 女主以及她母亲应该是坐在对面位置的，系统审查这个三个剧本的逻辑关系"**
+
+**根因诊断**：
+- 前轮提示词写了 `Static 90-degree profile medium shot down the long side of the formica table`。
+- 在 **768×1344 竖屏（9:16）** 极窄横向视角（768px）下，`down the long side` 会被 AI 扩散模型理解为沿桌长轴向前透视，加上 `near side` 与 `far side` 的纵深排布，模型为了塞进三张脸，将三人顺次排在了同一条长凳/桌侧，变成了**面向同侧的"三人同排/排排坐"**！
+- 彻底消解了男方（受害者/揭穿者）与母女同盟（借贷欺诈者）之间剑拔弩张的**阵营对立**与**隔桌审判**张力。
+
+### 规矩沉淀：9:16 竖屏多人物谈判对峙构图法
+1. **严禁** 在竖屏中对三人谈判使用 `down the long side of the table` 或含糊的 `90-degree profile`。
+2. **强制使用深景深纵向过肩对峙构图（OTS Frontal Confrontation）**：
+   - **近端前景**：男主（S1）独坐一侧（左下角侧脸/过肩），双手在前景把借据死死压在协议上（压迫感源头）。
+   - **物理屏障**：矮茶几横亘横切屏幕（`horizontal dividing barrier`），物理阻断两方。
+   - **对面中景**：母女二人（S3 在左、S2 在右）并肩坐在对面沙发上，**正面迎击镜头与男主（facing frontally toward him and the camera）**。
+   - **严格阵营约束**：`groom alone on this near side, mother and daughter together on the far side across the table. No one sits next to the groom`。
+3. **交付物**：
+   - 系统审查报告：`_deliver/系统审查_现代婚姻三部曲逻辑关系与f3s06空间对峙重构_20260918.md`
+   - 同步脚本：`_pipeline/fix_f3s06_opposite_seating.py` 已全量同步 manifest/wf/prompts。
+
+---
+
+## 十八、双卡服务器 + Smite79/MiniMax-H3-LongVideos 评估（2026-09-18 晚）
+
+### 服务器现状（已核实）
+- **2×A100-PCIE-40G**（"128G"指系统内存 125G；显存合计 80G）。
+- 两个 ComfyUI **0.35.0** 实例常驻：`8188`＝CUDA 0、`8189`＝CUDA 1
+  （各自 `CUDA_VISIBLE_DEVICES` 显式绑定）。点火前**两端口队列都要查空**。
+- VAE 已齐：`minimax_h3_video_vae_fp16` + `minimax_h3_audio_vae_fp32`。
+- custom_nodes 现有 `comfyui-minimax-h3-audio-T8`（现行 15 节点工作流来源）。
+
+### Smite79/MiniMax-H3-Longvideos 的定性：**ComfyUI 节点包，不含任何权重**
+- 单 prompt → 自动拆镜链 → 拼整片（同步音频）。四节点：`H3-LongVideos` /
+  `H3 Shot Length` / `H3 Model Inspector` / `H3 Overlay`。
+- **单镜上限不变**：源码 `H3_MAX_FRAMES=362`、`frames % 17 == 5`——与我们的
+  17n+5 栅格实测**完全一致**（独立交叉验证，栅格写死在模型里）。
+  "长视频"＝拆镜链播，不是加长单镜。
+- 要求 ComfyUI ≥0.31（我们 0.35 ✓）。
+
+### 三条结论
+1. **加速 ×2 立即可用**（与该节点包无关）：`_pipeline/run_one_step_dual.sh`
+   已写好并上传服务器——keys 轮转对半分给 8188/8189，空队列硬校验 + 各自
+   `/free` + gates 按 key 互斥，`submit_api.py --host` 指端口。
+   24 镜一步直出 3.9h→**约 2h**；两阶段 1.1h→约 35min。
+2. **"更好的视频"最大杠杆 = 参考图角色一致性**：节点包的角色表 + `<Picture N>`
+   参考图跟随人物 + 自动连续性条款，正打"ref_images 为空＝24 次独立摇号"的
+   第一痛点。但 `<Picture>` 需要 **hybrid fl2va/ref2va merge 权重**（我们只有
+   纯 fl2va pruned int8）→ 需下载 merge 权重 + 重做 int8/convrot 压缩才装得进
+   40G。纯 prompt 层的角色表写法/连续性条款/`exact:` 通道**零成本可搬**进
+   manifest prompt 生成器。
+3. **整链生成暂不切**：节点包是 joint audio-video 自产声音（README 自述会给脸
+   "发明"对口型的声音），与**原声锁**（TTS 音色可控；H3 自配中文台词不稳，见 §7）
+   冲突；也绕开逐镜禁字条款/时长栅格审查/「不整片重跑」的烧卡教训。
+   **吸收其法，保留逐镜之骨。**
+
+### 补记（与 §十六/§十七 的衔接）
+并行会话已落地 24 镜 `<d>` 清零（现 0/24）与 f3s06 过肩对峙重构
+（`fix_f3s06_opposite_seating.py`）。双卡重跑验证 f3s06 新构图时，
+直接用 `run_one_step_dual.sh` 或单镜 keys 即可。
+

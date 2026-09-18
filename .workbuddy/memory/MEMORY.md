@@ -28,8 +28,20 @@
 自建 ComfyUI + MiniMax H3 管线批量产 AI 短剧；本机只编排/后处理，重活跑远端 GPU。
 - 工程：`~/Desktop/videoHub/`（git 仓库；根 `.gitignore` 统一排除 mp4/wav/png/jpg，**勿建子级**）
 - 三部曲：`~/Desktop/videoHub/待生成_现代婚姻三部曲/`（3 片 × 8 镜 = 24 镜）
-- 服务器 `kehu`：A100-PCIE-40GB（SM8.0），ComfyUI 8188
-- 提交器 **`/root/s2/submit_api.py`**（吃 API JSON，**无 `--set`**）；
+- 服务器 `kehu`（49.0.196.218）：**2× A100-PCIE-40GB / 125 GB 内存 / 16 核 / 148 GB 盘**，
+  机房在**华为泰国**（2026-09-18 升级 + 系统重装后重建）
+  - ★ 泰国机房 **ModelScope 9 B/s 等于不通**，权重**一律走 HuggingFace**（35–42 MB/s）。
+    避坑：测速必须 `curl -L`，否则量到 302 页面误判成 KB/s
+  - 驱动 **580.95.05**（CUDA 13.0）；torch `2.14.0+cu130`；ComfyUI **v0.36.0 @ `ee71d5c4`**（2026-09-18 升级）；
+    `comfy-kitchen==0.2.34`（启用 H3 专有 CausalConv3d/RMSNorm/RoPE 算子融合）；
+    T8 节点 v1.79.6 @ `e12d8af`
+  - **双卡 = 双实例**：ComfyUI 不支持单进程跨卡 → `CUDA_VISIBLE_DEVICES=0 --port 8188`
+    与 `=1 --port 8189 --database-url sqlite:////workspace/instance_b.db` 两个进程（**实例 B 必须加 database-url 隔离防 SQLite 锁死**），
+    24 镜拆 `keys_a/keys_b` 各 12 镜（单实例仅 45 GB 内存）
+  - ★ 权重在本地盘 → 启动**不带** `--disable-mmap`
+  - 重建素材源：本地快照 `~/Desktop/github/h3-remote-snapshot/`（README + 权重映射表）
+- 提交器 **`/root/s2/submit_api.py`**（吃 API JSON，**无 `--set`**），本地备份
+  `~/Desktop/videoHub/h3-films/_a100work/submit_api.py`；
   `80_run_workflow_remote.py` 在 A100 上**不存在**，别再找
 
 ## ★★ 双重栅格（排期唯一权威）
@@ -43,8 +55,9 @@ H3 `length` ∈ **17n+5**（step 17 / 向上吸附）→ LTX `frame_policy=trim_
 
 | 口径 | 单镜 | 24 镜 |
 |---|---|---|
-| 两阶段 · 热态批处理 | **149 s** | ≈ 1.1 h ← **排期用这个** |
-| 一步直出 768×1344 | 466 s（v3 @297帧）→ 本项目 **570–651 s** | ≈ **3.7–4.3 h** |
+| 两阶段 · 热态批处理 | **149 s** | ≈ 1.1 h ← 旧排期 |
+| 一步直出 768×1344（旧版 v0.35.0） | 590 s/镜/卡 | 24 镜 ≈ **2.0 h** |
+| **一步直出 · 双卡并行（v0.36.0 实测）** | **469 s/镜/卡** | 24 镜 ≈ **1.56 h（1h34m）** ← **现在排期用这个（快 20.5%）** |
 
 比值 **3.2–3.7×**。★ A100 **冷启 = 热态 4–5 倍**（首镜 382 s → 热态 74 s），**全项目最大记账陷阱**。
 
@@ -67,10 +80,19 @@ H3 `length` ∈ **17n+5**（step 17 / 向上吸附）→ LTX `frame_policy=trim_
 - **`pkill -f <name>` 会匹配到执行它的 ssh 命令行 → 自杀式断连**（表现为"命令静默失败"）。
   排查用 `ps -eo pid,args --no-headers`
 - stage2 取草稿前缀 `f1s02` vs 实际 `f1_s02`（带下划线）→ 匹配为空，stage2 全跳
+- **权重路径带子目录**：工作流要 `text_encoders/minimax_h3/qwen3vl_32b_...`，
+  放错到 `text_encoders/` 根 → 400 `value_not_in_list`（提交阶段就炸，好查）
+- **服务器必须装 ffmpeg**（`apt install ffmpeg`）：T8 保存节点 H.264 长视频要它，
+  缺了会**生成跑满 590 s 后在最后一步报**
+  `FFmpeg is required for isolated H.264 long-video encoding`
+- **shell 优先级**：`cd X && A & B &` 里 B 跑在**原 cwd** → 后台提交一律用绝对路径
 
 ## 三部曲现状（2026-09-18 从 story 迁入 videoHub）
 
 - 生成模式已切 **一步直出 768×1344**：两阶段精修糊 —— stage2 从 384 草稿上采样补细节，
   有涂抹感/动态拖影；一步直出是全噪声去噪，明显更锐
 - 24 镜 prompt 已过四条硬标准（微表情 4.8/镜、情绪过渡 2.3/镜、`<d>` 残留 0）
-- **待办**：清 `gates_one/` 与旧输出 → 全量 24 镜 → **按 H3 duration 重算字幕轴** → 后期处理道具文字
+- **2026-09-18 18:08 双卡全量 24 镜已启动**（`run_dual.sh a|b` → run_a.log / run_b.log，
+  产出 `/workspace/ComfyUI/output/MiniMaxH3/trilogy_one/`）
+- 试拍 f1s01：768×1344 / 含音轨 / 15.084 s，与 manifest 15.083 **一帧不差**（新机复现一致）
+- **待办**：24 镜回收 → **按 H3 duration 重算字幕轴** → 后期处理道具文字

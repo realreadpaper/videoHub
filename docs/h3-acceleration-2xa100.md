@@ -7,16 +7,22 @@
 
 1. **per-clip**：两张 A100 跑**单个**镜头会更快，但只有 **1.2–1.5×**，不是 2×。
 2. **整批**：24 镜总时长**更慢**。保持现在的「双实例各 12 镜」。
-   - 现状（实测）：590 s/镜/卡 × 24 镜 ÷ 2 卡 ≈ **2.0 h**
-   - 改成单任务双卡：590 ÷ 1.3 ≈ 455 s/镜 × 24 镜 ≈ **3.0 h**
-   - 只有当单任务加速 > 2× 时前者才划算，而 H3 的 SP=2 达不到。
-3. **真正能白拿的加速不在多卡**：SageAttention patch 路线（−30%，单卡、不影响双实例吞吐）＞ 多卡单任务。
-4. **最大的加速包（FastH3 4-step DMD2 + VSA 90% 稀疏）对你的用例不可用**：官方模型卡原话 —— FL2VA / Ref2VA **没有被蒸馏**，且原生 VSA 内核只到 `sm_100a/sm_103a`（Blackwell）。
+   - **升级前（commit f42b24e / kitchen 0.2.33）实测**：590.7 s/镜/卡 × 24 镜 ÷ 2 卡 ≈ **2.0 h**
+   - **升级后（v0.36.0 / kitchen 0.2.34）实测**：**469.3 s/镜/卡** × 24 镜 ÷ 2 卡 ≈ **1.56 h（1h34m）**，整批**净省 26 分钟（提速 20.5%）**！
+   - 改成单任务双卡：469 ÷ 1.3 ≈ 361 s/镜 × 24 镜 ≈ **2.4 h**
+   - 结论不变：仍然是双实例吞吐最高。
+3. **真正白拿的单卡核心加速已落地（ComfyUI v0.36.0 + comfy-kitchen 0.2.34）**：
+   - 算子级融合：CausalConv3d Norm/SiLU/Pad 合并至 `ck.group_norm_silu_pad3d`，RMSNorm+RoPE 融合至 `ck.rms_rope_split_half`，INT8 GEMM epilogue 融合 SwiGLU / residual。
+   - 动态瓦片解码：`tiled_decode` 提升至多 4 tiles 动态批处理并发，temporal chunking 即时释放显存。
+   - **实测收益**：单步采样从 131.1s 降至 94.3s（**提速 28.1%**），模型初始化从 128.2s 降至 96.8s，端到端单镜从 590.7s 降至 469.3s。
+4. **下一阶段单卡加速预留**：SageAttention patch 路线（−30%，单卡、不影响双实例吞吐）＞ 多卡单任务。
+5. **最大的加速包（FastH3 4-step DMD2 + VSA 90% 稀疏）对你的用例不可用**：官方模型卡原话 —— FL2VA / Ref2VA **没有被蒸馏**，且原生 VSA 内核只到 `sm_100a/sm_103a`（Blackwell）。
 
 ## 二、加速手段 × 本机可用性
 
 | 手段 | 来源 | 覆盖 Ref2VA | A100-SM80 可用 | 备注 / 实测 |
 |---|---|---|---|---|
+| ComfyUI v0.36.0 算子融合 | ComfyUI 官方 PR #16187 / #16329 / #16332 | ✅ | ✅ SM80 完美支持 | **已落地实测**：CausalConv3d/RMSNorm/RoPE 内核级融合 + tiled 批处理，采样步均 131s→94s（**-28%**），单镜 590s→469s（**-20.5%**） |
 | Turbo 4-step LoRA（本项目在用） | [lightx2v/Minimax-h3-Turbo](https://huggingface.co/lightx2v/Minimax-h3-Turbo) | ✅ `ref2v_turbo_4step_v0.1` | ✅ 纯 LoRA | **训练分辨率 544p**（video/audio shift 12/3，NFE 4） |
 | PDD Acc 8-step LoRA | [alibaba-pai/MiniMax-H3-Acc-LoRAs](https://huggingface.co/alibaba-pai/MiniMax-H3-Acc-LoRAs) · [VideoX-Fun](https://github.com/aigc-apps/VideoX-Fun) | ✅ `Ref2VA-Acc-8Step` | ✅ | 阿里 PAI 的 Parallel Decoding Distillation，rank=64 BF16 |
 | 8-step 768p Turbo LoRA | lightx2v | ✅ `ref2v_turbo_8step_v1.0_768p`（文件存在，**未列入官方规格表**） | ✅ | 比 4-step 慢一倍；训练分辨率/质量边界需自行核实 |
@@ -49,16 +55,18 @@ FastVideo 自己的限定（**原文**）：
 - 「Do not install xDiT for this path」—— FastH3 只有 4 步且无 CFG，PipeFusion / CFG-parallel 没有作用对象
 - `num_attention_heads`(56) 必须能被 `sp_size` 整除；SP=4 的 latent consistency 已验，SP=2 未在 A100 上验过
 
-### 3.2 本项目算术（**推论**）
+### 3.2 本项目算术（**实测与推论**）
 
-现状实测基线：一步直出 768×1344 单卡 570–651 s/镜；双实例 590 s/镜/卡；24 镜 ≈ 2 h。
+* 升级前基线（commit `f42b24e`）：一步直出 768×1344，单镜 590.7 s/卡，双实例 24 镜 ≈ 2.0 h。
+* **升级后实测（ComfyUI `v0.36.0` + `comfy-kitchen 0.2.34`）**：一步直出 768×1344，单镜 **469.3 s/卡**，双实例 24 镜 ≈ **1.56 h（1h34m）**。
 
-| 方案 | per-clip | 24 镜总时长（2 卡） |
-|---|---|---|
-| 双实例（现在） | 590 s | **≈ 2.0 h** |
-| 单任务双卡 SP=2（按 1.3×） | ≈ 455 s | ≈ 3.0 h ❌ |
-| 单任务双卡 SP=2（乐观按 1.5×） | ≈ 393 s | ≈ 2.6 h ❌ |
-| 单任务双卡 SP=2，要打平双实例 | — | 需 >2× 加速，未见任何证据 |
+| 方案 | per-clip | 24 镜总时长（2 卡） | 备注 |
+|---|---|---|---|
+| 双实例（升级前基线） | 590.7 s | ≈ 2.0 h | commit `f42b24e` 实测 |
+| **双实例（v0.36.0 升级后实测）** | **469.3 s** | **≈ 1.56 h（1h34m）** | **当前最新现状，净省 26 分钟** |
+| 单任务双卡 SP=2（按 1.3× 推算） | ≈ 361 s | ≈ 2.4 h ❌ | 仍显著慢于双实例并行 |
+| 单任务双卡 SP=2（乐观按 1.5× 推算）| ≈ 313 s | ≈ 2.1 h ❌ | 仍慢于双实例并行 |
+| 单任务双卡 SP=2，要打平双实例 | — | 需 >2× 加速 | SM80 PCIe 拓扑下不可能达到 |
 
 为什么达不到 2×：H3 4 NFE 是短任务，通信/同步开销摊不开；SP 只切 DiT 与 VAE，切不动文本编码、资源/LoRA 装配、封装等串行段。A100-PCIE 无 NVLink（P2P 走 PCIe），与上面 21 GB/s 的互联同级，甚至 NCCL 表现可能更差。
 
