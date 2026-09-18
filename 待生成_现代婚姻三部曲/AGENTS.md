@@ -433,3 +433,83 @@ H3 是音频驱动视频，**干声决定口型**，但面部肌肉/神态由 pr
 
 ### 下一步
 若用户确认，将批量修改全部 24 镜 prompt → 重新生成 24 个 wf_one → 全量一步直出。
+
+---
+
+## 十五、f3s06 人物关系根因 + 片3 `<d>` 清零（2026-09-18 下午）
+
+用户复核修复版截图（`cmp_v2/f3s06_v2_12.5.jpg`）：新郎与丈母娘**并肩同侧**、新娘消失、
+背景漂成暖色餐厅。审查结论（详见 `_deliver/审查_定心丸根因复核与f3s06人物关系_20260918.md`）：
+
+### ★ 构图几何写矛盾 = 人物关系漂移的根因
+- "shot **across the table**" + "S1 in the **foreground center**"（还写了他的镜片反光）
+  → 相机在 S1 一侧，"**across the table**" 的 S3/S2 落在**镜头背后**，画面放不下 →
+  模型就近把 S3 拉到 S1 身边。
+- f3s06 是片3 唯一只写 S3 为 "the 56-year-old **mother**" 的镜（f3s02 是 mother-in-law）
+  → "母亲"坐旁边 = 读成**他的妈**。
+- **规矩：三人同框必须写 90° 剖面构图 + 屏幕方位（screen-left/right）+ 关系词锚定
+  （mother-in-law / her daughter the bride）+ "Exactly three people, no extra hands"。**
+  禁止"across the table + foreground 主体脸朝镜头"这种几何不可能的组合。
+
+### 本次落地（`_pipeline/fix_film3_staging.py`）
+1. f3s06 重写：90° 剖面对峙（新郎独坐近侧右向侧面；丈母娘+新娘肩并肩远侧左向侧面）+
+   关系词锚定 + 仅三人约束 + 半地下室环境锚（裸灯泡/气窗/齐沿红桶）。
+2. **f3s02/03/04/08 `<d>` 清除**（片3 现 0/8）——f3s02 的 `<d>` 正是"女人要的是一份
+   **定心丸**"，不清除字幕必复发。台词不丢：口型由 `<Audio 1>` 干声驱动。
+3. ★ **前导段口径归一**：manifest prompt 一律**不带** `<Audio 1>` 前导段；
+   wf/wf_one prompt = 前导段 + manifest（`build_stage1.py` 口径）。
+   前轮曾把全文写进 manifest，重跑 build 会双份。全 8 镜已校验 PASS。
+4. 片1/片2 仍 16 镜带 `<d>`，批量清除+微表情增强仍**待确认**。
+
+---
+
+## 十五、剧本审查标准 v3 + 24 镜 prompt 全量优化（2026-09-18）
+
+### 用户要求
+"更新剧本审查要求：必须没有字幕、角色表情到位、角色之间的位置要符合逻辑，优化"
+
+### 交付：四条硬标准（`05_剧本审查标准_v3_20260918.html`）
+| 标准 | 判定口径 | 合格线 |
+|---|---|---|
+| **S1 零字幕** | 无 `<d>[Chinese]"…"</d>`；有 `strict_output_constraints`；文字道具带 `illegible` 声明 | 三项全过 |
+| **S2 表情到位** | 微表情 ≥3 · 情绪过渡 ≥1 · 完全静态词 =0 | 三项全过 |
+| **S3 位置逻辑** | 多人镜方位锚点 ≥1；单人镜朝向锚点 ≥1；跨镜符合场景坐标表 | 两项全过 |
+| **S4 技术对齐** | prompt 末段 = duration；工作流 768×1344 且与 manifest 同源 | 两项全过 |
+
+配套：**场景空间坐标表**（片1 楼梯间/闺房/车内、片2 堂屋/院门/挎斗、片3 餐桌，
+规定角色在每格场景的固定方位）、**三关审查流程**、**烧卡前检查清单**。
+
+### 执行结果：24/24 全部通过
+三轮优化（`patch_prompts_v3.py` → `v3b` → `v3c`）：
+
+| 轮次 | 内容 | 改动 |
+|---|---|---|
+| 第一轮 | 去 `<d>` 标签（16 镜）+ 位置锚点 + 局部微表情 | 24 镜 |
+| 第二轮 | 每镜注入定制情绪收束句（≥3 微表情 + ≥1 过渡） | 23 镜 |
+| 第三轮 | 补 5 处未达标项（微表情计数 / 朝向锚点） | 4 镜 |
+
+**终审**（`review_v3.py`）：S1 ✓24 / S2 ✓24 / S3 ✓24 / S4 ✓24。
+平均微表情 **4.8 处/镜**，平均情绪过渡 **2.3 处/镜**，残留 `<d>` **0**，残留完全静态词 **0**。
+
+### 关键改动示例
+| 镜 | 原 | 改 |
+|---|---|---|
+| f3s05 | `<d>[Chinese] "……什么东西卡在里面了。"</d>` | `...murmuring quietly in Chinese, his brow knitting as his fingers close around the stiff bundle.` |
+| f1s03 | `remains completely detached` | `keeps her eyes glued to the glowing screen, jaw set, refusing to look up, one thumb scrolling without pause` |
+| f2s05 | `tears it violently in two` | `+ <Subject 1> (S1) on the near side of the table, <Subject 3> (S3) across it on the far side` |
+| f1s07 | 无方位 | `Inside the car, S1 sits in the driver's seat on the left, S2 in the passenger seat on the right` |
+
+### 三个流程要点
+1. **`<d>` 标签是字幕的唯一直接诱因**——尾部自然语言禁令优先级压不过结构化标签，
+   必须彻底移除，台词只由原声锁干声承载。
+2. **位置锚点必须写进 prompt**——不写就是"每镜随机摆位"，剪辑后人物瞬移。
+   已固化为场景坐标表，跨镜不得违反。
+3. **自动扫描只查"有没有写"**，查不了"写得好不好"。表情自然度、位置是否真合理、
+   画面有没有真出字幕，仍须**试拍目视**（第二关）。
+
+### 资产
+- `05_剧本审查标准_v3_20260918.html` — 标准全文
+- `_deliver/剧本审查报告_v3_20260918.html` — 24 镜逐镜评分
+- `_pipeline/review_v3.py` — 自动扫描器（`--html` 出报告）
+- `_pipeline/patch_prompts_v3{,b,c}.py` — 三轮优化脚本
+- 归档：`_archive/2026-09-18_pre_review_v3{,b,c}/`

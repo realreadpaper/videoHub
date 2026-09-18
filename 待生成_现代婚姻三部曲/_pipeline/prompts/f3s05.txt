@@ -1,7 +1,7 @@
 integrated_multimodal_description:
-[00:00.000 – 00:03.833] Macro close-up with slow steady pan. <Subject 1> (S1)'s pale slender hands spread out <Prop 2>, the damp yellowed paper, revealing an urgent private high-interest debt repayment notice.
+[00:00.000 – 00:03.833] Macro close-up with slow steady pan. <Subject 1> (S1)'s pale slender hands fill the frame in a top-down shot, turning <Prop 2>, the damp yellowed paper, over between finger and thumb, revealing an urgent private high-interest debt repayment notice.
 [00:03.833 – 00:07.708] The camera pushes in sharply on the bold handwritten ink strokes on the loan paper, stamped with row upon row of crimson thumbprints, every character and digit rendering as completely illegible abstract marks, bearing the bride's and her mother's names.
-[00:07.708 – 00:11.542] The camera holds in dead silence on the red thumbprints, illuminating the parasitism scheme to transfer the family debt onto the groom's property deed, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
+[00:07.708 – 00:11.542] The camera holds in dead silence on the red thumbprints, illuminating the parasitism scheme to transfer the family debt onto the groom's property deed, His fingers tremble faintly as they turn the damp page, his knuckles whitening around the crumpled edge, one fingertip quivering above the crimson thumbprints, the tremor settling into stillness, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.
 
 overall_soundscape:
 Sudden high-frequency tinnitus ringing sound, cold water drops in bucket echoing unnaturally loud like hammer strikes. No background speech.

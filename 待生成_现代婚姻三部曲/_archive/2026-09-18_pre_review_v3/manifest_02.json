@@ -1,0 +1,132 @@
+{
+  "film_title": "老子不娶了",
+  "director_style": "姜文",
+  "theme": "北方大院硬核迎亲 × 老丈人算盘要二十万下车礼 × 算盘珠崩飞 × 硬汉怒碎茶几撕单老子不娶了 × 长江750挎斗狂飙戈壁",
+  "fps": 24,
+  "shot_duration_sec": 15,
+  "h3_length": 362,
+  "refined_frames": 328,
+  "aspect_ratio": "16:9",
+  "resolution_stage1": "768x1344",
+  "resolution_stage2": null,
+  "seed": 20260920,
+  "prompt_schema": "github_minimax_h3_multimodal_envelope_v2",
+  "shots": [
+    {
+      "no": 1,
+      "file": "shot01_courtyard_boots_wind",
+      "framing": "中景 (MS)",
+      "duration": 13.667,
+      "character": "<Subject 1> (S1)",
+      "dialogue_cn": "吹！把唢呐给老子往死里吹！",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.542] Medium shot, dynamic camera tilts down quickly as a vintage black car door opens, heavy leather combat boots landing with a heavy thud on dry northern yellow dirt and swirling autumn leaves.\n[00:04.542 – 00:09.125] The camera tilts up smoothly. <Subject 1> (S1), a 35-year-old rugged masculine East Asian groom named DA-BIAO, sun-bronzed skin, sharp angular jawline, short buzz cut black hair, intense piercing falcon-like eyes, wearing an imposing dark olive-green heavy wool military trench coat over a bold crimson collared dress shirt, steps forward into howling gale winds that whip his coat, spits out a wooden toothpick, glares with fierce dominance, and barks with booming theatrical authority: <d>[Chinese] \"吹！把唢呐给老子往死里吹！\"</d>\n[00:09.125 – 00:13.667] Behind him in the rural brick courtyard, suona horn players puff their cheeks vigorously, crimson silk ribbons wildly dancing in the golden dusty afternoon sun, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nPiercing high-pitched rural suona horns blasting in unison, howling dry gale winds rustling poplars, heavy leather boot impact on packed dirt. No background speech.\n\nnon_diegetic_music:\nA thunderous, visceral northern Chinese war-drum cadence, primal and masculine.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 328,
+      "duration_frames": 328,
+      "audio_file": "tts_dry/trilogy/f2_s01_dry.wav"
+    },
+    {
+      "no": 2,
+      "file": "shot02_fatherinlaw_smoke_contract",
+      "framing": "中近景 (MCU)",
+      "duration": 15.083,
+      "character": "<Subject 3> (S3)",
+      "dialogue_cn": "除了那三十万彩礼，进屋前再撂二十万下车礼——我得给小勇买房凑全款。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:05.042] Medium close-up inside a sunlit dusty farmhouse hall. <Subject 3> (S3), a 58-year-old shrewd rural East Asian father-in-law named MASTER-ZHANG, calculating narrowed eyes, wearing a dusty gray sheepskin coat over a dark navy Mao tunic jacket, sits sideways on a carved wooden armchair, taking a slow, arrogant pull from a long antique brass-tipped bamboo tobacco pipe.\n[00:05.042 – 00:10.042] <Subject 3> (S3) exhales a dense plume of pungent white tobacco smoke straight toward the camera, taps a calloused yellowed finger onto a red paper contract on the mahogany table, and sneers with nonchalant greed: <d>[Chinese] \"除了那三十万彩礼，进屋前再撂二十万下车礼——我得给小勇买房凑全款。\"</d>\n[00:10.042 – 00:15.083] The camera tracks slowly left to reveal the bold black brush strokes of Chinese calligraphy on red paper, rendering as completely illegible abstract ink marks with no readable characters. Dust motes dance violently in the harsh lattice window sunbeams, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nSizzling crackle of burning pipe tobacco, hollow tap of pipe bowl against hard wood, dense dry room atmosphere. No background speech.\n\nnon_diegetic_music:\nA low, droning acoustic cello and sinister brass horn undertone, creating suffocating domestic tension.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 362,
+      "duration_frames": 362,
+      "audio_file": "tts_dry/trilogy/f2_s02_dry.wav"
+    },
+    {
+      "no": 3,
+      "file": "shot03_father_abacus_bead_snap",
+      "framing": "特写 (CU)",
+      "duration": 12.25,
+      "character": "<Subject 2> (S2)",
+      "dialogue_cn": "亲家，两代人的骨髓刮干净了，账……算不平了。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.083] Tight macro close-up with slow push-in. The trembling, bony fingers of <Subject 2> (S2), a 62-year-old lean East Asian rural father named OLD-WU, sunburnt wrinkled face, white stubble, trembling calloused hands, wearing a traditional black quilted cotton coat and round wire-rim spectacles, rapidly flick polished wooden beads on <Prop 1>, an antique Chinese brass-framed wooden abacus with dark worn wooden beads.\n[00:04.083 – 00:08.167] Under unbearable physical tension, one worn wooden bead violently snaps and flies into the air in slow motion. <Subject 2> (S2) trembles, tears of humiliation welling behind his round glasses, and whispers with a broken voice: <d>[Chinese] \"亲家，两代人的骨髓刮干净了，账……算不平了。\"</d>\n[00:08.167 – 00:12.250] The camera tilts down to show the fractured abacus frame lying motionless on the table, harsh side-lighting accentuating the old father's white temple stubble, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nFrantic rhythmic wooden abacus bead clattering, a sharp sudden snap of a fracturing wooden bead, shaky gasping breath of the old father. No background speech.\n\nnon_diegetic_music:\nA sorrowful, tremolo string quartet rising in pitch, symbolizing fragile hope breaking apart.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 294,
+      "duration_frames": 294,
+      "audio_file": "tts_dry/trilogy/f2_s03_dry.wav"
+    },
+    {
+      "no": 4,
+      "file": "shot04_pipe_knock_ultimatum",
+      "framing": "中景 (MS)",
+      "duration": 12.958,
+      "character": "<Subject 3> (S3)",
+      "dialogue_cn": "规矩不能坏，差一分钱，这闺女今天绝不出门坎。",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.333] Medium shot across the mahogany tea table. <Subject 3> (S3), the 58-year-old shrewd rural father-in-law in dusty gray sheepskin coat, raises his long bamboo pipe and violently knocks the burning bronze bowl against the table edge, showering the red paper with glowing fiery sparks.\n[00:04.333 – 00:08.625] <Subject 3> (S3) points the scorched pipe stem toward the doorway, his calculating eyes narrowed with tyrannical rural finality, and barks: <d>[Chinese] \"规矩不能坏，差一分钱，这闺女今天绝不出门坎。\"</d>\n[00:08.625 – 00:12.958] In the blurred background, an elderly village woman cracks sunflower seeds with a contemptuous sneer. Sparks slowly burn charred holes into the red paper, smoke curling upward into the rafters, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nHeavy metallic bang of pipe bowl hitting mahogany, sharp sizzling pop of scattered sparks, rhythmic crunching of sunflower seed shells. No background speech.\n\nnon_diegetic_music:\nA tense, dissonant orchestral drone with sudden sharp metallic percussion strikes.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 311,
+      "duration_frames": 311,
+      "audio_file": "tts_dry/trilogy/f2_s04_dry.wav"
+    },
+    {
+      "no": 5,
+      "file": "shot05_dabiao_table_smash",
+      "framing": "面部特写至中景 (CU to MS)",
+      "duration": 14.375,
+      "character": "<Subject 1> (S1)",
+      "dialogue_cn": "你这是在卖牲口，不是嫁闺女！老子不娶了！",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.792] Explosive medium shot with slow push-in. On the left foreground stands <Subject 1> (S1), the 35-year-old rugged masculine groom named DA-BIAO, buzz cut black hair, dark green wool military trench coat over bold crimson shirt, his falcon eyes flashing with volcanic fury. On the right background behind the tea table sits <Subject 3> (S3), the 58-year-old calculating father-in-law in gray sheepskin coat.\n[00:04.792 – 00:09.583] <Subject 1> (S1) steps forward and slams his massive right fist down like an iron hammer, completely shattering the mahogany tea table. He pulls a red bank certificate from his coat pocket, tears it violently in two, throws the torn scraps into <Subject 3> (S3)'s stunned face, and roars: <d>[Chinese] \"你这是在卖牲口，不是嫁闺女！老子不娶了！\"</d>\n[00:09.583 – 00:14.375] Teacups shatter on the stone floor. <Subject 1> (S1) bursts into wild, mocking laughter of complete defiance while <Subject 3> (S3) cringes in fear against his carved chair, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nCatastrophic wooden table splitting crack, porcelain teacups shattering on stone floor, flying abacus beads clattering everywhere, thunderous human roar. No background speech.\n\nnon_diegetic_music:\nAn explosive, triumphant explosion of northern brass fanfares and pounding timpani drums.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 345,
+      "duration_frames": 345,
+      "audio_file": "tts_dry/trilogy/f2_s05_dry.wav"
+    },
+    {
+      "no": 6,
+      "file": "shot06_torn_double_happiness",
+      "framing": "全景 (WS)",
+      "duration": 12.25,
+      "character": "<Subject 1> (S1)",
+      "dialogue_cn": "爹，把算盘拿好，咱们爷俩走大路！",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.083] Wide shot in the brick rural courtyard. The suona horns are dead silent; village relatives stand frozen in total shock. In the center, <Subject 1> (S1), the 35-year-old rugged groom in green military trench coat, firmly wraps his heavy arm around <Subject 2> (S2), the 62-year-old lean father in black quilted coat who clutches the broken abacus tightly against his chest.\n[00:04.083 – 00:08.167] A colossal red paper Double Happiness sign pasted on the brick gatepost is violently torn in two by the howling gale wind. <Subject 1> (S1) shields his father and marches toward the courtyard gate, shouting with ringing pride: <d>[Chinese] \"爹，把算盘拿好，咱们爷俩走大路！\"</d>\n[00:08.167 – 00:12.250] The father and son march boldly through the brick courtyard gate without looking back once, <Subject 1> (S1)'s green military trench coat billowing behind them like a battle banner, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nDead silence following the music stop, paper tearing in the wind, howling autumn gusts whipping brick walls, firm synchronized boot footsteps. No background speech.\n\nnon_diegetic_music:\nA noble, soaring symphonic trumpet melody playing a bold revolutionary motif, triumphant and free.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 294,
+      "duration_frames": 294,
+      "audio_file": "tts_dry/trilogy/f2_s06_dry.wav"
+    },
+    {
+      "no": 7,
+      "file": "shot07_sidecar_engine_ignition",
+      "framing": "中景 (MS)",
+      "duration": 12.958,
+      "character": "<Subject 2> (S2)",
+      "dialogue_cn": "小兔崽子，油门给老子拧到底！",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:04.333] Medium tracking shot beside the open dirt road. <Subject 1> (S1), the 35-year-old rugged groom with buzz cut hair and green military trench coat, straddles <Prop 2>, a vintage matte olive-green Chang Jiang 750 sidecar motorcycle with round headlights, forcefully stomping the steel kickstarter pedal with his heavy combat boot.\n[00:04.333 – 00:08.625] The vintage boxer twin engine erupts with a deafening roar, spewing pale blue exhaust smoke into the crisp air. Beside him in the sidecar, <Subject 2> (S2), the 62-year-old father in black quilted coat, straps vintage aviator goggles over his silver hair, clutches the abacus to his chest, and yells with wild joy: <d>[Chinese] \"小兔崽子，油门给老子拧到底！\"</d>\n[00:08.625 – 00:12.958] <Subject 1> (S1) twists the motorcycle throttle fully open, the rear tire churning up yellow dust as the sidecar rig launches forward onto the dirt road, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nRhythmic metallic kickstarter clank, explosive heavy two-cylinder engine ignition roar, sputtering exhaust pops, dry dirt sprayed by tires. No background speech.\n\nnon_diegetic_music:\nHigh-energy orchestral brass driving an unstoppable galloping tempo, full of frontier rebellion.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 311,
+      "duration_frames": 311,
+      "audio_file": "tts_dry/trilogy/f2_s07_dry.wav"
+    },
+    {
+      "no": 8,
+      "file": "shot08_gobi_sunset_laugh",
+      "framing": "远景至全景 (LS to WS)",
+      "duration": 15.083,
+      "character": "<Subject 1> (S1)",
+      "dialogue_cn": "太阳照常升起！走喽——！",
+      "prompt": "integrated_multimodal_description:\n[00:00.000 – 00:05.042] Wide epic tracking shot along an endless northern Gobi desert asphalt highway under an immense blood-orange setting sun. <Prop 2>, the matte olive-green Chang Jiang 750 sidecar motorcycle, speeds toward the horizon, trailing a golden dust plume in backlit sunbeams.\n[00:05.042 – 00:10.042] Riding the motorcycle, <Subject 1> (S1), the 35-year-old groom in billowing green military coat, steers with his left hand while thrusting his right fist high into the glowing sky, hollering with untamed masculine triumph: <d>[Chinese] \"太阳照常升起！走喽——！\"</d>\n[00:10.042 – 00:15.083] In the sidecar, <Subject 2> (S2), the 62-year-old father with aviator goggles, throws his head back in roaring laughter as the motorcycle accelerates into the colossal fiery sunset, holding steady on the horizon silhouette, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nDistant roaring motorcycle engine fading into vast desert emptiness, whistling plateau gale wind, fading echo of hearty male laughter. No background speech.\n\nnon_diegetic_music:\nA magnificent, sweeping orchestral fanfare echoing the grand theme of The Sun Also Rises, soaring to an unforgettable crescendo.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+      "h3_length": 362,
+      "duration_frames": 362,
+      "audio_file": "tts_dry/trilogy/f2_s08_dry.wav"
+    }
+  ],
+  "notext_patch": {
+    "applied": "2026-09-18",
+    "policy": "文字道具降级为不可辨 + 每镜末尾强制禁字段",
+    "clause_chars": 449
+  },
+  "final_patch": {
+    "applied": "2026-09-18",
+    "dialogue": 4,
+    "prompt": 2,
+    "need_tts": [
+      "f1s03",
+      "f1s06",
+      "f2s02",
+      "f2s06"
+    ]
+  },
+  "generation_mode": "one_step_768x1344",
+  "trim_applied": false,
+  "manifest_revised_at": "2026-09-18 12:38:32",
+  "manifest_revision_note": "改为一步直出 768×1344：duration/duration_frames 由 LTX trim 值改回 H3 原始帧数。prompt 时间戳未改（末段本就按 H3 全长）。"
+}
