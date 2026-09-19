@@ -110,14 +110,22 @@
 ## 迁移备忘（旧机将关停 → 只租 1 张 A100）
 
 - **权威源在本机**（`triology/wf_one/` 与本机 `_pipeline/wf_one/` md5 一致）→ 只需「本机 → 新机」上传；旧机 `dl/*.sh` **不可复用** → 用 `deploy/bootstrap/`；`ui_to_api.py`、`s2_adapt.py` 在旧机**已不存在**（run_server.sh 是 dead code，别补）；SageAttention **未装**（SM80 无 FP8，别再试）。
-- **媒体资产不在 git** → 换机必须手传 `deploy/server-assets/inputs/`；`tts_dry/trilogy`、`dy_full_a`、`dy_full_ref` 是**独一份备份**。跑全量用 `WF_DIR`/`GATE_DIR` 切产线，**gates 必须独立**（混用会互相跳过）。
+- **媒体资产不在 git** → 换机必须手传 `deploy/server-assets/inputs/`；`tts_dry/trilogy`、`dy_full_a`、`dy_full_ref` 是**独一份备份**，另加 **`dy4_{first,last,ref,voice}`（2026-09-19 试点在产，`wf_dy4_*.json` 直接引用）**。跑全量用 `WF_DIR`/`GATE_DIR` 切产线，**gates 必须独立**（混用会互相跳过）。
+- ★ **`server-assets/state/` 只留档、不推送**：里面是旧机 gates 快照。新机上没有对应成片，把 `.done` 推过去会让这些镜被误判「已完成」而永久跳过。要续跑就从干净状态重跑；要接旧进度必须**先搬 `output/` 成片再搬 gates**，顺序反了会丢镜。
+- 完整性已逐文件 md5 核对（1413 文件 / 0 漏拉 / 0 损坏）→ `deploy/VERIFY_2026-09-19.md`。权重 6 个 URL 全 HEAD 200 且字节数与旧机一致；体积实测 **71 GB**（旧记的 75 GB 是近似）。
 - 新机要改三处：`~/.ssh/config` 别名与 IP、密钥路径、Clash 直连放行（`IP-CIDR,<新IP>/32,DIRECT,no-resolve`）。
 
-## 当前进度（快照）
+## 当前进度（快照 · 2026-09-19 15:30 按旧机 gates 实测校正）
 
-- **三部曲** 24 镜 prompt 过硬标准，只试拍过 f1s01/f1s02，**未全量出片**。
-- **抖音三片**（佐味纪红烧酱，99/119/155 镜）走「台词句 = 生成单元」复刻路线：时间轴剧本 + `shots_all.json`（373 镜）+ 参考帧 v3（去字）已就绪；全量 373 镜曾启动后主动叫停。
-  **当前停在「6 镜审查」**：3 部各出剧情镜 + 产品镜（`_remake/六镜审查.html`），确认后再铺量。
+- **三部曲** 24 镜 prompt 过硬标准，`gates_one/` 只有 f1s01/f1s02 两个 `.done` → **实际只试拍 2 镜，未全量出片**。
+- **抖音三片**（佐味纪红烧酱，99/119/155 镜）走「台词句 = 生成单元」复刻路线：时间轴剧本 + `shots_all.json`（373 镜）+ 参考帧 v5（去字）已就绪。
+  ★ **全量 373 镜的真实进度 = 12/373**（旧机 `gates_full/`：dy1_s001–s008、dy1_s070、dy2_s001、dy3_s001、dy3_s100），
+  **其余 361 镜从未开始** —— 此前「曾启动后主动叫停」的说法过于模糊，已按门禁实测校正。
+  ⚠ `gates_full/` 里 `dy1_s009.lock`、`dy1_s010.lock` 两个**空目录**残留 → 原版 worker 见 lock 即 skip，
+  这 2 镜会**永久静默丢失**。接手旧数据目录前先 `find gates* -maxdepth 1 -type d -name '*.lock' -exec rmdir {} \;`。
+- **关键镜/骨架** 39 个 `.done`（`gates/`）全部完成；另有 `_remake/六镜审查.html` 供目视。
+- **迁移包完整性已核对**：`deploy/server-assets/` 1413 个受管文件逐文件 md5 比对，
+  **0 漏拉、0 损坏**，4 处差异是有意修复（见 `deploy/VERIFY_2026-09-19.md`）。
 
 ---
 
