@@ -1,0 +1,898 @@
+{
+  "100.790": {
+    "file": "frame-100_790s.jpg",
+    "at": 100.79,
+    "faces": 3,
+    "face_ratio": 0.248,
+    "framing": "近景 (MS-)"
+  },
+  "103.960": {
+    "file": "frame-103_960s.jpg",
+    "at": 103.96,
+    "faces": 1,
+    "face_ratio": 0.199,
+    "framing": "近景 (MS-)"
+  },
+  "107.000": {
+    "file": "frame-107_000s.jpg",
+    "at": 107.0,
+    "faces": 3,
+    "face_ratio": 0.147,
+    "framing": "中景 (MS)"
+  },
+  "109.420": {
+    "file": "frame-109_420s.jpg",
+    "at": 109.42,
+    "faces": 5,
+    "face_ratio": 0.225,
+    "framing": "近景 (MS-)"
+  },
+  "111.620": {
+    "file": "frame-111_620s.jpg",
+    "at": 111.62,
+    "faces": 2,
+    "face_ratio": 0.119,
+    "framing": "中景 (MS)"
+  },
+  "113.170": {
+    "file": "frame-113_170s.jpg",
+    "at": 113.17,
+    "faces": 2,
+    "face_ratio": 0.173,
+    "framing": "近景 (MS-)"
+  },
+  "115.710": {
+    "file": "frame-115_710s.jpg",
+    "at": 115.71,
+    "faces": 1,
+    "face_ratio": 0.079,
+    "framing": "全景偏中 (WS+)"
+  },
+  "11.620": {
+    "file": "frame-11_620s.jpg",
+    "at": 11.62,
+    "faces": 1,
+    "face_ratio": 0.266,
+    "framing": "近景 (MS-)"
+  },
+  "120.000": {
+    "file": "frame-120_000s.jpg",
+    "at": 120.0,
+    "faces": 1,
+    "face_ratio": 0.094,
+    "framing": "中景 (MS)"
+  },
+  "122.830": {
+    "file": "frame-122_830s.jpg",
+    "at": 122.83,
+    "faces": 3,
+    "face_ratio": 0.178,
+    "framing": "近景 (MS-)"
+  },
+  "124.330": {
+    "file": "frame-124_330s.jpg",
+    "at": 124.33,
+    "faces": 1,
+    "face_ratio": 0.056,
+    "framing": "全景偏中 (WS+)"
+  },
+  "125.920": {
+    "file": "frame-125_920s.jpg",
+    "at": 125.92,
+    "faces": 1,
+    "face_ratio": 0.251,
+    "framing": "近景 (MS-)"
+  },
+  "128.670": {
+    "file": "frame-128_670s.jpg",
+    "at": 128.67,
+    "faces": 3,
+    "face_ratio": 0.381,
+    "framing": "中近景 (MCU)"
+  },
+  "131.170": {
+    "file": "frame-131_170s.jpg",
+    "at": 131.17,
+    "faces": 2,
+    "face_ratio": 0.207,
+    "framing": "近景 (MS-)"
+  },
+  "132.170": {
+    "file": "frame-132_170s.jpg",
+    "at": 132.17,
+    "faces": 2,
+    "face_ratio": 0.215,
+    "framing": "近景 (MS-)"
+  },
+  "133.210": {
+    "file": "frame-133_210s.jpg",
+    "at": 133.21,
+    "faces": 2,
+    "face_ratio": 0.208,
+    "framing": "近景 (MS-)"
+  },
+  "134.040": {
+    "file": "frame-134_040s.jpg",
+    "at": 134.04,
+    "faces": 2,
+    "face_ratio": 0.204,
+    "framing": "近景 (MS-)"
+  },
+  "136.080": {
+    "file": "frame-136_080s.jpg",
+    "at": 136.08,
+    "faces": 2,
+    "face_ratio": 0.145,
+    "framing": "中景 (MS)"
+  },
+  "138.250": {
+    "file": "frame-138_250s.jpg",
+    "at": 138.25,
+    "faces": 3,
+    "face_ratio": 0.161,
+    "framing": "近景 (MS-)"
+  },
+  "139.210": {
+    "file": "frame-139_210s.jpg",
+    "at": 139.21,
+    "faces": 2,
+    "face_ratio": 0.19,
+    "framing": "近景 (MS-)"
+  },
+  "13.170": {
+    "file": "frame-13_170s.jpg",
+    "at": 13.17,
+    "faces": 2,
+    "face_ratio": 0.338,
+    "framing": "中近景 (MCU)"
+  },
+  "142.380": {
+    "file": "frame-142_380s.jpg",
+    "at": 142.38,
+    "faces": 1,
+    "face_ratio": 0.17,
+    "framing": "近景 (MS-)"
+  },
+  "145.880": {
+    "file": "frame-145_880s.jpg",
+    "at": 145.88,
+    "faces": 3,
+    "face_ratio": 0.259,
+    "framing": "近景 (MS-)"
+  },
+  "147.620": {
+    "file": "frame-147_620s.jpg",
+    "at": 147.62,
+    "faces": 2,
+    "face_ratio": 0.242,
+    "framing": "近景 (MS-)"
+  },
+  "149.170": {
+    "file": "frame-149_170s.jpg",
+    "at": 149.17,
+    "faces": 2,
+    "face_ratio": 0.177,
+    "framing": "近景 (MS-)"
+  },
+  "150.040": {
+    "file": "frame-150_040s.jpg",
+    "at": 150.04,
+    "faces": 3,
+    "face_ratio": 0.178,
+    "framing": "近景 (MS-)"
+  },
+  "151.040": {
+    "file": "frame-151_040s.jpg",
+    "at": 151.04,
+    "faces": 2,
+    "face_ratio": 0.195,
+    "framing": "近景 (MS-)"
+  },
+  "154.330": {
+    "file": "frame-154_330s.jpg",
+    "at": 154.33,
+    "faces": 2,
+    "face_ratio": 0.149,
+    "framing": "中景 (MS)"
+  },
+  "157.790": {
+    "file": "frame-157_790s.jpg",
+    "at": 157.79,
+    "faces": 1,
+    "face_ratio": 0.181,
+    "framing": "近景 (MS-)"
+  },
+  "159.710": {
+    "file": "frame-159_710s.jpg",
+    "at": 159.71,
+    "faces": 1,
+    "face_ratio": 0.236,
+    "framing": "近景 (MS-)"
+  },
+  "15.210": {
+    "file": "frame-15_210s.jpg",
+    "at": 15.21,
+    "faces": 1,
+    "face_ratio": 0.147,
+    "framing": "中景 (MS)"
+  },
+  "162.170": {
+    "file": "frame-162_170s.jpg",
+    "at": 162.17,
+    "faces": 1,
+    "face_ratio": 0.247,
+    "framing": "近景 (MS-)"
+  },
+  "165.670": {
+    "file": "frame-165_670s.jpg",
+    "at": 165.67,
+    "faces": 2,
+    "face_ratio": 0.229,
+    "framing": "近景 (MS-)"
+  },
+  "168.920": {
+    "file": "frame-168_920s.jpg",
+    "at": 168.92,
+    "faces": 1,
+    "face_ratio": 0.054,
+    "framing": "全景偏中 (WS+)"
+  },
+  "170.580": {
+    "file": "frame-170_580s.jpg",
+    "at": 170.58,
+    "faces": 1,
+    "face_ratio": 0.059,
+    "framing": "全景偏中 (WS+)"
+  },
+  "171.790": {
+    "file": "frame-171_790s.jpg",
+    "at": 171.79,
+    "faces": 1,
+    "face_ratio": 0.347,
+    "framing": "中近景 (MCU)"
+  },
+  "173.540": {
+    "file": "frame-173_540s.jpg",
+    "at": 173.54,
+    "faces": 2,
+    "face_ratio": 0.223,
+    "framing": "近景 (MS-)"
+  },
+  "175.290": {
+    "file": "frame-175_290s.jpg",
+    "at": 175.29,
+    "faces": 2,
+    "face_ratio": 0.218,
+    "framing": "近景 (MS-)"
+  },
+  "177.380": {
+    "file": "frame-177_380s.jpg",
+    "at": 177.38,
+    "faces": 2,
+    "face_ratio": 0.235,
+    "framing": "近景 (MS-)"
+  },
+  "181.040": {
+    "file": "frame-181_040s.jpg",
+    "at": 181.04,
+    "faces": 1,
+    "face_ratio": 0.124,
+    "framing": "中景 (MS)"
+  },
+  "185.040": {
+    "file": "frame-185_040s.jpg",
+    "at": 185.04,
+    "faces": 1,
+    "face_ratio": 0.05,
+    "framing": "全景偏中 (WS+)"
+  },
+  "189.000": {
+    "file": "frame-189_000s.jpg",
+    "at": 189.0,
+    "faces": 1,
+    "face_ratio": 0.208,
+    "framing": "近景 (MS-)"
+  },
+  "194.040": {
+    "file": "frame-194_040s.jpg",
+    "at": 194.04,
+    "faces": 2,
+    "face_ratio": 0.13,
+    "framing": "中景 (MS)"
+  },
+  "198.500": {
+    "file": "frame-198_500s.jpg",
+    "at": 198.5,
+    "faces": 3,
+    "face_ratio": 0.181,
+    "framing": "近景 (MS-)"
+  },
+  "19.500": {
+    "file": "frame-19_500s.jpg",
+    "at": 19.5,
+    "faces": 3,
+    "face_ratio": 0.111,
+    "framing": "中景 (MS)"
+  },
+  "1.000": {
+    "file": "frame-1_000s.jpg",
+    "at": 1.0,
+    "faces": 3,
+    "face_ratio": 0.134,
+    "framing": "中景 (MS)"
+  },
+  "201.620": {
+    "file": "frame-201_620s.jpg",
+    "at": 201.62,
+    "faces": 3,
+    "face_ratio": 0.234,
+    "framing": "近景 (MS-)"
+  },
+  "204.710": {
+    "file": "frame-204_710s.jpg",
+    "at": 204.71,
+    "faces": 1,
+    "face_ratio": 0.245,
+    "framing": "近景 (MS-)"
+  },
+  "206.880": {
+    "file": "frame-206_880s.jpg",
+    "at": 206.88,
+    "faces": 1,
+    "face_ratio": 0.176,
+    "framing": "近景 (MS-)"
+  },
+  "208.080": {
+    "file": "frame-208_080s.jpg",
+    "at": 208.08,
+    "faces": 2,
+    "face_ratio": 0.215,
+    "framing": "近景 (MS-)"
+  },
+  "209.580": {
+    "file": "frame-209_580s.jpg",
+    "at": 209.58,
+    "faces": 2,
+    "face_ratio": 0.228,
+    "framing": "近景 (MS-)"
+  },
+  "211.120": {
+    "file": "frame-211_120s.jpg",
+    "at": 211.12,
+    "faces": 1,
+    "face_ratio": 0.199,
+    "framing": "近景 (MS-)"
+  },
+  "212.380": {
+    "file": "frame-212_380s.jpg",
+    "at": 212.38,
+    "faces": 1,
+    "face_ratio": 0.1,
+    "framing": "中景 (MS)"
+  },
+  "215.290": {
+    "file": "frame-215_290s.jpg",
+    "at": 215.29,
+    "faces": 2,
+    "face_ratio": 0.074,
+    "framing": "全景偏中 (WS+)"
+  },
+  "218.210": {
+    "file": "frame-218_210s.jpg",
+    "at": 218.21,
+    "faces": 1,
+    "face_ratio": 0.134,
+    "framing": "中景 (MS)"
+  },
+  "219.290": {
+    "file": "frame-219_290s.jpg",
+    "at": 219.29,
+    "faces": 3,
+    "face_ratio": 0.311,
+    "framing": "中近景 (MCU)"
+  },
+  "220.540": {
+    "file": "frame-220_540s.jpg",
+    "at": 220.54,
+    "faces": 2,
+    "face_ratio": 0.304,
+    "framing": "中近景 (MCU)"
+  },
+  "222.210": {
+    "file": "frame-222_210s.jpg",
+    "at": 222.21,
+    "faces": 2,
+    "face_ratio": 0.276,
+    "framing": "近景 (MS-)"
+  },
+  "223.710": {
+    "file": "frame-223_710s.jpg",
+    "at": 223.71,
+    "faces": 3,
+    "face_ratio": 0.235,
+    "framing": "近景 (MS-)"
+  },
+  "225.000": {
+    "file": "frame-225_000s.jpg",
+    "at": 225.0,
+    "faces": 4,
+    "face_ratio": 0.243,
+    "framing": "近景 (MS-)"
+  },
+  "227.290": {
+    "file": "frame-227_290s.jpg",
+    "at": 227.29,
+    "faces": 3,
+    "face_ratio": 0.24,
+    "framing": "近景 (MS-)"
+  },
+  "230.250": {
+    "file": "frame-230_250s.jpg",
+    "at": 230.25,
+    "faces": 1,
+    "face_ratio": 0.223,
+    "framing": "近景 (MS-)"
+  },
+  "232.170": {
+    "file": "frame-232_170s.jpg",
+    "at": 232.17,
+    "faces": 6,
+    "face_ratio": 0.089,
+    "framing": "全景偏中 (WS+)"
+  },
+  "234.540": {
+    "file": "frame-234_540s.jpg",
+    "at": 234.54,
+    "faces": 5,
+    "face_ratio": 0.124,
+    "framing": "中景 (MS)"
+  },
+  "236.920": {
+    "file": "frame-236_920s.jpg",
+    "at": 236.92,
+    "faces": 4,
+    "face_ratio": 0.276,
+    "framing": "近景 (MS-)"
+  },
+  "238.040": {
+    "file": "frame-238_040s.jpg",
+    "at": 238.04,
+    "faces": 4,
+    "face_ratio": 0.153,
+    "framing": "中景 (MS)"
+  },
+  "239.710": {
+    "file": "frame-239_710s.jpg",
+    "at": 239.71,
+    "faces": 2,
+    "face_ratio": 0.257,
+    "framing": "近景 (MS-)"
+  },
+  "23.290": {
+    "file": "frame-23_290s.jpg",
+    "at": 23.29,
+    "faces": 2,
+    "face_ratio": 0.116,
+    "framing": "中景 (MS)"
+  },
+  "241.540": {
+    "file": "frame-241_540s.jpg",
+    "at": 241.54,
+    "faces": 2,
+    "face_ratio": 0.199,
+    "framing": "近景 (MS-)"
+  },
+  "243.000": {
+    "file": "frame-243_000s.jpg",
+    "at": 243.0,
+    "faces": 3,
+    "face_ratio": 0.161,
+    "framing": "近景 (MS-)"
+  },
+  "244.080": {
+    "file": "frame-244_080s.jpg",
+    "at": 244.08,
+    "faces": 1,
+    "face_ratio": 0.403,
+    "framing": "中近景 (MCU)"
+  },
+  "245.420": {
+    "file": "frame-245_420s.jpg",
+    "at": 245.42,
+    "faces": 2,
+    "face_ratio": 0.176,
+    "framing": "近景 (MS-)"
+  },
+  "247.250": {
+    "file": "frame-247_250s.jpg",
+    "at": 247.25,
+    "faces": 2,
+    "face_ratio": 0.267,
+    "framing": "近景 (MS-)"
+  },
+  "249.290": {
+    "file": "frame-249_290s.jpg",
+    "at": 249.29,
+    "faces": 1,
+    "face_ratio": 0.332,
+    "framing": "中近景 (MCU)"
+  },
+  "24.580": {
+    "file": "frame-24_580s.jpg",
+    "at": 24.58,
+    "faces": 2,
+    "face_ratio": 0.121,
+    "framing": "中景 (MS)"
+  },
+  "251.080": {
+    "file": "frame-251_080s.jpg",
+    "at": 251.08,
+    "faces": 1,
+    "face_ratio": 0.291,
+    "framing": "中近景 (MCU)"
+  },
+  "252.830": {
+    "file": "frame-252_830s.jpg",
+    "at": 252.83,
+    "faces": 1,
+    "face_ratio": 0.23,
+    "framing": "近景 (MS-)"
+  },
+  "255.080": {
+    "file": "frame-255_080s.jpg",
+    "at": 255.08,
+    "faces": 2,
+    "face_ratio": 0.116,
+    "framing": "中景 (MS)"
+  },
+  "257.000": {
+    "file": "frame-257_000s.jpg",
+    "at": 257.0,
+    "faces": 3,
+    "face_ratio": 0.147,
+    "framing": "中景 (MS)"
+  },
+  "259.920": {
+    "file": "frame-259_920s.jpg",
+    "at": 259.92,
+    "faces": 1,
+    "face_ratio": 0.173,
+    "framing": "近景 (MS-)"
+  },
+  "25.380": {
+    "file": "frame-25_380s.jpg",
+    "at": 25.38,
+    "faces": 2,
+    "face_ratio": 0.144,
+    "framing": "中景 (MS)"
+  },
+  "263.250": {
+    "file": "frame-263_250s.jpg",
+    "at": 263.25,
+    "faces": 1,
+    "face_ratio": 0.204,
+    "framing": "近景 (MS-)"
+  },
+  "266.250": {
+    "file": "frame-266_250s.jpg",
+    "at": 266.25,
+    "faces": 1,
+    "face_ratio": 0.249,
+    "framing": "近景 (MS-)"
+  },
+  "268.830": {
+    "file": "frame-268_830s.jpg",
+    "at": 268.83,
+    "faces": 4,
+    "face_ratio": 0.221,
+    "framing": "近景 (MS-)"
+  },
+  "26.540": {
+    "file": "frame-26_540s.jpg",
+    "at": 26.54,
+    "faces": 1,
+    "face_ratio": 0.298,
+    "framing": "中近景 (MCU)"
+  },
+  "271.710": {
+    "file": "frame-271_710s.jpg",
+    "at": 271.71,
+    "faces": 2,
+    "face_ratio": 0.188,
+    "framing": "近景 (MS-)"
+  },
+  "276.170": {
+    "file": "frame-276_170s.jpg",
+    "at": 276.17,
+    "faces": 3,
+    "face_ratio": 0.218,
+    "framing": "近景 (MS-)"
+  },
+  "280.080": {
+    "file": "frame-280_080s.jpg",
+    "at": 280.08,
+    "faces": 1,
+    "face_ratio": 0.236,
+    "framing": "近景 (MS-)"
+  },
+  "282.120": {
+    "file": "frame-282_120s.jpg",
+    "at": 282.12,
+    "faces": 2,
+    "face_ratio": 0.324,
+    "framing": "中近景 (MCU)"
+  },
+  "283.460": {
+    "file": "frame-283_460s.jpg",
+    "at": 283.46,
+    "faces": 2,
+    "face_ratio": 0.216,
+    "framing": "近景 (MS-)"
+  },
+  "284.620": {
+    "file": "frame-284_620s.jpg",
+    "at": 284.62,
+    "faces": 2,
+    "face_ratio": 0.299,
+    "framing": "中近景 (MCU)"
+  },
+  "287.710": {
+    "file": "frame-287_710s.jpg",
+    "at": 287.71,
+    "faces": 3,
+    "face_ratio": 0.197,
+    "framing": "近景 (MS-)"
+  },
+  "28.380": {
+    "file": "frame-28_380s.jpg",
+    "at": 28.38,
+    "faces": 2,
+    "face_ratio": 0.321,
+    "framing": "中近景 (MCU)"
+  },
+  "293.680": {
+    "file": "frame-293_680s.jpg",
+    "at": 293.68,
+    "faces": 4,
+    "face_ratio": 0.146,
+    "framing": "中景 (MS)"
+  },
+  "30.880": {
+    "file": "frame-30_880s.jpg",
+    "at": 30.88,
+    "faces": 0,
+    "face_ratio": 0.0,
+    "framing": "未检出人脸"
+  },
+  "33.000": {
+    "file": "frame-33_000s.jpg",
+    "at": 33.0,
+    "faces": 3,
+    "face_ratio": 0.249,
+    "framing": "近景 (MS-)"
+  },
+  "34.250": {
+    "file": "frame-34_250s.jpg",
+    "at": 34.25,
+    "faces": 2,
+    "face_ratio": 0.264,
+    "framing": "近景 (MS-)"
+  },
+  "37.500": {
+    "file": "frame-37_500s.jpg",
+    "at": 37.5,
+    "faces": 3,
+    "face_ratio": 0.204,
+    "framing": "近景 (MS-)"
+  },
+  "3.670": {
+    "file": "frame-3_670s.jpg",
+    "at": 3.67,
+    "faces": 1,
+    "face_ratio": 0.228,
+    "framing": "近景 (MS-)"
+  },
+  "41.120": {
+    "file": "frame-41_120s.jpg",
+    "at": 41.12,
+    "faces": 3,
+    "face_ratio": 0.198,
+    "framing": "近景 (MS-)"
+  },
+  "42.830": {
+    "file": "frame-42_830s.jpg",
+    "at": 42.83,
+    "faces": 1,
+    "face_ratio": 0.176,
+    "framing": "近景 (MS-)"
+  },
+  "43.920": {
+    "file": "frame-43_920s.jpg",
+    "at": 43.92,
+    "faces": 0,
+    "face_ratio": 0.0,
+    "framing": "未检出人脸"
+  },
+  "44.620": {
+    "file": "frame-44_620s.jpg",
+    "at": 44.62,
+    "faces": 1,
+    "face_ratio": 0.129,
+    "framing": "中景 (MS)"
+  },
+  "45.380": {
+    "file": "frame-45_380s.jpg",
+    "at": 45.38,
+    "faces": 2,
+    "face_ratio": 0.264,
+    "framing": "近景 (MS-)"
+  },
+  "46.290": {
+    "file": "frame-46_290s.jpg",
+    "at": 46.29,
+    "faces": 5,
+    "face_ratio": 0.215,
+    "framing": "近景 (MS-)"
+  },
+  "48.290": {
+    "file": "frame-48_290s.jpg",
+    "at": 48.29,
+    "faces": 2,
+    "face_ratio": 0.256,
+    "framing": "近景 (MS-)"
+  },
+  "50.500": {
+    "file": "frame-50_500s.jpg",
+    "at": 50.5,
+    "faces": 3,
+    "face_ratio": 0.058,
+    "framing": "全景偏中 (WS+)"
+  },
+  "52.880": {
+    "file": "frame-52_880s.jpg",
+    "at": 52.88,
+    "faces": 3,
+    "face_ratio": 0.15,
+    "framing": "中景 (MS)"
+  },
+  "55.670": {
+    "file": "frame-55_670s.jpg",
+    "at": 55.67,
+    "faces": 1,
+    "face_ratio": 0.18,
+    "framing": "近景 (MS-)"
+  },
+  "5.920": {
+    "file": "frame-5_920s.jpg",
+    "at": 5.92,
+    "faces": 2,
+    "face_ratio": 0.287,
+    "framing": "中近景 (MCU)"
+  },
+  "60.330": {
+    "file": "frame-60_330s.jpg",
+    "at": 60.33,
+    "faces": 2,
+    "face_ratio": 0.131,
+    "framing": "中景 (MS)"
+  },
+  "64.460": {
+    "file": "frame-64_460s.jpg",
+    "at": 64.46,
+    "faces": 1,
+    "face_ratio": 0.232,
+    "framing": "近景 (MS-)"
+  },
+  "65.960": {
+    "file": "frame-65_960s.jpg",
+    "at": 65.96,
+    "faces": 1,
+    "face_ratio": 0.235,
+    "framing": "近景 (MS-)"
+  },
+  "69.210": {
+    "file": "frame-69_210s.jpg",
+    "at": 69.21,
+    "faces": 1,
+    "face_ratio": 0.184,
+    "framing": "近景 (MS-)"
+  },
+  "72.380": {
+    "file": "frame-72_380s.jpg",
+    "at": 72.38,
+    "faces": 2,
+    "face_ratio": 0.211,
+    "framing": "近景 (MS-)"
+  },
+  "73.580": {
+    "file": "frame-73_580s.jpg",
+    "at": 73.58,
+    "faces": 2,
+    "face_ratio": 0.17,
+    "framing": "近景 (MS-)"
+  },
+  "75.540": {
+    "file": "frame-75_540s.jpg",
+    "at": 75.54,
+    "faces": 3,
+    "face_ratio": 0.229,
+    "framing": "近景 (MS-)"
+  },
+  "78.420": {
+    "file": "frame-78_420s.jpg",
+    "at": 78.42,
+    "faces": 3,
+    "face_ratio": 0.143,
+    "framing": "中景 (MS)"
+  },
+  "80.750": {
+    "file": "frame-80_750s.jpg",
+    "at": 80.75,
+    "faces": 5,
+    "face_ratio": 0.098,
+    "framing": "中景 (MS)"
+  },
+  "82.750": {
+    "file": "frame-82_750s.jpg",
+    "at": 82.75,
+    "faces": 4,
+    "face_ratio": 0.134,
+    "framing": "中景 (MS)"
+  },
+  "85.330": {
+    "file": "frame-85_330s.jpg",
+    "at": 85.33,
+    "faces": 2,
+    "face_ratio": 0.177,
+    "framing": "近景 (MS-)"
+  },
+  "88.750": {
+    "file": "frame-88_750s.jpg",
+    "at": 88.75,
+    "faces": 1,
+    "face_ratio": 0.234,
+    "framing": "近景 (MS-)"
+  },
+  "8.620": {
+    "file": "frame-8_620s.jpg",
+    "at": 8.62,
+    "faces": 1,
+    "face_ratio": 0.218,
+    "framing": "近景 (MS-)"
+  },
+  "91.670": {
+    "file": "frame-91_670s.jpg",
+    "at": 91.67,
+    "faces": 2,
+    "face_ratio": 0.203,
+    "framing": "近景 (MS-)"
+  },
+  "93.670": {
+    "file": "frame-93_670s.jpg",
+    "at": 93.67,
+    "faces": 1,
+    "face_ratio": 0.24,
+    "framing": "近景 (MS-)"
+  },
+  "95.620": {
+    "file": "frame-95_620s.jpg",
+    "at": 95.62,
+    "faces": 2,
+    "face_ratio": 0.197,
+    "framing": "近景 (MS-)"
+  },
+  "97.250": {
+    "file": "frame-97_250s.jpg",
+    "at": 97.25,
+    "faces": 3,
+    "face_ratio": 0.181,
+    "framing": "近景 (MS-)"
+  },
+  "98.670": {
+    "file": "frame-98_670s.jpg",
+    "at": 98.67,
+    "faces": 1,
+    "face_ratio": 0.179,
+    "framing": "近景 (MS-)"
+  }
+}

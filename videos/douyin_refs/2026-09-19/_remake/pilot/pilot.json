@@ -1,0 +1,172 @@
+{
+ "frames": 107,
+ "fps": 24,
+ "duration": 4.4583,
+ "shots": [
+  {
+   "key": "dy4_u007_stomp",
+   "video": "7661791104643797617",
+   "uid": "u007",
+   "kind": "剧情",
+   "dialogue": "你这种老人我见多了，我要是因为你错过面试，你赔得起吗？",
+   "t_start": 20.198,
+   "t_end": 24.101,
+   "voice_dur": 3.903,
+   "pad_tail": 0.555,
+   "src_shots": [
+    8,
+    9,
+    10,
+    11
+   ],
+   "beats": [
+    {
+     "t": "0.0-1.5",
+     "text": "你这种老人我见多了，",
+     "role": "起",
+     "cam": "保持景别，人物由静止进入第一个微动作（抬眼 / 侧头 / 手部起势）"
+    },
+    {
+     "t": "1.5-3.1",
+     "text": "我要是因为你错过面试，",
+     "role": "承",
+     "cam": "镜内缓推 dolly-in 8–12%，把信息焦点交给正在说话的人"
+    },
+    {
+     "t": "3.1-3.9",
+     "text": "你赔得起吗？",
+     "role": "合",
+     "cam": "停稳不动，给明确反应落点（点头 / 垂眼 / 嘴角变化 / 呼一口气）"
+    }
+   ],
+   "ref_note": "frame-21_790s.jpg @21.79s",
+   "voice": "dy4_voice/dy4_u007_stomp.wav",
+   "ref": "dy4_ref/dy4_u007_stomp.jpg",
+   "first": "dy4_first/dy4_u007_stomp.jpg",
+   "last": "dy4_last/dy4_u007_stomp.jpg"
+  },
+  {
+   "key": "dy4_u060_tearopen",
+   "video": "7661791104643797617",
+   "uid": "u060",
+   "kind": "产品",
+   "dialogue": "然后重点来了，直接撕开一包这个爆汁红烧酱料倒进去，",
+   "t_start": 209.64,
+   "t_end": 213.641,
+   "voice_dur": 4.001,
+   "pad_tail": 0.457,
+   "src_shots": [
+    80,
+    81,
+    82
+   ],
+   "beats": [
+    {
+     "t": "0.0-1.0",
+     "text": "然后重点来了，",
+     "role": "起",
+     "cam": "保持景别，人物由静止进入第一个微动作（抬眼 / 侧头 / 手部起势）"
+    },
+    {
+     "t": "1.0-2.4",
+     "text": "直接撕开一包这个",
+     "role": "承",
+     "cam": "镜内缓推 dolly-in 8–12%，把信息焦点交给正在说话的人"
+    },
+    {
+     "t": "2.4-4.0",
+     "text": "爆汁红烧酱料倒进去，",
+     "role": "合",
+     "cam": "停稳不动，给明确反应落点（点头 / 垂眼 / 嘴角变化 / 呼一口气）"
+    }
+   ],
+   "ref_note": "产品原图（等比缩放到框内，白底补齐）",
+   "voice": "dy4_voice/dy4_u060_tearopen.wav",
+   "ref": "dy4_ref/dy4_u060_tearopen.jpg",
+   "first": "dy4_first/dy4_u060_tearopen.jpg",
+   "last": "dy4_last/dy4_u060_tearopen.jpg"
+  },
+  {
+   "key": "dy5_u055_expose",
+   "video": "7663019839170397945",
+   "uid": "u055",
+   "kind": "剧情",
+   "dialogue": "顾总，你是宏盛集团的顾晨洲，你刚才不是说你普通上班吗？",
+   "t_start": 218.64,
+   "t_end": 222.798,
+   "voice_dur": 4.158,
+   "pad_tail": 0.3,
+   "src_shots": [
+    94,
+    95,
+    96,
+    97
+   ],
+   "beats": [
+    {
+     "t": "0.0-0.3",
+     "text": "顾总，",
+     "role": "起",
+     "cam": "保持景别，人物由静止进入第一个微动作（抬眼 / 侧头 / 手部起势）"
+    },
+    {
+     "t": "0.3-2.1",
+     "text": "你是宏盛集团的顾晨洲，",
+     "role": "承",
+     "cam": "镜内缓推 dolly-in 8–12%，把信息焦点交给正在说话的人"
+    },
+    {
+     "t": "2.1-4.2",
+     "text": "你刚才不是说你普通上班吗？",
+     "role": "合",
+     "cam": "停稳不动，给明确反应落点（点头 / 垂眼 / 嘴角变化 / 呼一口气）"
+    }
+   ],
+   "ref_note": "frame-220_540s.jpg @220.54s",
+   "voice": "dy4_voice/dy5_u055_expose.wav",
+   "ref": "dy4_ref/dy5_u055_expose.jpg",
+   "first": "dy4_first/dy5_u055_expose.jpg",
+   "last": "dy4_last/dy5_u055_expose.jpg"
+  },
+  {
+   "key": "dy5_u042_tender",
+   "video": "7663019839170397945",
+   "uid": "u042",
+   "kind": "产品",
+   "dialogue": "排骨吸满浓郁酱汁，筷子轻轻一戳就脱骨软烂入味，特别下饭。",
+   "t_start": 162.87,
+   "t_end": 167.087,
+   "voice_dur": 4.217,
+   "pad_tail": 0.241,
+   "src_shots": [
+    73,
+    74
+   ],
+   "beats": [
+    {
+     "t": "0.0-1.3",
+     "text": "排骨吸满浓郁酱汁，",
+     "role": "起",
+     "cam": "保持景别，人物由静止进入第一个微动作（抬眼 / 侧头 / 手部起势）"
+    },
+    {
+     "t": "1.3-3.5",
+     "text": "筷子轻轻一戳就脱骨软烂入味，",
+     "role": "承",
+     "cam": "镜内缓推 dolly-in 8–12%，把信息焦点交给正在说话的人"
+    },
+    {
+     "t": "3.5-4.2",
+     "text": "特别下饭。",
+     "role": "合",
+     "cam": "停稳不动，给明确反应落点（点头 / 垂眼 / 嘴角变化 / 呼一口气）"
+    }
+   ],
+   "ref_note": "frame-165_670s.jpg @165.67s",
+   "voice": "dy4_voice/dy5_u042_tender.wav",
+   "ref": "dy4_ref/dy5_u042_tender.jpg",
+   "first": "dy4_first/dy5_u042_tender.jpg",
+   "last": "dy4_last/dy5_u042_tender.jpg"
+  }
+ ]
+}

@@ -1,0 +1,1179 @@
+{
+  "source_audio": "7661791104643797617/audio_16k.wav",
+  "duration": 286.094,
+  "loudness": {
+    "lufs_i": -7.3,
+    "lra": 1.6,
+    "true_peak_dbfs": 2.1,
+    "overload": true
+  },
+  "speech_sec": 285.14,
+  "speech_ratio_asr": 0.997,
+  "audio_activity_ratio": 0.759,
+  "silence_ratio": 0.092,
+  "noise_floor_db": -17.8,
+  "dynamic_range_db": 13.7,
+  "median_active_db": -6.1,
+  "speech_segments": 3,
+  "chars": 1788,
+  "cps_speech": 6.27,
+  "cps_film": 6.25,
+  "tonal": {
+    "speech_flatness": 0.1391,
+    "gap_flatness": 0.0437,
+    "gap_rms_dbfs": -22.5,
+    "gap_peak_hz": 43.0,
+    "gap_concentration": 0.42
+  },
+  "gap_energy_delta_db": 16.4,
+  "bgm_verdict": "间隙段谱平坦度 0.0437（偏音调性）→ 疑似有持续音床，需人工复听确认",
+  "longest_silences": [
+    {
+      "t0": 58.27,
+      "t1": 58.52,
+      "dur": 0.25
+    },
+    {
+      "t0": 32.85,
+      "t1": 33.12,
+      "dur": 0.27,
+      "rms_dbfs": -22.5,
+      "flatness": 0.0437,
+      "peak_hz": 43,
+      "peak_concentration": 0.42,
+      "low_band_ratio": 0.12
+    }
+  ],
+  "shots": [
+    {
+      "no": 1,
+      "t0": 0.0,
+      "t1": 1.833,
+      "chars": 10,
+      "speech_sec": 1.473,
+      "speech_ratio": 0.804,
+      "cps_speech": 6.79,
+      "rms_db": -9.8
+    },
+    {
+      "no": 2,
+      "t0": 1.833,
+      "t1": 3.25,
+      "chars": 9,
+      "speech_sec": 1.417,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.35,
+      "rms_db": -5.8
+    },
+    {
+      "no": 3,
+      "t0": 3.25,
+      "t1": 5.667,
+      "chars": 16,
+      "speech_sec": 2.417,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.62,
+      "rms_db": -8.6
+    },
+    {
+      "no": 4,
+      "t0": 5.667,
+      "t1": 11.167,
+      "chars": 35,
+      "speech_sec": 5.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.36,
+      "rms_db": -7.4
+    },
+    {
+      "no": 5,
+      "t0": 11.167,
+      "t1": 15.667,
+      "chars": 29,
+      "speech_sec": 4.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.44,
+      "rms_db": -6.2
+    },
+    {
+      "no": 6,
+      "t0": 15.667,
+      "t1": 18.667,
+      "chars": 19,
+      "speech_sec": 3.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.33,
+      "rms_db": -5.3
+    },
+    {
+      "no": 7,
+      "t0": 18.667,
+      "t1": 20.0,
+      "chars": 9,
+      "speech_sec": 1.333,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.75,
+      "rms_db": -6.4
+    },
+    {
+      "no": 8,
+      "t0": 20.0,
+      "t1": 21.25,
+      "chars": 9,
+      "speech_sec": 1.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.2,
+      "rms_db": -7.3
+    },
+    {
+      "no": 9,
+      "t0": 21.25,
+      "t1": 22.333,
+      "chars": 8,
+      "speech_sec": 1.083,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.39,
+      "rms_db": -6.2
+    },
+    {
+      "no": 10,
+      "t0": 22.333,
+      "t1": 23.5,
+      "chars": 8,
+      "speech_sec": 1.167,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -6.9
+    },
+    {
+      "no": 11,
+      "t0": 23.5,
+      "t1": 25.167,
+      "chars": 11,
+      "speech_sec": 1.667,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.6,
+      "rms_db": -7.5
+    },
+    {
+      "no": 12,
+      "t0": 25.167,
+      "t1": 26.667,
+      "chars": 10,
+      "speech_sec": 1.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -7.1
+    },
+    {
+      "no": 13,
+      "t0": 26.667,
+      "t1": 33.917,
+      "chars": 46,
+      "speech_sec": 7.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.34,
+      "rms_db": -8.2
+    },
+    {
+      "no": 14,
+      "t0": 33.917,
+      "t1": 36.5,
+      "chars": 18,
+      "speech_sec": 2.583,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.97,
+      "rms_db": -6.0
+    },
+    {
+      "no": 15,
+      "t0": 36.5,
+      "t1": 38.5,
+      "chars": 15,
+      "speech_sec": 2.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.5,
+      "rms_db": -7.5
+    },
+    {
+      "no": 16,
+      "t0": 38.5,
+      "t1": 41.583,
+      "chars": 21,
+      "speech_sec": 3.083,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.81,
+      "rms_db": -7.4
+    },
+    {
+      "no": 17,
+      "t0": 41.583,
+      "t1": 42.333,
+      "chars": 6,
+      "speech_sec": 0.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 8.0,
+      "rms_db": -9.1
+    },
+    {
+      "no": 18,
+      "t0": 42.333,
+      "t1": 43.917,
+      "chars": 12,
+      "speech_sec": 1.584,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.58,
+      "rms_db": -6.3
+    },
+    {
+      "no": 19,
+      "t0": 43.917,
+      "t1": 46.667,
+      "chars": 19,
+      "speech_sec": 2.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.91,
+      "rms_db": -8.0
+    },
+    {
+      "no": 20,
+      "t0": 46.667,
+      "t1": 52.167,
+      "chars": 37,
+      "speech_sec": 5.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.73,
+      "rms_db": -6.7
+    },
+    {
+      "no": 21,
+      "t0": 52.167,
+      "t1": 52.833,
+      "chars": 5,
+      "speech_sec": 0.666,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.51,
+      "rms_db": -8.5
+    },
+    {
+      "no": 22,
+      "t0": 52.833,
+      "t1": 53.5,
+      "chars": 6,
+      "speech_sec": 0.667,
+      "speech_ratio": 1.0,
+      "cps_speech": 9.0,
+      "rms_db": -5.9
+    },
+    {
+      "no": 23,
+      "t0": 53.5,
+      "t1": 54.833,
+      "chars": 10,
+      "speech_sec": 1.333,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.5,
+      "rms_db": -8.2
+    },
+    {
+      "no": 24,
+      "t0": 54.833,
+      "t1": 56.25,
+      "chars": 10,
+      "speech_sec": 1.417,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.06,
+      "rms_db": -8.1
+    },
+    {
+      "no": 25,
+      "t0": 56.25,
+      "t1": 57.833,
+      "chars": 11,
+      "speech_sec": 1.583,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.95,
+      "rms_db": -7.5
+    },
+    {
+      "no": 26,
+      "t0": 57.833,
+      "t1": 60.333,
+      "chars": 16,
+      "speech_sec": 2.36,
+      "speech_ratio": 0.944,
+      "cps_speech": 6.78,
+      "rms_db": -9.4
+    },
+    {
+      "no": 27,
+      "t0": 60.333,
+      "t1": 61.75,
+      "chars": 10,
+      "speech_sec": 1.417,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.06,
+      "rms_db": -7.5
+    },
+    {
+      "no": 28,
+      "t0": 61.75,
+      "t1": 64.25,
+      "chars": 16,
+      "speech_sec": 2.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.4,
+      "rms_db": -6.3
+    },
+    {
+      "no": 29,
+      "t0": 64.25,
+      "t1": 64.917,
+      "chars": 5,
+      "speech_sec": 0.667,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.5,
+      "rms_db": -5.7
+    },
+    {
+      "no": 30,
+      "t0": 64.917,
+      "t1": 66.667,
+      "chars": 12,
+      "speech_sec": 1.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -6.9
+    },
+    {
+      "no": 31,
+      "t0": 66.667,
+      "t1": 67.667,
+      "chars": 7,
+      "speech_sec": 1.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.0,
+      "rms_db": -5.7
+    },
+    {
+      "no": 32,
+      "t0": 67.667,
+      "t1": 68.583,
+      "chars": 7,
+      "speech_sec": 0.916,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.64,
+      "rms_db": -5.8
+    },
+    {
+      "no": 33,
+      "t0": 68.583,
+      "t1": 70.25,
+      "chars": 11,
+      "speech_sec": 1.667,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.6,
+      "rms_db": -7.3
+    },
+    {
+      "no": 34,
+      "t0": 70.25,
+      "t1": 71.833,
+      "chars": 11,
+      "speech_sec": 1.583,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.95,
+      "rms_db": -7.1
+    },
+    {
+      "no": 35,
+      "t0": 71.833,
+      "t1": 73.667,
+      "chars": 12,
+      "speech_sec": 1.834,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.54,
+      "rms_db": -6.4
+    },
+    {
+      "no": 36,
+      "t0": 73.667,
+      "t1": 75.667,
+      "chars": 13,
+      "speech_sec": 2.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.5,
+      "rms_db": -6.9
+    },
+    {
+      "no": 37,
+      "t0": 75.667,
+      "t1": 78.75,
+      "chars": 20,
+      "speech_sec": 3.083,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.49,
+      "rms_db": -7.1
+    },
+    {
+      "no": 38,
+      "t0": 78.75,
+      "t1": 79.917,
+      "chars": 8,
+      "speech_sec": 1.167,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -7.1
+    },
+    {
+      "no": 39,
+      "t0": 79.917,
+      "t1": 81.833,
+      "chars": 13,
+      "speech_sec": 1.916,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.78,
+      "rms_db": -7.0
+    },
+    {
+      "no": 40,
+      "t0": 81.833,
+      "t1": 86.583,
+      "chars": 30,
+      "speech_sec": 4.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.32,
+      "rms_db": -7.7
+    },
+    {
+      "no": 41,
+      "t0": 86.583,
+      "t1": 90.75,
+      "chars": 26,
+      "speech_sec": 4.167,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.24,
+      "rms_db": -6.7
+    },
+    {
+      "no": 42,
+      "t0": 90.75,
+      "t1": 94.667,
+      "chars": 25,
+      "speech_sec": 3.917,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.38,
+      "rms_db": -6.5
+    },
+    {
+      "no": 43,
+      "t0": 94.667,
+      "t1": 96.917,
+      "chars": 15,
+      "speech_sec": 2.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -6.9
+    },
+    {
+      "no": 44,
+      "t0": 96.917,
+      "t1": 98.5,
+      "chars": 10,
+      "speech_sec": 1.583,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.32,
+      "rms_db": -6.4
+    },
+    {
+      "no": 45,
+      "t0": 98.5,
+      "t1": 101.5,
+      "chars": 19,
+      "speech_sec": 3.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.33,
+      "rms_db": -6.4
+    },
+    {
+      "no": 46,
+      "t0": 101.5,
+      "t1": 109.583,
+      "chars": 51,
+      "speech_sec": 8.083,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.31,
+      "rms_db": -7.1
+    },
+    {
+      "no": 47,
+      "t0": 109.583,
+      "t1": 111.417,
+      "chars": 12,
+      "speech_sec": 1.834,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.54,
+      "rms_db": -6.5
+    },
+    {
+      "no": 48,
+      "t0": 111.417,
+      "t1": 112.667,
+      "chars": 9,
+      "speech_sec": 1.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.2,
+      "rms_db": -8.8
+    },
+    {
+      "no": 49,
+      "t0": 112.667,
+      "t1": 115.833,
+      "chars": 21,
+      "speech_sec": 3.166,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.63,
+      "rms_db": -6.8
+    },
+    {
+      "no": 50,
+      "t0": 115.833,
+      "t1": 117.833,
+      "chars": 14,
+      "speech_sec": 2.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.0,
+      "rms_db": -8.6
+    },
+    {
+      "no": 51,
+      "t0": 117.833,
+      "t1": 121.083,
+      "chars": 21,
+      "speech_sec": 3.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.46,
+      "rms_db": -6.9
+    },
+    {
+      "no": 52,
+      "t0": 121.083,
+      "t1": 121.833,
+      "chars": 3,
+      "speech_sec": 0.31,
+      "speech_ratio": 0.413,
+      "cps_speech": 9.68,
+      "rms_db": -8.5
+    },
+    {
+      "no": 53,
+      "t0": 121.833,
+      "t1": 123.0,
+      "chars": 9,
+      "speech_sec": 1.167,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.71,
+      "rms_db": -8.1
+    },
+    {
+      "no": 54,
+      "t0": 123.0,
+      "t1": 123.75,
+      "chars": 6,
+      "speech_sec": 0.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 8.0,
+      "rms_db": -7.7
+    },
+    {
+      "no": 55,
+      "t0": 123.75,
+      "t1": 125.75,
+      "chars": 14,
+      "speech_sec": 2.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.0,
+      "rms_db": -6.4
+    },
+    {
+      "no": 56,
+      "t0": 125.75,
+      "t1": 127.75,
+      "chars": 13,
+      "speech_sec": 2.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.5,
+      "rms_db": -7.9
+    },
+    {
+      "no": 57,
+      "t0": 127.75,
+      "t1": 129.167,
+      "chars": 11,
+      "speech_sec": 1.417,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.76,
+      "rms_db": -7.4
+    },
+    {
+      "no": 58,
+      "t0": 129.167,
+      "t1": 130.333,
+      "chars": 8,
+      "speech_sec": 1.166,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -7.1
+    },
+    {
+      "no": 59,
+      "t0": 130.333,
+      "t1": 131.583,
+      "chars": 9,
+      "speech_sec": 1.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.2,
+      "rms_db": -5.7
+    },
+    {
+      "no": 60,
+      "t0": 131.583,
+      "t1": 135.583,
+      "chars": 27,
+      "speech_sec": 4.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.75,
+      "rms_db": -6.5
+    },
+    {
+      "no": 61,
+      "t0": 135.583,
+      "t1": 139.667,
+      "chars": 28,
+      "speech_sec": 4.084,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -7.5
+    },
+    {
+      "no": 62,
+      "t0": 139.667,
+      "t1": 143.833,
+      "chars": 28,
+      "speech_sec": 4.166,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.72,
+      "rms_db": -6.7
+    },
+    {
+      "no": 63,
+      "t0": 143.833,
+      "t1": 145.083,
+      "chars": 9,
+      "speech_sec": 1.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.2,
+      "rms_db": -6.9
+    },
+    {
+      "no": 64,
+      "t0": 145.083,
+      "t1": 146.833,
+      "chars": 12,
+      "speech_sec": 1.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -6.6
+    },
+    {
+      "no": 65,
+      "t0": 146.833,
+      "t1": 148.167,
+      "chars": 10,
+      "speech_sec": 1.334,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.5,
+      "rms_db": -7.2
+    },
+    {
+      "no": 66,
+      "t0": 148.167,
+      "t1": 149.917,
+      "chars": 12,
+      "speech_sec": 1.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -6.2
+    },
+    {
+      "no": 67,
+      "t0": 149.917,
+      "t1": 152.417,
+      "chars": 17,
+      "speech_sec": 2.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.8,
+      "rms_db": -8.0
+    },
+    {
+      "no": 68,
+      "t0": 152.417,
+      "t1": 161.667,
+      "chars": 63,
+      "speech_sec": 9.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.81,
+      "rms_db": -7.4
+    },
+    {
+      "no": 69,
+      "t0": 161.667,
+      "t1": 164.083,
+      "chars": 17,
+      "speech_sec": 2.416,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.04,
+      "rms_db": -7.3
+    },
+    {
+      "no": 70,
+      "t0": 164.083,
+      "t1": 168.583,
+      "chars": 30,
+      "speech_sec": 4.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -7.3
+    },
+    {
+      "no": 71,
+      "t0": 168.583,
+      "t1": 172.917,
+      "chars": 30,
+      "speech_sec": 4.334,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.92,
+      "rms_db": -8.1
+    },
+    {
+      "no": 72,
+      "t0": 172.917,
+      "t1": 177.333,
+      "chars": 31,
+      "speech_sec": 4.416,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.02,
+      "rms_db": -7.1
+    },
+    {
+      "no": 73,
+      "t0": 177.333,
+      "t1": 181.833,
+      "chars": 31,
+      "speech_sec": 4.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.89,
+      "rms_db": -6.4
+    },
+    {
+      "no": 74,
+      "t0": 181.833,
+      "t1": 184.667,
+      "chars": 19,
+      "speech_sec": 2.834,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.7,
+      "rms_db": -6.3
+    },
+    {
+      "no": 75,
+      "t0": 184.667,
+      "t1": 187.5,
+      "chars": 20,
+      "speech_sec": 2.833,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.06,
+      "rms_db": -6.2
+    },
+    {
+      "no": 76,
+      "t0": 187.5,
+      "t1": 189.0,
+      "chars": 11,
+      "speech_sec": 1.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.33,
+      "rms_db": -6.1
+    },
+    {
+      "no": 77,
+      "t0": 189.0,
+      "t1": 190.75,
+      "chars": 13,
+      "speech_sec": 1.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.43,
+      "rms_db": -6.0
+    },
+    {
+      "no": 78,
+      "t0": 190.75,
+      "t1": 196.0,
+      "chars": 36,
+      "speech_sec": 5.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -6.2
+    },
+    {
+      "no": 79,
+      "t0": 196.0,
+      "t1": 198.333,
+      "chars": 16,
+      "speech_sec": 2.333,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.86,
+      "rms_db": -6.6
+    },
+    {
+      "no": 80,
+      "t0": 198.333,
+      "t1": 210.333,
+      "chars": 80,
+      "speech_sec": 12.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -6.3
+    },
+    {
+      "no": 81,
+      "t0": 210.333,
+      "t1": 212.5,
+      "chars": 14,
+      "speech_sec": 2.167,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.46,
+      "rms_db": -6.5
+    },
+    {
+      "no": 82,
+      "t0": 212.5,
+      "t1": 214.25,
+      "chars": 11,
+      "speech_sec": 1.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.29,
+      "rms_db": -7.6
+    },
+    {
+      "no": 83,
+      "t0": 214.25,
+      "t1": 217.333,
+      "chars": 19,
+      "speech_sec": 3.083,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.16,
+      "rms_db": -7.6
+    },
+    {
+      "no": 84,
+      "t0": 217.333,
+      "t1": 218.333,
+      "chars": 6,
+      "speech_sec": 1.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.0,
+      "rms_db": -8.1
+    },
+    {
+      "no": 85,
+      "t0": 218.333,
+      "t1": 220.167,
+      "chars": 12,
+      "speech_sec": 1.834,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.54,
+      "rms_db": -7.4
+    },
+    {
+      "no": 86,
+      "t0": 220.167,
+      "t1": 221.167,
+      "chars": 7,
+      "speech_sec": 1.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.0,
+      "rms_db": -5.9
+    },
+    {
+      "no": 87,
+      "t0": 221.167,
+      "t1": 227.417,
+      "chars": 37,
+      "speech_sec": 6.25,
+      "speech_ratio": 1.0,
+      "cps_speech": 5.92,
+      "rms_db": -6.7
+    },
+    {
+      "no": 88,
+      "t0": 227.417,
+      "t1": 228.167,
+      "chars": 5,
+      "speech_sec": 0.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -7.3
+    },
+    {
+      "no": 89,
+      "t0": 228.167,
+      "t1": 229.833,
+      "chars": 11,
+      "speech_sec": 1.666,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.6,
+      "rms_db": -6.2
+    },
+    {
+      "no": 90,
+      "t0": 229.833,
+      "t1": 231.917,
+      "chars": 13,
+      "speech_sec": 2.084,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.24,
+      "rms_db": -6.0
+    },
+    {
+      "no": 91,
+      "t0": 231.917,
+      "t1": 236.75,
+      "chars": 28,
+      "speech_sec": 4.833,
+      "speech_ratio": 1.0,
+      "cps_speech": 5.79,
+      "rms_db": -6.6
+    },
+    {
+      "no": 92,
+      "t0": 236.75,
+      "t1": 239.333,
+      "chars": 16,
+      "speech_sec": 2.583,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.19,
+      "rms_db": -6.1
+    },
+    {
+      "no": 93,
+      "t0": 239.333,
+      "t1": 242.25,
+      "chars": 18,
+      "speech_sec": 2.917,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.17,
+      "rms_db": -6.4
+    },
+    {
+      "no": 94,
+      "t0": 242.25,
+      "t1": 243.0,
+      "chars": 5,
+      "speech_sec": 0.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -5.5
+    },
+    {
+      "no": 95,
+      "t0": 243.0,
+      "t1": 246.417,
+      "chars": 21,
+      "speech_sec": 3.417,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.15,
+      "rms_db": -6.4
+    },
+    {
+      "no": 96,
+      "t0": 246.417,
+      "t1": 249.333,
+      "chars": 18,
+      "speech_sec": 2.916,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.17,
+      "rms_db": -6.0
+    },
+    {
+      "no": 97,
+      "t0": 249.333,
+      "t1": 254.167,
+      "chars": 28,
+      "speech_sec": 4.834,
+      "speech_ratio": 1.0,
+      "cps_speech": 5.79,
+      "rms_db": -6.6
+    },
+    {
+      "no": 98,
+      "t0": 254.167,
+      "t1": 255.083,
+      "chars": 8,
+      "speech_sec": 0.916,
+      "speech_ratio": 1.0,
+      "cps_speech": 8.73,
+      "rms_db": -6.5
+    },
+    {
+      "no": 99,
+      "t0": 255.083,
+      "t1": 260.167,
+      "chars": 32,
+      "speech_sec": 5.084,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.29,
+      "rms_db": -6.6
+    },
+    {
+      "no": 100,
+      "t0": 260.167,
+      "t1": 261.167,
+      "chars": 9,
+      "speech_sec": 1.0,
+      "speech_ratio": 1.0,
+      "cps_speech": 9.0,
+      "rms_db": -6.5
+    },
+    {
+      "no": 101,
+      "t0": 261.167,
+      "t1": 264.917,
+      "chars": 22,
+      "speech_sec": 3.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 5.87,
+      "rms_db": -6.3
+    },
+    {
+      "no": 102,
+      "t0": 264.917,
+      "t1": 265.667,
+      "chars": 6,
+      "speech_sec": 0.75,
+      "speech_ratio": 1.0,
+      "cps_speech": 8.0,
+      "rms_db": -6.1
+    },
+    {
+      "no": 103,
+      "t0": 265.667,
+      "t1": 266.333,
+      "chars": 4,
+      "speech_sec": 0.666,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.01,
+      "rms_db": -5.5
+    },
+    {
+      "no": 104,
+      "t0": 266.333,
+      "t1": 267.833,
+      "chars": 10,
+      "speech_sec": 1.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -6.8
+    },
+    {
+      "no": 105,
+      "t0": 267.833,
+      "t1": 269.667,
+      "chars": 12,
+      "speech_sec": 1.834,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.54,
+      "rms_db": -6.9
+    },
+    {
+      "no": 106,
+      "t0": 269.667,
+      "t1": 271.167,
+      "chars": 10,
+      "speech_sec": 1.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.67,
+      "rms_db": -6.6
+    },
+    {
+      "no": 107,
+      "t0": 271.167,
+      "t1": 272.333,
+      "chars": 9,
+      "speech_sec": 1.166,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.72,
+      "rms_db": -6.9
+    },
+    {
+      "no": 108,
+      "t0": 272.333,
+      "t1": 274.25,
+      "chars": 14,
+      "speech_sec": 1.917,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.3,
+      "rms_db": -7.3
+    },
+    {
+      "no": 109,
+      "t0": 274.25,
+      "t1": 275.75,
+      "chars": 11,
+      "speech_sec": 1.5,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.33,
+      "rms_db": -7.1
+    },
+    {
+      "no": 110,
+      "t0": 275.75,
+      "t1": 277.083,
+      "chars": 9,
+      "speech_sec": 1.333,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.75,
+      "rms_db": -6.6
+    },
+    {
+      "no": 111,
+      "t0": 277.083,
+      "t1": 278.0,
+      "chars": 7,
+      "speech_sec": 0.917,
+      "speech_ratio": 1.0,
+      "cps_speech": 7.63,
+      "rms_db": -9.2
+    },
+    {
+      "no": 112,
+      "t0": 278.0,
+      "t1": 282.417,
+      "chars": 30,
+      "speech_sec": 4.417,
+      "speech_ratio": 1.0,
+      "cps_speech": 6.79,
+      "rms_db": -7.6
+    },
+    {
+      "no": 113,
+      "t0": 282.417,
+      "t1": 286.133,
+      "chars": 25,
+      "speech_sec": 3.663,
+      "speech_ratio": 0.986,
+      "cps_speech": 6.83,
+      "rms_db": -6.9
+    }
+  ]
+}

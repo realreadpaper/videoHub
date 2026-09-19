@@ -1,0 +1,2568 @@
+{
+  "file_url": "http://dashscope-file-mgr.oss-cn-beijing.aliyuncs.com/dashscope-instant/55eaa545e6eb98583e4f22f15712fdfd/2026-09-19/27cc3f00-570a-9416-a54a-cbedcf38870f/audio_16k.mp3?Expires=1789955109&OSSAccessKeyId=LTAI5t64cnuuVx7xndFH9ULk&Signature=GAaThjgI6%2B33TLGM4nXvNtUExE8%3D",
+  "properties": {
+    "audio_format": "mp3",
+    "channels": [
+      0
+    ],
+    "original_sampling_rate": 16000,
+    "original_duration_in_milliseconds": 163262
+  },
+  "transcripts": [
+    {
+      "channel_id": 0,
+      "content_duration_in_milliseconds": 120300,
+      "text": "看样子穿越成恶兽了，那么就让我成为最大的反派吧。话说我长啥样来着？孽也畜，嗯，拿命来，我穿越者，我怕你这一手应该可以炼制上好的法宝。君子报仇，十年不晚草，哪里有草吃？How我长得不可怕吗？你长得很和蔼，像我妈妈。不好，还有预报又活到头了吗？爸妈，小兰，我好想你。我们两个不合适，我家主人已经给我安排相亲了。系统开启，叫你不要说话了。野牛二级真有系统。异兽死亡后残留的魔石可用于系统置换道具，应该是刚刚和修士打起来的那只有系统，我将成为最大的反派。将手放到果石上开始吸收，吸收完成5万魔力值，五万魔力值先买个手枪和大炮吧。你这玩意儿有什么用？差点被那异兽炸死，真是天不枉我，我的吹风机大炮呢。看样子这也没啥用唉。60级雷箭你没有魔力无法使用，可在人族拍卖场换取魔石修饰的裤衩没什么卵用，先去拍卖场看看，顺便了解一下世界观。你把裤衩穿头上干嘛？算了，你知道附近最近的拍卖场往哪儿走吗？往东走一天就到了。你爱吃草吗？我不爱吃草，爱吃牛肉。哇哦我家主人也爱吃牛肉，他说她天天在放牛，但我和我妈妈谁也没见过牛。",
+      "sentences": [
+        {
+          "begin_time": 0,
+          "end_time": 5630,
+          "text": "看样子穿越成恶兽了，那么就让我成为最大的反派吧。",
+          "sentence_id": 1,
+          "words": [
+            {
+              "begin_time": 0,
+              "end_time": 255,
+              "text": "看",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 255,
+              "end_time": 511,
+              "text": "样",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 511,
+              "end_time": 767,
+              "text": "子",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 767,
+              "end_time": 1023,
+              "text": "穿",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 1023,
+              "end_time": 1279,
+              "text": "越",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 1279,
+              "end_time": 1535,
+              "text": "成",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 1535,
+              "end_time": 1791,
+              "text": "恶",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 1791,
+              "end_time": 2047,
+              "text": "兽",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 2047,
+              "end_time": 2303,
+              "text": "了",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 2303,
+              "end_time": 2559,
+              "text": "那",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 2559,
+              "end_time": 2815,
+              "text": "么",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 2815,
+              "end_time": 3070,
+              "text": "就",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 3070,
+              "end_time": 3326,
+              "text": "让",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 3326,
+              "end_time": 3582,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 3582,
+              "end_time": 3838,
+              "text": "成",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 3838,
+              "end_time": 4094,
+              "text": "为",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 4094,
+              "end_time": 4350,
+              "text": "最",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 4350,
+              "end_time": 4606,
+              "text": "大",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 4606,
+              "end_time": 4862,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 4862,
+              "end_time": 5118,
+              "text": "反",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 5118,
+              "end_time": 5374,
+              "text": "派",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 5374,
+              "end_time": 5630,
+              "text": "吧",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 5630,
+          "end_time": 7677,
+          "text": "话说我长啥样来着？",
+          "sentence_id": 2,
+          "words": [
+            {
+              "begin_time": 5630,
+              "end_time": 5885,
+              "text": "话",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 5885,
+              "end_time": 6141,
+              "text": "说",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 6141,
+              "end_time": 6397,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 6397,
+              "end_time": 6653,
+              "text": "长",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 6653,
+              "end_time": 6909,
+              "text": "啥",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 6909,
+              "end_time": 7165,
+              "text": "样",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 7165,
+              "end_time": 7421,
+              "text": "来",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 7421,
+              "end_time": 7677,
+              "text": "着",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 7677,
+          "end_time": 14800,
+          "text": "孽也畜，嗯，拿命来，我穿越者，我怕你这一手应该可以炼制上好的法宝。",
+          "sentence_id": 3,
+          "words": [
+            {
+              "begin_time": 7677,
+              "end_time": 7933,
+              "text": "孽",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 7933,
+              "end_time": 8189,
+              "text": "也",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 8189,
+              "end_time": 8445,
+              "text": "畜",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 8445,
+              "end_time": 8700,
+              "text": "嗯",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 8700,
+              "end_time": 8956,
+              "text": "拿",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 8956,
+              "end_time": 9212,
+              "text": "命",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 9212,
+              "end_time": 9468,
+              "text": "来",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 9468,
+              "end_time": 9724,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 9724,
+              "end_time": 9980,
+              "text": "穿",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 9980,
+              "end_time": 10236,
+              "text": "越",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 10236,
+              "end_time": 10492,
+              "text": "者",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 10492,
+              "end_time": 10748,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 10748,
+              "end_time": 11004,
+              "text": "怕",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 11004,
+              "end_time": 11260,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 11380,
+              "end_time": 11624,
+              "text": "这",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 11624,
+              "end_time": 11868,
+              "text": "一",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 11868,
+              "end_time": 12112,
+              "text": "手",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 12112,
+              "end_time": 12357,
+              "text": "应",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 12357,
+              "end_time": 12601,
+              "text": "该",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 12601,
+              "end_time": 12845,
+              "text": "可",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 12845,
+              "end_time": 13090,
+              "text": "以",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 13090,
+              "end_time": 13334,
+              "text": "炼",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 13334,
+              "end_time": 13578,
+              "text": "制",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 13578,
+              "end_time": 13822,
+              "text": "上",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 13822,
+              "end_time": 14067,
+              "text": "好",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 14067,
+              "end_time": 14311,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 14311,
+              "end_time": 14555,
+              "text": "法",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 14555,
+              "end_time": 14800,
+              "text": "宝",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 21860,
+          "end_time": 27200,
+          "text": "君子报仇，十年不晚草，哪里有草吃？",
+          "sentence_id": 4,
+          "words": [
+            {
+              "begin_time": 21860,
+              "end_time": 22241,
+              "text": "君",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 22241,
+              "end_time": 22622,
+              "text": "子",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 22622,
+              "end_time": 23004,
+              "text": "报",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 23004,
+              "end_time": 23385,
+              "text": "仇",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 23385,
+              "end_time": 23767,
+              "text": "十",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 23767,
+              "end_time": 24148,
+              "text": "年",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 24148,
+              "end_time": 24530,
+              "text": "不",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 24530,
+              "end_time": 24911,
+              "text": "晚",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 24911,
+              "end_time": 25292,
+              "text": "草",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 25292,
+              "end_time": 25674,
+              "text": "哪",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 25674,
+              "end_time": 26055,
+              "text": "里",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 26055,
+              "end_time": 26437,
+              "text": "有",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 26437,
+              "end_time": 26818,
+              "text": "草",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 26818,
+              "end_time": 27200,
+              "text": "吃",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 33280,
+          "end_time": 38980,
+          "text": "How我长得不可怕吗？",
+          "sentence_id": 5,
+          "words": [
+            {
+              "begin_time": 33280,
+              "end_time": 35880,
+              "text": "How",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 37020,
+              "end_time": 37300,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 37300,
+              "end_time": 37580,
+              "text": "长",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 37580,
+              "end_time": 37860,
+              "text": "得",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 37860,
+              "end_time": 38140,
+              "text": "不",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 38140,
+              "end_time": 38420,
+              "text": "可",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 38420,
+              "end_time": 38700,
+              "text": "怕",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 38700,
+              "end_time": 38980,
+              "text": "吗",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 38980,
+          "end_time": 41780,
+          "text": "你长得很和蔼，像我妈妈。",
+          "sentence_id": 6,
+          "words": [
+            {
+              "begin_time": 38980,
+              "end_time": 39260,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 39260,
+              "end_time": 39540,
+              "text": "长",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 39540,
+              "end_time": 39820,
+              "text": "得",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 39820,
+              "end_time": 40100,
+              "text": "很",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 40100,
+              "end_time": 40380,
+              "text": "和",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 40380,
+              "end_time": 40660,
+              "text": "蔼",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 40660,
+              "end_time": 40940,
+              "text": "像",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 40940,
+              "end_time": 41220,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 41220,
+              "end_time": 41500,
+              "text": "妈",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 41500,
+              "end_time": 41780,
+              "text": "妈",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 46560,
+          "end_time": 52388,
+          "text": "不好，还有预报又活到头了吗？",
+          "sentence_id": 7,
+          "words": [
+            {
+              "begin_time": 46560,
+              "end_time": 47045,
+              "text": "不",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 47045,
+              "end_time": 47531,
+              "text": "好",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 47531,
+              "end_time": 48017,
+              "text": "还",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 48017,
+              "end_time": 48502,
+              "text": "有",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 48502,
+              "end_time": 48988,
+              "text": "预",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 48988,
+              "end_time": 49474,
+              "text": "报",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 49474,
+              "end_time": 49960,
+              "text": "又",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 49960,
+              "end_time": 50445,
+              "text": "活",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 50445,
+              "end_time": 50931,
+              "text": "到",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 50931,
+              "end_time": 51417,
+              "text": "头",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 51417,
+              "end_time": 51902,
+              "text": "了",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 51902,
+              "end_time": 52388,
+              "text": "吗",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 52388,
+          "end_time": 59000,
+          "text": "爸妈，小兰，我好想你。",
+          "sentence_id": 8,
+          "words": [
+            {
+              "begin_time": 52388,
+              "end_time": 52874,
+              "text": "爸",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 52874,
+              "end_time": 53360,
+              "text": "妈",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 54440,
+              "end_time": 55200,
+              "text": "小",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 55200,
+              "end_time": 55960,
+              "text": "兰",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 55960,
+              "end_time": 56720,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 56720,
+              "end_time": 57480,
+              "text": "好",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 57480,
+              "end_time": 58240,
+              "text": "想",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 58240,
+              "end_time": 59000,
+              "text": "你",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 61220,
+          "end_time": 68174,
+          "text": "我们两个不合适，我家主人已经给我安排相亲了。",
+          "sentence_id": 9,
+          "words": [
+            {
+              "begin_time": 61220,
+              "end_time": 61567,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 61567,
+              "end_time": 61915,
+              "text": "们",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 61915,
+              "end_time": 62263,
+              "text": "两",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 62263,
+              "end_time": 62610,
+              "text": "个",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 62610,
+              "end_time": 62958,
+              "text": "不",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 62958,
+              "end_time": 63306,
+              "text": "合",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 63306,
+              "end_time": 63654,
+              "text": "适",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 63654,
+              "end_time": 64001,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 64001,
+              "end_time": 64349,
+              "text": "家",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 64349,
+              "end_time": 64697,
+              "text": "主",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 64697,
+              "end_time": 65045,
+              "text": "人",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 65045,
+              "end_time": 65392,
+              "text": "已",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 65392,
+              "end_time": 65740,
+              "text": "经",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 65740,
+              "end_time": 66088,
+              "text": "给",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 66088,
+              "end_time": 66436,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 66436,
+              "end_time": 66783,
+              "text": "安",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 66783,
+              "end_time": 67131,
+              "text": "排",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 67131,
+              "end_time": 67479,
+              "text": "相",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 67479,
+              "end_time": 67827,
+              "text": "亲",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 67827,
+              "end_time": 68174,
+              "text": "了",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 68174,
+          "end_time": 72000,
+          "text": "系统开启，叫你不要说话了。",
+          "sentence_id": 10,
+          "words": [
+            {
+              "begin_time": 68174,
+              "end_time": 68522,
+              "text": "系",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 68522,
+              "end_time": 68870,
+              "text": "统",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 68870,
+              "end_time": 69218,
+              "text": "开",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 69218,
+              "end_time": 69565,
+              "text": "启",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 69565,
+              "end_time": 69913,
+              "text": "叫",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 69913,
+              "end_time": 70261,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 70261,
+              "end_time": 70609,
+              "text": "不",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 70609,
+              "end_time": 70956,
+              "text": "要",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 70956,
+              "end_time": 71304,
+              "text": "说",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 71304,
+              "end_time": 71652,
+              "text": "话",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 71652,
+              "end_time": 72000,
+              "text": "了",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 72320,
+          "end_time": 74403,
+          "text": "野牛二级真有系统。",
+          "sentence_id": 11,
+          "words": [
+            {
+              "begin_time": 72320,
+              "end_time": 72580,
+              "text": "野",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 72580,
+              "end_time": 72840,
+              "text": "牛",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 72840,
+              "end_time": 73101,
+              "text": "二",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 73101,
+              "end_time": 73361,
+              "text": "级",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 73361,
+              "end_time": 73621,
+              "text": "真",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 73621,
+              "end_time": 73882,
+              "text": "有",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 73882,
+              "end_time": 74142,
+              "text": "系",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 74142,
+              "end_time": 74403,
+              "text": "统",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 74403,
+          "end_time": 86120,
+          "text": "异兽死亡后残留的魔石可用于系统置换道具，应该是刚刚和修士打起来的那只有系统，我将成为最大的反派。",
+          "sentence_id": 12,
+          "words": [
+            {
+              "begin_time": 74403,
+              "end_time": 74663,
+              "text": "异",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 74663,
+              "end_time": 74923,
+              "text": "兽",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 74923,
+              "end_time": 75184,
+              "text": "死",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 75184,
+              "end_time": 75444,
+              "text": "亡",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 75444,
+              "end_time": 75704,
+              "text": "后",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 75704,
+              "end_time": 75965,
+              "text": "残",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 75965,
+              "end_time": 76225,
+              "text": "留",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 76225,
+              "end_time": 76486,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 76486,
+              "end_time": 76746,
+              "text": "魔",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 76746,
+              "end_time": 77006,
+              "text": "石",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 77006,
+              "end_time": 77267,
+              "text": "可",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 77267,
+              "end_time": 77527,
+              "text": "用",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 77527,
+              "end_time": 77787,
+              "text": "于",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 77787,
+              "end_time": 78048,
+              "text": "系",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 78048,
+              "end_time": 78308,
+              "text": "统",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 78308,
+              "end_time": 78569,
+              "text": "置",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 78569,
+              "end_time": 78829,
+              "text": "换",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 78829,
+              "end_time": 79089,
+              "text": "道",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 79089,
+              "end_time": 79350,
+              "text": "具",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 79350,
+              "end_time": 79610,
+              "text": "应",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 79610,
+              "end_time": 79870,
+              "text": "该",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 79870,
+              "end_time": 80131,
+              "text": "是",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 80131,
+              "end_time": 80391,
+              "text": "刚",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 80391,
+              "end_time": 80652,
+              "text": "刚",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 80652,
+              "end_time": 80912,
+              "text": "和",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 80912,
+              "end_time": 81172,
+              "text": "修",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 81172,
+              "end_time": 81433,
+              "text": "士",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 81433,
+              "end_time": 81693,
+              "text": "打",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 81693,
+              "end_time": 81953,
+              "text": "起",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 81953,
+              "end_time": 82214,
+              "text": "来",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 82214,
+              "end_time": 82474,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 82474,
+              "end_time": 82735,
+              "text": "那",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 82735,
+              "end_time": 82995,
+              "text": "只",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 82995,
+              "end_time": 83255,
+              "text": "有",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 83255,
+              "end_time": 83516,
+              "text": "系",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 83516,
+              "end_time": 83776,
+              "text": "统",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 83776,
+              "end_time": 84036,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 84036,
+              "end_time": 84297,
+              "text": "将",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 84297,
+              "end_time": 84557,
+              "text": "成",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 84557,
+              "end_time": 84818,
+              "text": "为",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 84818,
+              "end_time": 85078,
+              "text": "最",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 85078,
+              "end_time": 85338,
+              "text": "大",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 85338,
+              "end_time": 85599,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 85599,
+              "end_time": 85859,
+              "text": "反",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 85859,
+              "end_time": 86120,
+              "text": "派",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 86960,
+          "end_time": 97100,
+          "text": "将手放到果石上开始吸收，吸收完成5万魔力值，五万魔力值先买个手枪和大炮吧。",
+          "sentence_id": 13,
+          "words": [
+            {
+              "begin_time": 86960,
+              "end_time": 87258,
+              "text": "将",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 87258,
+              "end_time": 87556,
+              "text": "手",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 87556,
+              "end_time": 87854,
+              "text": "放",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 87854,
+              "end_time": 88152,
+              "text": "到",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 88152,
+              "end_time": 88451,
+              "text": "果",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 88451,
+              "end_time": 88749,
+              "text": "石",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 88749,
+              "end_time": 89047,
+              "text": "上",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 89047,
+              "end_time": 89345,
+              "text": "开",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 89345,
+              "end_time": 89644,
+              "text": "始",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 89644,
+              "end_time": 89942,
+              "text": "吸",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 89942,
+              "end_time": 90240,
+              "text": "收",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 90240,
+              "end_time": 90538,
+              "text": "吸",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 90538,
+              "end_time": 90837,
+              "text": "收",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 90837,
+              "end_time": 91135,
+              "text": "完",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 91135,
+              "end_time": 91433,
+              "text": "成",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 91433,
+              "end_time": 92328,
+              "text": "5万魔",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 92328,
+              "end_time": 92626,
+              "text": "力",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 92626,
+              "end_time": 92924,
+              "text": "值",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 92924,
+              "end_time": 93222,
+              "text": "五",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 93222,
+              "end_time": 93521,
+              "text": "万",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 93521,
+              "end_time": 93819,
+              "text": "魔",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 93819,
+              "end_time": 94117,
+              "text": "力",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 94117,
+              "end_time": 94415,
+              "text": "值",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 94415,
+              "end_time": 94714,
+              "text": "先",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 94714,
+              "end_time": 95012,
+              "text": "买",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 95012,
+              "end_time": 95310,
+              "text": "个",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 95310,
+              "end_time": 95608,
+              "text": "手",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 95608,
+              "end_time": 95907,
+              "text": "枪",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 95907,
+              "end_time": 96205,
+              "text": "和",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 96205,
+              "end_time": 96503,
+              "text": "大",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 96503,
+              "end_time": 96801,
+              "text": "炮",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 96801,
+              "end_time": 97100,
+              "text": "吧",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 102240,
+          "end_time": 104697,
+          "text": "你这玩意儿有什么用？",
+          "sentence_id": 14,
+          "words": [
+            {
+              "begin_time": 102240,
+              "end_time": 102513,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 102513,
+              "end_time": 102786,
+              "text": "这",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 102786,
+              "end_time": 103059,
+              "text": "玩",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 103059,
+              "end_time": 103332,
+              "text": "意",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 103332,
+              "end_time": 103605,
+              "text": "儿",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 103605,
+              "end_time": 103878,
+              "text": "有",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 103878,
+              "end_time": 104151,
+              "text": "什",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 104151,
+              "end_time": 104424,
+              "text": "么",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 104424,
+              "end_time": 104697,
+              "text": "用",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 104697,
+          "end_time": 112580,
+          "text": "差点被那异兽炸死，真是天不枉我，我的吹风机大炮呢。",
+          "sentence_id": 15,
+          "words": [
+            {
+              "begin_time": 104697,
+              "end_time": 104970,
+              "text": "差",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 104970,
+              "end_time": 105243,
+              "text": "点",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 105243,
+              "end_time": 105516,
+              "text": "被",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 105516,
+              "end_time": 105789,
+              "text": "那",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 105789,
+              "end_time": 106062,
+              "text": "异",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 106062,
+              "end_time": 106335,
+              "text": "兽",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 106335,
+              "end_time": 106608,
+              "text": "炸",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 106608,
+              "end_time": 106881,
+              "text": "死",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 106881,
+              "end_time": 107154,
+              "text": "真",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 107154,
+              "end_time": 107427,
+              "text": "是",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 107427,
+              "end_time": 107700,
+              "text": "天",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 107700,
+              "end_time": 107973,
+              "text": "不",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 107973,
+              "end_time": 108246,
+              "text": "枉",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 108246,
+              "end_time": 108520,
+              "text": "我",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 109640,
+              "end_time": 110007,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 110007,
+              "end_time": 110375,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 110375,
+              "end_time": 110742,
+              "text": "吹",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 110742,
+              "end_time": 111110,
+              "text": "风",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 111110,
+              "end_time": 111477,
+              "text": "机",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 111477,
+              "end_time": 111845,
+              "text": "大",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 111845,
+              "end_time": 112212,
+              "text": "炮",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 112212,
+              "end_time": 112580,
+              "text": "呢",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 114780,
+          "end_time": 117680,
+          "text": "看样子这也没啥用唉。",
+          "sentence_id": 16,
+          "words": [
+            {
+              "begin_time": 114780,
+              "end_time": 115102,
+              "text": "看",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 115102,
+              "end_time": 115424,
+              "text": "样",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 115424,
+              "end_time": 115746,
+              "text": "子",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 115746,
+              "end_time": 116068,
+              "text": "这",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 116068,
+              "end_time": 116391,
+              "text": "也",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 116391,
+              "end_time": 116713,
+              "text": "没",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 116713,
+              "end_time": 117035,
+              "text": "啥",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 117035,
+              "end_time": 117357,
+              "text": "用",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 117357,
+              "end_time": 117680,
+              "text": "唉",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 131660,
+          "end_time": 142620,
+          "text": "60级雷箭你没有魔力无法使用，可在人族拍卖场换取魔石修饰的裤衩没什么卵用，先去拍卖场看看，顺便了解一下世界观。",
+          "sentence_id": 17,
+          "words": [
+            {
+              "begin_time": 131660,
+              "end_time": 132519,
+              "text": "60级雷",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 132519,
+              "end_time": 132734,
+              "text": "箭",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 132734,
+              "end_time": 132949,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 132949,
+              "end_time": 133164,
+              "text": "没",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 133164,
+              "end_time": 133379,
+              "text": "有",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 133379,
+              "end_time": 133594,
+              "text": "魔",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 133594,
+              "end_time": 133809,
+              "text": "力",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 133809,
+              "end_time": 134023,
+              "text": "无",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 134023,
+              "end_time": 134238,
+              "text": "法",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 134238,
+              "end_time": 134453,
+              "text": "使",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 134453,
+              "end_time": 134668,
+              "text": "用",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 134668,
+              "end_time": 134883,
+              "text": "可",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 134883,
+              "end_time": 135098,
+              "text": "在",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 135098,
+              "end_time": 135313,
+              "text": "人",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 135313,
+              "end_time": 135528,
+              "text": "族",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 135528,
+              "end_time": 135743,
+              "text": "拍",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 135743,
+              "end_time": 135958,
+              "text": "卖",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 135958,
+              "end_time": 136172,
+              "text": "场",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 136172,
+              "end_time": 136387,
+              "text": "换",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 136387,
+              "end_time": 136602,
+              "text": "取",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 136602,
+              "end_time": 136817,
+              "text": "魔",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 136817,
+              "end_time": 137032,
+              "text": "石",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 137032,
+              "end_time": 137247,
+              "text": "修",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 137247,
+              "end_time": 137462,
+              "text": "饰",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 137462,
+              "end_time": 137677,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 137677,
+              "end_time": 137892,
+              "text": "裤",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 137892,
+              "end_time": 138107,
+              "text": "衩",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 138107,
+              "end_time": 138321,
+              "text": "没",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 138321,
+              "end_time": 138536,
+              "text": "什",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 138536,
+              "end_time": 138751,
+              "text": "么",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 138751,
+              "end_time": 138966,
+              "text": "卵",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 138966,
+              "end_time": 139181,
+              "text": "用",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 139181,
+              "end_time": 139396,
+              "text": "先",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 139396,
+              "end_time": 139611,
+              "text": "去",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 139611,
+              "end_time": 139826,
+              "text": "拍",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 139826,
+              "end_time": 140041,
+              "text": "卖",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 140041,
+              "end_time": 140256,
+              "text": "场",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 140256,
+              "end_time": 140470,
+              "text": "看",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 140470,
+              "end_time": 140685,
+              "text": "看",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 140685,
+              "end_time": 140900,
+              "text": "顺",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 140900,
+              "end_time": 141115,
+              "text": "便",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 141115,
+              "end_time": 141330,
+              "text": "了",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 141330,
+              "end_time": 141545,
+              "text": "解",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 141545,
+              "end_time": 141760,
+              "text": "一",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 141760,
+              "end_time": 141975,
+              "text": "下",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 141975,
+              "end_time": 142190,
+              "text": "世",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 142190,
+              "end_time": 142405,
+              "text": "界",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 142405,
+              "end_time": 142620,
+              "text": "观",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 142940,
+          "end_time": 145223,
+          "text": "你把裤衩穿头上干嘛？",
+          "sentence_id": 18,
+          "words": [
+            {
+              "begin_time": 142940,
+              "end_time": 143193,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 143193,
+              "end_time": 143447,
+              "text": "把",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 143447,
+              "end_time": 143701,
+              "text": "裤",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 143701,
+              "end_time": 143955,
+              "text": "衩",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 143955,
+              "end_time": 144208,
+              "text": "穿",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 144208,
+              "end_time": 144462,
+              "text": "头",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 144462,
+              "end_time": 144716,
+              "text": "上",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 144716,
+              "end_time": 144970,
+              "text": "干",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 144970,
+              "end_time": 145223,
+              "text": "嘛",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 145223,
+          "end_time": 149791,
+          "text": "算了，你知道附近最近的拍卖场往哪儿走吗？",
+          "sentence_id": 19,
+          "words": [
+            {
+              "begin_time": 145223,
+              "end_time": 145477,
+              "text": "算",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 145477,
+              "end_time": 145731,
+              "text": "了",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 145731,
+              "end_time": 145985,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 145985,
+              "end_time": 146238,
+              "text": "知",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 146238,
+              "end_time": 146492,
+              "text": "道",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 146492,
+              "end_time": 146746,
+              "text": "附",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 146746,
+              "end_time": 147000,
+              "text": "近",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 147000,
+              "end_time": 147253,
+              "text": "最",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 147253,
+              "end_time": 147507,
+              "text": "近",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 147507,
+              "end_time": 147761,
+              "text": "的",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 147761,
+              "end_time": 148015,
+              "text": "拍",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 148015,
+              "end_time": 148268,
+              "text": "卖",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 148268,
+              "end_time": 148522,
+              "text": "场",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 148522,
+              "end_time": 148776,
+              "text": "往",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 148776,
+              "end_time": 149030,
+              "text": "哪",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 149030,
+              "end_time": 149283,
+              "text": "儿",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 149283,
+              "end_time": 149537,
+              "text": "走",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 149537,
+              "end_time": 149791,
+              "text": "吗",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 149791,
+          "end_time": 151821,
+          "text": "往东走一天就到了。",
+          "sentence_id": 20,
+          "words": [
+            {
+              "begin_time": 149791,
+              "end_time": 150045,
+              "text": "往",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 150045,
+              "end_time": 150298,
+              "text": "东",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 150298,
+              "end_time": 150552,
+              "text": "走",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 150552,
+              "end_time": 150806,
+              "text": "一",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 150806,
+              "end_time": 151060,
+              "text": "天",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 151060,
+              "end_time": 151313,
+              "text": "就",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 151313,
+              "end_time": 151567,
+              "text": "到",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 151567,
+              "end_time": 151821,
+              "text": "了",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 151821,
+          "end_time": 153090,
+          "text": "你爱吃草吗？",
+          "sentence_id": 21,
+          "words": [
+            {
+              "begin_time": 151821,
+              "end_time": 152075,
+              "text": "你",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 152075,
+              "end_time": 152328,
+              "text": "爱",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 152328,
+              "end_time": 152582,
+              "text": "吃",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 152582,
+              "end_time": 152836,
+              "text": "草",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 152836,
+              "end_time": 153090,
+              "text": "吗",
+              "punctuation": "？"
+            }
+          ]
+        },
+        {
+          "begin_time": 153090,
+          "end_time": 155373,
+          "text": "我不爱吃草，爱吃牛肉。",
+          "sentence_id": 22,
+          "words": [
+            {
+              "begin_time": 153090,
+              "end_time": 153343,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 153343,
+              "end_time": 153597,
+              "text": "不",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 153597,
+              "end_time": 153851,
+              "text": "爱",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 153851,
+              "end_time": 154105,
+              "text": "吃",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 154105,
+              "end_time": 154358,
+              "text": "草",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 154358,
+              "end_time": 154612,
+              "text": "爱",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 154612,
+              "end_time": 154866,
+              "text": "吃",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 154866,
+              "end_time": 155120,
+              "text": "牛",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 155120,
+              "end_time": 155373,
+              "text": "肉",
+              "punctuation": "。"
+            }
+          ]
+        },
+        {
+          "begin_time": 155373,
+          "end_time": 163240,
+          "text": "哇哦我家主人也爱吃牛肉，他说她天天在放牛，但我和我妈妈谁也没见过牛。",
+          "sentence_id": 23,
+          "words": [
+            {
+              "begin_time": 155373,
+              "end_time": 155627,
+              "text": "哇",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 155627,
+              "end_time": 155881,
+              "text": "哦",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 155881,
+              "end_time": 156135,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 156135,
+              "end_time": 156388,
+              "text": "家",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 156388,
+              "end_time": 156642,
+              "text": "主",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 156642,
+              "end_time": 156896,
+              "text": "人",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 156896,
+              "end_time": 157150,
+              "text": "也",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 157150,
+              "end_time": 157403,
+              "text": "爱",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 157403,
+              "end_time": 157657,
+              "text": "吃",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 157657,
+              "end_time": 157911,
+              "text": "牛",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 157911,
+              "end_time": 158165,
+              "text": "肉",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 158165,
+              "end_time": 158418,
+              "text": "他",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 158418,
+              "end_time": 158672,
+              "text": "说",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 158672,
+              "end_time": 158926,
+              "text": "她",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 158926,
+              "end_time": 159180,
+              "text": "天",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 159180,
+              "end_time": 159433,
+              "text": "天",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 159433,
+              "end_time": 159687,
+              "text": "在",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 159687,
+              "end_time": 159941,
+              "text": "放",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 159941,
+              "end_time": 160195,
+              "text": "牛",
+              "punctuation": "，"
+            },
+            {
+              "begin_time": 160195,
+              "end_time": 160448,
+              "text": "但",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 160448,
+              "end_time": 160702,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 160702,
+              "end_time": 160956,
+              "text": "和",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 160956,
+              "end_time": 161210,
+              "text": "我",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 161210,
+              "end_time": 161463,
+              "text": "妈",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 161463,
+              "end_time": 161717,
+              "text": "妈",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 161717,
+              "end_time": 161971,
+              "text": "谁",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 161971,
+              "end_time": 162225,
+              "text": "也",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 162225,
+              "end_time": 162478,
+              "text": "没",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 162478,
+              "end_time": 162732,
+              "text": "见",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 162732,
+              "end_time": 162986,
+              "text": "过",
+              "punctuation": ""
+            },
+            {
+              "begin_time": 162986,
+              "end_time": 163240,
+              "text": "牛",
+              "punctuation": "。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

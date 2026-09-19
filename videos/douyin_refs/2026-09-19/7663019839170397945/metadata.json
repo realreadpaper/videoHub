@@ -1,0 +1,26 @@
+{
+  "desc": "#我要上热门 #短剧推荐#相亲#家常菜#家常菜教程",
+  "create_time": 1784185842,
+  "duration_ms": 296934,
+  "duration_sec": 296.934,
+  "width": 1078,
+  "height": 1920,
+  "ratio": "default",
+  "music": "@看好剧推荐创作的原声",
+  "author": "看好剧推荐",
+  "stats": {
+    "admire_count": 0,
+    "aweme_id": "7663019839170397945",
+    "collect_count": 6644,
+    "comment_count": 685,
+    "digg_count": 22646,
+    "play_count": 0,
+    "recommend_count": 590,
+    "share_count": 1615
+  },
+  "play_urls": [
+    "https://v26-web.douyinvod.com/c60864ffd95b830222988ca2e00b71e4/6aae16a6/video/tos/cn/tos-cn-ve-15c000-ce/o4JVMh70qSEc5aPxBrFEwODbAWA9fnGIQTfhoI/?a=6383&ch=26&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C3&cv=1&br=1698&bt=1698&cs=0&ds=4&ft=pEaFx4hZffPdHK~2N12NvAq-antLjrKEnMHuRka7RZLZvjVhWL6&mime_type=video_mp4&qs=0&rc=OjwzNDk6aWQ7PGhkNTppPEBpM2d5c285cjk7PDMzbGkzNUA0MmMtYDUvNWAxYV4xMmEzYSNhLjFoMmRzNGBhLS1kLTVzcw%3D%3D&btag=c0000e00030000&cquery=100z_100o_100w_100B_100x&dy_q=1789782862&feature_id=37f92ebd2877ae8e7eba995d406c5150&l=20260919095422AA946A93070A9C8A2E80",
+    "https://v11-weba.douyinvod.com/d61a3e9842a96fcf93999dcfe02ef9fb/6aae16a6/video/tos/cn/tos-cn-ve-15c000-ce/o4JVMh70qSEc5aPxBrFEwODbAWA9fnGIQTfhoI/?a=6383&ch=26&cr=3&dr=0&lr=all&cd=0%7C0%7C0%7C3&cv=1&br=1698&bt=1698&cs=0&ds=4&ft=pEaFx4hZffPdHK~2N12NvAq-antLjrKEnMHuRka7RZLZvjVhWL6&mime_type=video_mp4&qs=0&rc=OjwzNDk6aWQ7PGhkNTppPEBpM2d5c285cjk7PDMzbGkzNUA0MmMtYDUvNWAxYV4xMmEzYSNhLjFoMmRzNGBhLS1kLTVzcw%3D%3D&btag=c0000e00030000&cquery=100B_100x_100z_100o_100w&dy_q=1789782862&feature_id=37f92ebd2877ae8e7eba995d406c5150&l=20260919095422AA946A93070A9C8A2E80",
+    "https://www.douyin.com/aweme/v1/play/?video_id=v2800fgi0000d9c876vog65lkp4v1dd0&line=0&file_id=69df5742aade49c88a2f87c601f05977&sign=4b373dce4589be6f5be78c6107756514&is_play_url=1&source=PackSourceEnum_AWEME_DETAIL&biz_sign=NRPI1lC4AlkgB1YZ_o3LzfAfESQSvePEcuaapYZjImuwTcZpBZJBxNxG9rCE9VaaOzLa7CA0Ou-V1V2BgVcbet4R5UnHDGbNHaUZIZuaRMUGyO7s5wbVW7et0I2xs1hA&aid=6383"
+  ]
+}
