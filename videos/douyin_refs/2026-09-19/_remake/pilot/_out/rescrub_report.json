@@ -1,0 +1,49 @@
+[
+ {
+  "nm": "dy4_u007_stomp__first",
+  "hits": []
+ },
+ {
+  "nm": "dy4_u007_stomp__last",
+  "hits": []
+ },
+ {
+  "nm": "dy4_u007_stomp__ref",
+  "hits": []
+ },
+ {
+  "nm": "dy4_u060_tearopen__first",
+  "hits": []
+ },
+ {
+  "nm": "dy4_u060_tearopen__last",
+  "hits": []
+ },
+ {
+  "nm": "dy5_u042_tender__first",
+  "hits": []
+ },
+ {
+  "nm": "dy5_u042_tender__last",
+  "hits": []
+ },
+ {
+  "nm": "dy5_u042_tender__ref",
+  "hits": []
+ },
+ {
+  "nm": "dy5_u055_expose__first",
+  "hits": [
+   "sub:15",
+   "disc:16[x193-471]"
+  ]
+ },
+ {
+  "nm": "dy5_u055_expose__last",
+  "hits": []
+ },
+ {
+  "nm": "dy5_u055_expose__ref",
+  "hits": []
+ }
+]
