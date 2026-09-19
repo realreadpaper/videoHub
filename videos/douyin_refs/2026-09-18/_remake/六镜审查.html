@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>六镜审查 · 三部复刻（剧情镜 + 产品镜）</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0d0f12;color:#e8ecf1;font:15px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:26px;margin:0 0 6px}
+.sub{color:#9aa7b6;margin-bottom:22px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:18px 0 30px}
+.sm{background:#151a20;border:1px solid #232b34;border-radius:10px;padding:12px 14px}
+.sm b{display:block;font-size:20px;color:#fff;margin-bottom:2px}
+.sm span{color:#94a3b3;font-size:13px}
+.card{background:#12161b;border:1px solid #232b34;border-radius:14px;padding:18px;margin-bottom:26px}
+.chead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.ctitle{font-size:16px}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;margin-right:8px;vertical-align:1px}
+.badge.drama{background:#3a2a4d;color:#d9b8ff}
+.badge.prod{background:#1f3b2c;color:#9ff0bd}
+.muted{color:#8b98a6;font-size:13px}
+.cfg{color:#7f8b99;font-size:12px;border:1px dashed #2c353f;border-radius:8px;padding:6px 10px;white-space:nowrap}
+.videos{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.videos.v3{grid-template-columns:1fr 1fr 1fr}
+figure.main figcaption b{color:#9ff0bd}
+figure{margin:0}
+figcaption{color:#9aa7b6;font-size:13px;margin-bottom:6px}
+video{width:100%;border-radius:10px;background:#000;display:block}
+.pending{aspect-ratio:768/1344;border:1px dashed #35404c;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#6f7c8a}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.box{background:#151a20;border:1px solid #232b34;border-radius:10px;padding:13px 15px;margin-bottom:12px}
+.box h4{margin:0 0 9px;font-size:14px;color:#cfe0f0}
+table.kv{width:100%;border-collapse:collapse;font-size:13.5px}
+table.kv th{text-align:left;color:#8b98a6;font-weight:400;width:74px;vertical-align:top;padding:3px 0}
+table.kv td{padding:3px 0}
+td.line{color:#ffd88a}
+ul.cast{margin:0;padding-left:2px;list-style:none;font-size:13.5px}
+ul.cast li{margin-bottom:5px}
+ul.cast label{display:flex;gap:8px;align-items:flex-start;cursor:pointer}
+p.rel{margin:10px 0 0;color:#b9e6c9;font-size:13.5px;border-top:1px dashed #2c353f;padding-top:9px}
+table.metrics{width:100%;border-collapse:collapse;text-align:center;font-size:14px}
+table.metrics th{color:#8b98a6;font-weight:400;font-size:12.5px;padding-bottom:5px}
+table.metrics td{font-size:18px;font-variant-numeric:tabular-nums;padding:4px 0;border-radius:6px}
+td.good{color:#7ef2a8} td.mid{color:#ffd166} td.bad{color:#ff8f8f} td.na{color:#66707c}
+table.metrics td.lab{text-align:left;font-size:13px;color:#9aa7b6;white-space:nowrap}
+table.actcmp{width:100%;border-collapse:collapse;font-size:13px}
+table.actcmp th{text-align:left;color:#8b98a6;font-weight:400;font-size:12.5px;padding:3px 8px 6px 0}
+table.actcmp td{padding:8px 10px 8px 0;vertical-align:top;border-top:1px solid #232b34;line-height:1.55}
+table.actcmp td:first-child{color:#9aa7b6;white-space:nowrap;width:104px}
+tr.badrow td{color:#cbb2b2}
+tr.goodrow td{color:#b9e6c9}
+td.bad{color:#ff9a9a} td.good{color:#7ef2a8}
+.hint{margin:9px 0 0;color:#7f8b99;font-size:12.5px}
+details.box summary{cursor:pointer;color:#cfe0f0}
+pre{background:#0b0e12;border:1px solid #232b34;border-radius:8px;padding:12px;overflow:auto;max-height:440px;
+   white-space:pre-wrap;font:12.5px/1.6 ui-monospace,Menlo,Consolas,monospace;color:#c8d6e5;margin:11px 0 0}
+button.copy{background:#243040;color:#cfe0f0;border:1px solid #35404c;border-radius:6px;padding:2px 10px;font-size:12px;cursor:pointer;margin-left:8px}
+button.copy:hover{background:#2e3d50}
+.box.note{border-color:#3a3320;background:#1a1710}
+.box.note h4{color:#ffd88a}
+@media(max-width:860px){.videos,.grid{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<h1>六镜审查 · 三部复刻</h1>
+<div class="sub">每部各挑 <b>1 个剧情镜</b>（人物关系戏）+ <b>1 个产品镜</b>（产品露出）。全部从原片逐镜拆解表中按真实时间轴取镜，
+参考帧取自原片同镜（已抹掉原片字幕/时间戳），音频用原片该镜音轨切片驱动口型。配置：<b>Hybrid 首尾双端锁定 + 4 步</b>。</div>
+<div class="summary">
+  <div class="sm"><b>6</b><span>镜（3 剧情 + 3 产品）</span></div>
+  <div class="sm"><b>506</b><span>总帧数（24fps）</span></div>
+  <div class="sm"><b>21.1s</b><span>生成总时长（原片 18.8s）</span></div>
+  <div class="sm"><b>4 步</b><span>采样步数（按你定的，不再上调）</span></div>
+</div>
+
+<section class="card" id="dy1_s093">
+  <header class="chead">
+    <div class="ctitle"><span class="badge drama">剧情镜</span>
+      <b>01_报恩</b> · <code>dy1_s093</code> · s093
+      <span class="muted">原片 272.92s–276.33s（3.42s）→ 生成 3.75s / 90 帧（栅格向上吸附）</span>
+    </div>
+    <div class="cfg">Hybrid 双端锁定 · 4 步 · ref_image_size=max · 参考帧已去字</div>
+  </header>
+
+  <div class="videos v3">
+    <figure><figcaption>① 原片片段（原声）</figcaption>
+      <video src="_six/orig/dy1_s093.mp4" controls loop preload="metadata" poster="_six/orig/dy1_s093_poster.jpg"></video>
+    </figure>
+    <figure class="main"><figcaption>② 复刻片段 · <b>人工动作文本</b>（H3 · 原片音轨驱动口型）</figcaption>
+      <video src="_six/gen/dy1_s093.mp4" controls loop preload="metadata"></video>
+    </figure>
+    <figure><figcaption>③ 对照 · 自动动作文本版（旧）</figcaption><video src="_six/gen1/dy1_s093.mp4" controls loop preload="metadata"></video></figure>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h4>台词与镜头</h4>
+      <table class="kv">
+        <tr><th>景别</th><td>近景 (MS-)</td></tr>
+        <tr><th>说话人</th><td>周总</td></tr>
+        <tr><th>台词</th><td class="line">剩我自己了那您当年把我从后门口接进来</td></tr>
+        <tr><th>剧情段落</th><td>⑧ 接</td></tr>
+        <tr><th>镜头运动</th><td>缓拉远</td></tr>
+        <tr><th>镜内动作</th><td>两人一前一后走出后门，影子拉长</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>角色与关系（可打勾核对）</h4>
+      <ul class="cast">
+        <li><label><input type="checkbox">周总（成年，深蓝西装+领带，短发；当年被收留的男孩，现为饭店老板）</label></li><li><label><input type="checkbox">老赵/叔（白发，白色厨师衬衫；恩人，画面右缘半出画）</label></li>
+      </ul>
+      <p class="rel"><b>关系：</b>恩情闭环的两端：十年前老赵从后门口把被亲生父亲赶出门的男孩接进来、管饭、教手艺；十年后周总回来接他走。非血亲，胜似父子。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4>量化指标 <span class="muted">（SSIM，越高越贴原片；0.85+ = 被钉住）</span></h4>
+    <table class="metrics">
+      <tr><th>版本</th><th>帧 0 vs 钉死首帧</th><th>末帧 vs 钉死末帧</th><th>中段 vs 原片参考帧</th></tr>
+      <tr><td class="lab">人工动作</td>
+        <td class="good">0.645</td>
+        <td class="good">0.758</td>
+        <td class="good">0.576</td></tr>
+      <tr><td class="lab">自动动作</td><td class="good">0.612</td><td class="good">0.630</td><td class="good">0.738</td></tr>
+    </table>
+    <p class="hint">末帧掉到 0.6 以下 = 中途推镜跑了；中段偏低 = 构图被改。</p>
+  </div>
+
+  <div class="box">
+    <h4>镜内动作与运镜：自动台本 vs 人工重写</h4>
+    <table class="actcmp">
+      <tr><th>来源</th><th>动作</th><th>运镜</th></tr>
+      <tr class="badrow"><td>脚本自动分配</td><td>两人一前一后走出后门，影子拉长</td><td class="bad">缓拉远</td></tr>
+      <tr class="goodrow"><td>人工按原片重写</td><td>周总全程盯着老赵的脸把这句话直接说给他：一次缓慢眨眼、一次咽口水、说到后半句下颌收紧、结尾下巴微低。老赵立在画面左缘不动，只听，最多点一下头。</td>
+        <td class="good">固定机位，与参考帧同高同距；不推不摇、不变焦、不重新构图——末帧构图与首帧一致。</td></tr>
+    </table>
+  </div>
+
+  <details class="box">
+    <summary><b>完整提示词</b>（6385 字符，含 &lt;Characters&gt; 段）<button class="copy" data-t="dy1_s093">复制</button></summary>
+    <pre id="p_dy1_s093">integrated_multimodal_description:
+&lt;Reference frame: &lt;Picture 1&gt; is a real frame captured from this exact shot of the original footage. It is the authoritative reference for what appears in frame - reproduce its camera framing, shot size, subject placement, subject count, wardrobe, hairstyle, props, lighting and colour faithfully. Do not redesign the shot. The reference frame may show one soft, defocused patch where an overlay used to be; render it as ordinary continuous background texture - never as characters, boxes, bars, plates or panels. &gt;
+
+&lt;Characters and their relationship - keep identities exactly:
+- ZHOU (the man in the suit): the abandoned boy of ten years ago who was taken in through the back door of this very restaurant by the old man beside him. He grew up in its kitchen and now owns his own restaurant. He has come back tonight to take the old man away to live with him. He speaks with restrained, deep gratitude: eyes slightly glassy, brows softly drawn, jaw working, a small swallow between phrases. Never theatrical, never crying openly.
+- UNCLE ZHAO (the elderly man at the right edge, plain white chef shirt, thin grey hair): the old cook who took the boy in, fed him and taught him the trade. He is the benefactor and the closest thing to a father this man has. He listens rather than speaks, mouth closed, eyes on the younger man's face, a faint proud half-smile.
+Their bond is father-and-son by affection, not by blood. Both men know exactly what is owed and neither makes a show of it; the emotion sits under the surface and shows only in micro-expressions.&lt;Cast and blocking - exact, this must be preserved:
+Exactly TWO people are visible in this shot, at clearly different depths: the man in the tailored dark navy suit and patterned tie, short neat side-parted hair, in sharp focus in the centre-left middle ground, face roughly 27% of the frame area, speaking; and an older man with thin grey hair at the right edge of the frame, partly cropped by the frame edge and slightly softer in focus, standing a little behind him. They are not shoulder to shoulder and are not the same size.
+Universal blocking rules, apply for the whole shot:
+- Keep the reference camera position, lens, shot size, camera height and subject distance exactly. Never push in, zoom, recentre or reframe. A group shot must stay a group shot - never turn it into a single-person close-up and never single out one face for a portrait.
+- Keep the exact number of people given above. Do not add anyone who is not in the reference and do not drop anyone who is in it; no bystanders, no extras, no mirrored or reflected figures.
+- Do not line people up shoulder to shoulder in a flat horizontal row at equal distance from the camera, and do not stack them into a symmetrical wall of faces. Stagger them in depth and vary their scale the way the reference frame does.
+- Every visible person keeps a separate, fully formed head with their own distinct facial features, hairstyle, clothing and skin tone. Never merge, fuse, blend or duplicate faces, and never let one person's face melt into another's or into the background.
+- Every face stays clearly resolved - separated eyes, nose, mouth and jawline - even when small or in the background. No smeared, mushy, waxy, indistinct or half-formed faces.
+- Do not enlarge any face beyond its reference size; do not shrink faces into unreadable specks.&gt;
+
+&lt;Action and camera for this shot - stage it exactly as written, once, and let it complete:
+- Action: Two people walk out the back door one after the other, their shadows stretching long. This action must be visibly underway inside the shot and reach its end before the shot cuts. Do not hold a static pose, do not freeze halfway, do not repeat or mime it.
+- Camera: camera slowly pulls back. One continuous move only; no cut, no whip, no snap zoom inside the shot.
+- Any dialogue is carried on top of this action, not instead of it; the body keeps working while the mouth moves.
+&gt;
+
+&lt;Scene: 老店门口，夕阳&gt;
+
+&lt;Shot: 近景 (MS-), cinematic 9:16 vertical framing, 50 mm lens, shallow depth of field, photorealistic live-action footage, the shot runs the full 3.750 seconds&gt;
+
+&lt;Performance: 周总 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Keep natural micro-expressions and small continuous body motion; never freeze into a still frame.&gt;
+
+&lt;Style &amp; frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, fine film grain, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame. Any paper, sign, plaque, package or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 - 00:03.750] The shot holds the reference framing continuously; 周总 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Subtle handheld breathing and continuous ambient motion throughout.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any sign, plaque, paper, lettering, package or printed surface appearing in frame must render as completely illegible abstract marks - no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible. Speech is driven only by the supplied reference audio; do not render any mouth shapes for lines that are not audible.</pre>
+  </details>
+
+  <div class="box note">
+    <h4>审核要点</h4>
+    <ul class="cast">
+      <li><label><input type="checkbox">审：周总近景的克制感激（眼神微湿、眉眼收紧、不是大哭）</label></li><li><label><input type="checkbox">老赵只在右缘露出半张脸、必须仍然在场（不许被推成单人特写）。</label></li>
+    </ul>
+  </div>
+</section>
+<section class="card" id="dy1_s088">
+  <header class="chead">
+    <div class="ctitle"><span class="badge prod">产品镜</span>
+      <b>01_报恩</b> · <code>dy1_s088</code> · s088
+      <span class="muted">原片 251.33s–255.17s（3.83s）→ 生成 4.46s / 107 帧（栅格向上吸附）</span>
+    </div>
+    <div class="cfg">Hybrid 双端锁定 · 4 步 · ref_image_size=max · 参考帧已去字</div>
+  </header>
+
+  <div class="videos v3">
+    <figure><figcaption>① 原片片段（原声）</figcaption>
+      <video src="_six/orig/dy1_s088.mp4" controls loop preload="metadata" poster="_six/orig/dy1_s088_poster.jpg"></video>
+    </figure>
+    <figure class="main"><figcaption>② 复刻片段 · <b>人工动作文本</b>（H3 · 原片音轨驱动口型）</figcaption>
+      <video src="_six/gen/dy1_s088.mp4" controls loop preload="metadata"></video>
+    </figure>
+    <figure><figcaption>③ 对照 · 自动动作文本版（旧）</figcaption><video src="_six/gen1/dy1_s088.mp4" controls loop preload="metadata"></video></figure>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h4>台词与镜头</h4>
+      <table class="kv">
+        <tr><th>景别</th><td>中景 (MS)</td></tr>
+        <tr><th>说话人</th><td>周总</td></tr>
+        <tr><th>台词</th><td class="line">现在这包酱能让更多人不用熬着油烟也能吃上一口好饭</td></tr>
+        <tr><th>剧情段落</th><td>⑦ 产品段</td></tr>
+        <tr><th>镜头运动</th><td>手持跟随</td></tr>
+        <tr><th>镜内动作</th><td>勺子翻动，肉块裹上酱色，热气腾起</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>角色与关系（可打勾核对）</h4>
+      <ul class="cast">
+        <li><label><input type="checkbox">周总（成年，深蓝西装；双手把红色料包正面举到胸前）</label></li><li><label><input type="checkbox">老赵/叔（白发，白厨师衣+围裙，站左侧略靠后，静看）</label></li>
+      </ul>
+      <p class="rel"><b>关系：</b>产品＝恩情的物证。周总手里这包酱，就是十年前老赵给他做第一碗红烧肉用的同一包酱；两人对它的态度是「念旧」，不是「推销」。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4>量化指标 <span class="muted">（SSIM，越高越贴原片；0.85+ = 被钉住）</span></h4>
+    <table class="metrics">
+      <tr><th>版本</th><th>帧 0 vs 钉死首帧</th><th>末帧 vs 钉死末帧</th><th>中段 vs 原片参考帧</th></tr>
+      <tr><td class="lab">人工动作</td>
+        <td class="good">0.584</td>
+        <td class="good">0.901</td>
+        <td class="good">0.588</td></tr>
+      <tr><td class="lab">自动动作</td><td class="good">0.796</td><td class="good">0.850</td><td class="good">0.718</td></tr>
+    </table>
+    <p class="hint">末帧掉到 0.6 以下 = 中途推镜跑了；中段偏低 = 构图被改。</p>
+  </div>
+
+  <div class="box">
+    <h4>镜内动作与运镜：自动台本 vs 人工重写</h4>
+    <table class="actcmp">
+      <tr><th>来源</th><th>动作</th><th>运镜</th></tr>
+      <tr class="badrow"><td>脚本自动分配</td><td>勺子翻动，肉块裹上酱色，热气腾起</td><td class="bad">手持跟随</td></tr>
+      <tr class="goodrow"><td>人工按原片重写</td><td>周总把红袋竖举在胸前，说着话微微抬高几厘米、把袋面再转正一点朝向镜头，然后一直稳住到说完。老赵在他侧后一步，双手垂着不动，静静看着，带一点自豪。</td>
+        <td class="good">固定机位，与参考帧同高同距；不推不摇、不重新构图——红袋和两人全程保持同样大小与位置。</td></tr>
+    </table>
+  </div>
+
+  <details class="box">
+    <summary><b>完整提示词</b>（6431 字符，含 &lt;Characters&gt; 段）<button class="copy" data-t="dy1_s088">复制</button></summary>
+    <pre id="p_dy1_s088">integrated_multimodal_description:
+&lt;Reference frame: &lt;Picture 1&gt; is a real frame captured from this exact shot of the original footage. It is the authoritative reference for what appears in frame - reproduce its camera framing, shot size, subject placement, subject count, wardrobe, hairstyle, props, lighting and colour faithfully. Do not redesign the shot. The reference frame may show one soft, defocused patch where an overlay used to be; render it as ordinary continuous background texture - never as characters, boxes, bars, plates or panels. &gt;
+
+&lt;Characters and their relationship - keep identities exactly:
+- ZHOU (the younger man in the dark navy suit, holding the red sauce packet up): the boy whom the old cook beside him took in ten years ago, now the owner of his own restaurant. The packet he is holding is the very same sauce the old man used to make him his first bowl of braised pork. He presents it with quiet pride and warmth, speaking to the old man as much as to the audience - eyes bright, small smile, chin slightly lifted, no salesman's bombast.
+- UNCLE ZHAO (the elderly man in the white chef jacket and apron on the left): the benefactor who raised him in this kitchen and still works in it. He is the reason the product means anything. He stays a step behind and to the side, listening, mouth closed, calm proud eyes on the younger man and the packet.
+Their bond is father-and-son by affection. The packet is the physical proof of the debt, so neither man treats it as a commercial object; they treat it as a keepsake.&lt;Cast and blocking - exact, this must be preserved:
+Exactly TWO people are visible, standing behind a counter at slightly different depths - not a flat row: on the left, further back and a little softer, the elderly man with thin grey hair in a white chef jacket and apron, arms at his sides, watching the other man; on the right, nearer to camera and in sharp focus (face roughly 14% of the frame area), the younger man in the dark navy suit, holding a flat rectangular red sauce packet upright in both hands at chest height with its printed face turned square to the camera. The packet is clearly the largest readable object in the shot.
+Universal blocking rules, apply for the whole shot:
+- Keep the reference camera position, lens, shot size, camera height and subject distance exactly. Never push in, zoom, recentre or reframe. A group shot must stay a group shot - never turn it into a single-person close-up and never single out one face for a portrait.
+- Keep the exact number of people given above. Do not add anyone who is not in the reference and do not drop anyone who is in it; no bystanders, no extras, no mirrored or reflected figures.
+- Do not line people up shoulder to shoulder in a flat horizontal row at equal distance from the camera, and do not stack them into a symmetrical wall of faces. Stagger them in depth and vary their scale the way the reference frame does.
+- Every visible person keeps a separate, fully formed head with their own distinct facial features, hairstyle, clothing and skin tone. Never merge, fuse, blend or duplicate faces, and never let one person's face melt into another's or into the background.
+- Every face stays clearly resolved - separated eyes, nose, mouth and jawline - even when small or in the background. No smeared, mushy, waxy, indistinct or half-formed faces.
+- Do not enlarge any face beyond its reference size; do not shrink faces into unreadable specks.&gt;
+
+&lt;Action and camera for this shot - stage it exactly as written, once, and let it complete:
+- Action: A spoon stirs, coating meat pieces in sauce as steam rises. This action must be visibly underway inside the shot and reach its end before the shot cuts. Do not hold a static pose, do not freeze halfway, do not repeat or mime it.
+- Camera: Handheld shot, tracking movement. One continuous move only; no cut, no whip, no snap zoom inside the shot.
+- Any dialogue is carried on top of this action, not instead of it; the body keeps working while the mouth moves.
+&gt;
+
+&lt;Scene: 厨房演示，产品特写&gt;
+
+&lt;Shot: 中景 (MS), cinematic 9:16 vertical framing, 35 mm lens, moderate depth of field, photorealistic live-action footage, the shot runs the full 4.458 seconds&gt;
+
+&lt;Performance: 周总 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Keep natural micro-expressions and small continuous body motion; never freeze into a still frame.&gt;
+
+&lt;Style &amp; frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, fine film grain, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame. Any paper, sign, plaque, package or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 - 00:04.458] The shot holds the reference framing continuously; 周总 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Subtle handheld breathing and continuous ambient motion throughout.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any sign, plaque, paper, lettering, package or printed surface appearing in frame must render as completely illegible abstract marks - no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible. Speech is driven only by the supplied reference audio; do not render any mouth shapes for lines that are not audible.</pre>
+  </details>
+
+  <div class="box note">
+    <h4>审核要点</h4>
+    <ul class="cast">
+      <li><label><input type="checkbox">审：①红袋必须正面朝镜头、字与红色块清晰（产品镜核心）</label></li><li><label><input type="checkbox">②老赵虽然靠后半步但不能丢</label></li><li><label><input type="checkbox">③周总的表情是「自豪＋念旧」，不是主播式亢奋。</label></li>
+    </ul>
+  </div>
+</section>
+<section class="card" id="dy2_s118">
+  <header class="chead">
+    <div class="ctitle"><span class="badge drama">剧情镜</span>
+      <b>02_继母</b> · <code>dy2_s118</code> · s118
+      <span class="muted">原片 281.92s–284.08s（2.17s）→ 生成 2.33s / 56 帧（栅格向上吸附）</span>
+    </div>
+    <div class="cfg">Hybrid 双端锁定 · 4 步 · ref_image_size=max · 参考帧已去字</div>
+  </header>
+
+  <div class="videos">
+    <figure><figcaption>① 原片片段（原声）</figcaption>
+      <video src="_six/orig/dy2_s118.mp4" controls loop preload="metadata" poster="_six/orig/dy2_s118_poster.jpg"></video>
+    </figure>
+    <figure class="main"><figcaption>② 复刻片段 · <b>人工动作文本</b>（H3 · 原片音轨驱动口型）</figcaption>
+      <video src="_six/gen/dy2_s118.mp4" controls loop preload="metadata"></video>
+    </figure>
+    
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h4>台词与镜头</h4>
+      <table class="kv">
+        <tr><th>景别</th><td>近景 (MS-)</td></tr>
+        <tr><th>说话人</th><td>小优→莫姨</td></tr>
+        <tr><th>台词</th><td class="line">好闺女真正的母爱</td></tr>
+        <tr><th>剧情段落</th><td>⑥ 情感落点</td></tr>
+        <tr><th>镜头运动</th><td>缓推，小优的脸</td></tr>
+        <tr><th>镜内动作</th><td>小优夹起一块肉放进嘴里，慢慢抬起头</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>角色与关系（可打勾核对）</h4>
+      <ul class="cast">
+        <li><label><input type="checkbox">莫姨（继母，白衬衫，深色齐肩发；正面出镜、眼含泪、抱着孩子）</label></li><li><label><input type="checkbox">小优（18 岁继女，白底藏青滚边上衣、马尾；只给背影，看不到脸）</label></li><li><label><input type="checkbox">老王（父亲，格纹衬衫；立在后景右侧，双手垂着）</label></li>
+      </ul>
+      <p class="rel"><b>关系：</b>继母与继女：全片先立「后妈欺负孩子」的误解，这一镜翻案——小优第一次改口叫「妈妈」。父亲是软弱在场的连接者。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4>量化指标 <span class="muted">（SSIM，越高越贴原片；0.85+ = 被钉住）</span></h4>
+    <table class="metrics">
+      <tr><th>版本</th><th>帧 0 vs 钉死首帧</th><th>末帧 vs 钉死末帧</th><th>中段 vs 原片参考帧</th></tr>
+      <tr><td class="lab">人工动作</td>
+        <td class="good">0.741</td>
+        <td class="good">0.680</td>
+        <td class="good">0.720</td></tr>
+      
+    </table>
+    <p class="hint">末帧掉到 0.6 以下 = 中途推镜跑了；中段偏低 = 构图被改。</p>
+  </div>
+
+  <div class="box">
+    <h4>镜内动作与运镜：自动台本 vs 人工重写</h4>
+    <table class="actcmp">
+      <tr><th>来源</th><th>动作</th><th>运镜</th></tr>
+      <tr class="badrow"><td>脚本自动分配</td><td>小优夹起一块肉放进嘴里，慢慢抬起头</td><td class="bad">缓推，小优的脸</td></tr>
+      <tr class="goodrow"><td>人工按原片重写</td><td>莫姨紧紧抱着小优，一只手托在她后脑上，说话时几不可察地晃着；眼里有泪，又哭又笑。小优始终背对镜头、脸埋在她肩上，肩头因为哭而起伏。老王站在后景看着，然后把视线垂到地上。</td>
+        <td class="good">固定机位，与参考帧同高同距；不推不摇、不重新构图。</td></tr>
+    </table>
+  </div>
+
+  <details class="box">
+    <summary><b>完整提示词</b>（6618 字符，含 &lt;Characters&gt; 段）<button class="copy" data-t="dy2_s118">复制</button></summary>
+    <pre id="p_dy2_s118">integrated_multimodal_description:
+&lt;Reference frame: &lt;Picture 1&gt; is a real frame captured from this exact shot of the original footage. It is the authoritative reference for what appears in frame - reproduce its camera framing, shot size, subject placement, subject count, wardrobe, hairstyle, props, lighting and colour faithfully. Do not redesign the shot. The reference frame may show one soft, defocused patch where an overlay used to be; render it as ordinary continuous background texture - never as characters, boxes, bars, plates or panels. &gt;
+
+&lt;Characters and their relationship - keep identities exactly:
+- MO YI, the stepmother (white shirt, dark shoulder-length hair, mid-thirties): perceived for the first minute of the story as the cold woman who orders the girl around; in truth she is the only adult who acted. She has just cooked the girl's birthday meal herself after secretly learning the recipe. She is overwhelmed - tears standing in her eyes, laughing and crying at once, hugging tightly. Her love is the emotional payoff of the whole film.
+- XIAO YOU, the stepdaughter (18, white top with navy trim, ponytail): seen only from behind; she has just called this woman Mum for the first time. Her posture is what carries it - shoulders lifted, face buried in the embrace.
+- UNCLE WANG, the father (plaid shirt): mild, ineffectual, watching his wife and daughter with quiet shame and relief; he never solved anything, and he knows it.
+Relationship: stepmother and stepdaughter who have just become mother and daughter; the father is the passive link between them.&lt;Cast and blocking - exact, this must be preserved:
+Exactly THREE people are visible, staged at clearly different depths and never in a flat row: in the foreground the young woman is seen from BEHIND - the back of her head, her ponytail and her shoulders toward camera, her face not visible at all; she is wrapped in an embrace. In the middle ground, sharply in focus (face roughly 18% of the frame area), the stepmother's face is turned three-quarters toward camera, eyes bright and brimming, mouth open on a warm smile, one hand cupping the back of the girl's head. Behind them to the right, smaller and softer, the father in a plaid shirt stands watching them, hands hanging at his sides, an uncertain moved expression.
+Universal blocking rules, apply for the whole shot:
+- Keep the reference camera position, lens, shot size, camera height and subject distance exactly. Never push in, zoom, recentre or reframe. A group shot must stay a group shot - never turn it into a single-person close-up and never single out one face for a portrait.
+- Keep the exact number of people given above. Do not add anyone who is not in the reference and do not drop anyone who is in it; no bystanders, no extras, no mirrored or reflected figures.
+- Do not line people up shoulder to shoulder in a flat horizontal row at equal distance from the camera, and do not stack them into a symmetrical wall of faces. Stagger them in depth and vary their scale the way the reference frame does.
+- Every visible person keeps a separate, fully formed head with their own distinct facial features, hairstyle, clothing and skin tone. Never merge, fuse, blend or duplicate faces, and never let one person's face melt into another's or into the background.
+- Every face stays clearly resolved - separated eyes, nose, mouth and jawline - even when small or in the background. No smeared, mushy, waxy, indistinct or half-formed faces.
+- Do not enlarge any face beyond its reference size; do not shrink faces into unreadable specks.&gt;
+
+&lt;Action and camera for this shot - stage it exactly as written, once, and let it complete:
+- Action: Xiao You picks up a piece of meat with chopsticks, puts it in her mouth, and slowly lifts her head. This action must be visibly underway inside the shot and reach its end before the shot cuts. Do not hold a static pose, do not freeze halfway, do not repeat or mime it.
+- Camera: camera slowly pushes in to a close-up of Xiao You's face. One continuous move only; no cut, no whip, no snap zoom inside the shot.
+- Any dialogue is carried on top of this action, not instead of it; the body keeps working while the mouth moves.
+&gt;
+
+&lt;Scene: 生日餐桌，烛光&gt;
+
+&lt;Shot: 近景 (MS-), cinematic 9:16 vertical framing, 50 mm lens, shallow depth of field, photorealistic live-action footage, the shot runs the full 2.333 seconds&gt;
+
+&lt;Performance: 小优→莫姨 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Keep natural micro-expressions and small continuous body motion; never freeze into a still frame.&gt;
+
+&lt;Style &amp; frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, fine film grain, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame. Any paper, sign, plaque, package or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 - 00:02.333] The shot holds the reference framing continuously; 小优→莫姨 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Subtle handheld breathing and continuous ambient motion throughout.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any sign, plaque, paper, lettering, package or printed surface appearing in frame must render as completely illegible abstract marks - no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible. Speech is driven only by the supplied reference audio; do not render any mouth shapes for lines that are not audible.</pre>
+  </details>
+
+  <div class="box note">
+    <h4>审核要点</h4>
+    <ul class="cast">
+      <li><label><input type="checkbox">审：①三人在三个景深层次，绝不能排成一行</label></li><li><label><input type="checkbox">②小优必须是背影（原片如此，脸不出现）</label></li><li><label><input type="checkbox">③莫姨是又哭又笑的复杂情绪，不是单纯微笑。</label></li>
+    </ul>
+  </div>
+</section>
+<section class="card" id="dy2_s075">
+  <header class="chead">
+    <div class="ctitle"><span class="badge prod">产品镜</span>
+      <b>02_继母</b> · <code>dy2_s075</code> · s075
+      <span class="muted">原片 162.75s–165.92s（3.17s）→ 生成 3.75s / 90 帧（栅格向上吸附）</span>
+    </div>
+    <div class="cfg">Hybrid 双端锁定 · 4 步 · ref_image_size=max · 参考帧已去字</div>
+  </header>
+
+  <div class="videos v3">
+    <figure><figcaption>① 原片片段（原声）</figcaption>
+      <video src="_six/orig/dy2_s075.mp4" controls loop preload="metadata" poster="_six/orig/dy2_s075_poster.jpg"></video>
+    </figure>
+    <figure class="main"><figcaption>② 复刻片段 · <b>人工动作文本</b>（H3 · 原片音轨驱动口型）</figcaption>
+      <video src="_six/gen/dy2_s075.mp4" controls loop preload="metadata"></video>
+    </figure>
+    <figure><figcaption>③ 对照 · 自动动作文本版（旧）</figcaption><video src="_six/gen1/dy2_s075.mp4" controls loop preload="metadata"></video></figure>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h4>台词与镜头</h4>
+      <table class="kv">
+        <tr><th>景别</th><td>近景 (MS-)</td></tr>
+        <tr><th>说话人</th><td>曹阿姨→莫姨</td></tr>
+        <tr><th>台词</th><td class="line">节了有优惠力度今天在我视频左下角链接</td></tr>
+        <tr><th>剧情段落</th><td>④ 学艺(产品段)</td></tr>
+        <tr><th>镜头运动</th><td>静态俯拍，产品为主</td></tr>
+        <tr><th>镜内动作</th><td>产品摆在灶台上，一只手把七包酱依次码开</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>角色与关系（可打勾核对）</h4>
+      <ul class="cast">
+        <li><label><input type="checkbox">曹阿姨（灰卷发、碎花围裙的老厨娘；正面清晰、右手举红袋朝镜头）</label></li><li><label><input type="checkbox">莫姨（继母；只给前景左侧的后脑勺与肩，重度虚焦）</label></li>
+      </ul>
+      <p class="rel"><b>关系：</b>师傅与求教者：曹阿姨是「连老手艺人都用」的背书人，她把守了几十年的做法交给一个认真的后妈。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4>量化指标 <span class="muted">（SSIM，越高越贴原片；0.85+ = 被钉住）</span></h4>
+    <table class="metrics">
+      <tr><th>版本</th><th>帧 0 vs 钉死首帧</th><th>末帧 vs 钉死末帧</th><th>中段 vs 原片参考帧</th></tr>
+      <tr><td class="lab">人工动作</td>
+        <td class="good">0.627</td>
+        <td class="mid">0.458</td>
+        <td class="good">0.613</td></tr>
+      <tr><td class="lab">自动动作</td><td class="good">0.726</td><td class="mid">0.470</td><td class="good">0.774</td></tr>
+    </table>
+    <p class="hint">末帧掉到 0.6 以下 = 中途推镜跑了；中段偏低 = 构图被改。</p>
+  </div>
+
+  <div class="box">
+    <h4>镜内动作与运镜：自动台本 vs 人工重写</h4>
+    <table class="actcmp">
+      <tr><th>来源</th><th>动作</th><th>运镜</th></tr>
+      <tr class="badrow"><td>脚本自动分配</td><td>产品摆在灶台上，一只手把七包酱依次码开</td><td class="bad">静态俯拍，产品为主</td></tr>
+      <tr class="goodrow"><td>人工按原片重写</td><td>曹阿姨举着红袋在胸前说话，边说边把袋子再朝镜头转几度，空着的那只手短暂抬起来做个小强调。前景的年轻女子始终背对镜头，只露后脑与肩，柔焦。</td>
+        <td class="good">固定机位，与参考帧同高同距；不推不摇、不重新构图。</td></tr>
+    </table>
+  </div>
+
+  <details class="box">
+    <summary><b>完整提示词</b>（6370 字符，含 &lt;Characters&gt; 段）<button class="copy" data-t="dy2_s075">复制</button></summary>
+    <pre id="p_dy2_s075">integrated_multimodal_description:
+&lt;Reference frame: &lt;Picture 1&gt; is a real frame captured from this exact shot of the original footage. It is the authoritative reference for what appears in frame - reproduce its camera framing, shot size, subject placement, subject count, wardrobe, hairstyle, props, lighting and colour faithfully. Do not redesign the shot. The reference frame may show one soft, defocused patch where an overlay used to be; render it as ordinary continuous background texture - never as characters, boxes, bars, plates or panels. &gt;
+
+&lt;Characters and their relationship - keep identities exactly:
+- GRANDMA CAO (the elderly woman in the grey floral apron, short curly grey hair): the renowned home cook of this old-alley kitchen, a woman who has been cooking this way for decades and trusts nothing modern. She long refused to teach anyone. She is the film's authority, and she is the reason the sauce is credible - if a woman like her uses it, it must be real. Her manner is blunt, warm and unshowy, like a grandmother telling you something obvious.
+- MO YI (only the back of her head and shoulder in the extreme foreground, defocused): the stepmother who has come to beg for the recipe so she can cook for her stepdaughter's birthday. She is here as a student, quietly taking instruction.
+Relationship: teacher and student; the older woman is passing on a method she has guarded for decades to a mother who is clearly serious about it.&lt;Cast and blocking - exact, this must be preserved:
+Exactly TWO people are visible, at very different depths: at the left edge, in the extreme foreground, the back of a young woman's head and her shoulder - heavily defocused, cropping the frame edge, face not visible; and in the middle ground, sharply in focus (face roughly 27% of the frame area), the elderly woman with short curly grey hair in a floral apron, turned toward her, holding a flat rectangular red sauce packet up in her right hand with its printed face angled toward the camera. The packet is the second largest element in the frame after her face.
+Universal blocking rules, apply for the whole shot:
+- Keep the reference camera position, lens, shot size, camera height and subject distance exactly. Never push in, zoom, recentre or reframe. A group shot must stay a group shot - never turn it into a single-person close-up and never single out one face for a portrait.
+- Keep the exact number of people given above. Do not add anyone who is not in the reference and do not drop anyone who is in it; no bystanders, no extras, no mirrored or reflected figures.
+- Do not line people up shoulder to shoulder in a flat horizontal row at equal distance from the camera, and do not stack them into a symmetrical wall of faces. Stagger them in depth and vary their scale the way the reference frame does.
+- Every visible person keeps a separate, fully formed head with their own distinct facial features, hairstyle, clothing and skin tone. Never merge, fuse, blend or duplicate faces, and never let one person's face melt into another's or into the background.
+- Every face stays clearly resolved - separated eyes, nose, mouth and jawline - even when small or in the background. No smeared, mushy, waxy, indistinct or half-formed faces.
+- Do not enlarge any face beyond its reference size; do not shrink faces into unreadable specks.&gt;
+
+&lt;Action and camera for this shot - stage it exactly as written, once, and let it complete:
+- Action: Products sit on the stove as a hand places seven sauce packets in sequence. This action must be visibly underway inside the shot and reach its end before the shot cuts. Do not hold a static pose, do not freeze halfway, do not repeat or mime it.
+- Camera: camera holds still in a top-down view centered on the product. One continuous move only; no cut, no whip, no snap zoom inside the shot.
+- Any dialogue is carried on top of this action, not instead of it; the body keeps working while the mouth moves.
+&gt;
+
+&lt;Scene: 厨房灶台，产品特写&gt;
+
+&lt;Shot: 近景 (MS-), cinematic 9:16 vertical framing, 50 mm lens, shallow depth of field, photorealistic live-action footage, the shot runs the full 3.750 seconds&gt;
+
+&lt;Performance: 曹阿姨→莫姨 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Keep natural micro-expressions and small continuous body motion; never freeze into a still frame.&gt;
+
+&lt;Style &amp; frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, fine film grain, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame. Any paper, sign, plaque, package or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 - 00:03.750] The shot holds the reference framing continuously; 曹阿姨→莫姨 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Subtle handheld breathing and continuous ambient motion throughout.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any sign, plaque, paper, lettering, package or printed surface appearing in frame must render as completely illegible abstract marks - no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible. Speech is driven only by the supplied reference audio; do not render any mouth shapes for lines that are not audible.</pre>
+  </details>
+
+  <div class="box note">
+    <h4>审核要点</h4>
+    <ul class="cast">
+      <li><label><input type="checkbox">审：①产品袋要正面朝镜头、倾斜角度自然，不要反字或倒置（上一轮就栽在这）</label></li><li><label><input type="checkbox">②前景的莫姨只能是一个虚焦后脑勺，不能变出一张脸</label></li><li><label><input type="checkbox">③曹阿姨要有皱纹和白发根的真实老人感，不要磨皮。</label></li>
+    </ul>
+  </div>
+</section>
+<section class="card" id="dy3_s145">
+  <header class="chead">
+    <div class="ctitle"><span class="badge drama">剧情镜</span>
+      <b>03_挑食</b> · <code>dy3_s145</code> · s145
+      <span class="muted">原片 271.00s–274.25s（3.25s）→ 生成 3.75s / 90 帧（栅格向上吸附）</span>
+    </div>
+    <div class="cfg">Hybrid 双端锁定 · 4 步 · ref_image_size=max · 参考帧已去字</div>
+  </header>
+
+  <div class="videos v3">
+    <figure><figcaption>① 原片片段（原声）</figcaption>
+      <video src="_six/orig/dy3_s145.mp4" controls loop preload="metadata" poster="_six/orig/dy3_s145_poster.jpg"></video>
+    </figure>
+    <figure class="main"><figcaption>② 复刻片段 · <b>人工动作文本</b>（H3 · 原片音轨驱动口型）</figcaption>
+      <video src="_six/gen/dy3_s145.mp4" controls loop preload="metadata"></video>
+    </figure>
+    <figure><figcaption>③ 对照 · 自动动作文本版（旧）</figcaption><video src="_six/gen1/dy3_s145.mp4" controls loop preload="metadata"></video></figure>
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h4>台词与镜头</h4>
+      <table class="kv">
+        <tr><th>景别</th><td>中景 (MS)</td></tr>
+        <tr><th>说话人</th><td>奶奶</td></tr>
+        <tr><th>台词</th><td class="line">能吃妈妈也吃光了哥哥你看妈妈也吃</td></tr>
+        <tr><th>剧情段落</th><td>⑧ 产品段</td></tr>
+        <tr><th>镜头运动</th><td>静态，母女同框</td></tr>
+        <tr><th>镜内动作</th><td>顾总蹲下来给女儿擦嘴，女儿别过头去</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>角色与关系（可打勾核对）</h4>
+      <ul class="cast">
+        <li><label><input type="checkbox">女儿（约 6 岁，淡黄连衣裙；最小、坐左侧、仰头笑）</label></li><li><label><input type="checkbox">小伙（男主，白衬衫；坐中间近景，手持筷子）</label></li><li><label><input type="checkbox">楠奶（灰发老太太；立于后景上方，俯身笑看两人）</label></li>
+      </ul>
+      <p class="rel"><b>关系：</b>全片的证据是「挑食的孩子吃光了」：女儿叫小伙「哥哥」——不是父女，而是被信任的照顾者；奶奶是旁证的见证人。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4>量化指标 <span class="muted">（SSIM，越高越贴原片；0.85+ = 被钉住）</span></h4>
+    <table class="metrics">
+      <tr><th>版本</th><th>帧 0 vs 钉死首帧</th><th>末帧 vs 钉死末帧</th><th>中段 vs 原片参考帧</th></tr>
+      <tr><td class="lab">人工动作</td>
+        <td class="mid">0.505</td>
+        <td class="good">0.791</td>
+        <td class="mid">0.478</td></tr>
+      <tr><td class="lab">自动动作</td><td class="mid">0.430</td><td class="good">0.755</td><td class="mid">0.433</td></tr>
+    </table>
+    <p class="hint">末帧掉到 0.6 以下 = 中途推镜跑了；中段偏低 = 构图被改。</p>
+  </div>
+
+  <div class="box">
+    <h4>镜内动作与运镜：自动台本 vs 人工重写</h4>
+    <table class="actcmp">
+      <tr><th>来源</th><th>动作</th><th>运镜</th></tr>
+      <tr class="badrow"><td>脚本自动分配</td><td>顾总蹲下来给女儿擦嘴，女儿别过头去</td><td class="bad">静态，母女同框</td></tr>
+      <tr class="goodrow"><td>人工按原片重写</td><td>小女孩抬着下巴、张着嘴转向小伙说话，然后在椅子里弹了一下；小伙慢慢转头看她，露出满意的笑，筷子还在手里，低头看一眼碗又抬眼看她；身后的奶奶微微前倾，笑着俯看两人。</td>
+        <td class="good">固定机位，与参考帧同高同距；不推不摇、不重新构图——三人全程保持同样大小与位置。</td></tr>
+    </table>
+  </div>
+
+  <details class="box">
+    <summary><b>完整提示词</b>（6547 字符，含 &lt;Characters&gt; 段）<button class="copy" data-t="dy3_s145">复制</button></summary>
+    <pre id="p_dy3_s145">integrated_multimodal_description:
+&lt;Reference frame: &lt;Picture 1&gt; is a real frame captured from this exact shot of the original footage. It is the authoritative reference for what appears in frame - reproduce its camera framing, shot size, subject placement, subject count, wardrobe, hairstyle, props, lighting and colour faithfully. Do not redesign the shot. The reference frame may show one soft, defocused patch where an overlay used to be; render it as ordinary continuous background texture - never as characters, boxes, bars, plates or panels. &gt;
+
+&lt;Characters and their relationship - keep identities exactly:
+- THE DAUGHTER (about six years old, pale yellow dress): the picky child this whole story is about - she had refused food for half a year and had driven away nine cooks. She has just eaten everything. Her state is pure unguarded delight; she is the film's proof and its emotional release.
+- THE YOUNG MAN (white shirt, clean, quiet, early twenties): the underdog cook who was mocked as a roadside vendor and is now the only one who got her to eat. He is not her father and never claims to be; he is the patient grown-up who actually showed up. She calls him brother. He is quietly pleased and a little shy.
+- GRANDMA NAN (elderly, grey hair, standing behind them): the elderly woman who vouches for the food, watching the child eat with open satisfaction.
+Relationship: a child who trusts no one and the one adult who fed her; the old woman is the approving witness of that bond.&lt;Cast and blocking - exact, this must be preserved:
+Exactly THREE people are visible, at clearly different depths and scales: at the left of the table the small girl in a pale yellow dress, seated, the smallest person in frame, twisting toward the seated man with a delighted open-mouthed smile; beside her in the middle ground the young man in a white shirt, seated and sharply in focus (face roughly 11% of the frame area), chopsticks in hand, looking down at his bowl and then up at her; and behind and above them the elderly grey-haired woman, standing, larger in the upper part of the frame, leaning in with a broad satisfied smile. They are staggered around a round dining table, never side by side.
+Universal blocking rules, apply for the whole shot:
+- Keep the reference camera position, lens, shot size, camera height and subject distance exactly. Never push in, zoom, recentre or reframe. A group shot must stay a group shot - never turn it into a single-person close-up and never single out one face for a portrait.
+- Keep the exact number of people given above. Do not add anyone who is not in the reference and do not drop anyone who is in it; no bystanders, no extras, no mirrored or reflected figures.
+- Do not line people up shoulder to shoulder in a flat horizontal row at equal distance from the camera, and do not stack them into a symmetrical wall of faces. Stagger them in depth and vary their scale the way the reference frame does.
+- Every visible person keeps a separate, fully formed head with their own distinct facial features, hairstyle, clothing and skin tone. Never merge, fuse, blend or duplicate faces, and never let one person's face melt into another's or into the background.
+- Every face stays clearly resolved - separated eyes, nose, mouth and jawline - even when small or in the background. No smeared, mushy, waxy, indistinct or half-formed faces.
+- Do not enlarge any face beyond its reference size; do not shrink faces into unreadable specks.&gt;
+
+&lt;Action and camera for this shot - stage it exactly as written, once, and let it complete:
+- Action: Director Gu crouches to wipe his daughter’s mouth; she turns her head away This action must be visibly underway inside the shot and reach its end before the shot cuts. Do not hold a static pose, do not freeze halfway, do not repeat or mime it.
+- Camera: a mother and young daughter sit side-by-side on a sofa, shoulders touching, both looking down at a shared picture book. One continuous move only; no cut, no whip, no snap zoom inside the shot.
+- Any dialogue is carried on top of this action, not instead of it; the body keeps working while the mouth moves.
+&gt;
+
+&lt;Scene: 厨房演示，产品特写&gt;
+
+&lt;Shot: 中景 (MS), cinematic 9:16 vertical framing, 35 mm lens, moderate depth of field, photorealistic live-action footage, the shot runs the full 3.750 seconds&gt;
+
+&lt;Performance: 奶奶 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Keep natural micro-expressions and small continuous body motion; never freeze into a still frame.&gt;
+
+&lt;Style &amp; frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, fine film grain, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame. Any paper, sign, plaque, package or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 - 00:03.750] The shot holds the reference framing continuously; 奶奶 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Subtle handheld breathing and continuous ambient motion throughout.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any sign, plaque, paper, lettering, package or printed surface appearing in frame must render as completely illegible abstract marks - no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible. Speech is driven only by the supplied reference audio; do not render any mouth shapes for lines that are not audible.</pre>
+  </details>
+
+  <div class="box note">
+    <h4>审核要点</h4>
+    <ul class="cast">
+      <li><label><input type="checkbox">审：①一桌三人的景深层次（小孩最小在前、小伙中景清晰、奶奶后景偏大）</label></li><li><label><input type="checkbox">②小女孩开心张嘴的童真表情要有，别做成呆脸</label></li><li><label><input type="checkbox">③不许把餐桌推成单人特写。</label></li>
+    </ul>
+  </div>
+</section>
+<section class="card" id="dy3_s119">
+  <header class="chead">
+    <div class="ctitle"><span class="badge prod">产品镜</span>
+      <b>03_挑食</b> · <code>dy3_s119</code> · s119
+      <span class="muted">原片 218.92s–221.92s（3.00s）→ 生成 3.04s / 73 帧（栅格向上吸附）</span>
+    </div>
+    <div class="cfg">Hybrid 双端锁定 · 4 步 · ref_image_size=max · 参考帧已去字</div>
+  </header>
+
+  <div class="videos">
+    <figure><figcaption>① 原片片段（原声）</figcaption>
+      <video src="_six/orig/dy3_s119.mp4" controls loop preload="metadata" poster="_six/orig/dy3_s119_poster.jpg"></video>
+    </figure>
+    <figure class="main"><figcaption>② 复刻片段 · <b>人工动作文本</b>（H3 · 原片音轨驱动口型）</figcaption>
+      <video src="_six/gen/dy3_s119.mp4" controls loop preload="metadata"></video>
+    </figure>
+    
+  </div>
+
+  <div class="grid">
+    <div class="box">
+      <h4>台词与镜头</h4>
+      <table class="kv">
+        <tr><th>景别</th><td>全景偏中 (WS+)</td></tr>
+        <tr><th>说话人</th><td>奶奶</td></tr>
+        <tr><th>台词</th><td class="line">红烧菜不放油不放盐的一包酱倒进去就这</td></tr>
+        <tr><th>剧情段落</th><td>⑧ 产品段</td></tr>
+        <tr><th>镜头运动</th><td>缓推，从手到锅</td></tr>
+        <tr><th>镜内动作</th><td>小伙撕开酱包下锅，勺子一搅，酱色在锅里铺开</td></tr>
+      </table>
+    </div>
+    <div class="box">
+      <h4>角色与关系（可打勾核对）</h4>
+      <ul class="cast">
+        <li><label><input type="checkbox">无脸镜：只有一只右手前臂从画面右侧伸入，举着红袋（奶奶的台词在这镜，但她本人不出画）</label></li>
+      </ul>
+      <p class="rel"><b>关系：</b>产品特写镜：这包酱是「挑食孩子终于吃饭」的原因，手属于刚发生这一切的餐桌。</p>
+    </div>
+  </div>
+
+  <div class="box">
+    <h4>量化指标 <span class="muted">（SSIM，越高越贴原片；0.85+ = 被钉住）</span></h4>
+    <table class="metrics">
+      <tr><th>版本</th><th>帧 0 vs 钉死首帧</th><th>末帧 vs 钉死末帧</th><th>中段 vs 原片参考帧</th></tr>
+      <tr><td class="lab">人工动作</td>
+        <td class="good">0.709</td>
+        <td class="good">0.826</td>
+        <td class="good">0.743</td></tr>
+      
+    </table>
+    <p class="hint">末帧掉到 0.6 以下 = 中途推镜跑了；中段偏低 = 构图被改。</p>
+  </div>
+
+  <div class="box">
+    <h4>镜内动作与运镜：自动台本 vs 人工重写</h4>
+    <table class="actcmp">
+      <tr><th>来源</th><th>动作</th><th>运镜</th></tr>
+      <tr class="badrow"><td>脚本自动分配</td><td>小伙撕开酱包下锅，勺子一搅，酱色在锅里铺开</td><td class="bad">缓推，从手到锅</td></tr>
+      <tr class="goodrow"><td>人工按原片重写</td><td>一只右手从右缘伸入、持红袋举到画面中央，略微朝镜头倾一点，然后整镜稳稳端着不动；袋子始终是画面里最清晰的东西。其余一切都静止。</td>
+        <td class="good">固定机位、锁死；不推不变焦——红袋全程大小位置不变。</td></tr>
+    </table>
+  </div>
+
+  <details class="box">
+    <summary><b>完整提示词</b>（6542 字符，含 &lt;Characters&gt; 段）<button class="copy" data-t="dy3_s119">复制</button></summary>
+    <pre id="p_dy3_s119">integrated_multimodal_description:
+&lt;Reference frame: &lt;Picture 1&gt; is a real frame captured from this exact shot of the original footage. It is the authoritative reference for what appears in frame - reproduce its camera framing, shot size, subject placement, subject count, wardrobe, hairstyle, props, lighting and colour faithfully. Do not redesign the shot. The reference frame may show one soft, defocused patch where an overlay used to be; render it as ordinary continuous background texture - never as characters, boxes, bars, plates or panels. &gt;
+
+&lt;Subject and product - keep exactly:
+- The ONLY living presence is a single adult forearm and hand entering from the right frame edge, holding the red sauce packet up toward the camera. The hand is relaxed and confident, thumb clear of the printed face so nothing is covered.
+- The packet is a flat rectangular sealed pouch, glossy deep-red, printed vertically down its left half with four large characters and carrying a small round emblem on the right; a small figure of a dish sits in the lower-right of the printed face. All printed matter must render as soft, unreadable, abstract marks - no legible characters, digits or brand words, and no mirror-reversed or inverted lettering.
+- It is the grandmother who is speaking this line; she is the film's product endorser, but she is off-camera here and must not appear.
+Relationship context: the sauce is the reason the picky child finally ate; the hand presenting it belongs to the family table where that just happened.&lt;Cast and blocking - exact, this must be preserved:
+No face and no complete human figure appears anywhere in this shot. Only ONE forearm and hand enter the frame from the right edge, holding a flat rectangular red sauce packet upright and tilted very slightly toward the camera, with its printed face square to the lens; the packet fills the middle of the frame and is the sharpest object in it. Everything else is a tabletop still life - white porcelain plates, a dish of glistening braised food just below the packet, cutlery - over a softly blurred warm dining-room background with plates, bottle and bokeh. Do not add any face, head, body, second hand or standing figure.
+Universal blocking rules, apply for the whole shot:
+- Keep the reference camera position, lens, shot size, camera height and subject distance exactly. Never push in, zoom, recentre or reframe. A group shot must stay a group shot - never turn it into a single-person close-up and never single out one face for a portrait.
+- Keep the exact number of people given above. Do not add anyone who is not in the reference and do not drop anyone who is in it; no bystanders, no extras, no mirrored or reflected figures.
+- Do not line people up shoulder to shoulder in a flat horizontal row at equal distance from the camera, and do not stack them into a symmetrical wall of faces. Stagger them in depth and vary their scale the way the reference frame does.
+- Every visible person keeps a separate, fully formed head with their own distinct facial features, hairstyle, clothing and skin tone. Never merge, fuse, blend or duplicate faces, and never let one person's face melt into another's or into the background.
+- Every face stays clearly resolved - separated eyes, nose, mouth and jawline - even when small or in the background. No smeared, mushy, waxy, indistinct or half-formed faces.
+- Do not enlarge any face beyond its reference size; do not shrink faces into unreadable specks.&gt;
+
+&lt;Action and camera for this shot - stage it exactly as written, once, and let it complete:
+- Action: The young man tears open the sauce packet and pours it into the wok; he stirs once, spreading the sauce across the pan This action must be visibly underway inside the shot and reach its end before the shot cuts. Do not hold a static pose, do not freeze halfway, do not repeat or mime it.
+- Camera: camera slowly pushes in, shifting focus from the hands to the pot. One continuous move only; no cut, no whip, no snap zoom inside the shot.
+- Any dialogue is carried on top of this action, not instead of it; the body keeps working while the mouth moves.
+&gt;
+
+&lt;Scene: 厨房演示，产品特写&gt;
+
+&lt;Shot: 全景偏中 (WS+), cinematic 9:16 vertical framing, 35 mm lens, moderate depth of field, photorealistic live-action footage, the shot runs the full 3.042 seconds&gt;
+
+&lt;Performance: 奶奶 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Keep natural micro-expressions and small continuous body motion; never freeze into a still frame.&gt;
+
+&lt;Style &amp; frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, fine film grain, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, no on-screen text, no watermark, no logo, no timestamp, no UI overlay. Never imitate or reproduce a subtitle strip or any text overlay from the source material; do not add any floating or superimposed lettering of any script - Chinese, Latin, digits or symbols - anywhere in the frame. Any paper, sign, plaque, package or printed surface in frame is blank or shows only soft unreadable blurred marks.&gt;
+
+[00:00.000 - 00:03.042] The shot holds the reference framing continuously; 奶奶 delivers the line; the mouth movement is driven strictly by the supplied reference audio and stops the instant the audio goes quiet. Subtle handheld breathing and continuous ambient motion throughout.
+
+strict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any sign, plaque, paper, lettering, package or printed surface appearing in frame must render as completely illegible abstract marks - no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible. Speech is driven only by the supplied reference audio; do not render any mouth shapes for lines that are not audible.</pre>
+  </details>
+
+  <div class="box note">
+    <h4>审核要点</h4>
+    <ul class="cast">
+      <li><label><input type="checkbox">审：①红袋正面清晰、不能镜像反字或倒置（三片里最容易翻车的一镜）</label></li><li><label><input type="checkbox">②除手之外不许长脸、长人</label></li><li><label><input type="checkbox">③袋面印刷字必须是模糊不可读的抽象笔画，不能出现可读中文、数字或 logo。</label></li>
+    </ul>
+  </div>
+</section>
+</div>
+<script>
+document.querySelectorAll('button.copy').forEach(b=>b.addEventListener('click',e=>{
+  e.preventDefault();
+  const t=document.getElementById('p_'+b.dataset.t).innerText;
+  navigator.clipboard.writeText(t).then(()=>{b.textContent='已复制';setTimeout(()=>b.textContent='复制',1400);});
+}));
+</script></body></html>

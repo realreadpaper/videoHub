@@ -1,0 +1,39 @@
+{
+  "_note": "人工撰写的镜内动作/运镜，逐镜对照原片片段写成。自动台本的动作池与镜头严重错配，且给静态镜硬塞了推镜，本文件为这 6 镜的权威覆盖。",
+  "dy1_s093": {
+    "action": "Zhou keeps his eyes fixed on the old man's face for the whole shot and delivers the line straight to him: a slow blink, a small swallow, the jaw tightening on the second half of the sentence, the chin dipping slightly as he finishes. Uncle Zhao stands still at the left edge of frame, listening, offering at most the smallest single nod.",
+    "camera": "Static camera locked at exactly the reference height and distance; no push in, no zoom, no recentring, no reframing - the framing at the last frame is identical to the first",
+    "action_cn": "周总全程盯着老赵的脸把这句话直接说给他：一次缓慢眨眼、一次咽口水、说到后半句下颌收紧、结尾下巴微低。老赵立在画面左缘不动，只听，最多点一下头。",
+    "camera_cn": "固定机位，与参考帧同高同距；不推不摇、不变焦、不重新构图——末帧构图与首帧一致。"
+  },
+  "dy1_s088": {
+    "action": "Zhou holds the flat red packet upright at chest height and, as he speaks, lifts it a few centimetres higher and turns its printed face very slightly more square to the lens, then holds it steady through to the end of the line. Uncle Zhao stays beside him a step further back, hands still at his sides, watching him with a quiet proud expression.",
+    "camera": "Static camera at exactly the reference height and distance; no push in, no zoom, no reframing - the packet and both men keep their exact size and position for the whole shot",
+    "action_cn": "周总把红袋竖举在胸前，说着话微微抬高几厘米、把袋面再转正一点朝向镜头，然后一直稳住到说完。老赵在他侧后一步，双手垂着不动，静静看着，带一点自豪。",
+    "camera_cn": "固定机位，与参考帧同高同距；不推不摇、不重新构图——红袋和两人全程保持同样大小与位置。"
+  },
+  "dy2_s118": {
+    "action": "Mo Yi holds the girl in a tight embrace, one hand cupping the back of her head, and rocks her almost imperceptibly while speaking; her eyes are wet and she is laughing and crying at the same moment. The girl stays turned away from camera, face hidden against the woman's shoulder, shoulders lifting as she cries. Behind them Uncle Wang stands still watching, then drops his eyes to the floor.",
+    "camera": "Static camera at exactly the reference height and distance; no push in, no zoom, no recentring, no reframing",
+    "action_cn": "莫姨紧紧抱着小优，一只手托在她后脑上，说话时几不可察地晃着；眼里有泪，又哭又笑。小优始终背对镜头、脸埋在她肩上，肩头因为哭而起伏。老王站在后景看着，然后把视线垂到地上。",
+    "camera_cn": "固定机位，与参考帧同高同距；不推不摇、不重新构图。"
+  },
+  "dy2_s075": {
+    "action": "Grandma Cao speaks while holding the packet up in her right hand at chest height, turning it a few degrees further toward the camera as she talks and raising her free hand briefly in a small gesture of emphasis. The young woman in the extreme foreground stays turned away, only the back of her head and shoulder visible and softly out of focus.",
+    "camera": "Static camera at exactly the reference height and distance; no push in, no zoom, no reframing",
+    "action_cn": "曹阿姨举着红袋在胸前说话，边说边把袋子再朝镜头转几度，空着的那只手短暂抬起来做个小强调。前景的年轻女子始终背对镜头，只露后脑与肩，柔焦。",
+    "camera_cn": "固定机位，与参考帧同高同距；不推不摇、不重新构图。"
+  },
+  "dy3_s145": {
+    "action": "The little girl twists toward the young man with her chin up and mouth open mid-sentence, then bounces once in her seat. He turns his head to her with a slow pleased smile, chopsticks still in his hand, glances down at his bowl and back up at her. The grandmother behind them leans in a little and smiles broadly down at the two of them.",
+    "camera": "Static camera at exactly the reference height and distance; no push in, no zoom, no reframing - all three people keep their size and position for the whole shot",
+    "action_cn": "小女孩抬着下巴、张着嘴转向小伙说话，然后在椅子里弹了一下；小伙慢慢转头看她，露出满意的笑，筷子还在手里，低头看一眼碗又抬眼看她；身后的奶奶微微前倾，笑着俯看两人。",
+    "camera_cn": "固定机位，与参考帧同高同距；不推不摇、不重新构图——三人全程保持同样大小与位置。"
+  },
+  "dy3_s119": {
+    "action": "A single hand comes in from the right edge holding the red packet, raises it into the centre of the frame, tilts it very slightly toward the lens, and then holds it perfectly steady for the rest of the shot; the packet remains the sharpest object in the frame. Nothing else in the shot moves.",
+    "camera": "Static camera, locked off, no push in and no zoom - the packet stays the same size in the same place for the whole shot",
+    "action_cn": "一只右手从右缘伸入、持红袋举到画面中央，略微朝镜头倾一点，然后整镜稳稳端着不动；袋子始终是画面里最清晰的东西。其余一切都静止。",
+    "camera_cn": "固定机位、锁死；不推不变焦——红袋全程大小位置不变。"
+  }
+}

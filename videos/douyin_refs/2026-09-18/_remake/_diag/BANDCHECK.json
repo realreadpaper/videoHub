@@ -1,0 +1,74 @@
+[
+ {
+  "nm": "dy1_s093",
+  "ref_sub_edge": 10.41,
+  "ref_sub_yellow": 0.552,
+  "ref_ctrl_edge": 6.46,
+  "ref_score": 1.61,
+  "gen_sub_edge": 12.32,
+  "gen_sub_yellow": 1.297,
+  "gen_ctrl_edge": 8.19,
+  "gen_score": 1.5,
+  "gen_yellow_avg": 0.657
+ },
+ {
+  "nm": "dy1_s088",
+  "ref_sub_edge": 14.14,
+  "ref_sub_yellow": 0.139,
+  "ref_ctrl_edge": 8.95,
+  "ref_score": 1.58,
+  "gen_sub_edge": 24.85,
+  "gen_sub_yellow": 1.158,
+  "gen_ctrl_edge": 8.97,
+  "gen_score": 2.77,
+  "gen_yellow_avg": 2.212
+ },
+ {
+  "nm": "dy2_s118",
+  "ref_sub_edge": 5.2,
+  "ref_sub_yellow": 1.481,
+  "ref_ctrl_edge": 5.04,
+  "ref_score": 1.03,
+  "gen_sub_edge": 7.87,
+  "gen_sub_yellow": 5.153,
+  "gen_ctrl_edge": 6.05,
+  "gen_score": 1.3,
+  "gen_yellow_avg": 4.498
+ },
+ {
+  "nm": "dy2_s075",
+  "ref_sub_edge": 14.29,
+  "ref_sub_yellow": 2.111,
+  "ref_ctrl_edge": 7.6,
+  "ref_score": 1.88,
+  "gen_sub_edge": 24.38,
+  "gen_sub_yellow": 2.418,
+  "gen_ctrl_edge": 9.11,
+  "gen_score": 2.68,
+  "gen_yellow_avg": 4.337
+ },
+ {
+  "nm": "dy3_s145",
+  "ref_sub_edge": 37.27,
+  "ref_sub_yellow": 5.171,
+  "ref_ctrl_edge": 3.95,
+  "ref_score": 9.44,
+  "gen_sub_edge": 42.75,
+  "gen_sub_yellow": 9.698,
+  "gen_ctrl_edge": 4.64,
+  "gen_score": 9.21,
+  "gen_yellow_avg": 7.391
+ },
+ {
+  "nm": "dy3_s119",
+  "ref_sub_edge": 84.91,
+  "ref_sub_yellow": 26.505,
+  "ref_ctrl_edge": 6.62,
+  "ref_score": 12.83,
+  "gen_sub_edge": 53.88,
+  "gen_sub_yellow": 20.964,
+  "gen_ctrl_edge": 7.44,
+  "gen_score": 7.24,
+  "gen_yellow_avg": 19.542
+ }
+]

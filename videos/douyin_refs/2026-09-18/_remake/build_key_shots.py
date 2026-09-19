@@ -49,14 +49,53 @@ STRICT = (
     "Text-bearing props are set dressing only and must never be legible."
 )
 
+# --- 产品镜专用：包装印刷是全画面唯一合法文字，且必须按参考图还原 ---------------------
+NO_TEXT_PROD = (
+    "No subtitles, no captions, no burned-in titles, no lower-thirds, no text banner or bar across the frame, "
+    "no on-screen text, no watermark, no timestamp, no UI overlay. "
+    "Never imitate or reproduce a subtitle strip, arrow sticker or floating lettering from the source material; "
+    "do not add any superimposed lettering of any script anywhere in the frame - "
+    "the only printed surface in frame is the sauce pouch itself, rendered as part of the scene. "
+)
 
-def style_block(lens, lighting):
+STRICT_PROD = (
+    "strict_output_constraints: The only text permitted anywhere in frame is the printed packaging of the sauce "
+    "pouch itself, which must follow the product reference picture exactly and stay sharp and legible exactly as "
+    "printed - the packaging artwork, layout, colours, logo panel and characters must match the reference, never "
+    "redrawn, never garbled, never paraphrased into other characters. "
+    "Absolutely no subtitles, no captions, no burned-in titles, no text banner or bar across the frame, "
+    "no on-screen text, no watermark, no logo overlay, no timestamp, no UI overlay, no lower-third, "
+    "no floating lettering of any script anywhere in the frame. "
+    "Any sign, paper or printed surface other than the pouch itself must render as illegible abstract marks."
+)
+
+
+def style_block(lens, lighting, no_text=NO_TEXT_SHORT):
     return (
         "<Style & frame constraints - apply to the whole shot, every second of it: "
         "cinematic 9:16 vertical framing, ARRI Alexa look, %s, shallow depth of field, fine film grain, "
         "photorealistic live-action footage, %s, %s%s>"
-        % (lens, lighting, ANTI_GREASY, NO_TEXT_SHORT)
+        % (lens, lighting, ANTI_GREASY, no_text)
     )
+
+
+PRODUCT_POUCH = (
+    "<Product identity reference: <Picture 1> is the product (P), a small stand-up retort sauce pouch that must stay "
+    "the exact same product in every second of this shot; the printed artwork must follow the reference picture "
+    "precisely: a deep crimson-red pouch with a soft satin sheen, a white rectangular panel at the top right bearing "
+    "the brand logo in red, the insurer mark PICC with small Chinese characters and fine print beneath it, one "
+    "vertical column of six large white Chinese characters 鲍汁红烧酱料 running down the upper left with a thin "
+    "vertical line of small Latin letters beside it, a golden oval badge at the middle left reading 0蔗糖 in red - "
+    "one large digit 0 on top and the two characters 蔗糖 side by side beneath it - and a cream-coloured rounded "
+    "panel at the middle right headed by the two large brown characters 鲍汁 and listing exactly five small "
+    "red-character dish names, each appearing exactly once: 红烧排骨, 红烧猪蹄, 红烧牛羊肉, 红烧鱼, 红烧肉; across "
+    "the entire lower half a rich appetising photograph of a glossy braised fish in bright red-brown sauce with "
+    "scattered chopped scallions, a small white price label 建议零售价 8元 at the lower left and a white net-weight "
+    "band 净含量:80克 near the bottom edge. Every character, digit and the logo on the pouch always faces the camera "
+    "and reads in the correct direction and upright orientation - never mirrored, never reversed, never upside down, "
+    "even while the pouch is held or moved; the artwork keeps this layout, these colours and these proportions "
+    "unchanged; the pouch is <Subject P> (P)>"
+)
 
 
 SHOTS = []
@@ -230,6 +269,147 @@ SHOTS.append(dict(
         "non_diegetic_music:\n"
         "A gentle warm piano figure with soft strings underneath, small and moving.\n\n"
         + STRICT
+    ),
+))
+
+
+# =====================================================================================
+# 4) 产品镜 A · 继母款正面 hero（原片 02:03.4，袋占 ~75%，全三片唯一正面静置特写）
+# =====================================================================================
+SHOTS.append(dict(
+    key="dy2_prod_hero",
+    film="02_被误解的继母",
+    src_ts="02:03.4（原片 hero 帧构图）",
+    line="就这一包酱（复刻构图，静音审画面）",
+    seed=20260922,
+    refs=["product_pouch.jpg"],
+    prompt=(
+        "integrated_multimodal_description:\n"
+        + PRODUCT_POUCH + "\n\n"
+        "<Scene reference - this entire shot takes place in: the kitchen counter of a bright modern apartment at "
+        "night. A warm-toned polished wood-veneer countertop, a softly blurred cream kitchen with warm under-cabinet "
+        "light far behind, one gentle warm key light from above and slightly left of frame. Completely bare "
+        "background - no lettering, no packaging other than the pouch, no printed material>\n\n"
+        + style_block(
+            "85 mm macro lens, locked-off camera at countertop height facing the pouch squarely, head-on",
+            "warm practical interior light from above and slightly left, soft single shadow falling to the right of the pouch, "
+            "gentle warm falloff into the blurred background",
+            NO_TEXT_PROD,
+        ) + "\n\n"
+        "[00:00.000 - 00:05.000] Close product shot. A pair of elegant slender East Asian women's hands, one with a "
+        "thin plain band ring, brings the pouch (<Subject P>) up into frame from below, holding it upright and "
+        "squarely facing the camera by its upper sides, fingers resting only on the outer edges so the printed face "
+        "is never covered. The pouch settles to a perfect standstill, filling roughly three quarters of the frame "
+        "height, razor sharp.\n"
+        "[00:05.000 - 00:10.000] The hands lower the pouch the last few centimetres and stand it upright on the "
+        "countertop, giving it one tiny adjustment of a degree or two until it faces the lens perfectly; the fingers "
+        "release the edges, hover for a breath, then glide down and out of frame. The pouch stands alone, undented, "
+        "gusset open, its printed face dead-on to the camera.\n"
+        "[00:10.000 - 00:14.750] The pouch stands perfectly still and sharp filling about three quarters of the "
+        "frame while the camera creeps forward one slow breath, background falling softer and warmer; a faint wisp "
+        "of steam drifts up through the far background light. Nothing touches the pouch; its printed artwork stays "
+        "locked and legible to the final frame, "
+        + ANTI_GREASY + "\n\n"
+        "overall_soundscape:\n"
+        "Quiet apartment kitchen: the low hum of a refrigerator, one soft papery settle of the pouch touching down, "
+        "a distant clock. No speech, no voices, no dialogue.\n\n"
+        "non_diegetic_music:\n"
+        "A soft warm piano note with a gentle sustained pad, intimate and inviting.\n\n"
+        + STRICT_PROD
+    ),
+))
+
+# =====================================================================================
+# 5) 产品镜 B · 挑食款手持 hero（原片 03:40.2，袋占 ~55%，烛光餐桌）
+# =====================================================================================
+SHOTS.append(dict(
+    key="dy3_prod_handhero",
+    film="03_女总裁挑食女儿",
+    src_ts="03:40.2（原片手持 hero 构图）",
+    line="不放油不放盐（复刻构图，静音审画面）",
+    seed=20260923,
+    refs=["product_pouch.jpg"],
+    prompt=(
+        "integrated_multimodal_description:\n"
+        + PRODUCT_POUCH + "\n\n"
+        "<Scene reference - this entire shot takes place in: the formal dining room of a wealthy house at night, "
+        "seen from across a dark polished wood dining table. A lit crystal chandelier melts into a warm golden blur "
+        "above and behind, two tall white taper candles in glass holders burn softly out of focus at the left and "
+        "right edges of the background, a white bone-china plate with a small bloom of dark red-brown sauce sits far "
+        "behind on the table, blurred. No lettering, no printed material anywhere except the pouch>\n\n"
+        + style_block(
+            "50 mm spherical lens, locked-off camera just above tabletop height facing the hands",
+            "warm candlelight and chandelier glow from above and behind, the red pouch catching a soft warm rim of light "
+            "on its edges, deep gentle shadows in the corners",
+            NO_TEXT_PROD,
+        ) + "\n\n"
+        "[00:00.000 - 00:05.000] Two clean well-kept East Asian men's hands rise into frame from below the table "
+        "edge, holding the pouch (<Subject P>) upright between them: both thumbs press flat against the BACK of the "
+        "pouch only, and the fingertips curl around the narrow left and right side edges without ever crossing onto "
+        "the printed front face; the lower corners of the pouch, including the small white price label at the lower "
+        "left, stay completely uncovered. They lift it to just above tabletop height, square "
+        "to the lens, and hold it steady; the pouch fills a little over half the frame height, sharp.\n"
+        "[00:05.000 - 00:10.000] The hands present the pouch a touch closer to the lens and let it tilt back to "
+        "perfectly vertical, a single candle flame glinting once along the pouch's left edge; the fingers stay "
+        "absolutely steady, only a small slow breath of movement in the wrists. The printed artwork stays locked on "
+        "the camera.\n"
+        "[00:10.000 - 00:14.750] The hands rotate the pouch barely ten degrees to catch the chandelier light across "
+        "its surface, then turn it back dead-on and settle, holding the pose as the flames behind sway gently and "
+        "the background booshimmers; the pouch remains sharp, legible and centred to the final frame, "
+        + ANTI_GREASY + "\n\n"
+        "overall_soundscape:\n"
+        "Quiet dining room: the soft hum of air conditioning, the faint flutter of candle flames, one distant "
+        "clink of porcelain. No speech, no voices, no dialogue.\n\n"
+        "non_diegetic_music:\n"
+        "A tender warm string swell, small and grateful, resolving softly.\n\n"
+        + STRICT_PROD
+    ),
+))
+
+# =====================================================================================
+# 6) 产品镜 C · 报恩款倒酱道具镜（原片 00:28.8 / 02:27.5 首尾呼应，袋永远 ≤30%）
+# =====================================================================================
+SHOTS.append(dict(
+    key="dy1_prod_pour",
+    film="01_被抛弃男孩报恩",
+    src_ts="00:28.8（原片倒酱特写构图）",
+    line="倒酱入碗 · 十年闭环首镜（复刻构图，静音审画面）",
+    seed=20260924,
+    refs=["product_pouch.jpg"],
+    prompt=(
+        "integrated_multimodal_description:\n"
+        + PRODUCT_POUCH + "\n\n"
+        "<Scene reference - this entire shot takes place in: the small back kitchen of an old neighbourhood "
+        "restaurant at night. A clean stainless-steel prep counter with soft scratches of long use, a plain white "
+        "porcelain bowl sitting centre frame, a single warm hanging bulb above casting a soft pool of light, the "
+        "kitchen behind falling into gentle dark shadow with the blurred shapes of stacked bowls and a hanging "
+        "strainer. No lettering, no signage, no printed material anywhere except the pouch>\n\n"
+        + style_block(
+            "85 mm macro lens, locked-off camera looking slightly down at the bowl on the counter",
+            "single warm practical bulb overhead as key, rich warm falloff into the shadowed kitchen behind, "
+            "specular glints only on the sauce and the steel",
+            NO_TEXT_PROD,
+        ) + "\n\n"
+        "[00:00.000 - 00:05.000] Macro shot of the white porcelain bowl on the steel counter. A weathered older East "
+        "Asian man's hand enters from the right of frame carrying the pouch (<Subject P>) perfectly upright and sets "
+        "it down on the steel counter beside the bowl, its printed face turned squarely toward the camera and sharp; "
+        "the pouch occupies only the upper right corner of frame, never more than a third of the picture, standing "
+        "upright and correct - never tilted, never mirrored, every character reading the right way round. The hand "
+        "then picks up a wooden spoon from beside the bowl.\n"
+        "[00:05.000 - 00:10.000] The spoon dips into the bowl and lifts a thick ribbon of glossy red-brown sauce; "
+        "the ribbon stretches, glows in the bulb light and folds slowly back into the bowl, steam curling up past "
+        "the upright pouch. The hand stirs the sauce one slow half turn; the surface settles glossy and deep "
+        "red-brown with a slow sheen moving across it.\n"
+        "[00:10.000 - 00:14.750] The spoon rests against the rim of the bowl. The pouch (<Subject P>) stands "
+        "perfectly upright and sharp beside the full bowl of glistening sauce, its printed artwork dead-on to the "
+        "camera and never mirrored; steam rises past it and the shot settles on the warm still scene, "
+        + ANTI_GREASY + "\n\n"
+        "overall_soundscape:\n"
+        "Quiet night kitchen: the low hum of a distant refrigerator compressor, the soft thick sound of sauce "
+        "falling into the bowl, one spoon click against porcelain. No speech, no voices, no dialogue.\n\n"
+        "non_diegetic_music:\n"
+        "A single warm cello line, unhurried and homely, with a soft low pad underneath.\n\n"
+        + STRICT_PROD
     ),
 ))
 

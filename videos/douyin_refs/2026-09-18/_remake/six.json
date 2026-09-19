@@ -1,0 +1,87 @@
+{
+  "dy1_s093": {
+    "film": "01_报恩",
+    "kind": "剧情镜",
+    "shot": 93,
+    "faces": 2,
+    "head_en": "Exactly TWO people are visible in this shot, at clearly different depths: the man in the tailored dark navy suit and patterned tie, short neat side-parted hair, in sharp focus in the centre-left middle ground, face roughly 27% of the frame area, speaking; and an older man with thin grey hair at the right edge of the frame, partly cropped by the frame edge and slightly softer in focus, standing a little behind him. They are not shoulder to shoulder and are not the same size.",
+    "char_en": "<Characters and their relationship - keep identities exactly:\n- ZHOU (the man in the suit): the abandoned boy of ten years ago who was taken in through the back door of this very restaurant by the old man beside him. He grew up in its kitchen and now owns his own restaurant. He has come back tonight to take the old man away to live with him. He speaks with restrained, deep gratitude: eyes slightly glassy, brows softly drawn, jaw working, a small swallow between phrases. Never theatrical, never crying openly.\n- UNCLE ZHAO (the elderly man at the right edge, plain white chef shirt, thin grey hair): the old cook who took the boy in, fed him and taught him the trade. He is the benefactor and the closest thing to a father this man has. He listens rather than speaks, mouth closed, eyes on the younger man's face, a faint proud half-smile.\nTheir bond is father-and-son by affection, not by blood. Both men know exactly what is owed and neither makes a show of it; the emotion sits under the surface and shows only in micro-expressions.",
+    "cast_cn": [
+      "周总（成年，深蓝西装+领带，短发；当年被收留的男孩，现为饭店老板）",
+      "老赵/叔（白发，白色厨师衬衫；恩人，画面右缘半出画）"
+    ],
+    "rel_cn": "恩情闭环的两端：十年前老赵从后门口把被亲生父亲赶出门的男孩接进来、管饭、教手艺；十年后周总回来接他走。非血亲，胜似父子。",
+    "note_cn": "审：周总近景的克制感激（眼神微湿、眉眼收紧、不是大哭）；老赵只在右缘露出半张脸、必须仍然在场（不许被推成单人特写）。"
+  },
+  "dy1_s088": {
+    "film": "01_报恩",
+    "kind": "产品镜",
+    "shot": 88,
+    "faces": 2,
+    "head_en": "Exactly TWO people are visible, standing behind a counter at slightly different depths - not a flat row: on the left, further back and a little softer, the elderly man with thin grey hair in a white chef jacket and apron, arms at his sides, watching the other man; on the right, nearer to camera and in sharp focus (face roughly 14% of the frame area), the younger man in the dark navy suit, holding a flat rectangular red sauce packet upright in both hands at chest height with its printed face turned square to the camera. The packet is clearly the largest readable object in the shot.",
+    "char_en": "<Characters and their relationship - keep identities exactly:\n- ZHOU (the younger man in the dark navy suit, holding the red sauce packet up): the boy whom the old cook beside him took in ten years ago, now the owner of his own restaurant. The packet he is holding is the very same sauce the old man used to make him his first bowl of braised pork. He presents it with quiet pride and warmth, speaking to the old man as much as to the audience - eyes bright, small smile, chin slightly lifted, no salesman's bombast.\n- UNCLE ZHAO (the elderly man in the white chef jacket and apron on the left): the benefactor who raised him in this kitchen and still works in it. He is the reason the product means anything. He stays a step behind and to the side, listening, mouth closed, calm proud eyes on the younger man and the packet.\nTheir bond is father-and-son by affection. The packet is the physical proof of the debt, so neither man treats it as a commercial object; they treat it as a keepsake.",
+    "cast_cn": [
+      "周总（成年，深蓝西装；双手把红色料包正面举到胸前）",
+      "老赵/叔（白发，白厨师衣+围裙，站左侧略靠后，静看）"
+    ],
+    "rel_cn": "产品＝恩情的物证。周总手里这包酱，就是十年前老赵给他做第一碗红烧肉用的同一包酱；两人对它的态度是「念旧」，不是「推销」。",
+    "note_cn": "审：①红袋必须正面朝镜头、字与红色块清晰（产品镜核心）；②老赵虽然靠后半步但不能丢；③周总的表情是「自豪＋念旧」，不是主播式亢奋。"
+  },
+  "dy2_s118": {
+    "film": "02_继母",
+    "kind": "剧情镜",
+    "shot": 118,
+    "faces": 3,
+    "head_en": "Exactly THREE people are visible, staged at clearly different depths and never in a flat row: in the foreground the young woman is seen from BEHIND - the back of her head, her ponytail and her shoulders toward camera, her face not visible at all; she is wrapped in an embrace. In the middle ground, sharply in focus (face roughly 18% of the frame area), the stepmother's face is turned three-quarters toward camera, eyes bright and brimming, mouth open on a warm smile, one hand cupping the back of the girl's head. Behind them to the right, smaller and softer, the father in a plaid shirt stands watching them, hands hanging at his sides, an uncertain moved expression.",
+    "char_en": "<Characters and their relationship - keep identities exactly:\n- MO YI, the stepmother (white shirt, dark shoulder-length hair, mid-thirties): perceived for the first minute of the story as the cold woman who orders the girl around; in truth she is the only adult who acted. She has just cooked the girl's birthday meal herself after secretly learning the recipe. She is overwhelmed - tears standing in her eyes, laughing and crying at once, hugging tightly. Her love is the emotional payoff of the whole film.\n- XIAO YOU, the stepdaughter (18, white top with navy trim, ponytail): seen only from behind; she has just called this woman Mum for the first time. Her posture is what carries it - shoulders lifted, face buried in the embrace.\n- UNCLE WANG, the father (plaid shirt): mild, ineffectual, watching his wife and daughter with quiet shame and relief; he never solved anything, and he knows it.\nRelationship: stepmother and stepdaughter who have just become mother and daughter; the father is the passive link between them.",
+    "cast_cn": [
+      "莫姨（继母，白衬衫，深色齐肩发；正面出镜、眼含泪、抱着孩子）",
+      "小优（18 岁继女，白底藏青滚边上衣、马尾；只给背影，看不到脸）",
+      "老王（父亲，格纹衬衫；立在后景右侧，双手垂着）"
+    ],
+    "rel_cn": "继母与继女：全片先立「后妈欺负孩子」的误解，这一镜翻案——小优第一次改口叫「妈妈」。父亲是软弱在场的连接者。",
+    "note_cn": "审：①三人在三个景深层次，绝不能排成一行；②小优必须是背影（原片如此，脸不出现）；③莫姨是又哭又笑的复杂情绪，不是单纯微笑。"
+  },
+  "dy2_s075": {
+    "film": "02_继母",
+    "kind": "产品镜",
+    "shot": 75,
+    "faces": 2,
+    "head_en": "Exactly TWO people are visible, at very different depths: at the left edge, in the extreme foreground, the back of a young woman's head and her shoulder - heavily defocused, cropping the frame edge, face not visible; and in the middle ground, sharply in focus (face roughly 27% of the frame area), the elderly woman with short curly grey hair in a floral apron, turned toward her, holding a flat rectangular red sauce packet up in her right hand with its printed face angled toward the camera. The packet is the second largest element in the frame after her face.",
+    "char_en": "<Characters and their relationship - keep identities exactly:\n- GRANDMA CAO (the elderly woman in the grey floral apron, short curly grey hair): the renowned home cook of this old-alley kitchen, a woman who has been cooking this way for decades and trusts nothing modern. She long refused to teach anyone. She is the film's authority, and she is the reason the sauce is credible - if a woman like her uses it, it must be real. Her manner is blunt, warm and unshowy, like a grandmother telling you something obvious.\n- MO YI (only the back of her head and shoulder in the extreme foreground, defocused): the stepmother who has come to beg for the recipe so she can cook for her stepdaughter's birthday. She is here as a student, quietly taking instruction.\nRelationship: teacher and student; the older woman is passing on a method she has guarded for decades to a mother who is clearly serious about it.",
+    "cast_cn": [
+      "曹阿姨（灰卷发、碎花围裙的老厨娘；正面清晰、右手举红袋朝镜头）",
+      "莫姨（继母；只给前景左侧的后脑勺与肩，重度虚焦）"
+    ],
+    "rel_cn": "师傅与求教者：曹阿姨是「连老手艺人都用」的背书人，她把守了几十年的做法交给一个认真的后妈。",
+    "note_cn": "审：①产品袋要正面朝镜头、倾斜角度自然，不要反字或倒置（上一轮就栽在这）；②前景的莫姨只能是一个虚焦后脑勺，不能变出一张脸；③曹阿姨要有皱纹和白发根的真实老人感，不要磨皮。"
+  },
+  "dy3_s145": {
+    "film": "03_挑食",
+    "kind": "剧情镜",
+    "shot": 145,
+    "faces": 3,
+    "head_en": "Exactly THREE people are visible, at clearly different depths and scales: at the left of the table the small girl in a pale yellow dress, seated, the smallest person in frame, twisting toward the seated man with a delighted open-mouthed smile; beside her in the middle ground the young man in a white shirt, seated and sharply in focus (face roughly 11% of the frame area), chopsticks in hand, looking down at his bowl and then up at her; and behind and above them the elderly grey-haired woman, standing, larger in the upper part of the frame, leaning in with a broad satisfied smile. They are staggered around a round dining table, never side by side.",
+    "char_en": "<Characters and their relationship - keep identities exactly:\n- THE DAUGHTER (about six years old, pale yellow dress): the picky child this whole story is about - she had refused food for half a year and had driven away nine cooks. She has just eaten everything. Her state is pure unguarded delight; she is the film's proof and its emotional release.\n- THE YOUNG MAN (white shirt, clean, quiet, early twenties): the underdog cook who was mocked as a roadside vendor and is now the only one who got her to eat. He is not her father and never claims to be; he is the patient grown-up who actually showed up. She calls him brother. He is quietly pleased and a little shy.\n- GRANDMA NAN (elderly, grey hair, standing behind them): the elderly woman who vouches for the food, watching the child eat with open satisfaction.\nRelationship: a child who trusts no one and the one adult who fed her; the old woman is the approving witness of that bond.",
+    "cast_cn": [
+      "女儿（约 6 岁，淡黄连衣裙；最小、坐左侧、仰头笑）",
+      "小伙（男主，白衬衫；坐中间近景，手持筷子）",
+      "楠奶（灰发老太太；立于后景上方，俯身笑看两人）"
+    ],
+    "rel_cn": "全片的证据是「挑食的孩子吃光了」：女儿叫小伙「哥哥」——不是父女，而是被信任的照顾者；奶奶是旁证的见证人。",
+    "note_cn": "审：①一桌三人的景深层次（小孩最小在前、小伙中景清晰、奶奶后景偏大）；②小女孩开心张嘴的童真表情要有，别做成呆脸；③不许把餐桌推成单人特写。"
+  },
+  "dy3_s119": {
+    "film": "03_挑食",
+    "kind": "产品镜",
+    "shot": 119,
+    "faces": 0,
+    "head_en": "No face and no complete human figure appears anywhere in this shot. Only ONE forearm and hand enter the frame from the right edge, holding a flat rectangular red sauce packet upright and tilted very slightly toward the camera, with its printed face square to the lens; the packet fills the middle of the frame and is the sharpest object in it. Everything else is a tabletop still life - white porcelain plates, a dish of glistening braised food just below the packet, cutlery - over a softly blurred warm dining-room background with plates, bottle and bokeh. Do not add any face, head, body, second hand or standing figure.",
+    "char_en": "<Subject and product - keep exactly:\n- The ONLY living presence is a single adult forearm and hand entering from the right frame edge, holding the red sauce packet up toward the camera. The hand is relaxed and confident, thumb clear of the printed face so nothing is covered.\n- The packet is a flat rectangular sealed pouch, glossy deep-red, printed vertically down its left half with four large characters and carrying a small round emblem on the right; a small figure of a dish sits in the lower-right of the printed face. All printed matter must render as soft, unreadable, abstract marks - no legible characters, digits or brand words, and no mirror-reversed or inverted lettering.\n- It is the grandmother who is speaking this line; she is the film's product endorser, but she is off-camera here and must not appear.\nRelationship context: the sauce is the reason the picky child finally ate; the hand presenting it belongs to the family table where that just happened.",
+    "cast_cn": [
+      "无脸镜：只有一只右手前臂从画面右侧伸入，举着红袋（奶奶的台词在这镜，但她本人不出画）"
+    ],
+    "rel_cn": "产品特写镜：这包酱是「挑食孩子终于吃饭」的原因，手属于刚发生这一切的餐桌。",
+    "note_cn": "审：①红袋正面清晰、不能镜像反字或倒置（三片里最容易翻车的一镜）；②除手之外不许长脸、长人；③袋面印刷字必须是模糊不可读的抽象笔画，不能出现可读中文、数字或 logo。"
+  }
+}
