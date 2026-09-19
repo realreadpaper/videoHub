@@ -52,6 +52,8 @@ id_ed25519*
 *.gguf
 *.bin
 *.h5
+*.npy
+*.npz
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
