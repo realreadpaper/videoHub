@@ -23,24 +23,39 @@ KJ_COMMIT=b3ec064dde7d122b333660918e1200e928e67ff1      # ComfyUI-KJNodes
 TEA_COMMIT=4cbb50d69c73a19a5d6ec42c5aec1989d5a04b6f     # ComfyUI-MiniMaxH3-TeaCache（装了但不用）
 
 PY=${PY:-python3}
+# ★ torch wheel 索引。默认官方源（境外机直连即可）。
+#   国内机必换镜像：2026-09-19 在 gpu1 实测同一 wheel
+#     官方 4.63 MB/s  ·  阿里云 16.07 MB/s  ·  上海交大 40.31 MB/s
+#   用法： TORCH_INDEX=https://mirror.sjtu.edu.cn/pytorch-wheels/cu130 bash 02_build_stack.sh
+TORCH_INDEX=${TORCH_INDEX:-https://download.pytorch.org/whl/cu130}
 say() { printf '\n########## %s ##########\n' "$*"; }
 
 # ---------------------------------------------------------------
-say "1/7 建 venv（目标 Python 3.10.12，与旧机一致）"
-rm -rf "$V"
-"$PY" -m venv "$V"
-"$V/bin/pip" install -q --upgrade pip wheel setuptools
+say "1/7 建 venv（旧机口径 Python 3.10.12；实测 3.12 也可，见 README 国内机一节）"
+# ★ 续跑开关：脚本在 5/7 曾因子 bug 中断，重跑时没必要把 2.5 GB 的 torch 卸了重装。
+#   用法： SKIP_VENV=1 bash 02_build_stack.sh
+if [ "${SKIP_VENV:-0}" = "1" ] && [ -x "$V/bin/python" ]; then
+  echo "  SKIP_VENV=1 且 $V/bin/python 已存在 → 跳过 venv 重建（续跑模式）"
+else
+  rm -rf "$V"
+  "$PY" -m venv "$V"
+  "$V/bin/pip" install -q --upgrade pip wheel setuptools
+fi
 "$V/bin/python" -V
 
 # ---------------------------------------------------------------
 say "2/7 装 torch cu130"
-echo "  ★ 必须走 pytorch 官方 cu130 索引。PyPI 默认源给的是普通构建，装了 driver 也是 cu130 但 torch 不带 CUDA 13 内核。"
+echo "  ★ 必须走 cu130 索引。PyPI 默认源给的是普通构建，装了 driver 也是 cu130 但 torch 不带 CUDA 13 内核。"
+echo "  索引： $TORCH_INDEX"
 "$V/bin/pip" install torch==2.14.0+cu130 torchvision==0.29.0+cu130 torchaudio==2.11.0+cu130 \
-    --index-url https://download.pytorch.org/whl/cu130
+    --index-url "$TORCH_INDEX"
 "$V/bin/python" -c "import torch;print('  torch',torch.__version__,'| cuda',torch.version.cuda,'| gpus',torch.cuda.device_count(),'|',torch.cuda.get_device_name(0))"
 
 # ---------------------------------------------------------------
 say "3/7 clone ComfyUI 并锁定 commit $COMFY_COMMIT"
+# ★ 国内机不要在这里直连 GitHub（实测 0.045 MB/s，会卡住几小时）。
+#   做法：本机拉好后打包上传，脚本检测到 .git 存在即跳过本段。
+#   见 deploy/bootstrap/README 的「GitHub 中转」一节，或 01b_net_tune.sh 结尾的通道对照表。
 if [ ! -d "$C/.git" ]; then
   mkdir -p "$C"
   git -C "$C" init -q
@@ -98,7 +113,14 @@ echo "  ✓ comfy-kitchen: $("$V/bin/pip" show comfy-kitchen | awk '/^Version/{p
 # ---------------------------------------------------------------
 say "5/7 clone 三个自定义节点并锁 commit"
 clone_pin () { # $1=repo_url $2=dir_name $3=commit
-  local url=$1 name=$2 sha=$3 dir="$C/custom_nodes/$name"
+  # ★ 不要写成 `local url=$1 name=$2 sha=$3 dir="$C/custom_nodes/$name"`：
+  #   同一条 local 语句里的 $name 取的是【外层作用域】，在 `set -u` 下会直接
+  #   `name: unbound variable` 中断整个脚本（2026-09-19 在 gpu1 实测踩到）。
+  #   必须拆开赋值，让 name 先落地再拼 dir。
+  local url=$1
+  local name=$2
+  local sha=$3
+  local dir="$C/custom_nodes/$name"
   if [ -d "$dir/.git" ]; then echo "  [skip] $name 已存在"; return 0; fi
   GIT_CONFIG_GLOBAL=/dev/null git clone -q "$url" "$dir"   # ★ 本机有 insteadOf 改写，目标机若也有需这一行
   git -C "$dir" fetch -q --depth 1 origin "$sha" 2>/dev/null || true

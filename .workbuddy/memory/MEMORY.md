@@ -9,6 +9,13 @@
 
 ## 当前状态（2026-09-19）
 
+★★ **新机 `gpu1` 已全套部署就绪**（2026-09-19 深夜）—— 这是 kehu 的接替机，**单卡形态**：
+`ssh gpu1` → `36.213.79.171:31233`（国内 KVM 直通 1×A100-PCIE-40G，hostname `app-01b4048b9ba820db`）。
+8 核 / **62 GB 内存 + 40 GB swap** / 196 GB 盘 / Ubuntu 24.04 / 驱动 580.178.04。
+已装齐：torch 2.14.0+cu130（CUDA 13.0）、ComfyUI v0.36.0 + T8/KJNodes/TeaCache、**71 GB 权重**、
+104 MB 生产资产（wf_full 374 / 音轨切片 373 / 参考帧 373）。跑批走 `deploy/single-gpu/run_dy_single.sh`。
+★ **内存 62 GB 低于单卡门槛 96 GB**（旧机实测空闲实例常驻 57 GB）→ 只能靠 swap 兜底，跑批必须盯 `free`。
+
 373 镜复刻 = `videos/douyin_refs/2026-09-18/_remake/`。★ **全量进度仅 12/373**；关键镜 39/39 完成；三部曲跑了 f1s01/f2。
 kehu 将关停；迁移包 `deploy/`（单卡版 `single-gpu/`）**已 md5 核对：1413 文件 0 漏拉 0 损坏**。
 ★★ **旧机全部产出已回传** → `videos/douyin_refs/_server_pull_2026-09-19/`（**2794 文件 / 1.65 GiB，md5 全通过**）：
@@ -41,7 +48,14 @@ kehu 将关停；迁移包 `deploy/`（单卡版 `single-gpu/`）**已 md5 核�
 
 ## 环境与坑（明细见 DETAIL.md / AGENTS.md §八）
 
-- 服务器 `kehu` 124.81.178.140，2×A100-40G / 125 GB / 华为云泰国；★ **连不上先怀疑本机 Clash TUN** → 技能 `ssh-tun-hijack-diagnosis`。
+- ★★ **现行服务器 `gpu1` = `36.213.79.171:31233`**（国内，1×A100-40G，62 GB 内存 + 40 GB swap，Ubuntu 24.04）。
+  单卡只起 `:8188`、**不要 `--database-url`**，跑批用 `deploy/single-gpu/run_dy_single.sh`。
+  ★ 国内机四件套：apt 现测选最快镜像 / pip 国内源 / **HF 必须 `HF_ENDPOINT=hf-mirror.com`** /
+  **torch wheel 走交大镜像**（`mirror.sjtu.edu.cn/pytorch-wheels/cu130`，实测 **40.3 MB/s** vs 官方 4.6）。
+  ★ **GitHub 直连仅 0.045 MB/s** → ComfyUI/节点必须本机代理拉好再 `scp`。
+  ★ macOS 自带 rsync 是 openrsync 2.6.9、**无 `--info=stats2`**（`05_push_assets.sh` 已做能力探测）。
+  ★ 部署脚本新增 `01c_gpu_driver.sh`（装驱动，01 只核对不装）；`02` 支持 `TORCH_INDEX=` 与 `SKIP_VENV=1`。
+- 旧机 `kehu` 124.81.178.140（**已决定关停**），2×A100-40G / 125 GB / 华为云泰国；★ **连不上先怀疑本机 Clash TUN** → 技能 `ssh-tun-hijack-diagnosis`。
   双卡 = `:8188`/`:8189`（b 需 `--database-url …instance_b.db`）；单卡只起 `:8188`、**不要 database-url**。
   启动 `--vram-headroom 1 --use-ck-attention` + `setsid nohup … < /dev/null &`。★ 内存病根 = 空闲实例白吃 57 G → 先查 `/queue`。
   ★ 回传慢 = 跨境丢包，开 BBR 即解。★ 服务器共享，动队列前先看是不是自己的活。★ **A100 冷启 = 热态 4–5 倍**。

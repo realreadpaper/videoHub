@@ -25,7 +25,17 @@ SRC_TRILOGY="$ROOT/待生成_现代婚姻三部曲/_pipeline"
 
 [ -d "$SA" ] || { echo "✗ 找不到 $SA"; exit 1; }
 
-RSYNC="rsync -az --info=stats2 -e 'ssh -o ConnectTimeout=20'"
+# ★ macOS 自带的是 openrsync（自称 2.6.9），**没有 --info=stats2**，
+#   直接照抄 GNU rsync 的选项会 unrecognized option 报错退出。
+#   这里做一次能力探测：现代 rsync 用 --info=stats2，老/BSD 系退回 --stats。
+#   实测 macOS 26 的 openrsync ↔ Ubuntu 24.04 的 rsync 3.2.7 通信正常（协议 29）。
+RSYNC_OPTS="-az"
+if rsync --info=stats2 --version >/dev/null 2>&1; then
+  RSYNC_OPTS="$RSYNC_OPTS --info=stats2"
+else
+  RSYNC_OPTS="$RSYNC_OPTS --stats"      # openrsync / rsync 2.6.9 路径
+fi
+RSYNC="rsync $RSYNC_OPTS -e 'ssh -o ConnectTimeout=20'"
 [ "$DRY" = "--dry" ] && RSYNC="$RSYNC --dry-run"
 run() { echo "▶ $*"; eval "$RSYNC $*"; }
 

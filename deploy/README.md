@@ -41,7 +41,7 @@ GPU 服务器上存的是 **ComfyUI + 权重 + 生产脚本 + 输入资产**。
 
 > ### ★★ 卡数：现行形态是「只租 1 张 A100」
 >
-> 单卡的**部署步骤与本文件完全一致**（`bootstrap/` 的 9 个脚本与卡数无关），
+> 单卡的**部署步骤与本文件完全一致**（`bootstrap/` 的 10 个脚本与卡数无关），
 > 但 **启动方式 / 跑批脚本 / 内存门槛 / 时间账** 都不同 ——
 > 单卡请配套读 **`deploy/single-gpu/README.md`** 与 **`docs/单卡A100部署手册.html`**。
 >
@@ -98,16 +98,41 @@ mv /workspace/venv /workspace/venv.broken && bash deploy/bootstrap/02_build_stac
 bash deploy/bootstrap/00_check_target.sh     # 体检，只读
 bash deploy/bootstrap/01_provision_os.sh     # 系统层：apt / swap / 内核网络
 bash deploy/bootstrap/01b_net_tune.sh        # ★ 网络调优 + 国内源（BBR/hf-mirror/apt/pip）
-bash deploy/bootstrap/net_diag.sh            # ★ 慢的时候用它定位（只读，不改配置）
+bash deploy/bootstrap/01c_gpu_driver.sh      # ★ 装 NVIDIA 驱动（01 只核对不装）
 bash deploy/bootstrap/02_build_stack.sh      # venv + torch + ComfyUI + 3 节点
 bash deploy/bootstrap/03_dl_weights.sh       # 71 GB 权重（最慢的一步，可 tmux 挂着睡一觉）
-bash deploy/bootstrap/04_launch_comfy.sh both
+bash deploy/bootstrap/04_launch_comfy.sh single   # ★ 单卡用 single，双卡才用 both
 
 # 回到本机（GitHub 上 clone 本仓库后）
 bash deploy/bootstrap/05_push_assets.sh <新机别名>
 # 目标机上
 bash deploy/bootstrap/verify.sh --run
+bash deploy/bootstrap/net_diag.sh            # 慢的时候用它定位（只读，不改配置）
 ```
+
+> ### ★★ 国内机部署必读（2026-09-19 在 gpu1 实测，境外机可跳过）
+>
+> 目标机在**中国大陆**时，下面三处与旧机（华为云泰国）不同，全部已固化进脚本：
+>
+> | 项 | 境内实测 | 处置 |
+> |---|---|---|
+> | **torch wheel 源** | 官方 4.63 MB/s · 阿里云 16.07 · **上海交大 40.31** | `02` 用 `TORCH_INDEX=` 传镜像 |
+> | **GitHub**（ComfyUI + 3 节点） | 直连 **0.045 MB/s**（跨境乱序） | 本机拉好打包上传，`02` 见 `.git` 即跳过 |
+> | **HF 权重** | 官方不通 | 走 `hf-mirror.com`（`01b` 已设 `HF_ENDPOINT`） |
+>
+> **torch 镜像的用法**（这一步 2.5 GB，选错源差 8.7 倍）：
+> ```bash
+> TORCH_INDEX=https://mirror.sjtu.edu.cn/pytorch-wheels/cu130 bash 02_build_stack.sh
+> ```
+>
+> **Python 版本**：脚本注释写的 3.10.12 是**旧机口径**，不是硬要求。
+> 实测 Ubuntu 24.04 的系统 **Python 3.12 完全可用** —— 关键是两个 wheel 的 tag 对得上：
+> `torch-2.14.0+cu130-cp312` 与 `comfy_kitchen-0.2.34-cp312-abi3` 都存在（`abi3` 向后兼容 ≥3.12）。
+> 所以**不必**为了迁就 3.10 去装 deadsnakes/conda。
+>
+> **macOS 侧 rsync**：系统自带的是 **openrsync（自称 2.6.9）**，**没有 `--info=stats2`**，
+> 照抄 GNU 选项会直接报错。`05_push_assets.sh` 已做能力探测并回退到 `--stats`；
+> 实测 openrsync ↔ Ubuntu rsync 3.2.7 通信正常（协议 29），无需 `brew install rsync`。
 
 > ★ **`01b_net_tune.sh` 必须跑，别跳过。** 它做的三件事直接决定部署耗时：
 > ① 开 BBR + 32 MB 缓冲（旧机实测把回传从 0.11 → 6 MB/s；新机实测把
