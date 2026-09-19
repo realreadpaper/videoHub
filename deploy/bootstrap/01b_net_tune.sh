@@ -124,20 +124,24 @@ Acquire::IndexTargets::deb::cnf { DefaultEnabled "false"; };
 EOF
 echo "  已写入 99-fast.conf / 99-noextra.conf"
 echo "  ★ 关于 apt 慢：2026-09-19 实测【根因是选错镜像】，不是 apt 实现问题。"
-echo "    阿里云当时只有 151 KB/s（update 189 s / 28 MB），换中科大后 5.1 MB/s（5 s）。
-echo "    所以上面第 2 步做了自动选源 —— 这一步比下面这些调优项都值钱。"
+  echo "    阿里云当时只有 151 KB/s（update 189 s / 28 MB），换中科大后 5.1 MB/s（5 s）。"
+  echo "    所以上面第 2 步做了自动选源 —— 这一步比下面这些调优项都值钱。"
 
 say "4/6 pip 源 → ${PIP_MIRROR}"
+# ★ 与 apt 同理：国内 pypi 镜像质量也会波动，主源 + 备用源都写上。
+#   若 pip 慢，用 net_diag.sh 的方法现测（下载一个 wheel 计时）后改这里。
 cat > /etc/pip.conf <<EOF
 [global]
 index-url = ${PIP_MIRROR}
-extra-index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+extra-index-url = https://mirrors.ustc.edu.cn/pypi/simple/
+                  https://pypi.tuna.tsinghua.edu.cn/simple
 trusted-host = mirrors.aliyun.com
+               mirrors.ustc.edu.cn
                pypi.tuna.tsinghua.edu.cn
 timeout = 120
 retries = 5
 EOF
-echo "  已写入 /etc/pip.conf"
+echo "  已写入 /etc/pip.conf（阿里云为主，中科大/清华备用）"
 
 say "5/6 HuggingFace → ${HF_MIRROR}"
 grep -q '^HF_ENDPOINT=' /etc/environment 2>/dev/null || \
