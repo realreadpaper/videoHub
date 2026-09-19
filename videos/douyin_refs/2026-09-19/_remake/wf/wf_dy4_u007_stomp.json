@@ -1,242 +1,242 @@
 {
- "1": {
-  "class_type": "UNETLoader",
-  "inputs": {
-   "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
-   "weight_dtype": "default"
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "LoraLoaderBypassModelOnly",
+    "inputs": {
+      "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "1",
+        0
+      ]
+    }
+  },
+  "3": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "6": {
+    "class_type": "MiniMaxH3AudioConditioningT8",
+    "inputs": {
+      "prompt": "integrated_multimodal_description:\n<Face identity reference: <Picture 1> is <Subject S1>, the young man who speaks in this shot; keep his face, hair, age and clothing exactly as in the reference picture. <Subject S1> is a lean East Asian man in his early thirties, short black hair combed flat, a narrow face with small dark eyes, wearing an inexpensive charcoal-grey suit jacket over a light blue shirt with the top button undone and no tie, dark trousers and scuffed black leather shoes. <Subject S2>, the man on the ground, is a heavyset East Asian man in his sixties: thinning grey-black hair, a broad weathered face with deep nasolabial folds and heavy stubble, wearing a faded navy-blue quilted work jacket over a grey knit sweater and dark trousers; he sits on the wet concrete with his back half against a low kerb, one hand braced flat on the ground, the backs of both hands smeared with grey dust. The two men never touch, are never arranged on the same plane and never both face the camera: S1 stays upright on his feet in the midground and S2 stays low on the ground in the foreground for the whole shot.>\n\n<Scene reference - this entire shot takes place in: the narrow service alley behind an office building in flat overcast daylight. A bare grey concrete wall runs along the right of frame with a closed steel service door set into it, a faded yellow-black hazard stripe painted along the base of the wall, a low concrete kerb step, a dented galvanised bucket and a folded aluminium wheelchair leaning against the wall further back, a rusted drain grating at the lower left of frame. Completely bare walls - no signage, no lettering, no posters, no notices, no painted numbers>\n\n<Style & frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, 35 mm spherical lens, camera at chest height with one continuous slow move as described below, shallow depth of field, fine film grain, photorealistic live-action footage, soft flat overcast daylight entering from the upper left of frame, no direct sun, cool ambient fill in the shaded alley, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\n[00:00.000 - 00:01.500] Wide-to-medium shot of the alley. <Subject S1> strides in from the left edge of frame and crosses rightwards with the brisk unbroken rhythm of a man late for something: his gaze stays fixed ahead and slightly down, his jaw is set, his eyebrows are drawn together into a small impatient knot, and one hand flicks his jacket cuff straight as he walks. He does not look down. In the near foreground at the lower right of frame, out of focus and cropped by the bottom edge, <Subject S2> sits hunched on the concrete, one dusty hand braced against the ground, chest rising and falling with slow laboured breaths, his head turned up toward the passing figure. The composition is deliberately split and layered: S1 upright, sharp and left-of-centre in the midground, S2 low, soft and blurred in the foreground at the lower right. The camera slides slowly rightwards, keeping S1 in the left third of frame.\n\n[00:01.500 - 00:03.100] The camera continues its slow dolly-in, closing about ten per cent on <Subject S1> while tilting down a few degrees so that both men share the frame: S1 standing in the midground on the left, his torso angled three-quarters toward camera but his chin turned down toward the lower right; <Subject S2> sitting on the ground in the right foreground, neck extended, looking up at S1 from below, mouth slightly open, one shallow breath of steam leaving his lips in the cold air. The two men are separated by height and by depth and are never level with one another. S1 stops on his back foot, his fingers curl and uncurl once at his side, his nostrils flare, and he gives one short dismissive click of the tongue; his eyes flick down to the man and then away, and the corner of his mouth tightens.\n\n[00:03.100 - 00:04.458] Closer medium-close shot on S1, who now fills the left two thirds of frame, seen slightly from below. He turns his head down and to the right to address the man on the ground, speaking with a flat contemptuous calm - the lips, jaw and throat move exactly with the supplied reference audio. His expression travels from tight irritation into open disdain: the corners of his mouth pull down, one eyebrow lifts, his eyes narrow and rake once up and down over S2 before he looks away. <Subject S2> stays low in the blurred right foreground, only the back of his grey head and one dusty hand inside frame, absolutely still. In the background the concrete wall and the closed steel door hold the frame behind S1. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\noverall_soundscape:\nAn empty concrete service alley in the afternoon: a faint distant traffic hum beyond the building, the hollow ring of a loose drain cover, the dry scuff of a leather sole on concrete, cloth rustling, one short nasal exhalation. Human speech only as carried by the supplied reference audio.\n\nnon_diegetic_music:\nOne low sustained string note, cold and thin, almost inaudible, holding flat under the whole shot.\n\nstrict_output_constraints: The only permitted text anywhere in frame is described above; everything else must be illegible. A plain, unedited photographic frame. Every surface in the scene - walls, doorways, glass, floors, furniture, tableware, clothing, packaging and screens - carries only its own natural material texture. Any sign, poster, notice, menu board or printed surface other than what is explicitly described above is present only as soft, illegible abstract marks. The image runs edge to edge as continuous photographed space. ",
+      "width": 768,
+      "height": 1344,
+      "length": [
+        "14",
+        1
+      ],
+      "task_type": "Hybrid",
+      "audio_mode": "lock_source",
+      "audio_denoise_strength": 0.0,
+      "add_source_as_reference": true,
+      "prompt_primary_audio_ordinal": 1,
+      "strict_prompt_tags": true,
+      "ref_image_size": "max",
+      "reference_video_policy": "official_2_to_15s",
+      "clip": [
+        "3",
+        0
+      ],
+      "video_vae": [
+        "4",
+        0
+      ],
+      "audio_vae": [
+        "5",
+        0
+      ],
+      "drive_audio": [
+        "14",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "300",
+        0
+      ],
+      "first_frame": [
+        "302",
+        0
+      ],
+      "last_frame": [
+        "303",
+        0
+      ]
+    }
+  },
+  "7": {
+    "class_type": "MiniMaxH3DualClockSamplerT8",
+    "inputs": {
+      "steps": 8,
+      "shift_video": 12.0,
+      "shift_audio": 3.0,
+      "sampler_name": "dual_clock_euler",
+      "scheduler": "native_flow",
+      "model": [
+        "2",
+        0
+      ],
+      "av_latent": [
+        "6",
+        1
+      ]
+    }
+  },
+  "8": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "7",
+        0
+      ],
+      "conditioning": [
+        "6",
+        0
+      ]
+    }
+  },
+  "9": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 20260970
+    }
+  },
+  "10": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "9",
+        0
+      ],
+      "guider": [
+        "8",
+        0
+      ],
+      "sampler": [
+        "7",
+        1
+      ],
+      "sigmas": [
+        "7",
+        2
+      ],
+      "latent_image": [
+        "6",
+        1
+      ]
+    }
+  },
+  "11": {
+    "class_type": "MiniMaxH3AVDecodeT8",
+    "inputs": {
+      "av_latent": [
+        "10",
+        0
+      ],
+      "video_vae": [
+        "4",
+        0
+      ],
+      "audio_vae": [
+        "5",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+    "inputs": {
+      "images": [
+        "15",
+        0
+      ],
+      "audio": [
+        "15",
+        1
+      ],
+      "filename_prefix": "dy4_pilot/dy4_u007_stomp",
+      "crf": 19
+    }
+  },
+  "13": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "dy4_voice/dy4_u007_stomp.wav"
+    }
+  },
+  "14": {
+    "class_type": "MiniMaxH3AudioWindowT8",
+    "inputs": {
+      "scene_start_seconds": 0.0,
+      "scene_duration_seconds": 4.458,
+      "warmup_seconds": 0.0,
+      "cooldown_seconds": 0.0,
+      "ensure_minimum_context": true,
+      "audio": [
+        "13",
+        0
+      ]
+    }
+  },
+  "15": {
+    "class_type": "MiniMaxH3OutputTrimT8",
+    "inputs": {
+      "start_seconds": [
+        "14",
+        2
+      ],
+      "duration_seconds": [
+        "14",
+        3
+      ],
+      "fps": 24,
+      "frames": [
+        "11",
+        0
+      ],
+      "audio": [
+        "6",
+        2
+      ]
+    }
+  },
+  "300": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_ref/dy4_u007_stomp.jpg"
+    }
+  },
+  "302": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_first/dy4_u007_stomp.jpg"
+    }
+  },
+  "303": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_last/dy4_u007_stomp.jpg"
+    }
   }
- },
- "2": {
-  "class_type": "LoraLoaderBypassModelOnly",
-  "inputs": {
-   "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
-   "strength_model": 1.0,
-   "model": [
-    "1",
-    0
-   ]
-  }
- },
- "3": {
-  "class_type": "CLIPLoader",
-  "inputs": {
-   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
-   "type": "minimax",
-   "device": "default"
-  }
- },
- "4": {
-  "class_type": "VAELoader",
-  "inputs": {
-   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
-  }
- },
- "5": {
-  "class_type": "VAELoader",
-  "inputs": {
-   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
-  }
- },
- "6": {
-  "class_type": "MiniMaxH3AudioConditioningT8",
-  "inputs": {
-   "prompt": "integrated_multimodal_description:\n<Face identity reference: <Picture 1> is <Subject S1>, the young man who speaks in this shot; keep his face, hair, age and clothing exactly as in the reference picture. <Subject S1> is a lean East Asian man in his early thirties, short black hair combed flat, a narrow face with small dark eyes, wearing an inexpensive charcoal-grey suit jacket over a light blue shirt with the top button undone and no tie, dark trousers and scuffed black leather shoes. <Subject S2>, the man on the ground, is a heavyset East Asian man in his sixties: thinning grey-black hair, a broad weathered face with deep nasolabial folds and heavy stubble, wearing a faded navy-blue quilted work jacket over a grey knit sweater and dark trousers; he sits on the wet concrete with his back half against a low kerb, one hand braced flat on the ground, the backs of both hands smeared with grey dust. The two men never touch, are never arranged on the same plane and never both face the camera: S1 stays upright on his feet in the midground and S2 stays low on the ground in the foreground for the whole shot.>\n\n<Scene reference - this entire shot takes place in: the narrow service alley behind an office building in flat overcast daylight. A bare grey concrete wall runs along the right of frame with a closed steel service door set into it, a faded yellow-black hazard stripe painted along the base of the wall, a low concrete kerb step, a dented galvanised bucket and a folded aluminium wheelchair leaning against the wall further back, a rusted drain grating at the lower left of frame. Completely bare walls - no signage, no lettering, no posters, no notices, no painted numbers>\n\n<Style & frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, 35 mm spherical lens, camera at chest height with one continuous slow move as described below, shallow depth of field, fine film grain, photorealistic live-action footage, soft flat overcast daylight entering from the upper left of frame, no direct sun, cool ambient fill in the shaded alley, true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\n[00:00.000 - 00:01.500] Wide-to-medium shot of the alley. <Subject S1> strides in from the left edge of frame and crosses rightwards with the brisk unbroken rhythm of a man late for something: his gaze stays fixed ahead and slightly down, his jaw is set, his eyebrows are drawn together into a small impatient knot, and one hand flicks his jacket cuff straight as he walks. He does not look down. In the near foreground at the lower right of frame, out of focus and cropped by the bottom edge, <Subject S2> sits hunched on the concrete, one dusty hand braced against the ground, chest rising and falling with slow laboured breaths, his head turned up toward the passing figure. The composition is deliberately split and layered: S1 upright, sharp and left-of-centre in the midground, S2 low, soft and blurred in the foreground at the lower right. The camera slides slowly rightwards, keeping S1 in the left third of frame.\n\n[00:01.500 - 00:03.100] The camera continues its slow dolly-in, closing about ten per cent on <Subject S1> while tilting down a few degrees so that both men share the frame: S1 standing in the midground on the left, his torso angled three-quarters toward camera but his chin turned down toward the lower right; <Subject S2> sitting on the ground in the right foreground, neck extended, looking up at S1 from below, mouth slightly open, one shallow breath of steam leaving his lips in the cold air. The two men are separated by height and by depth and are never level with one another. S1 stops on his back foot, his fingers curl and uncurl once at his side, his nostrils flare, and he gives one short dismissive click of the tongue; his eyes flick down to the man and then away, and the corner of his mouth tightens.\n\n[00:03.100 - 00:04.458] Closer medium-close shot on S1, who now fills the left two thirds of frame, seen slightly from below. He turns his head down and to the right to address the man on the ground, speaking with a flat contemptuous calm - the lips, jaw and throat move exactly with the supplied reference audio. His expression travels from tight irritation into open disdain: the corners of his mouth pull down, one eyebrow lifts, his eyes narrow and rake once up and down over S2 before he looks away. <Subject S2> stays low in the blurred right foreground, only the back of his grey head and one dusty hand inside frame, absolutely still. In the background the concrete wall and the closed steel door hold the frame behind S1. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\noverall_soundscape:\nAn empty concrete service alley in the afternoon: a faint distant traffic hum beyond the building, the hollow ring of a loose drain cover, the dry scuff of a leather sole on concrete, cloth rustling, one short nasal exhalation. Human speech only as carried by the supplied reference audio.\n\nnon_diegetic_music:\nOne low sustained string note, cold and thin, almost inaudible, holding flat under the whole shot.\n\nstrict_output_constraints: The only permitted text anywhere in frame is described above; everything else must be illegible. Absolutely no subtitles, no captions, no burned-in titles, no text banner or bar across the frame, no lower-third, no on-screen text, no watermark, no logo overlay, no timestamp, no UI overlay, no floating lettering of any script, no arrow stickers or annotation graphics, no coloured highlight boxes or callout marks anywhere in the frame. Any sign, poster, notice, menu board or printed surface other than what is explicitly described above must render as illegible abstract marks. ",
-   "width": 768,
-   "height": 1344,
-   "length": [
-    "14",
-    1
-   ],
-   "task_type": "Hybrid",
-   "audio_mode": "lock_source",
-   "audio_denoise_strength": 0.0,
-   "add_source_as_reference": true,
-   "prompt_primary_audio_ordinal": 1,
-   "strict_prompt_tags": true,
-   "ref_image_size": "max",
-   "reference_video_policy": "official_2_to_15s",
-   "clip": [
-    "3",
-    0
-   ],
-   "video_vae": [
-    "4",
-    0
-   ],
-   "audio_vae": [
-    "5",
-    0
-   ],
-   "drive_audio": [
-    "14",
-    0
-   ],
-   "ref_images.ref_image_0": [
-    "300",
-    0
-   ],
-   "first_frame": [
-    "302",
-    0
-   ],
-   "last_frame": [
-    "303",
-    0
-   ]
-  }
- },
- "7": {
-  "class_type": "MiniMaxH3DualClockSamplerT8",
-  "inputs": {
-   "steps": 8,
-   "shift_video": 12.0,
-   "shift_audio": 3.0,
-   "sampler_name": "dual_clock_euler",
-   "scheduler": "native_flow",
-   "model": [
-    "2",
-    0
-   ],
-   "av_latent": [
-    "6",
-    1
-   ]
-  }
- },
- "8": {
-  "class_type": "BasicGuider",
-  "inputs": {
-   "model": [
-    "7",
-    0
-   ],
-   "conditioning": [
-    "6",
-    0
-   ]
-  }
- },
- "9": {
-  "class_type": "RandomNoise",
-  "inputs": {
-   "noise_seed": 20260970
-  }
- },
- "10": {
-  "class_type": "SamplerCustomAdvanced",
-  "inputs": {
-   "noise": [
-    "9",
-    0
-   ],
-   "guider": [
-    "8",
-    0
-   ],
-   "sampler": [
-    "7",
-    1
-   ],
-   "sigmas": [
-    "7",
-    2
-   ],
-   "latent_image": [
-    "6",
-    1
-   ]
-  }
- },
- "11": {
-  "class_type": "MiniMaxH3AVDecodeT8",
-  "inputs": {
-   "av_latent": [
-    "10",
-    0
-   ],
-   "video_vae": [
-    "4",
-    0
-   ],
-   "audio_vae": [
-    "5",
-    0
-   ]
-  }
- },
- "12": {
-  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
-  "inputs": {
-   "images": [
-    "15",
-    0
-   ],
-   "audio": [
-    "15",
-    1
-   ],
-   "filename_prefix": "dy4_pilot/dy4_u007_stomp",
-   "crf": 19
-  }
- },
- "13": {
-  "class_type": "LoadAudio",
-  "inputs": {
-   "audio": "dy4_voice/dy4_u007_stomp.wav"
-  }
- },
- "14": {
-  "class_type": "MiniMaxH3AudioWindowT8",
-  "inputs": {
-   "scene_start_seconds": 0.0,
-   "scene_duration_seconds": 4.458,
-   "warmup_seconds": 0.0,
-   "cooldown_seconds": 0.0,
-   "ensure_minimum_context": true,
-   "audio": [
-    "13",
-    0
-   ]
-  }
- },
- "15": {
-  "class_type": "MiniMaxH3OutputTrimT8",
-  "inputs": {
-   "start_seconds": [
-    "14",
-    2
-   ],
-   "duration_seconds": [
-    "14",
-    3
-   ],
-   "fps": 24,
-   "frames": [
-    "11",
-    0
-   ],
-   "audio": [
-    "6",
-    2
-   ]
-  }
- },
- "300": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_ref/dy4_u007_stomp.jpg"
-  }
- },
- "302": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_first/dy4_u007_stomp.jpg"
-  }
- },
- "303": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_last/dy4_u007_stomp.jpg"
-  }
- }
 }

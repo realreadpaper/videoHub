@@ -35,12 +35,17 @@ NO_GREASE = (
 )
 
 NO_TEXT = (
-    "Absolutely no subtitles, no captions, no burned-in titles, no text banner or bar across the "
-    "frame, no lower-third, no on-screen text, no watermark, no logo overlay, no timestamp, no UI "
-    "overlay, no floating lettering of any script, no arrow stickers or annotation graphics, no "
-    "coloured highlight boxes or callout marks anywhere in the frame. Any sign, poster, notice, "
-    "menu board or printed surface other than what is explicitly described above must render as "
-    "illegible abstract marks. "
+    # ★ 2026-09-19 改：原来这里是「Absolutely no subtitles, no captions, no burned-in titles,
+    #   no text banner or bar across the frame, no lower-third, …」的**长负向清单**，
+    #   把 subtitle / caption / banner / bar across the frame / lower-third / UI overlay /
+    #   arrow sticker 等十几个概念逐一念了一遍 —— 实测这一版在 dy5_u055 上**模型自己画出了字幕**，
+    #   典型的**反向暗示**（你越点名，它越想起）。改成**纯正向描述画面本身**，一个字幕类词都不出现。
+    #   硬标准 S1 仍满足：仍有 strict_output_constraints 段，文字道具仍写 illegible。
+    "A plain, unedited photographic frame. Every surface in the scene - walls, doorways, glass, "
+    "floors, furniture, tableware, clothing, packaging and screens - carries only its own natural "
+    "material texture. Any sign, poster, notice, menu board or printed surface other than what is "
+    "explicitly described above is present only as soft, illegible abstract marks. The image runs "
+    "edge to edge as continuous photographed space. "
 )
 
 POUCH = (
@@ -245,8 +250,18 @@ def check(key, p):
     pl = p.lower()
     if "matte finish" not in pl or "oily sheen" not in pl or "beauty-filter" not in pl:
         errs.append("不油腻写法缺失")
-    if "no subtitles" not in pl or "no watermark" not in pl:
-        errs.append("禁字写法缺失")
+    # ★ 2026-09-19 改判：从「必须出现 no subtitles / no watermark」**反转**为
+    #   「**不得出现任何字幕类词汇**」。依据：dy5_u055 实测，prompt 里把这些词逐一念一遍
+    #   之后，模型自己画出了一条 garbled 字幕（反向暗示 —— 越点名越想起）。
+    #   现在改为要求纯正向描述 + 保留 illegible（硬标准 S1 仍然满足）。
+    _BAN = ("subtitle", "caption", "banner", "lower-third", "lower third",
+            "watermark", "logo overlay", "ui overlay", "timestamp",
+            "on-screen text", "arrow sticker", "callout", "burned-in")
+    _hit = [w for w in _BAN if w in pl]
+    if _hit:
+        errs.append("出现字幕类词汇（反向暗示风险）：%s" % _hit)
+    if "illegible" not in pl:
+        errs.append("缺 illegible（文字道具须不可读）")
     # 方位锚点（多人镜必须有）
     if "right of frame" not in p and "left of frame" not in p:
         errs.append("无方位锚点")

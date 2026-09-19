@@ -1,49 +1,86 @@
 [
  {
   "nm": "dy4_u007_stomp__first",
-  "hits": []
+  "hits": [
+   "sub:232[x36-571]",
+   "disc:80[x134-632]"
+  ]
  },
  {
   "nm": "dy4_u007_stomp__last",
-  "hits": []
+  "hits": [
+   "sub:218[x90-681]",
+   "disc:91[x134-632]"
+  ]
  },
  {
   "nm": "dy4_u007_stomp__ref",
-  "hits": []
+  "hits": [
+   "sub:283[x0-768]",
+   "disc:80[x134-632]"
+  ]
  },
  {
   "nm": "dy4_u060_tearopen__first",
-  "hits": []
+  "hits": [
+   "sub:159[x170-550]",
+   "arrow:311[x33-506]",
+   "disc:84[x134-633]"
+  ]
  },
  {
   "nm": "dy4_u060_tearopen__last",
-  "hits": []
+  "hits": [
+   "arrow:247[x34-593]",
+   "disc:117[x125-633]"
+  ]
  },
  {
   "nm": "dy5_u042_tender__first",
-  "hits": []
+  "hits": [
+   "sub:358[x0-768]",
+   "arrow:218[x0-768]",
+   "disc:167[x0-525]"
+  ]
  },
  {
   "nm": "dy5_u042_tender__last",
-  "hits": []
+  "hits": [
+   "sub:180[x0-768]",
+   "arrow:604[x0-768]",
+   "disc:151[x235-768]"
+  ]
  },
  {
   "nm": "dy5_u042_tender__ref",
-  "hits": []
+  "hits": [
+   "sub:381[x0-768]",
+   "arrow:583[x0-768]",
+   "disc:145[x235-768]"
+  ]
  },
  {
   "nm": "dy5_u055_expose__first",
   "hits": [
-   "sub:15",
-   "disc:16[x193-471]"
+   "sub:115[x178-768]",
+   "arrow:77[x33-623]",
+   "disc:189[x117-551]"
   ]
  },
  {
   "nm": "dy5_u055_expose__last",
-  "hits": []
+  "hits": [
+   "sub:418[x0-768]",
+   "arrow:59[x37-126]",
+   "disc:137[x243-525]"
+  ]
  },
  {
   "nm": "dy5_u055_expose__ref",
-  "hits": []
+  "hits": [
+   "sub:416[x93-690]",
+   "arrow:63[x37-130]",
+   "disc:134[x173-759]"
+  ]
  }
 ]

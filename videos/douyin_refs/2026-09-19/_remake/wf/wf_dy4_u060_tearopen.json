@@ -1,242 +1,242 @@
 {
- "1": {
-  "class_type": "UNETLoader",
-  "inputs": {
-   "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
-   "weight_dtype": "default"
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "LoraLoaderBypassModelOnly",
+    "inputs": {
+      "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "1",
+        0
+      ]
+    }
+  },
+  "3": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "6": {
+    "class_type": "MiniMaxH3AudioConditioningT8",
+    "inputs": {
+      "prompt": "integrated_multimodal_description:\n<Product identity reference: <Picture 1> is the product (P), a small stand-up retort sauce pouch that must stay the exact same product in every second of this shot; the printed artwork must follow the reference picture precisely: a deep crimson-red pouch with a soft satin sheen, a white rectangular panel at the top right bearing the brand logo in red, the insurer mark PICC with small Chinese characters and fine print beneath it, one vertical column of six large white Chinese characters 鲍汁红烧酱料 running down the upper left with a thin vertical line of small Latin letters beside it, a golden oval badge at the middle left printed in red with the digit 0 above the two characters 蔗糖, and a cream-coloured rounded panel at the middle right headed by the two large brown characters 鲍汁 and listing exactly five small red-character dish names, each appearing exactly once: 红烧排骨, 红烧猪蹄, 红烧牛羊肉, 红烧鱼, 红烧肉; across the entire lower half a rich appetising photograph of a glossy braised fish in bright red-brown sauce with scattered chopped scallions, a small white price label 建议零售价 8元 at the lower left and a white net-weight band 净含量:80克 near the bottom edge. Every character, digit and the logo on the pouch always face the camera and read in the correct direction and upright orientation - never mirrored, never reversed, never upside down, never rotated, even while the pouch is tilted or squeezed; the artwork keeps this layout, these colours and these proportions unchanged; the pouch is <Subject P> (P)>\n\n\n<Scene reference - this entire shot takes place in: the staff kitchen of an office canteen in the middle of the day. A brushed stainless-steel prep counter runs across the lower frame with faint long-use scratches, a small white rice cooker with its lid open sits centre frame, a glass bottle of cooking oil and a steel colander stand blurred behind it, plain off-white tiled walls and a blurred brushed-steel extractor hood in the background. Clean, everyday, functional - no clutter, no wall clock, no posters. Completely bare walls - no signage, no lettering, no notices, no printed material anywhere except the pouch>\n\n<Style & frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, 85 mm macro lens, locked-off camera looking slightly down onto the counter, shallow depth of field with the pouch face held sharp and the background falling softly out of focus, fine film grain, photorealistic live-action footage, soft cool daylight from the left of frame mixed with a warm overhead kitchen strip light, clean neutral whites, specular glints only on the wet steel and the sauce. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\n[00:00.000 - 00:01.500] Macro shot on the stainless counter beside the open rice cooker. A pair of adult East Asian women's hands enters from the right of frame and sets the sauce pouch (<Subject P>) down upright on the steel, then turns it so that its printed face is square to the camera and fully sharp; the pouch occupies the centre of frame and reads clean and legible, the crimson-red artwork bright under the kitchen light. The fingers are bare, clean and unhurried, moving with the practised ease of someone who cooks every day. No face and no other person enters the frame - only the hands and the pouch. The camera holds absolutely still.\n\n[00:01.500 - 00:03.100] Without cutting, the camera pushes in a few centimetres. The same hands pinch the top edge of the pouch between both thumbs and forefingers and tear the seam open in one short decisive pull; the torn mouth of the pouch opens a little and a thin breath of steam and spice escapes and drifts up past the lens. The pouch stays essentially upright through the tear - it is never tilted more than about thirty degrees and its printed face stays turned to the camera and stays legible throughout; the artwork never flips, never mirrors and never turns away. The fingers shift their grip to the base of the pouch and the forearm tightens.\n\n[00:03.100 - 00:04.458] Still in one continuous take, the hands lift the opened pouch over the open rice cooker and tip it gently, no more than about thirty-five degrees from upright, letting a slow thick ribbon of glossy red-brown sauce fall into the pot; the sauce catches the light as it coils and pools over the blanched ribs already sitting in the inner pot. The pouch face is angled across the frame but is still readable and still the right way round. At the end the wrist stops, the last of the sauce hangs and drops, and the hands hold steady above the pot. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\noverall_soundscape:\nA quiet working kitchen at midday: the low hum of the extractor hood, the crisp crackle of the foil seam tearing, the soft wet sound of thick sauce falling into a pot, the faint tick of the steel counter. Human speech only as carried by the supplied reference audio. The voice belongs to an off-screen cook - no face and no mouth is visible anywhere in this shot, so the speech is heard purely as a voice-over over the hands.\n\nnon_diegetic_music:\nA light warm ukulele-and-handclap bed at low volume, easy and domestic, sitting well under the sound effects.\n\nstrict_output_constraints: The only text permitted anywhere in frame is the printed packaging of the sauce pouch itself, which must follow the product reference picture exactly and stay sharp and legible exactly as printed - the packaging artwork, layout, colours, logo panel and characters must match the reference, never redrawn, never garbled, never paraphrased into other characters, never mirrored or reversed. A plain, unedited photographic frame. Every surface in the scene - walls, doorways, glass, floors, furniture, tableware, clothing, packaging and screens - carries only its own natural material texture. Any sign, poster, notice, menu board or printed surface other than what is explicitly described above is present only as soft, illegible abstract marks. The image runs edge to edge as continuous photographed space. ",
+      "width": 768,
+      "height": 1344,
+      "length": [
+        "14",
+        1
+      ],
+      "task_type": "Hybrid",
+      "audio_mode": "lock_source",
+      "audio_denoise_strength": 0.0,
+      "add_source_as_reference": true,
+      "prompt_primary_audio_ordinal": 1,
+      "strict_prompt_tags": true,
+      "ref_image_size": "max",
+      "reference_video_policy": "official_2_to_15s",
+      "clip": [
+        "3",
+        0
+      ],
+      "video_vae": [
+        "4",
+        0
+      ],
+      "audio_vae": [
+        "5",
+        0
+      ],
+      "drive_audio": [
+        "14",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "300",
+        0
+      ],
+      "first_frame": [
+        "302",
+        0
+      ],
+      "last_frame": [
+        "303",
+        0
+      ]
+    }
+  },
+  "7": {
+    "class_type": "MiniMaxH3DualClockSamplerT8",
+    "inputs": {
+      "steps": 8,
+      "shift_video": 12.0,
+      "shift_audio": 3.0,
+      "sampler_name": "dual_clock_euler",
+      "scheduler": "native_flow",
+      "model": [
+        "2",
+        0
+      ],
+      "av_latent": [
+        "6",
+        1
+      ]
+    }
+  },
+  "8": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "7",
+        0
+      ],
+      "conditioning": [
+        "6",
+        0
+      ]
+    }
+  },
+  "9": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 20260971
+    }
+  },
+  "10": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "9",
+        0
+      ],
+      "guider": [
+        "8",
+        0
+      ],
+      "sampler": [
+        "7",
+        1
+      ],
+      "sigmas": [
+        "7",
+        2
+      ],
+      "latent_image": [
+        "6",
+        1
+      ]
+    }
+  },
+  "11": {
+    "class_type": "MiniMaxH3AVDecodeT8",
+    "inputs": {
+      "av_latent": [
+        "10",
+        0
+      ],
+      "video_vae": [
+        "4",
+        0
+      ],
+      "audio_vae": [
+        "5",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+    "inputs": {
+      "images": [
+        "15",
+        0
+      ],
+      "audio": [
+        "15",
+        1
+      ],
+      "filename_prefix": "dy4_pilot/dy4_u060_tearopen",
+      "crf": 19
+    }
+  },
+  "13": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "dy4_voice/dy4_u060_tearopen.wav"
+    }
+  },
+  "14": {
+    "class_type": "MiniMaxH3AudioWindowT8",
+    "inputs": {
+      "scene_start_seconds": 0.0,
+      "scene_duration_seconds": 4.458,
+      "warmup_seconds": 0.0,
+      "cooldown_seconds": 0.0,
+      "ensure_minimum_context": true,
+      "audio": [
+        "13",
+        0
+      ]
+    }
+  },
+  "15": {
+    "class_type": "MiniMaxH3OutputTrimT8",
+    "inputs": {
+      "start_seconds": [
+        "14",
+        2
+      ],
+      "duration_seconds": [
+        "14",
+        3
+      ],
+      "fps": 24,
+      "frames": [
+        "11",
+        0
+      ],
+      "audio": [
+        "6",
+        2
+      ]
+    }
+  },
+  "300": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_ref/dy4_u060_tearopen.jpg"
+    }
+  },
+  "302": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_first/dy4_u060_tearopen.jpg"
+    }
+  },
+  "303": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_last/dy4_u060_tearopen.jpg"
+    }
   }
- },
- "2": {
-  "class_type": "LoraLoaderBypassModelOnly",
-  "inputs": {
-   "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
-   "strength_model": 1.0,
-   "model": [
-    "1",
-    0
-   ]
-  }
- },
- "3": {
-  "class_type": "CLIPLoader",
-  "inputs": {
-   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
-   "type": "minimax",
-   "device": "default"
-  }
- },
- "4": {
-  "class_type": "VAELoader",
-  "inputs": {
-   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
-  }
- },
- "5": {
-  "class_type": "VAELoader",
-  "inputs": {
-   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
-  }
- },
- "6": {
-  "class_type": "MiniMaxH3AudioConditioningT8",
-  "inputs": {
-   "prompt": "integrated_multimodal_description:\n<Product identity reference: <Picture 1> is the product (P), a small stand-up retort sauce pouch that must stay the exact same product in every second of this shot; the printed artwork must follow the reference picture precisely: a deep crimson-red pouch with a soft satin sheen, a white rectangular panel at the top right bearing the brand logo in red, the insurer mark PICC with small Chinese characters and fine print beneath it, one vertical column of six large white Chinese characters 鲍汁红烧酱料 running down the upper left with a thin vertical line of small Latin letters beside it, a golden oval badge at the middle left printed in red with the digit 0 above the two characters 蔗糖, and a cream-coloured rounded panel at the middle right headed by the two large brown characters 鲍汁 and listing exactly five small red-character dish names, each appearing exactly once: 红烧排骨, 红烧猪蹄, 红烧牛羊肉, 红烧鱼, 红烧肉; across the entire lower half a rich appetising photograph of a glossy braised fish in bright red-brown sauce with scattered chopped scallions, a small white price label 建议零售价 8元 at the lower left and a white net-weight band 净含量:80克 near the bottom edge. Every character, digit and the logo on the pouch always face the camera and read in the correct direction and upright orientation - never mirrored, never reversed, never upside down, never rotated, even while the pouch is tilted or squeezed; the artwork keeps this layout, these colours and these proportions unchanged; the pouch is <Subject P> (P)>\n\n\n<Scene reference - this entire shot takes place in: the staff kitchen of an office canteen in the middle of the day. A brushed stainless-steel prep counter runs across the lower frame with faint long-use scratches, a small white rice cooker with its lid open sits centre frame, a glass bottle of cooking oil and a steel colander stand blurred behind it, plain off-white tiled walls and a blurred brushed-steel extractor hood in the background. Clean, everyday, functional - no clutter, no wall clock, no posters. Completely bare walls - no signage, no lettering, no notices, no printed material anywhere except the pouch>\n\n<Style & frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, 85 mm macro lens, locked-off camera looking slightly down onto the counter, shallow depth of field with the pouch face held sharp and the background falling softly out of focus, fine film grain, photorealistic live-action footage, soft cool daylight from the left of frame mixed with a warm overhead kitchen strip light, clean neutral whites, specular glints only on the wet steel and the sauce. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\n[00:00.000 - 00:01.500] Macro shot on the stainless counter beside the open rice cooker. A pair of adult East Asian women's hands enters from the right of frame and sets the sauce pouch (<Subject P>) down upright on the steel, then turns it so that its printed face is square to the camera and fully sharp; the pouch occupies the centre of frame and reads clean and legible, the crimson-red artwork bright under the kitchen light. The fingers are bare, clean and unhurried, moving with the practised ease of someone who cooks every day. No face and no other person enters the frame - only the hands and the pouch. The camera holds absolutely still.\n\n[00:01.500 - 00:03.100] Without cutting, the camera pushes in a few centimetres. The same hands pinch the top edge of the pouch between both thumbs and forefingers and tear the seam open in one short decisive pull; the torn mouth of the pouch opens a little and a thin breath of steam and spice escapes and drifts up past the lens. The pouch stays essentially upright through the tear - it is never tilted more than about thirty degrees and its printed face stays turned to the camera and stays legible throughout; the artwork never flips, never mirrors and never turns away. The fingers shift their grip to the base of the pouch and the forearm tightens.\n\n[00:03.100 - 00:04.458] Still in one continuous take, the hands lift the opened pouch over the open rice cooker and tip it gently, no more than about thirty-five degrees from upright, letting a slow thick ribbon of glossy red-brown sauce fall into the pot; the sauce catches the light as it coils and pools over the blanched ribs already sitting in the inner pot. The pouch face is angled across the frame but is still readable and still the right way round. At the end the wrist stops, the last of the sauce hangs and drops, and the hands hold steady above the pot. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\noverall_soundscape:\nA quiet working kitchen at midday: the low hum of the extractor hood, the crisp crackle of the foil seam tearing, the soft wet sound of thick sauce falling into a pot, the faint tick of the steel counter. Human speech only as carried by the supplied reference audio. The voice belongs to an off-screen cook - no face and no mouth is visible anywhere in this shot, so the speech is heard purely as a voice-over over the hands.\n\nnon_diegetic_music:\nA light warm ukulele-and-handclap bed at low volume, easy and domestic, sitting well under the sound effects.\n\nstrict_output_constraints: The only text permitted anywhere in frame is the printed packaging of the sauce pouch itself, which must follow the product reference picture exactly and stay sharp and legible exactly as printed - the packaging artwork, layout, colours, logo panel and characters must match the reference, never redrawn, never garbled, never paraphrased into other characters, never mirrored or reversed. Absolutely no subtitles, no captions, no burned-in titles, no text banner or bar across the frame, no lower-third, no on-screen text, no watermark, no logo overlay, no timestamp, no UI overlay, no floating lettering of any script, no arrow stickers or annotation graphics, no coloured highlight boxes or callout marks anywhere in the frame. Any sign, poster, notice, menu board or printed surface other than what is explicitly described above must render as illegible abstract marks. ",
-   "width": 768,
-   "height": 1344,
-   "length": [
-    "14",
-    1
-   ],
-   "task_type": "Hybrid",
-   "audio_mode": "lock_source",
-   "audio_denoise_strength": 0.0,
-   "add_source_as_reference": true,
-   "prompt_primary_audio_ordinal": 1,
-   "strict_prompt_tags": true,
-   "ref_image_size": "max",
-   "reference_video_policy": "official_2_to_15s",
-   "clip": [
-    "3",
-    0
-   ],
-   "video_vae": [
-    "4",
-    0
-   ],
-   "audio_vae": [
-    "5",
-    0
-   ],
-   "drive_audio": [
-    "14",
-    0
-   ],
-   "ref_images.ref_image_0": [
-    "300",
-    0
-   ],
-   "first_frame": [
-    "302",
-    0
-   ],
-   "last_frame": [
-    "303",
-    0
-   ]
-  }
- },
- "7": {
-  "class_type": "MiniMaxH3DualClockSamplerT8",
-  "inputs": {
-   "steps": 8,
-   "shift_video": 12.0,
-   "shift_audio": 3.0,
-   "sampler_name": "dual_clock_euler",
-   "scheduler": "native_flow",
-   "model": [
-    "2",
-    0
-   ],
-   "av_latent": [
-    "6",
-    1
-   ]
-  }
- },
- "8": {
-  "class_type": "BasicGuider",
-  "inputs": {
-   "model": [
-    "7",
-    0
-   ],
-   "conditioning": [
-    "6",
-    0
-   ]
-  }
- },
- "9": {
-  "class_type": "RandomNoise",
-  "inputs": {
-   "noise_seed": 20260971
-  }
- },
- "10": {
-  "class_type": "SamplerCustomAdvanced",
-  "inputs": {
-   "noise": [
-    "9",
-    0
-   ],
-   "guider": [
-    "8",
-    0
-   ],
-   "sampler": [
-    "7",
-    1
-   ],
-   "sigmas": [
-    "7",
-    2
-   ],
-   "latent_image": [
-    "6",
-    1
-   ]
-  }
- },
- "11": {
-  "class_type": "MiniMaxH3AVDecodeT8",
-  "inputs": {
-   "av_latent": [
-    "10",
-    0
-   ],
-   "video_vae": [
-    "4",
-    0
-   ],
-   "audio_vae": [
-    "5",
-    0
-   ]
-  }
- },
- "12": {
-  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
-  "inputs": {
-   "images": [
-    "15",
-    0
-   ],
-   "audio": [
-    "15",
-    1
-   ],
-   "filename_prefix": "dy4_pilot/dy4_u060_tearopen",
-   "crf": 19
-  }
- },
- "13": {
-  "class_type": "LoadAudio",
-  "inputs": {
-   "audio": "dy4_voice/dy4_u060_tearopen.wav"
-  }
- },
- "14": {
-  "class_type": "MiniMaxH3AudioWindowT8",
-  "inputs": {
-   "scene_start_seconds": 0.0,
-   "scene_duration_seconds": 4.458,
-   "warmup_seconds": 0.0,
-   "cooldown_seconds": 0.0,
-   "ensure_minimum_context": true,
-   "audio": [
-    "13",
-    0
-   ]
-  }
- },
- "15": {
-  "class_type": "MiniMaxH3OutputTrimT8",
-  "inputs": {
-   "start_seconds": [
-    "14",
-    2
-   ],
-   "duration_seconds": [
-    "14",
-    3
-   ],
-   "fps": 24,
-   "frames": [
-    "11",
-    0
-   ],
-   "audio": [
-    "6",
-    2
-   ]
-  }
- },
- "300": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_ref/dy4_u060_tearopen.jpg"
-  }
- },
- "302": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_first/dy4_u060_tearopen.jpg"
-  }
- },
- "303": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_last/dy4_u060_tearopen.jpg"
-  }
- }
 }

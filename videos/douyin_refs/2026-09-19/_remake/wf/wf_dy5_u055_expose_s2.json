@@ -119,7 +119,7 @@
   "9": {
     "class_type": "RandomNoise",
     "inputs": {
-      "noise_seed": 20260972
+      "noise_seed": 20260973
     }
   },
   "10": {
@@ -175,7 +175,7 @@
         "15",
         1
       ],
-      "filename_prefix": "dy4_pilot/dy5_u055_expose",
+      "filename_prefix": "dy4_pilot/dy5_u055_expose_s2",
       "crf": 19
     }
   },

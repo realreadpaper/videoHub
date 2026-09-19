@@ -175,7 +175,7 @@
         "15",
         1
       ],
-      "filename_prefix": "dy4_pilot/dy5_u055_expose",
+      "filename_prefix": "dy4_pilot/dy5_u055_expose_f",
       "crf": 19
     }
   },
@@ -224,19 +224,19 @@
   "300": {
     "class_type": "LoadImage",
     "inputs": {
-      "image": "dy4e_ref/dy5_u055_expose.jpg"
+      "image": "dy4f_ref/dy5_u055_expose.jpg"
     }
   },
   "302": {
     "class_type": "LoadImage",
     "inputs": {
-      "image": "dy4e_first/dy5_u055_expose.jpg"
+      "image": "dy4f_first/dy5_u055_expose.jpg"
     }
   },
   "303": {
     "class_type": "LoadImage",
     "inputs": {
-      "image": "dy4e_last/dy5_u055_expose.jpg"
+      "image": "dy4f_last/dy5_u055_expose.jpg"
     }
   }
 }

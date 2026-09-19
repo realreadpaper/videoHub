@@ -1,242 +1,242 @@
 {
- "1": {
-  "class_type": "UNETLoader",
-  "inputs": {
-   "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
-   "weight_dtype": "default"
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "LoraLoaderBypassModelOnly",
+    "inputs": {
+      "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+      "strength_model": 1.0,
+      "model": [
+        "1",
+        0
+      ]
+    }
+  },
+  "3": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "4": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "5": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "6": {
+    "class_type": "MiniMaxH3AudioConditioningT8",
+    "inputs": {
+      "prompt": "integrated_multimodal_description:\n<Reference frame: <Picture 1> shows the exact subject, framing, light and colour of this shot - the finished braised pork ribs in the inner pot, glossy deep red-brown sauce, scattered chopped scallion. Reproduce that same food, that same sauce colour, that same pot and that same camera position; nothing else belongs in frame. The sauce is a rich glossy chestnut red-brown, the same family of colour as the product's packaging artwork.>\n\n<Scene reference - this entire shot takes place in: a small home kitchen in the evening, tight on the open inner pot of a white electric rice cooker standing on a pale timber counter. The pot's non-stick interior is a soft warm grey, the ribs sit glistening in their reduced sauce below the rim, a folded cloth and the blurred curve of a ceramic plate sit soft in the background, plain warm-white wall tiles behind. Clean, tidy and domestic. Completely bare walls - no signage, no lettering, no magnets, no packaging, no printed material anywhere in frame>\n\n<Style & frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, 85 mm macro lens on a locked-off camera looking down into the pot at about forty-five degrees, very shallow depth of field, fine film grain, photorealistic live-action footage, warm key light from the upper right falling across the food with soft falloff, gentle steam catching the light from behind, specular glints only on the sauce and the moist meat, clean warm whites with no colour cast apart from the natural warmth of the lamp. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\n[00:00.000 - 00:01.500] Macro shot down into the open inner pot. The braised ribs lie in a shallow pool of glossy red-brown sauce, each piece lacquered with a slow-moving sheen; a single thin thread of steam rises past the upper right of frame and curls out of focus. The sauce surface trembles very slightly as the pot settles, and one small bubble breaks at the edge and releases a breath of steam. Nothing else moves. The camera holds absolutely still and the ribs stay the sharpest thing in frame.\n\n[00:01.500 - 00:03.100] A pair of pale wooden chopsticks enters from the top of frame and comes down unhurried onto the largest rib, closing on the meat just above the bone; the pressure is light and the meat gives slightly under the tips, a little sauce welling up around them. The chopsticks lift and turn the piece a quarter turn so the light runs along the fibres of the meat, then settle back onto it and press down again at the joint - the meat begins to part from the bone along a clean seam. The surface of the sauce in the pot rocks gently with the movement.\n\n[00:03.100 - 00:04.458] The chopsticks lift the rib clear of the pot; the meat slides off the bone in one soft, complete movement, hanging from the tips with a short glossy thread of sauce stretching and then breaking back into the pot. The bare bone drops back and rings faintly against the porcelain. The chopsticks turn the freed meat once, showing its lacquered surface and the fibres pulling apart, then hold it steady and low in frame while the steam passes across it. The shot ends on the glistening meat above the pot, steam drifting, the counter warm and still. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\noverall_soundscape:\nA quiet home kitchen in the evening: a faint low hum from a fridge somewhere off-screen, the soft wet shift of thick sauce in a pot, the small click of a bone touching porcelain, one quiet breath of steam. Human speech only as carried by the supplied reference audio. No person is visible in this shot at all - the voice is an off-screen narrator speaking over the food.\n\nnon_diegetic_music:\nA warm unhurried guitar-and-pad bed at low volume, homely and appetising.\n\nstrict_output_constraints: The only permitted text anywhere in frame is described above; everything else must be illegible. There is no packaging and no printed material in this shot at all. A plain, unedited photographic frame. Every surface in the scene - walls, doorways, glass, floors, furniture, tableware, clothing, packaging and screens - carries only its own natural material texture. Any sign, poster, notice, menu board or printed surface other than what is explicitly described above is present only as soft, illegible abstract marks. The image runs edge to edge as continuous photographed space. ",
+      "width": 768,
+      "height": 1344,
+      "length": [
+        "14",
+        1
+      ],
+      "task_type": "Hybrid",
+      "audio_mode": "lock_source",
+      "audio_denoise_strength": 0.0,
+      "add_source_as_reference": true,
+      "prompt_primary_audio_ordinal": 1,
+      "strict_prompt_tags": true,
+      "ref_image_size": "max",
+      "reference_video_policy": "official_2_to_15s",
+      "clip": [
+        "3",
+        0
+      ],
+      "video_vae": [
+        "4",
+        0
+      ],
+      "audio_vae": [
+        "5",
+        0
+      ],
+      "drive_audio": [
+        "14",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "300",
+        0
+      ],
+      "first_frame": [
+        "302",
+        0
+      ],
+      "last_frame": [
+        "303",
+        0
+      ]
+    }
+  },
+  "7": {
+    "class_type": "MiniMaxH3DualClockSamplerT8",
+    "inputs": {
+      "steps": 8,
+      "shift_video": 12.0,
+      "shift_audio": 3.0,
+      "sampler_name": "dual_clock_euler",
+      "scheduler": "native_flow",
+      "model": [
+        "2",
+        0
+      ],
+      "av_latent": [
+        "6",
+        1
+      ]
+    }
+  },
+  "8": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "7",
+        0
+      ],
+      "conditioning": [
+        "6",
+        0
+      ]
+    }
+  },
+  "9": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 20260973
+    }
+  },
+  "10": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "9",
+        0
+      ],
+      "guider": [
+        "8",
+        0
+      ],
+      "sampler": [
+        "7",
+        1
+      ],
+      "sigmas": [
+        "7",
+        2
+      ],
+      "latent_image": [
+        "6",
+        1
+      ]
+    }
+  },
+  "11": {
+    "class_type": "MiniMaxH3AVDecodeT8",
+    "inputs": {
+      "av_latent": [
+        "10",
+        0
+      ],
+      "video_vae": [
+        "4",
+        0
+      ],
+      "audio_vae": [
+        "5",
+        0
+      ]
+    }
+  },
+  "12": {
+    "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+    "inputs": {
+      "images": [
+        "15",
+        0
+      ],
+      "audio": [
+        "15",
+        1
+      ],
+      "filename_prefix": "dy4_pilot/dy5_u042_tender",
+      "crf": 19
+    }
+  },
+  "13": {
+    "class_type": "LoadAudio",
+    "inputs": {
+      "audio": "dy4_voice/dy5_u042_tender.wav"
+    }
+  },
+  "14": {
+    "class_type": "MiniMaxH3AudioWindowT8",
+    "inputs": {
+      "scene_start_seconds": 0.0,
+      "scene_duration_seconds": 4.458,
+      "warmup_seconds": 0.0,
+      "cooldown_seconds": 0.0,
+      "ensure_minimum_context": true,
+      "audio": [
+        "13",
+        0
+      ]
+    }
+  },
+  "15": {
+    "class_type": "MiniMaxH3OutputTrimT8",
+    "inputs": {
+      "start_seconds": [
+        "14",
+        2
+      ],
+      "duration_seconds": [
+        "14",
+        3
+      ],
+      "fps": 24,
+      "frames": [
+        "11",
+        0
+      ],
+      "audio": [
+        "6",
+        2
+      ]
+    }
+  },
+  "300": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_ref/dy5_u042_tender.jpg"
+    }
+  },
+  "302": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_first/dy5_u042_tender.jpg"
+    }
+  },
+  "303": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "dy4e_last/dy5_u042_tender.jpg"
+    }
   }
- },
- "2": {
-  "class_type": "LoraLoaderBypassModelOnly",
-  "inputs": {
-   "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
-   "strength_model": 1.0,
-   "model": [
-    "1",
-    0
-   ]
-  }
- },
- "3": {
-  "class_type": "CLIPLoader",
-  "inputs": {
-   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
-   "type": "minimax",
-   "device": "default"
-  }
- },
- "4": {
-  "class_type": "VAELoader",
-  "inputs": {
-   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
-  }
- },
- "5": {
-  "class_type": "VAELoader",
-  "inputs": {
-   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
-  }
- },
- "6": {
-  "class_type": "MiniMaxH3AudioConditioningT8",
-  "inputs": {
-   "prompt": "integrated_multimodal_description:\n<Reference frame: <Picture 1> shows the exact subject, framing, light and colour of this shot - the finished braised pork ribs in the inner pot, glossy deep red-brown sauce, scattered chopped scallion. Reproduce that same food, that same sauce colour, that same pot and that same camera position; nothing else belongs in frame. The sauce is a rich glossy chestnut red-brown, the same family of colour as the product's packaging artwork.>\n\n<Scene reference - this entire shot takes place in: a small home kitchen in the evening, tight on the open inner pot of a white electric rice cooker standing on a pale timber counter. The pot's non-stick interior is a soft warm grey, the ribs sit glistening in their reduced sauce below the rim, a folded cloth and the blurred curve of a ceramic plate sit soft in the background, plain warm-white wall tiles behind. Clean, tidy and domestic. Completely bare walls - no signage, no lettering, no magnets, no packaging, no printed material anywhere in frame>\n\n<Style & frame constraints - apply to the whole shot, every second of it: cinematic 9:16 vertical framing, ARRI Alexa look, 85 mm macro lens on a locked-off camera looking down into the pot at about forty-five degrees, very shallow depth of field, fine film grain, photorealistic live-action footage, warm key light from the upper right falling across the food with soft falloff, gentle steam catching the light from behind, specular glints only on the sauce and the moist meat, clean warm whites with no colour cast apart from the natural warmth of the lamp. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\n[00:00.000 - 00:01.500] Macro shot down into the open inner pot. The braised ribs lie in a shallow pool of glossy red-brown sauce, each piece lacquered with a slow-moving sheen; a single thin thread of steam rises past the upper right of frame and curls out of focus. The sauce surface trembles very slightly as the pot settles, and one small bubble breaks at the edge and releases a breath of steam. Nothing else moves. The camera holds absolutely still and the ribs stay the sharpest thing in frame.\n\n[00:01.500 - 00:03.100] A pair of pale wooden chopsticks enters from the top of frame and comes down unhurried onto the largest rib, closing on the meat just above the bone; the pressure is light and the meat gives slightly under the tips, a little sauce welling up around them. The chopsticks lift and turn the piece a quarter turn so the light runs along the fibres of the meat, then settle back onto it and press down again at the joint - the meat begins to part from the bone along a clean seam. The surface of the sauce in the pot rocks gently with the movement.\n\n[00:03.100 - 00:04.458] The chopsticks lift the rib clear of the pot; the meat slides off the bone in one soft, complete movement, hanging from the tips with a short glossy thread of sauce stretching and then breaking back into the pot. The bare bone drops back and rings faintly against the porcelain. The chopsticks turn the freed meat once, showing its lacquered surface and the fibres pulling apart, then hold it steady and low in frame while the steam passes across it. The shot ends on the glistening meat above the pot, steam drifting, the counter warm and still. true-to-life East Asian skin with visible pores, fine lines and a matte finish, neutral white balance, muted naturalistic colour, gentle filmic contrast with a soft highlight roll-off. No oily sheen and no glossy specular highlights on any face, no beauty-filter smoothing, no airbrushing, no waxy or plastic skin, no HDR glow, no bloom, no over-sharpening, no over-saturated colour, no orange or teal colour cast, no heavy vignette, no digital gloss or plastic AI sheen. \n\noverall_soundscape:\nA quiet home kitchen in the evening: a faint low hum from a fridge somewhere off-screen, the soft wet shift of thick sauce in a pot, the small click of a bone touching porcelain, one quiet breath of steam. Human speech only as carried by the supplied reference audio. No person is visible in this shot at all - the voice is an off-screen narrator speaking over the food.\n\nnon_diegetic_music:\nA warm unhurried guitar-and-pad bed at low volume, homely and appetising.\n\nstrict_output_constraints: The only permitted text anywhere in frame is described above; everything else must be illegible. There is no packaging and no printed material in this shot at all. Absolutely no subtitles, no captions, no burned-in titles, no text banner or bar across the frame, no lower-third, no on-screen text, no watermark, no logo overlay, no timestamp, no UI overlay, no floating lettering of any script, no arrow stickers or annotation graphics, no coloured highlight boxes or callout marks anywhere in the frame. Any sign, poster, notice, menu board or printed surface other than what is explicitly described above must render as illegible abstract marks. ",
-   "width": 768,
-   "height": 1344,
-   "length": [
-    "14",
-    1
-   ],
-   "task_type": "Hybrid",
-   "audio_mode": "lock_source",
-   "audio_denoise_strength": 0.0,
-   "add_source_as_reference": true,
-   "prompt_primary_audio_ordinal": 1,
-   "strict_prompt_tags": true,
-   "ref_image_size": "max",
-   "reference_video_policy": "official_2_to_15s",
-   "clip": [
-    "3",
-    0
-   ],
-   "video_vae": [
-    "4",
-    0
-   ],
-   "audio_vae": [
-    "5",
-    0
-   ],
-   "drive_audio": [
-    "14",
-    0
-   ],
-   "ref_images.ref_image_0": [
-    "300",
-    0
-   ],
-   "first_frame": [
-    "302",
-    0
-   ],
-   "last_frame": [
-    "303",
-    0
-   ]
-  }
- },
- "7": {
-  "class_type": "MiniMaxH3DualClockSamplerT8",
-  "inputs": {
-   "steps": 8,
-   "shift_video": 12.0,
-   "shift_audio": 3.0,
-   "sampler_name": "dual_clock_euler",
-   "scheduler": "native_flow",
-   "model": [
-    "2",
-    0
-   ],
-   "av_latent": [
-    "6",
-    1
-   ]
-  }
- },
- "8": {
-  "class_type": "BasicGuider",
-  "inputs": {
-   "model": [
-    "7",
-    0
-   ],
-   "conditioning": [
-    "6",
-    0
-   ]
-  }
- },
- "9": {
-  "class_type": "RandomNoise",
-  "inputs": {
-   "noise_seed": 20260973
-  }
- },
- "10": {
-  "class_type": "SamplerCustomAdvanced",
-  "inputs": {
-   "noise": [
-    "9",
-    0
-   ],
-   "guider": [
-    "8",
-    0
-   ],
-   "sampler": [
-    "7",
-    1
-   ],
-   "sigmas": [
-    "7",
-    2
-   ],
-   "latent_image": [
-    "6",
-    1
-   ]
-  }
- },
- "11": {
-  "class_type": "MiniMaxH3AVDecodeT8",
-  "inputs": {
-   "av_latent": [
-    "10",
-    0
-   ],
-   "video_vae": [
-    "4",
-    0
-   ],
-   "audio_vae": [
-    "5",
-    0
-   ]
-  }
- },
- "12": {
-  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
-  "inputs": {
-   "images": [
-    "15",
-    0
-   ],
-   "audio": [
-    "15",
-    1
-   ],
-   "filename_prefix": "dy4_pilot/dy5_u042_tender",
-   "crf": 19
-  }
- },
- "13": {
-  "class_type": "LoadAudio",
-  "inputs": {
-   "audio": "dy4_voice/dy5_u042_tender.wav"
-  }
- },
- "14": {
-  "class_type": "MiniMaxH3AudioWindowT8",
-  "inputs": {
-   "scene_start_seconds": 0.0,
-   "scene_duration_seconds": 4.458,
-   "warmup_seconds": 0.0,
-   "cooldown_seconds": 0.0,
-   "ensure_minimum_context": true,
-   "audio": [
-    "13",
-    0
-   ]
-  }
- },
- "15": {
-  "class_type": "MiniMaxH3OutputTrimT8",
-  "inputs": {
-   "start_seconds": [
-    "14",
-    2
-   ],
-   "duration_seconds": [
-    "14",
-    3
-   ],
-   "fps": 24,
-   "frames": [
-    "11",
-    0
-   ],
-   "audio": [
-    "6",
-    2
-   ]
-  }
- },
- "300": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_ref/dy5_u042_tender.jpg"
-  }
- },
- "302": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_first/dy5_u042_tender.jpg"
-  }
- },
- "303": {
-  "class_type": "LoadImage",
-  "inputs": {
-   "image": "dy4_last/dy5_u042_tender.jpg"
-  }
- }
 }

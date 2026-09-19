@@ -35,6 +35,11 @@ FILM_MP4 = {
 }
 KEY = {"dy1": "01_报恩", "dy2": "02_继母", "dy3": "03_挑食"}
 K7 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+# ★ 底部免责声明「剧情演绎 无不良引导」是**固定位置的叠加层**（三部片位置一致）。
+#   靠跨 373 帧均值图显影确认：文字在均值图上清晰可辨 = 每帧同位置出现。
+#   它的字很淡、字号小，自动判据容易漏（实测 14 帧"无叠加层"里 6 帧就是它），
+#   所以对这块做**定点兜底**（区域内确有亮字素时才掩，避免误伤本该干净的帧）。
+FIXED_BOTTOM = dict(y0=1220, y1=1294, x0=192, x1=588)
 
 
 def overlay_boxes(img, y_lo=420, y_hi=1344, gap=48):
@@ -44,7 +49,12 @@ def overlay_boxes(img, y_lo=420, y_hi=1344, gap=48):
 
     # ---- ① 文本字素 ----
     yellow = (h >= 15) & (h <= 40) & (s >= 130) & (v >= 150)
-    white = (s <= 60) & (v >= 195)
+    white_raw = (s <= 70) & (v >= 170)
+    # ★ 只保留"细笔画"的白：横向开运算后仍存活 = 大片白（衣服/墙/瓷盘），必须剔除。
+    #   不加这条，白衣服会被整片判成字幕（实测 dy3_s077 因此把 436~1261 全判成一块）。
+    bigwhite = cv2.morphologyEx(white_raw.astype(np.uint8), cv2.MORPH_OPEN,
+                                np.ones((1, 17), np.uint8)) > 0
+    white = white_raw & (~bigwhite)
     dark = v <= 95
     core = (yellow | white) & (cv2.dilate(dark.astype(np.uint8), K7, iterations=2) > 0)
     m = cv2.morphologyEx(core.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((5, 25), np.uint8))
@@ -68,13 +78,31 @@ def overlay_boxes(img, y_lo=420, y_hi=1344, gap=48):
     for y0, y1 in merged:
         px = int(m[y0:y1].sum())
         hh = y1 - y0
-        if hh < 30 or px < 1500:
+        # ★ 阈值原则：**宁可多抹，不可漏检**。
+        #   误报的代价是"多糊一小块"，漏检的代价是"成片带上这句字幕" —— 后者不可接受。
+        #   实测漏检的都是**小字**（「撇净浮沫」4 字宽 ~180、「剧情演绎 无不良引导」高仅 ~25），
+        #   所以下限必须放低：hh 20→14、px 1200→500、宽 200→140、px/hh 45→25、darkfrac 0.10→0.055。
+        if hh < 14 or px < 500:
             continue
         xs = np.where(m[y0:y1].any(0))[0]
         x0, x1 = int(xs.min()), int(xs.max())
-        if x1 - x0 < 300 or px / hh < 55:
+        if x1 - x0 < 140 or px / hh < 25:
             continue
-        boxes.append(dict(y0=y0, y1=y1, x0=x0, x1=x1, px=px, kind="text"))
+        # 第二条约束：字幕必定带描边 → 块内暗像素占比高于白衣服/白墙区域
+        darkfrac = float(dark[y0:y1, x0:x1].mean())
+        if darkfrac < 0.055:
+            continue
+        boxes.append(dict(y0=y0, y1=y1, x0=x0, x1=x1, px=px, kind="text",
+                          darkfrac=round(darkfrac, 3)))
+
+    # ---- ①b 底部免责声明：定点兜底 ----
+    fb = FIXED_BOTTOM
+    already = any(abs(b["y0"] - fb["y0"]) < 80 and b["kind"] == "text" for b in boxes)
+    if not already:
+        sub = core[fb["y0"]:fb["y1"], fb["x0"]:fb["x1"]]
+        if int(sub.sum()) >= 120:          # 淡字素也够 120 px，没字的帧不会触发
+            boxes.append(dict(y0=fb["y0"], y1=fb["y1"], x0=fb["x0"], x1=fb["x1"],
+                              px=int(sub.sum()), kind="text", fixed=1))
 
     # ---- ② 红箭头 ----
     red = (((h <= 8) | (h >= 172)) & (s >= 150) & (v >= 110)).astype(np.uint8)
