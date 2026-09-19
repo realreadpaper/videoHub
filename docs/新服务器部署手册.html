@@ -90,7 +90,7 @@
 <div class="card info">
   <b>这份文档解决什么问题</b>
   <p style="margin-bottom:0">本机 macOS 只做编排与后处理，视频生成跑在远端 GPU 上。旧服务器一旦关停，
-  那半边（ComfyUI + 75 GB 权重 + 生产脚本 + 音图资产）就没了。这份手册把「GPU 侧那一半」
+  那半边（ComfyUI + 71 GB 权重 + 生产脚本 + 音图资产）就没了。这份手册把「GPU 侧那一半」
   完整列了出来——哪些项目、哪些文件、什么版本、从哪拿、怎么装、装完怎么验。
   <b>照着做，一台新机器 3~6 小时可恢复出片能力</b>（大头是下权重）。</p>
 </div>
@@ -117,7 +117,7 @@
     <li><a href="#s2">目标机硬要求</a></li>
     <li><a href="#s3">两条恢复路径：整盘搬 / 从零重建</a></li>
     <li><a href="#s4">清单 · 软件（锁 commit）</a></li>
-    <li><a href="#s5">清单 · 权重（6 个 / 75 GB）</a></li>
+    <li><a href="#s5">清单 · 权重（6 个 / 71 GB）</a></li>
     <li><a href="#s6">清单 · 服务器侧脚本</a></li>
     <li><a href="#s7">清单 · 输入资产（不入库）</a></li>
     <li><a href="#s8">部署步骤（逐条命令）</a></li>
@@ -134,7 +134,7 @@
 <div class="grid">
   <div class="kv"><b>现行生成路线</b><span>一步直出</span><small>768×1344 原生全噪声去噪，不经 LTX 精修</small></div>
   <div class="kv"><b>单镜热态耗时</b><span>≈ 550 s / 镜 / 卡</span><small>4 步 Turbo + ck-attention；冷启首镜 600 s+</small></div>
-  <div class="kv"><b>权重总量</b><span>≈ 75 GB</span><small>6 个文件，文件名被工作流写死</small></div>
+  <div class="kv"><b>权重总量</b><span>≈ 71 GB</span><small>6 个文件，文件名被工作流写死</small></div>
   <div class="kv"><b>24 镜批处理</b><span>≈ 1.5 h</span><small>双卡各 12 镜，不含首镜冷启</small></div>
 </div>
 
@@ -189,7 +189,7 @@
   <tr><td>单卡显存</td><td><b>≥ 21 GB</b></td><td>40 GB</td><td>瓶颈是 50.2 GB 权重的前向计算分片，不是激活值 → 换 80G 卡不会更快</td></tr>
   <tr><td>卡数</td><td>≥ 1，推荐 2</td><td>2 张</td><td><b>双卡 = 吞吐翻倍，不是单镜提速</b>——一镜拆不到两卡上</td></tr>
   <tr><td>系统内存</td><td><b>≥ 100 GB</b></td><td>125 GB</td><td>空闲 ComfyUI 也常驻 ~57 GB，这是真瓶颈</td></tr>
-  <tr><td>磁盘</td><td><b>≥ 150 GB</b></td><td>148 GB（用掉 104）</td><td>权重 75 GB + 栈 8 GB + 输出若干</td></tr>
+  <tr><td>磁盘</td><td><b>≥ 150 GB</b></td><td>148 GB（用掉 104）</td><td>权重 71 GB + 栈 8 GB + 输出若干</td></tr>
   <tr><td>驱动</td><td><b>≥ 580</b></td><td>580.95.05 / CUDA 13.0</td><td>torch <code>cu130</code> 自带 CUDA 13 运行时，<b>系统不需要装 CUDA Toolkit</b></td></tr>
   <tr><td>操作系统</td><td>Ubuntu 22.04</td><td>22.04.2 LTS / 内核 5.15</td><td>脚本按 apt 写</td></tr>
   <tr><td>外网</td><td>能直连 HuggingFace</td><td>泰国机房直连 HF 35 MB/s</td><td>ModelScope 在该机房实测 9 B/s 等于不通；换机房需先 <code>curl -L</code> 测速</td></tr>
@@ -206,7 +206,7 @@
 <h2 id="s3">3 · 两条恢复路径</h2>
 
 <h3>路径 A · 旧机还在 → 整盘 rsync <span class="tag t-opt">首选，约 20 分钟</span></h3>
-<p>权重 75 GB，重下一遍要好几个小时。只要旧机器还活着，优先整盘搬。</p>
+<p>权重 71 GB，重下一遍要好几个小时。只要旧机器还活着，优先整盘搬。</p>
 <pre><code><span class="c"># 在新机上执行</span>
 rsync -avzP --info=progress2 root@旧机:/workspace/  /workspace/
 rsync -avzP root@旧机:/root/s2/ /root/s2/
@@ -225,7 +225,7 @@ bash deploy/bootstrap/02_build_stack.sh</code></pre>
 bash deploy/bootstrap/00_check_target.sh    <span class="c"># 体检，只读，不改任何东西</span>
 bash deploy/bootstrap/01_provision_os.sh    <span class="c"># apt 工具 / swap / BBR / 驱动核对</span>
 bash deploy/bootstrap/02_build_stack.sh     <span class="c"># venv + torch + ComfyUI + 3 节点</span>
-bash deploy/bootstrap/03_dl_weights.sh      <span class="c"># 75 GB 权重 ← 最慢，挂 tmux 睡觉</span>
+bash deploy/bootstrap/03_dl_weights.sh      <span class="c"># 71 GB 权重 ← 最慢，挂 tmux 睡觉</span>
 bash deploy/bootstrap/04_launch_comfy.sh both
 
 <span class="c"># 回到本机（macOS）</span>
@@ -289,7 +289,7 @@ bash deploy/bootstrap/verify.sh --run       <span class="c"># 端到端验收，
   </ul>
 </div>
 
-<h2 id="s5">5 · 清单 · 权重（6 个 / 约 75 GB）</h2>
+<h2 id="s5">5 · 清单 · 权重（6 个 / 约 71 GB）</h2>
 
 <table>
   <tr><th>#</th><th>落盘路径（相对 <code>ComfyUI/models/</code>）</th><th>大小</th><th>来源</th><th>用途</th></tr>
@@ -437,7 +437,7 @@ bash deploy/bootstrap/verify.sh --run       <span class="c"># 端到端验收，
 tmux new -s dl
 bash deploy/bootstrap/03_dl_weights.sh
 <span class="c"># Ctrl-b d 脱离，回来 tmux a -t dl</span></code></pre>
-<p>用 aria2c 8 线程从 HuggingFace 拉 6 个文件（约 75 GB）。
+<p>用 aria2c 8 线程从 HuggingFace 拉 6 个文件（约 71 GB）。
 每个文件下完会校验字节数 + 解析 safetensors 头部。
 幂等：已存在且大小正确的会跳过。</p>
 <div class="card info" style="margin-top:12px">

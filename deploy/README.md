@@ -4,6 +4,9 @@
 > 就能在一台全新的 GPU 服务器上把整条 MiniMax-H3 短剧生产线跑起来。
 >
 > 配套的详尽版：`docs/新服务器部署手册.html`（含背景、实测基准、血泪坑位）
+>
+> **`server-assets/` 的完整性已核对**：1413 个受管文件逐文件 md5 比对，
+> 0 漏拉 / 0 损坏，唯一 4 处差异是有意修复 → 见 **[`VERIFY_2026-09-19.md`](VERIFY_2026-09-19.md)**
 
 ---
 
@@ -57,7 +60,7 @@ GPU 服务器上存的是 **ComfyUI + 权重 + 生产脚本 + 输入资产**。
 | 显存 | **≥ 21 GB/卡**（基准 40 GB） | 瓶颈是 50.2 GB 权重的前向计算分片，不是激活值 |
 | 卡数 | **1 张即可**（现行形态）。2 张 = 吞吐 ×1.950，单镜不快 | 一镜拆不到两卡。**单卡请配合 `deploy/single-gpu/` 使用** |
 | 内存 | **单卡 ≥ 96 GB** / 双卡 ≥ 100 GB（基准 125 GB） | ★ 空闲 ComfyUI 常驻 ~57 GB **每个实例**，别选 64 GB 机型 |
-| 磁盘 | **≥ 150 GB**（旧机 148 GB 用掉 104 GB） | 权重 75 GB + ComfyUI/venv 8 GB + 输出 |
+| 磁盘 | **≥ 150 GB**（旧机 148 GB 用掉 104 GB） | 权重 71 GB + ComfyUI/venv 8 GB + 输出 |
 | 驱动 | **≥ 580**（基准 580.95.05） | torch cu130 自带 CUDA 13 运行时，系统不用装 CUDA Toolkit |
 | OS | Ubuntu 22.04（基准） | 脚本按 apt 写 |
 | 网络 | 能直连 HuggingFace | 旧机在泰国机房，ModelScope 实测 9 B/s 等于不通 |
@@ -71,7 +74,7 @@ GPU 服务器上存的是 **ComfyUI + 权重 + 生产脚本 + 输入资产**。
 
 ### 路径 A · 旧服务器还在 → 整盘 rsync（最快，20 分钟）
 
-权重占 75 GB，重下一遍要好几个小时。只要旧机器还活着，**优先整盘搬**：
+权重占 71 GB，重下一遍要好几个小时。只要旧机器还活着，**优先整盘搬**：
 
 ```bash
 # 在新机上执行（新机需能 ssh 到旧机，或反过来在新机拉）
@@ -95,7 +98,7 @@ mv /workspace/venv /workspace/venv.broken && bash deploy/bootstrap/02_build_stac
 bash deploy/bootstrap/00_check_target.sh     # 体检，只读
 bash deploy/bootstrap/01_provision_os.sh     # 系统层：apt / swap / BBR
 bash deploy/bootstrap/02_build_stack.sh      # venv + torch + ComfyUI + 3 节点
-bash deploy/bootstrap/03_dl_weights.sh       # 75 GB 权重（最慢的一步，可 tmux 挂着睡一觉）
+bash deploy/bootstrap/03_dl_weights.sh       # 71 GB 权重（最慢的一步，可 tmux 挂着睡一觉）
 bash deploy/bootstrap/04_launch_comfy.sh both
 
 # 回到本机（GitHub 上 clone 本仓库后）
@@ -128,7 +131,7 @@ bash deploy/bootstrap/verify.sh --run
 
 完整 120 个包的锁定版本：目标机上跑 `02_build_stack.sh` 会生成 `/workspace/pip-freeze-lock.txt`。
 
-### 3.2 权重（6 个，约 75 GB，**文件名不能改**）
+### 3.2 权重（6 个，约 71 GB，**文件名不能改**）
 
 | # | 落盘路径（相对 `ComfyUI/models/`） | 大小 | 来源 | 用途 |
 |---|---|---|---|---|
@@ -170,11 +173,31 @@ bash deploy/bootstrap/verify.sh --run
 | `inputs/dy_refs/` | 9 张角色/产品参考图（132 KB） | `LoadImage.image = "dy_refs/product_pouch.jpg"` |
 | **`inputs/dy_full_a/`** | **全量复刻 373 条原片逐镜音轨切片（32 MB）** | `"dy_full_a/dy1_s001.wav"` |
 | **`inputs/dy_full_ref/`** | **全量复刻 373 张原片关键帧（31 MB，已裁底部 10% 防带字幕）** | `"dy_full_ref/dy1_s001.jpg"` |
+| **`inputs/dy4_{ref,first,last,voice}/`** | **2026-09-19 试点 4 条单元的首尾帧 / 参考图 / 干声（各 4 个，共 2.1 MB）** | `"dy4_voice/dy4_u007_stomp.wav"`、`"dy4_ref\|dy4_first\|dy4_last/dy4_u007_stomp.jpg"` |
+| `inputs/dy_full_{first,last}{4,5}/`、`ref_v5/` | 参考帧抽检样本（26 张，5.3 MB），供新机复现清洗判据 | 不直接引用 |
 | `inputs/silent_15s.wav` | 15 秒静音垫（472 KB），纯审画面的轮次挂它 | `"silent_15s.wav"` |
+
+> ★ **`dy4_*` 是「正在用」的资产**：`videos/douyin_refs/2026-09-19/_remake/wf/wf_dy4_*.json`
+> 直接引用它们，缺了这 4 条试点单元在新机上一条都跑不起来。
 
 > 传到目标机的 `ComfyUI/input/` 下，**目录层级必须一致**（工作流用的是相对路径）。
 > 三部曲干声本机无副本（只在旧服务器上），已抢救到 `inputs/tts_dry/`，**这是唯一的备份，别丢**。
 > 需要重生成时用 `待生成_现代婚姻三部曲/_pipeline/tts_dry.py`。
+
+### 3.5 历史状态快照（`server-assets/state/`，★ 只留档，**不要推到新机**）
+
+旧机关停前抓下来的门禁与 worker 现场，用来回答「上次跑到哪了」：
+
+| 路径 | 内容 | 读出来的事实 |
+|---|---|---|
+| `state/dy_key/gates/` | 39 个 `.done` | 关键镜/骨架 39 个全部完成 |
+| `state/dy_key/gates_full/` | 12 个 `.done` | ★ **373 镜全量真实进度只有 12/373，其余 361 镜从未开始** |
+| `state/dy_key/gates_full/*.lock/` | `dy1_s009`、`dy1_s010` | ★ **lock 残留 → 这 2 镜会被永久静默跳过**，接手前先 `find gates* -maxdepth 1 -type d -name '*.lock' -exec rmdir {} \;` |
+| `state/trilogy/gates_one/` | 2 个 `.done` | 三部曲 24 镜只跑了 f1s01/f1s02 |
+| `state/dy_key/full_worker.sh` | 28 行 | 373 镜专用 worker；功能已被 `pipeline_worker.sh` 的 `WF_DIR`/`GATE_DIR` 覆盖 |
+
+> **为什么刻意不推**：新机上没有对应成片，把 `.done` 推过去会让这些镜被误判为「已完成」而永久跳过。
+> 要续跑就让它从干净状态重跑；要接着旧机进度，**必须先搬 `output/` 成片、再搬 gates**，顺序反了会丢镜。
 
 ---
 
@@ -344,13 +367,15 @@ bash deploy/bootstrap/verify.sh --run    # 加真出一镜（约 10 分钟，含
 │   │   ├── comfyui-minimax-h3-audio-T8/       e12d8af8  ← H3 业务节点
 │   │   ├── ComfyUI-KJNodes/                   b3ec064d
 │   │   └── ComfyUI-MiniMaxH3-TeaCache/        4cbb50d6  ← 装了不用
-│   ├── models/{diffusion_models,text_encoders/minimax_h3,vae,loras}/   ← 75 GB / 6 个文件
+│   ├── models/{diffusion_models,text_encoders/minimax_h3,vae,loras}/   ← 71 GB / 6 个文件
 │   ├── input/                  ← 输入资产
 │   │   ├── tts_dry/trilogy/    (24)  三部曲干声
 │   │   ├── dy_voice/           (31)  抖音关键镜干声
 │   │   ├── dy_refs/            ( 9)  角色/产品参考图
 │   │   ├── dy_full_a/          (373) 全量复刻·原片音轨切片
-│   │   ├── dy_full_ref/        (373) 全量复刻·原片关键帧
+│   │   ├── dy_full_ref/        (373) 全量复刻·原片关键帧  ★ 现行版（_v3 是历史迭代，别用）
+│   │   ├── dy4_{first,last,ref,voice}/ (各 4) 2026-09-19 试点首尾帧/参考/干声
+│   │   ├── dy_full_{first,last}{4,5}/ · dy_full_ref_v5/  参考帧抽检样本
 │   │   └── silent_15s.wav            静音垫
 │   └── output/{dy_key,dy_skel,dy_full,MiniMaxH3/trilogy_one}/
 ├── venv/                       # python 3.10.12 · torch 2.14.0+cu130

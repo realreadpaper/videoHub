@@ -202,7 +202,7 @@
   <tr><td>GPU</td><td>1× A100-PCIE-40GB<br><span style="color:var(--ink3)">（SXM4-40GB 也可以）</span></td><td>都是 SM80，兼容性完全一致；SXM4 略快一点</td></tr>
   <tr><td>显存</td><td>40 GB</td><td>基准就是 40 GB，别选更小的</td></tr>
   <tr><td><b>内存</b></td><td><b>≥ 96 GB（推荐 128 GB）</b></td><td><b>★ 最容易踩的坑，见下</b></td></tr>
-  <tr><td>磁盘</td><td>≥ 150 GB</td><td>权重 75 GB + ComfyUI/venv 8 GB + 长跑输出</td></tr>
+  <tr><td>磁盘</td><td>≥ 150 GB</td><td>权重 71 GB + ComfyUI/venv 8 GB + 长跑输出</td></tr>
   <tr><td>驱动</td><td>≥ 580（基准 580.95.05）</td><td>torch cu130 自带 CUDA 13 运行时，系统不用装 CUDA Toolkit</td></tr>
   <tr><td>OS</td><td>Ubuntu 22.04</td><td>脚本按 apt 写</td></tr>
   <tr><td>网络</td><td>能直连 HuggingFace</td><td>ModelScope 在境外机房等于不通</td></tr>
@@ -234,7 +234,7 @@
 bash deploy/bootstrap/00_check_target.sh     <span class="c"># 体检：会判定【单卡模式】+ 校验 96 GB 内存线</span>
 bash deploy/bootstrap/01_provision_os.sh     <span class="c"># apt / 8 GB swap / BBR</span>
 bash deploy/bootstrap/02_build_stack.sh      <span class="c"># venv + torch + ComfyUI v0.36.0 + 3 个节点</span>
-bash deploy/bootstrap/03_dl_weights.sh       <span class="c"># 75 GB 权重（最慢一步，挂着睡一觉）</span>
+bash deploy/bootstrap/03_dl_weights.sh       <span class="c"># 71 GB 权重（最慢一步，挂着睡一觉）</span>
 bash deploy/bootstrap/04_launch_comfy.sh single   <span class="c"># ★ 差异 1</span>
 
 <span class="c"># 本机（macOS）—— 推资产，05 会连单卡脚本一起推过去</span>

@@ -125,7 +125,7 @@ Ubuntu 22.04，华为云泰国机房），其上跑 ComfyUI v0.36.0 + MiniMax-H3
 bash deploy/bootstrap/00_check_target.sh    # 体检，只读（会自动判定单卡/双卡模式）
 bash deploy/bootstrap/01_provision_os.sh    # apt / swap / BBR / 驱动核对
 bash deploy/bootstrap/02_build_stack.sh     # venv + torch cu130 + ComfyUI + 3 节点
-bash deploy/bootstrap/03_dl_weights.sh      # 75 GB 权重（最慢，挂 tmux）
+bash deploy/bootstrap/03_dl_weights.sh      # 71 GB 权重（最慢，挂 tmux）
 bash deploy/bootstrap/04_launch_comfy.sh single   # 单卡用 single；双卡用 both
 bash deploy/bootstrap/verify.sh --run       # 端到端验收，真出一镜
 

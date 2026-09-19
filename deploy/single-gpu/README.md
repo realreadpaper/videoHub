@@ -31,7 +31,7 @@
 | GPU | 1× A100-PCIE-40GB（或 SXM4-40GB） | 都是 SM80，兼容性一致；SXM4 略快 |
 | 显存 | 40 GB | 基准就是 40 GB，别选更小的 |
 | **内存** | **≥ 96 GB**（推荐 128 GB） | ★ **最容易踩的坑**，见下 |
-| 磁盘 | ≥ 150 GB | 权重 75 GB + ComfyUI/venv 8 GB + 长跑的成片输出 |
+| 磁盘 | ≥ 150 GB | 权重 71 GB + ComfyUI/venv 8 GB + 长跑的成片输出 |
 | 驱动 | ≥ 580 | torch cu130 自带 CUDA 13 运行时 |
 | OS | Ubuntu 22.04 | 脚本按 apt 写 |
 

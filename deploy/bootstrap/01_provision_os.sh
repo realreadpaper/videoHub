@@ -80,6 +80,6 @@ cat <<'EOM'
 系统层完成。下一步：
   1) 把仓库里的 deploy/ 目录拷到目标机（或直接在目标机 clone 仓库）
   2) bash 02_build_stack.sh        # venv + torch + ComfyUI + 自定义节点
-  3) bash 03_dl_weights.sh         # 下载 6 个权重（约 75 GB）
+  3) bash 03_dl_weights.sh         # 下载 6 个权重（约 71 GB）
   4) bash 04_launch_comfy.sh both  # 起双实例
 EOM

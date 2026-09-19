@@ -37,6 +37,7 @@ echo
 echo "=== 建目录 ==="
 ssh "$HOST" 'mkdir -p /root/s2 /workspace/{trilogy,dy_key,dl,logs} \
   /workspace/ComfyUI/input/{tts_dry/trilogy,dy_voice,dy_refs} \
+  /workspace/ComfyUI/input/{dy4_first,dy4_last,dy4_ref,dy4_voice} \
   /workspace/ComfyUI/output/{dy_key,dy_skel,MiniMaxH3/trilogy_one}'
 
 echo
@@ -83,6 +84,32 @@ done
 [ -f "$SA/inputs/silent_15s.wav" ] && run "$SA/inputs/silent_15s.wav $HOST:/workspace/ComfyUI/input/"
 
 echo
+echo "=== 5b/7 2026-09-19 试点资产（dy4/dy5 四条单元）==="
+echo "    ★ 被 videos/douyin_refs/2026-09-19/_remake/wf/wf_dy4_*.json 引用，缺了工作流就跑不了"
+echo "      LoadAudio='dy4_voice/dy4_u007_stomp.wav'"
+echo "      LoadImage='dy4_ref|dy4_first|dy4_last/dy4_u007_stomp.jpg'"
+for d in dy4_first dy4_last dy4_ref dy4_voice; do
+  [ -d "$SA/inputs/$d" ] || { echo "    [warn] 缺 $SA/inputs/$d（2026-09-19 试点必需）"; continue; }
+  run "$SA/inputs/$d/          $HOST:/workspace/ComfyUI/input/$d/"
+done
+
+echo
+echo "=== 5c/7 参考帧抽检样本（小体积，用于新机复现清洗判据）==="
+for d in dy_full_first4 dy_full_first5 dy_full_last4 dy_full_last5 dy_full_ref_v5; do
+  [ -d "$SA/inputs/$d" ] || continue
+  run "$SA/inputs/$d/          $HOST:/workspace/ComfyUI/input/$d/"
+done
+echo "    注：dy_full_first_v3 / dy_full_ref_v3（各 373 张）是历史迭代版本，"
+echo "        现行 wf_full 引用的是 dy_full_ref（已随 4/7 推送），**不要**推 v3 覆盖。"
+
+echo
+echo "=== 5d/7 历史状态快照（★ 只留档，不推送）==="
+echo "    deploy/server-assets/state/ 是旧机的 gates 门禁与 full_worker.sh 快照："
+echo "      gates(39 done) · gates_full(12/373 done，dy1_s009/s010 有 lock 残留) · gates_one(2/24 done)"
+echo "    ★ 刻意不推：新机上没有对应成片，推过去会让这些镜被误判为『已完成』而永久跳过。"
+echo "      要续跑就让它从干净状态重跑；要接着旧机进度，必须先搬 output/ 成片再搬 gates。"
+
+echo
 echo "=== 6/7 环境重建脚本留档 ==="
 run "$SA/dl/                    $HOST:/workspace/dl/"
 run "$SA/install_sage.sh $SA/install_sage2.sh $HOST:/workspace/"
@@ -102,6 +129,7 @@ ssh "$HOST" 'echo "  wf_one:      $(ls /workspace/trilogy/wf_one | wc -l) 个"; 
              echo "  dy_refs:     $(ls /workspace/ComfyUI/input/dy_refs | wc -l) 个"; \
              echo "  dy_full_a:   $(ls /workspace/ComfyUI/input/dy_full_a 2>/dev/null | wc -l) 条音轨"; \
              echo "  dy_full_ref: $(ls /workspace/ComfyUI/input/dy_full_ref 2>/dev/null | wc -l) 张参考帧"; \
+             echo "  dy4_*:       $(for d in dy4_first dy4_last dy4_ref dy4_voice; do echo -n \"$(ls /workspace/ComfyUI/input/$d 2>/dev/null | wc -l) \"; done)（各应 4）"; \
              echo "  提交器:      $(test -f /root/s2/submit_api.py && echo OK || echo MISSING)"'
 echo
 echo "完成。目标机执行（按你的卡数选一条）："
