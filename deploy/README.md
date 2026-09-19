@@ -41,7 +41,7 @@ GPU 服务器上存的是 **ComfyUI + 权重 + 生产脚本 + 输入资产**。
 
 > ### ★★ 卡数：现行形态是「只租 1 张 A100」
 >
-> 单卡的**部署步骤与本文件完全一致**（`bootstrap/` 的 7 个脚本与卡数无关），
+> 单卡的**部署步骤与本文件完全一致**（`bootstrap/` 的 9 个脚本与卡数无关），
 > 但 **启动方式 / 跑批脚本 / 内存门槛 / 时间账** 都不同 ——
 > 单卡请配套读 **`deploy/single-gpu/README.md`** 与 **`docs/单卡A100部署手册.html`**。
 >
@@ -96,7 +96,9 @@ mv /workspace/venv /workspace/venv.broken && bash deploy/bootstrap/02_build_stac
 ```bash
 # 新机上
 bash deploy/bootstrap/00_check_target.sh     # 体检，只读
-bash deploy/bootstrap/01_provision_os.sh     # 系统层：apt / swap / BBR
+bash deploy/bootstrap/01_provision_os.sh     # 系统层：apt / swap / 内核网络
+bash deploy/bootstrap/01b_net_tune.sh        # ★ 网络调优 + 国内源（BBR/hf-mirror/apt/pip）
+bash deploy/bootstrap/net_diag.sh            # ★ 慢的时候用它定位（只读，不改配置）
 bash deploy/bootstrap/02_build_stack.sh      # venv + torch + ComfyUI + 3 节点
 bash deploy/bootstrap/03_dl_weights.sh       # 71 GB 权重（最慢的一步，可 tmux 挂着睡一觉）
 bash deploy/bootstrap/04_launch_comfy.sh both
@@ -106,6 +108,18 @@ bash deploy/bootstrap/05_push_assets.sh <新机别名>
 # 目标机上
 bash deploy/bootstrap/verify.sh --run
 ```
+
+> ★ **`01b_net_tune.sh` 必须跑，别跳过。** 它做的三件事直接决定部署耗时：
+> ① 开 BBR + 32 MB 缓冲（旧机实测把回传从 0.11 → 6 MB/s；新机实测把
+> hf-mirror 单流从 7.79 → **39.96 MB/s**，71 GB 权重的下载从 ~2.5 小时压到 **~25 分钟**）；
+> ② 把 apt/pip 指向国内镜像、把 HF 指向 `hf-mirror.com`（HF 官方在国内**不通**）；
+> ③ 装 `aria2c`（`-x16` 多连接实测 **51 MB/s**，是拉权重的正确工具）。
+>
+> ⚠ **GitHub 是个例外，BBR 救不了它。** 实测直连 `codeload.github.com` 只有 **0.045 MB/s**
+> （跨境乱序，`rcv_ooopack:140`）。而 BBR 只优化**发包**方向，下载时本机是接收方，
+> 拥塞控制由对方做 —— 所以 **ComfyUI 源码与 3 个 custom_nodes 不要在新机上直接 clone**，
+> 走中转：**本机经 Clash 代理拉（9.66 MB/s）再 `scp` 上去（6.25 MB/s）**，
+> 或从仍在线的旧机直接 `scp`。详见 `01b_net_tune.sh` 结尾的通道对照表。
 
 ---
 
