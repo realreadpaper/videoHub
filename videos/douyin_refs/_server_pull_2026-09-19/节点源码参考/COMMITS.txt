@@ -1,0 +1,5 @@
+ComfyUI-KJNodes b3ec064dde7d122b333660918e1200e928e67ff1
+comfyui-minimax-h3-audio-T8 e12d8af8ac85540da9895cb629836a4947e221ca
+ComfyUI-MiniMaxH3-TeaCache 4cbb50d69c73a19a5d6ec42c5aec1989d5a04b6f
+__pycache__ ee71d5c4993f29086b27fde1629a945ae48425bf
+ee71d5c4993f29086b27fde1629a945ae48425bf

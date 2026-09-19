@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MiniMax-H3 产线实测成本模型与优化清单</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d21; --ink2:#4a5056; --ink3:#7b8288;
+    --line:#e3e6ea; --accent:#1f6feb; --accent-soft:#eaf1fe;
+    --warn:#b45309; --warn-soft:#fff7e6; --danger:#b91c1c; --danger-soft:#fef2f2;
+    --ok:#15803d; --ok-soft:#f0fdf4; --code:#f2f4f7; --purple:#6d28d9; --purple-soft:#f5f3ff;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 120px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:34px}
+  h1{font-size:29px;line-height:1.3;margin:0 0 10px;letter-spacing:-.3px}
+  .sub{color:var(--ink2);font-size:14.5px}
+  .meta{margin-top:14px;font-size:13px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 20px}
+  h2{font-size:21px;margin:56px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16.5px;margin:32px 0 10px;color:var(--ink)}
+  h4{font-size:14.5px;margin:22px 0 8px;color:var(--ink2)}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  code{font-family:var(--mono);font-size:12.8px;background:var(--code);
+    padding:2px 6px;border-radius:4px;color:#0b3a80;white-space:nowrap}
+  pre{background:#1c2128;color:#d8dee9;padding:16px 18px;border-radius:9px;overflow-x:auto;
+    font-family:var(--mono);font-size:12.6px;line-height:1.72;margin:14px 0}
+  pre code{background:none;color:inherit;padding:0;font-size:inherit;white-space:pre}
+  pre .c{color:#7d8590}
+  pre .k{color:#ff7b72}
+  pre .s{color:#a5d6ff}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.6px;
+    background:var(--card);border-radius:9px;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+  th{background:#eef1f5;text-align:left;padding:10px 12px;font-weight:600;font-size:13px;
+    border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+  tr:last-child td{border-bottom:none}
+  td code{white-space:normal;word-break:break-all}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:18px 20px;margin:16px 0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card.warn{background:var(--warn-soft);border-color:#f5d79a}
+  .card.danger{background:var(--danger-soft);border-color:#f3bcbc}
+  .card.ok{background:var(--ok-soft);border-color:#b6e3c4}
+  .card.info{background:var(--accent-soft);border-color:#c3d8fb}
+  .card.key{background:var(--purple-soft);border-color:#ddd6fe}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:20px;
+    vertical-align:middle;margin-right:6px;letter-spacing:.2px;white-space:nowrap}
+  .t-now{background:#dcfce7;color:#166534}
+  .t-dead{background:#fee2e2;color:#991b1b}
+  .t-opt{background:#e0e7ff;color:#3730a3}
+  .t-must{background:#fef3c7;color:#92400e}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+  .kv{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .kv b{display:block;font-size:12.5px;color:var(--ink3);font-weight:600;margin-bottom:4px}
+  .kv span{font-size:22px;font-weight:700;letter-spacing:-.5px}
+  .kv small{display:block;color:var(--ink3);font-size:12px;margin-top:3px}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px 22px;margin:26px 0 10px}
+  .toc b{font-size:13px;color:var(--ink3);letter-spacing:.4px}
+  .toc ol{margin:10px 0 0;columns:2;column-gap:32px;font-size:13.8px}
+  .toc a{color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  hr{border:none;border-top:1px solid var(--line);margin:36px 0}
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink3);line-height:1.9}
+  .yes{color:var(--ok);font-weight:700}
+  .no{color:var(--danger);font-weight:700}
+  figure{margin:22px 0;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:8px}
+  figcaption{font-size:12.5px;color:var(--ink3);text-align:center;padding:6px 10px 8px}
+  svg{display:block;width:100%;height:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>MiniMax-H3 产线实测成本模型与优化清单</h1>
+  <div class="sub">停机前最后一次全量回传数据的实测结论 —— 一个 124 帧「地板」吃掉了近一半算力</div>
+  <div class="meta">
+    <span>分析日期：2026-09-19</span>
+    <span>数据来源：<code>kehu</code> 2×A100-PCIE-40G（华为云泰国）</span>
+    <span>依据：2794 个回传文件 · 36 个 worker 日志 · 145 条逐镜计时 · 节点源码</span>
+  </div>
+</header>
+
+<div class="card key">
+  <b>一句话结论</b>
+  <p style="margin:6px 0 0">
+    现行工作流有一个硬编码的 <strong>124 帧（5.167 s）渲染地板</strong>：任何短于它的镜头都会被补齐到 124 帧再渲染，成片裁回请求长度。
+    373 镜全量线里有 <strong>348 镜（93.3 %）落在地板以下</strong>，导致<strong>付费帧数是实际需要帧数的 1.94 倍</strong>。
+    因此 373 镜的真实 GPU 机时是 <strong>≈14 h</strong>（双卡挂钟 ≈7 h / 单卡 ≈14 h），
+    而不是部署手册里写的 6.57 h —— <strong>低估约 2.1 倍</strong>。
+  </p>
+</div>
+
+<div class="toc">
+  <b>目录</b>
+  <ol>
+    <li><a href="#s1">124 帧地板：机制与证据</a></li>
+    <li><a href="#s2">对 373 镜的实际代价</a></li>
+    <li><a href="#s3">三条成本曲线的实测斜率</a></li>
+    <li><a href="#s4">生产进度与两个「吞镜」锁</a></li>
+    <li><a href="#s5">失败镜与度量陷阱</a></li>
+    <li><a href="#s6">优化清单</a></li>
+    <li><a href="#s7">归档索引</a></li>
+  </ol>
+</div>
+
+<h2 id="s1">一、124 帧地板：机制与证据</h2>
+
+<p>工作流里的音频窗口节点 <code>MiniMaxH3AudioWindowT8</code> 带一个参数 <code>ensure_minimum_context</code>（本工程全部批次均为 <code>true</code>）。
+它在 <code>custom_nodes/comfyui-minimax-h3-audio-T8/h3_t8/timing.py</code> 里的实现只有三行关键代码：</p>
+
+<pre><code>required = warmup_seconds + scene_duration_seconds + cooldown_seconds
+<span class="k">if</span> ensure_minimum_context:
+    required = max(required, MIN_TRAINED_FRAMES / FPS)   <span class="c"># MIN_TRAINED_FRAMES = 124, FPS = 24</span></code></pre>
+
+<p>也就是说：<strong>请求时长被抬到 124 帧（= 5.167 s）之后才送去采样</strong>，渲染完再由下游的
+<code>MiniMaxH3OutputTrimT8</code> 裁回用户请求的长度。多渲的那部分算力直接丢掉。</p>
+
+<table>
+  <tr><th>常量（<code>h3_t8/core.py</code>）</th><th>值</th><th>含义</th></tr>
+  <tr><td><code>FPS</code></td><td>24</td><td>帧率</td></tr>
+  <tr><td><code>MIN_TRAINED_FRAMES</code></td><td><strong>124</strong></td><td>地板 —— 低于此长度按此长度渲染</td></tr>
+  <tr><td><code>MAX_TRAINED_FRAMES</code></td><td><strong>362</strong></td><td>上限</td></tr>
+  <tr><td>帧栅格 <code>align_frame_count()</code></td><td><strong>17n + 5</strong></td><td>向上对齐（124 = 17×7+5，362 = 17×21+5）</td></tr>
+</table>
+
+<h3>直接证据：帧数变 4 倍，耗时一动不动</h3>
+
+<p><code>dy_full</code> 批次的 12 个镜，请求帧数从 22 到 90 横跨 4 倍，实测耗时却<strong>全部是 110.1 s</strong>：</p>
+
+<table>
+  <tr><th>镜号</th><th>请求帧</th><th>实渲帧</th><th>参考图</th><th>实测</th></tr>
+  <tr><td><code>dy2_s001</code></td><td>22</td><td>124</td><td>1</td><td>110.1 s</td></tr>
+  <tr><td><code>dy1_s001</code> / <code>dy1_s002</code> / <code>dy1_s006</code></td><td>39</td><td>124</td><td>1</td><td>110.1 s</td></tr>
+  <tr><td><code>dy1_s003</code> / <code>s004</code> / <code>s005</code> / <code>s008</code> / <code>dy2_s118</code> / <code>dy1_s070</code></td><td>56</td><td>124</td><td>1</td><td>110.1 s</td></tr>
+  <tr><td><code>dy1_s007</code></td><td>73</td><td>124</td><td>1</td><td>120.1 s</td></tr>
+  <tr><td><code>dy3_s001</code></td><td>90</td><td>124</td><td>1</td><td>110.1 s</td></tr>
+</table>
+
+<p>请求 22 帧（0.92 s 成片）和请求 90 帧（3.75 s 成片）花掉同样的时间 —— 这就是地板存在的铁证。</p>
+
+<figure>
+<svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="请求帧数与实测耗时关系图">
+  <rect x="0" y="0" width="680" height="300" fill="#ffffff"/>
+  <!-- 轴 -->
+  <line x1="70" y1="250" x2="640" y2="250" stroke="#c9ced6" stroke-width="1"/>
+  <line x1="70" y1="250" x2="70" y2="30" stroke="#c9ced6" stroke-width="1"/>
+  <text x="355" y="285" font-size="12" fill="#7b8288" text-anchor="middle" font-family="-apple-system,PingFang SC,sans-serif">请求帧数</text>
+  <text x="24" y="140" font-size="12" fill="#7b8288" text-anchor="middle" transform="rotate(-90 24 140)" font-family="-apple-system,PingFang SC,sans-serif">实测耗时 s</text>
+  <!-- 网格 -->
+  <line x1="70" y1="200" x2="640" y2="200" stroke="#eef1f5"/>
+  <line x1="70" y1="150" x2="640" y2="150" stroke="#eef1f5"/>
+  <line x1="70" y1="100" x2="640" y2="100" stroke="#eef1f5"/>
+  <line x1="70" y1="50" x2="640" y2="50" stroke="#eef1f5"/>
+  <text x="62" y="254" font-size="11" fill="#7b8288" text-anchor="end" font-family="-apple-system,sans-serif">0</text>
+  <text x="62" y="154" font-size="11" fill="#7b8288" text-anchor="end" font-family="-apple-system,sans-serif">300</text>
+  <text x="62" y="104" font-size="11" fill="#7b8288" text-anchor="end" font-family="-apple-system,sans-serif">450</text>
+  <text x="62" y="54" font-size="11" fill="#7b8288" text-anchor="end" font-family="-apple-system,sans-serif">600</text>
+  <!-- 124 帧地板竖线 -->
+  <line x1="176" y1="30" x2="176" y2="250" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="182" y="44" font-size="11.5" fill="#6d28d9" font-family="-apple-system,PingFang SC,sans-serif">地板 124 帧 = 5.167 s</text>
+  <!-- 实测平台（110 s 水平段） -->
+  <rect x="70" y="196" width="106" height="8" fill="#1f6feb" opacity="0.18"/>
+  <circle cx="82" cy="200" r="4.5" fill="#1f6feb"/>
+  <circle cx="176" cy="200" r="4.5" fill="#1f6feb"/>
+  <text x="118" y="188" font-size="11.5" fill="#1f6feb" text-anchor="middle" font-family="-apple-system,PingFang SC,sans-serif">平台段：22→90 帧全部 110.1 s</text>
+  <!-- 骨架镜点 -->
+  <circle cx="600" cy="66" r="5" fill="#b45309"/>
+  <text x="592" y="58" font-size="11.5" fill="#b45309" text-anchor="end" font-family="-apple-system,PingFang SC,sans-serif">362 帧（骨架镜）560.6 s</text>
+  <!-- 趋势虚线 -->
+  <line x1="176" y1="200" x2="600" y2="66" stroke="#6d28d9" stroke-width="1.4" stroke-dasharray="4 4" opacity="0.55"/>
+  <text x="400" y="120" font-size="11.5" fill="#6d28d9" font-family="-apple-system,PingFang SC,sans-serif">地板以上：帧数才真正计价</text>
+</svg>
+  <figcaption>请求帧数 vs 实测耗时。地板以下是一条水平线（左），跨过 124 帧后成本才随帧数上升（右）。</figcaption>
+</figure>
+
+<h2 id="s2">二、对 373 镜的实际代价</h2>
+
+<p>把工作流里每一个镜头的 <code>scene_duration_seconds</code> 代入 <code>make_timing_plan()</code>，得到补齐后的真实渲染帧数：</p>
+
+<div class="grid">
+  <div class="kv"><b>请求帧数（中位 / 均值）</b><span>56 / 65.3</span><small>合计 24373 帧</small></div>
+  <div class="kv"><b>实渲帧数（中位 / 均值）</b><span>124 / 126.6</span><small>合计 47204 帧</small></div>
+  <div class="kv"><b>落在地板以下的镜</b><span>348 / 373</span><small>占 93.3 %</small></div>
+  <div class="kv"><b>付费帧数 ÷ 请求帧数</b><span>1.94 ×</span><small>近一半算力是补齐后裁掉的</small></div>
+</div>
+
+<p>实渲帧数分布极其集中：</p>
+
+<table>
+  <tr><th>实渲帧数</th><th>镜数</th><th>说明</th></tr>
+  <tr><td><strong>124</strong></td><td><strong>348</strong></td><td>全部被地板抬起</td></tr>
+  <tr><td>141</td><td>14</td><td>请求 5.83 s 以上</td></tr>
+  <tr><td>158</td><td>6</td><td></td></tr>
+  <tr><td>192 / 209 / 345</td><td>3 / 1 / 1</td><td>长镜</td></tr>
+</table>
+
+<p>用工程既有的标定公式 <code>f(N) = 0.812N + 0.002129N² − 1.3</code>（4 步 / 1 张参考图 / 整镜总时长）汇总：</p>
+
+<table>
+  <tr><th>口径</th><th>373 镜总 GPU 机时</th><th>双卡挂钟</th><th>单卡挂钟</th></tr>
+  <tr><td>按<strong>请求帧数</strong>（旧口径）</td><td>23646 s = <strong>6.57 h</strong></td><td>3.4 h</td><td>6 h 34 m</td></tr>
+  <tr><td>按<strong>实渲帧数</strong>（真实）</td><td>50730 s = <strong>14.09 h</strong></td><td><strong>7.0 h</strong></td><td><strong>14.1 h</strong></td></tr>
+  <tr><td>虚增倍数</td><td colspan="3"><strong>× 2.15</strong></td></tr>
+</table>
+
+<div class="card danger">
+  <span class="tag t-must">要改文档</span>
+  <b>部署手册里的「373 镜 双卡 3.37 h / 单卡 6 h 34 m」低估了约 2.1 倍</b>
+  <p style="margin:6px 0 0">根因是当时按<em>请求</em>帧数汇总，没有把 <code>ensure_minimum_context</code> 的补齐算进去。
+  排期、成本报价、以及「单卡到底要租多久」的判断，都应改按 <strong>14 h 量级</strong>。
+  （该公式在小帧数段还偏高 20 %，见 §5，所以真实值可能落在 12–14 h 之间 —— 但量级肯定是 10 h 以上。）</p>
+</div>
+
+<h2 id="s3">三、三条成本曲线的实测斜率</h2>
+
+<h3>3.1 帧数 —— 地板以下是平的</h3>
+
+<table>
+  <tr><th>请求帧</th><th>实渲帧</th><th>实测</th><th>每镜秒单价</th></tr>
+  <tr><td>22 / 39 / 56 / 90</td><td>124</td><td>110.1 s</td><td>——</td></tr>
+  <tr><td>39（= 1.625 s 成片）</td><td>124</td><td>110.1 s</td><td><strong>67.7 s / 镜秒</strong></td></tr>
+  <tr><td>354（= 14.75 s 骨架镜）</td><td>362</td><td>560.6 s（n=33）</td><td><strong>38.5 s / 镜秒</strong></td></tr>
+</table>
+
+<div class="card warn">
+  <span class="tag t-dead">纠正旧结论</span>
+  <b>「短镜每秒更便宜」在现行产线上不成立</b>
+  <p style="margin:6px 0 0">因为有地板，39 帧的短镜每镜秒要付 <strong>67.7 s</strong>，而 345 帧的长镜只要 <strong>38.5 s</strong> —— 
+  <strong>长镜反而更划算</strong>。切短<em>不会</em>省时间，切到 124 帧以下再切多短都是同一个价。</p>
+</div>
+
+<h3>3.2 参考图数量 —— 每多一张约 +20 s</h3>
+
+<table>
+  <tr><th>参考图张数</th><th>实测（124 帧 / 4 步）</th><th>相对 1 张</th><th>用到的批次</th></tr>
+  <tr><td><strong>1 张</strong></td><td><strong>110.1 s</strong></td><td>—</td><td><code>wf_full</code> 全量线</td></tr>
+  <tr><td>2 张</td><td>130.2 s</td><td class="no">+18 %</td><td><code>wf_v3full</code> / <code>wf_pv2</code> / <code>wf_pv3</code> / <code>wf_v2B</code> / <code>wf_v2C</code></td></tr>
+  <tr><td>3 张</td><td>145.0 s</td><td class="no">+32 %</td><td><code>wf_six</code> / <code>wf_six2</code> / <code>wf_six3</code> / <code>wf_Dtest</code></td></tr>
+</table>
+
+<p>这组对比同时解释了一个此前的疑点：为什么同样「被补齐到 124 帧」，各批次耗时却是 110 / 130 / 145 三档 —— 
+<strong>差异来自参考图数量，不是帧数</strong>。全量线固定用 1 张，已经是最省的选择。</p>
+
+<h3>3.3 步数 —— 严格线性，21.3 s/步</h3>
+
+<p>同族工作流（请求 39 帧 → 实渲 124 帧）实测：</p>
+
+<table>
+  <tr><th>步数</th><th>实测</th><th>说明</th></tr>
+  <tr><td>4</td><td>140.1 s</td><td></td></tr>
+  <tr><td>6</td><td>180.0 s</td><td>日志写的是 410.5 s，其中 <strong>230 s 是排队等待</strong>（见 §5.2）</td></tr>
+  <tr><td>8</td><td>230.3 s</td><td></td></tr>
+  <tr><td>12</td><td>310.3 s</td><td></td></tr>
+</table>
+
+<p>最小二乘：<strong>T ≈ 55 + 21.3 × steps</strong>（124 帧 / 2 张参考图基准）。四个点几乎完美落在一条直线上。</p>
+
+<div class="card info">
+  <span class="tag t-opt">结论不变，理由要改</span>
+  <b>「保持 4 步」依然正确，但原因不是「加步数不涨时间」</b>
+  <p style="margin:6px 0 0">此前「4/6/8/12 步耗时非单调」的印象，是<em>排队等待</em>污染出来的假象（12 步其实单调递增）。
+  正确的说法是：<strong>每加一步线性多花 21.3 s，而质量在 4 步之后不再提升（SSIM 非单调）</strong> —— 
+  所以 4 步是「性价比拐点」，不是「免费午餐」。</p>
+</div>
+
+<h2 id="s4">四、生产进度与两个「吞镜」锁</h2>
+
+<p>停机时的门禁快照：</p>
+
+<table>
+  <tr><th>产线</th><th>门禁目录</th><th>状态</th></tr>
+  <tr><td>关键技术镜</td><td><code>dy_key/gates/</code></td><td class="yes">39 / 39 全部完成</td></tr>
+  <tr><td>373 镜全量线</td><td><code>dy_key/gates_full/</code></td><td class="no">12 / 373（另有 2 个残留锁）</td></tr>
+  <tr><td>三部曲</td><td><code>trilogy/gates_one/</code></td><td>2 个（试拍阶段）</td></tr>
+</table>
+
+<div class="card danger">
+  <span class="tag t-must">接手前必做</span>
+  <b>两个 <code>.lock</code> 残留会让 <code>dy1_s009</code> / <code>dy1_s010</code> 被永久静默跳过</b>
+  <p style="margin:6px 0 10px">这两镜此前生成失败（见 §5.1），worker 留下锁目录未清。
+  按 <code>pipeline_worker.sh</code> 的门禁判断，<strong>带锁的镜会被跳过且不报任何提示</strong> —— 成片会缺这两个镜头而无人察觉。</p>
+<pre style="margin:0"><code><span class="c"># 接手任何一台机器的旧工作目录时，先执行：</span>
+find gates* -maxdepth 1 -type d -name '*.lock' -exec rmdir {} \;
+<span class="c"># 并核对：提交镜数 == .done 数 + .fail 数，差额就是被静默吞掉的</span></code></pre>
+</div>
+
+<h2 id="s5">五、失败镜与度量陷阱</h2>
+
+<h3>5.1 失败明细（6 / 145 条计时记录 = 4.1 %）</h3>
+
+<table>
+  <tr><th>日志</th><th>镜号</th><th>耗时</th><th>失败节点</th></tr>
+  <tr><td><code>dy_key/FA.log</code></td><td><code>dy1_s010</code></td><td>70.1 s</td><td><code>SamplerCustomAdvanced</code> (node_id=10)</td></tr>
+  <tr><td><code>dy_key/FB.log</code></td><td><code>dy1_s009</code></td><td>90.1 s</td><td><code>SamplerCustomAdvanced</code></td></tr>
+  <tr><td><code>dy_key/VA.log</code></td><td><code>dy1_s003</code></td><td>90.1 s</td><td><code>SamplerCustomAdvanced</code></td></tr>
+  <tr><td><code>dy_key/VB.log</code></td><td><code>dy1_s004</code></td><td>90.1 s</td><td><code>SamplerCustomAdvanced</code></td></tr>
+  <tr><td><code>dy_key/SIXB.log</code></td><td><code>dy2_s118</code></td><td>50.1 s</td><td><code>SamplerCustomAdvanced</code></td></tr>
+  <tr><td><code>trilogy/test_f1s01.log</code></td><td><code>f1_s01</code></td><td>590.7 s</td><td>（三部曲试拍）</td></tr>
+</table>
+
+<p>失败集中在少数镜号（<code>dy1_s003</code> / <code>s004</code> / <code>s009</code> / <code>s010</code>），且<strong>全部卡在同一个采样器节点</strong>。
+这更像是与特定参考帧 / 音频切片相关的<em>确定性</em>失败，而不是随机显存不足 —— 值得单独复现定位。</p>
+
+<h3>5.2 「用时」含排队，不是纯 GPU 时间</h3>
+
+<p>worker 日志打的 <code>[✓] 用时 XXX s</code> 是<strong>提交 → 完成</strong>的挂钟时间，包含在 ComfyUI 队列里等待的时间。
+直接证据来自 <code>dy_key/S6.log</code>（每 10 s 记录一次 <code>排队 / 运行</code>）：</p>
+
+<pre><code>  0 s – 220 s    排队 1 / 运行 1    <span class="c">← 我们的任务还没被调度，在别人占用的实例上排队</span>
+230 s – 370 s    排队 0 / 运行 1    <span class="c">← 真正在跑</span>
+380 s – 400 s    排队 1 / 运行 1    <span class="c">← 新任务入队</span>
+
+=&gt; 用时 410.5 s 中约 230 s 是排队，纯执行只有约 180 s</code></pre>
+
+<div class="card warn">
+  <span class="tag t-must">会毁掉加速结论</span>
+  <b>拿日志里的「用时」横向比不同步数 / 不同批次，会把「排队久」误读成「这一步慢」</b>
+  <p style="margin:6px 0 0">建议 worker 拆成两个计时：<code>submit → start</code>（排队）与 <code>start → done</code>（执行），
+  分别落盘。这是本案唯一「不花钱就能让后续实验可信」的改动。</p>
+</div>
+
+<h3>5.3 标定公式在小帧数段偏高 20 %</h3>
+
+<table>
+  <tr><th>渲染帧数</th><th>公式预测</th><th>实测</th><th>偏差</th></tr>
+  <tr><td>124</td><td>132.1 s</td><td>110.1 s</td><td class="no">+20 %</td></tr>
+  <tr><td>362</td><td>571.6 s</td><td>555.0 s</td><td>+3 %</td></tr>
+</table>
+
+<p>公式拟合自骨架镜的大帧数数据，不含地板效应，所以在小帧数段偏高。
+§2 的 14.09 h 是把<em>实渲帧数</em>代入这个偏高的公式算出来的 —— 真实值大概率落在 <strong>12–14 h</strong>。
+无论取哪一端，量级都是「10 小时以上」，而非 6.57 h。</p>
+
+<h2 id="s6">六、优化清单</h2>
+
+<p>按「省得多 / 风险低」排序：</p>
+
+<table>
+  <tr><th>#</th><th>动作</th><th>预期收益</th><th>风险</th></tr>
+  <tr>
+    <td><strong>O1</strong></td>
+    <td><strong>切分时把单元时长往 5.17 s 靠。</strong>既然 124 帧以下同价，就没有任何理由切得更短 —— 
+        把相邻短句合并到接近 124 帧，等于<strong>免费换来更长的镜头</strong>，同时减少镜数（连带减少人工目视成本）</td>
+    <td>镜数下降，单镜成本不变</td>
+    <td>低<br><small>需守住「1.6 s 金句短单元不可合并」这条铁律</small></td>
+  </tr>
+  <tr>
+    <td><strong>O2</strong></td>
+    <td><strong>保持 1 张参考图</strong>，不要随手加到 2–3 张</td>
+    <td>相对 3 张省 <strong>31 %</strong></td>
+    <td>低</td>
+  </tr>
+  <tr>
+    <td><strong>O3</strong></td>
+    <td><strong>保持 4 步</strong></td>
+    <td>每加 1 步 <strong>+21.3 s / 镜</strong></td>
+    <td>低</td>
+  </tr>
+  <tr>
+    <td><strong>O4</strong></td>
+    <td><strong>修正排期口径</strong>：373 镜按双卡 ≈7 h / 单卡 ≈14 h 报</td>
+    <td>避免排期与成本错判</td>
+    <td>零</td>
+  </tr>
+  <tr>
+    <td><strong>O5</strong></td>
+    <td><strong>接手前清 <code>.lock</code></strong>，并核对「提交数 = <code>.done</code> + <code>.fail</code>」</td>
+    <td>防静默丢镜</td>
+    <td>零</td>
+  </tr>
+  <tr>
+    <td><strong>O6</strong></td>
+    <td><strong>worker 拆分计时</strong>：排队 / 执行分开落盘</td>
+    <td>让后续加速实验可信</td>
+    <td>零</td>
+  </tr>
+  <tr>
+    <td><strong>O7</strong></td>
+    <td><strong>查 <code>MIN_TRAINED_FRAMES</code> 是否可配</strong>：若模型支持更小的地板，短单元的成本会直接下降</td>
+    <td>潜在最大（矩阵成本）</td>
+    <td>中<br><small>必须试拍验证画质是否崩</small></td>
+  </tr>
+  <tr>
+    <td><strong>O8</strong></td>
+    <td><strong>复现 <code>dy1_s003/s004/s009/s010</code> 的确定性失败</strong></td>
+    <td>消除 4.1 % 失败率</td>
+    <td>低</td>
+  </tr>
+</table>
+
+<div class="card ok">
+  <b>已实测否决、不要再试的三件事</b>
+  <ul style="margin:8px 0 0">
+    <li><span class="no">✗</span> 「切更短可以更快」 —— 地板之下全是同一个价；短镜每镜秒反而更贵（67.7 s vs 38.5 s）。</li>
+    <li><span class="no">✗</span> 用 worker 日志的「用时」横向比较不同配置 —— 被排队等待污染。</li>
+    <li><span class="no">✗</span> 按请求帧数估算总机时 —— 漏掉 1.94 倍的补齐开销，会低估 2.1 倍。</li>
+  </ul>
+</div>
+
+<h2 id="s7">七、归档索引</h2>
+
+<p>本次回传落在 <code>videos/douyin_refs/_server_pull_2026-09-19/</code>，<strong>2794 个文件 / 1.65 GiB</strong>，
+按服务器路径<em>原样镜像</em>，逐文件 md5 校验 <strong>2794 / 2794 通过 · 0 缺失 · 0 损坏</strong>：</p>
+
+<table>
+  <tr><th>目录</th><th>内容</th><th>数量 / 体积</th></tr>
+  <tr><td><code>ComfyUI/output/</code></td><td>18 个实验批次的成片（<code>dy_skel</code> 骨架、<code>dy_key</code> 关键镜、<code>dy_full</code> 短单元、<code>dy_six*</code> 六镜、<code>dy_S6/S8/S12</code> 步数实验……）</td><td>115 个 · 1445 MB</td></tr>
+  <tr><td><code>ComfyUI/input/</code></td><td>参考帧 / 首尾帧 / 干声 / 音轨切片（<code>dy_full_ref_v3</code>、<code>dy_full_first_v3</code>、<code>dy_full_a</code>……）</td><td>1656 个 · 237 MB</td></tr>
+  <tr><td><code>dy_key/</code></td><td>worker 日志、门禁快照、全部工作流 JSON</td><td>922 个 · 5.6 MB</td></tr>
+  <tr><td><code>trilogy/</code> · <code>dy4/</code> · <code>logs/</code></td><td>三部曲试拍、dy4 试点、ComfyUI 服务端日志</td><td>100 个 · 2.7 MB</td></tr>
+  <tr><td><code>节点源码参考/</code></td><td><code>h3_t8/timing.py</code> + <code>core.py</code>（§1 地板逻辑的出处）与三个 custom node 的 commit</td><td>3 个</td></tr>
+  <tr><td><code>MANIFEST.tsv</code></td><td><strong>服务器端生成</strong>的 2794 条 md5 清单（校验基准）</td><td>—</td></tr>
+  <tr><td><code>README.md</code> · <code>ANALYSIS.md</code></td><td>归档索引与本文的分析全文（纯文本版）</td><td>—</td></tr>
+</table>
+
+<div class="card info">
+  <b>复现本文所有数字</b>
+<pre style="margin:8px 0 0"><code>cd videos/douyin_refs/_server_pull_2026-09-19
+
+python3 analyze_logs.py . --json timing.json --md timing.md   <span class="c"># 抽 145 条逐镜计时</span>
+python3 join_timing_frames.py                                 <span class="c"># 实测耗时 ↔ 帧数 关联</span>
+python3 verify_pull.py .                                      <span class="c"># 对照 MANIFEST.tsv 逐文件 md5 校验</span></code></pre>
+</div>
+
+<div class="foot">
+  <strong>数据边界说明</strong><br>
+  ① 本次回传快照取自 2026-09-19 16:35（服务器时间）。此后服务器上新增的素材（<code>dy4f_*</code> / <code>dy4g_*</code> 等试点目录）与在跑任务不在归档范围内。<br>
+  ② 计时样本 145 条、覆盖 19 个批次；骨架镜 354 帧仅 n=33，其中 <code>dy1_s02_takein</code> 的 820 s 疑为冷启异常值，统计时以中位数为准。<br>
+  ③ 成本公式 <code>f(N)</code> 为工程既有标定，非本次新拟合；§5.3 已给出其在小帧数段的偏差量级。
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1211 @@
+{
+ "by_batch": {
+  "?": {
+   "shots": 50,
+   "ok": 44,
+   "fail": 6,
+   "median_s": 558.5,
+   "mean_s": 489.4,
+   "min_s": 110,
+   "max_s": 820,
+   "total_s": 22515.2
+  },
+  "MiniMaxH3/trilogy_one": {
+   "shots": 2,
+   "ok": 2,
+   "fail": 0,
+   "median_s": 190.2,
+   "mean_s": 190.2,
+   "min_s": 20.0,
+   "max_s": 360.4,
+   "total_s": 380.4
+  },
+  "dy4_pilot": {
+   "shots": 8,
+   "ok": 8,
+   "fail": 0,
+   "median_s": 240.3,
+   "mean_s": 247.8,
+   "min_s": 240.3,
+   "max_s": 270.3,
+   "total_s": 1982.4
+  },
+  "dy_Dtest": {
+   "shots": 2,
+   "ok": 2,
+   "fail": 0,
+   "median_s": 140.1,
+   "mean_s": 140.1,
+   "min_s": 140.1,
+   "max_s": 140.2,
+   "total_s": 280.3
+  },
+  "dy_S12": {
+   "shots": 1,
+   "ok": 1,
+   "fail": 0,
+   "median_s": 310.3,
+   "mean_s": 310.3,
+   "min_s": 310.3,
+   "max_s": 310.3,
+   "total_s": 310.3
+  },
+  "dy_S6": {
+   "shots": 1,
+   "ok": 1,
+   "fail": 0,
+   "median_s": 410.5,
+   "mean_s": 410.5,
+   "min_s": 410.5,
+   "max_s": 410.5,
+   "total_s": 410.5
+  },
+  "dy_S8": {
+   "shots": 1,
+   "ok": 1,
+   "fail": 0,
+   "median_s": 230.3,
+   "mean_s": 230.3,
+   "min_s": 230.3,
+   "max_s": 230.3,
+   "total_s": 230.3
+  },
+  "dy_full": {
+   "shots": 12,
+   "ok": 12,
+   "fail": 0,
+   "median_s": 110.1,
+   "mean_s": 111.8,
+   "min_s": 110.1,
+   "max_s": 120.1,
+   "total_s": 1341.2
+  },
+  "dy_key": {
+   "shots": 3,
+   "ok": 3,
+   "fail": 0,
+   "median_s": 563.7,
+   "mean_s": 565.0,
+   "min_s": 560.6,
+   "max_s": 570.8,
+   "total_s": 1695.1
+  },
+  "dy_pv2": {
+   "shots": 2,
+   "ok": 2,
+   "fail": 0,
+   "median_s": 130.2,
+   "mean_s": 130.2,
+   "min_s": 130.2,
+   "max_s": 130.2,
+   "total_s": 260.4
+  },
+  "dy_pv3": {
+   "shots": 2,
+   "ok": 2,
+   "fail": 0,
+   "median_s": 130.1,
+   "mean_s": 130.1,
+   "min_s": 130.1,
+   "max_s": 130.2,
+   "total_s": 260.3
+  },
+  "dy_six": {
+   "shots": 4,
+   "ok": 4,
+   "fail": 0,
+   "median_s": 145.2,
+   "mean_s": 152.7,
+   "min_s": 140.2,
+   "max_s": 180.2,
+   "total_s": 610.8
+  },
+  "dy_six2": {
+   "shots": 6,
+   "ok": 6,
+   "fail": 0,
+   "median_s": 145.2,
+   "mean_s": 145.2,
+   "min_s": 140.2,
+   "max_s": 150.2,
+   "total_s": 871.2
+  },
+  "dy_six3": {
+   "shots": 6,
+   "ok": 6,
+   "fail": 0,
+   "median_s": 140.2,
+   "mean_s": 143.5,
+   "min_s": 140.2,
+   "max_s": 150.2,
+   "total_s": 861.2
+  },
+  "dy_six4": {
+   "shots": 6,
+   "ok": 6,
+   "fail": 0,
+   "median_s": 255.3,
+   "mean_s": 260.3,
+   "min_s": 140.2,
+   "max_s": 380.5,
+   "total_s": 1561.9
+  },
+  "dy_skel": {
+   "shots": 33,
+   "ok": 33,
+   "fail": 0,
+   "median_s": 560.6,
+   "mean_s": 572.8,
+   "min_s": 540.6,
+   "max_s": 819.3,
+   "total_s": 18903.2
+  },
+  "dy_v2B": {
+   "shots": 2,
+   "ok": 2,
+   "fail": 0,
+   "median_s": 120.1,
+   "mean_s": 120.1,
+   "min_s": 120.1,
+   "max_s": 120.1,
+   "total_s": 240.2
+  },
+  "dy_v2C": {
+   "shots": 2,
+   "ok": 2,
+   "fail": 0,
+   "median_s": 130.1,
+   "mean_s": 130.1,
+   "min_s": 130.1,
+   "max_s": 130.2,
+   "total_s": 260.3
+  },
+  "dy_v3full": {
+   "shots": 2,
+   "ok": 2,
+   "fail": 0,
+   "median_s": 130.1,
+   "mean_s": 130.1,
+   "min_s": 130.1,
+   "max_s": 130.2,
+   "total_s": 260.3
+  }
+ },
+ "rows": [
+  {
+   "log": "logs/test_pipeline.log",
+   "shot": "?",
+   "sec": 360.4,
+   "status": "success",
+   "batch": "MiniMaxH3/trilogy_one"
+  },
+  {
+   "log": "dy_key/A.log",
+   "shot": "dy2_prod_hero",
+   "sec": 570.8,
+   "status": "success",
+   "batch": "dy_key"
+  },
+  {
+   "log": "dy_key/A.log",
+   "shot": "dy2_prod_hero",
+   "sec": 570,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/A.log",
+   "shot": "dy1_prod_pour",
+   "sec": 563.7,
+   "status": "success",
+   "batch": "dy_key"
+  },
+  {
+   "log": "dy_key/A.log",
+   "shot": "dy1_prod_pour",
+   "sec": 564,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/B.log",
+   "shot": "dy3_prod_handhero",
+   "sec": 560.6,
+   "status": "success",
+   "batch": "dy_key"
+  },
+  {
+   "log": "dy_key/B.log",
+   "shot": "dy3_prod_handhero",
+   "sec": 560,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/D1.log",
+   "shot": "?",
+   "sec": 140.1,
+   "status": "success",
+   "batch": "dy_Dtest"
+  },
+  {
+   "log": "dy_key/D2.log",
+   "shot": "?",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_Dtest"
+  },
+  {
+   "log": "dy_key/FA.log",
+   "shot": "dy1_s003",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/FA.log",
+   "shot": "dy1_s003",
+   "sec": 110,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/FA.log",
+   "shot": "dy1_s005",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/FA.log",
+   "shot": "dy1_s005",
+   "sec": 111,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/FA.log",
+   "shot": "dy1_s007",
+   "sec": 120.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/FA.log",
+   "shot": "dy1_s007",
+   "sec": 120,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/FA.log",
+   "shot": "dy1_s010",
+   "sec": 70.1,
+   "status": "error",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/FB.log",
+   "shot": "dy1_s004",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/FB.log",
+   "shot": "dy1_s004",
+   "sec": 110,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/FB.log",
+   "shot": "dy1_s006",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/FB.log",
+   "shot": "dy1_s006",
+   "sec": 111,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/FB.log",
+   "shot": "dy1_s008",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/FB.log",
+   "shot": "dy1_s008",
+   "sec": 110,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/FB.log",
+   "shot": "dy1_s009",
+   "sec": 90.1,
+   "status": "error",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/P2.log",
+   "shot": "dy1_s003",
+   "sec": 130.2,
+   "status": "success",
+   "batch": "dy_pv2"
+  },
+  {
+   "log": "dy_key/P2.log",
+   "shot": "dy3_s001",
+   "sec": 130.2,
+   "status": "success",
+   "batch": "dy_pv2"
+  },
+  {
+   "log": "dy_key/P3.log",
+   "shot": "dy1_s003",
+   "sec": 130.2,
+   "status": "success",
+   "batch": "dy_pv3"
+  },
+  {
+   "log": "dy_key/P3.log",
+   "shot": "dy3_s001",
+   "sec": 130.1,
+   "status": "success",
+   "batch": "dy_pv3"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s02_takein",
+   "sec": 819.3,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s02_takein",
+   "sec": 820,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s04_stay",
+   "sec": 560.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s04_stay",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s06_farewell",
+   "sec": 566.9,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s06_farewell",
+   "sec": 567,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s08_samesauce",
+   "sec": 578.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s08_samesauce",
+   "sec": 578,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s10_gate",
+   "sec": 560.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy1_s10_gate",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s02_birthday",
+   "sec": 550.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s02_birthday",
+   "sec": 551,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s04_callmom",
+   "sec": 545.5,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s04_callmom",
+   "sec": 546,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s06_truth",
+   "sec": 560.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s06_truth",
+   "sec": 560,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s08_taste",
+   "sec": 553.0,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s08_taste",
+   "sec": 554,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s10_hug",
+   "sec": 555.1,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy2_s10_hug",
+   "sec": 555,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s02_meet",
+   "sec": 560.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s02_meet",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s04_fury",
+   "sec": 550.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s04_fury",
+   "sec": 550,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s06_mock",
+   "sec": 555.6,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s06_mock",
+   "sec": 556,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s08_eat",
+   "sec": 560.9,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s08_eat",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s10_promise",
+   "sec": 560.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "dy3_s10_promise",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "p3_dy2_hero3",
+   "sec": 569.8,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PA.log",
+   "shot": "p3_dy2_hero3",
+   "sec": 570,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s01_open_kick",
+   "sec": 800.9,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s01_open_kick",
+   "sec": 801,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s03_firstbowl",
+   "sec": 550.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s03_firstbowl",
+   "sec": 551,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s05_recipe",
+   "sec": 561.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s05_recipe",
+   "sec": 562,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s07_return",
+   "sec": 550.6,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s07_return",
+   "sec": 551,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s09_offer",
+   "sec": 550.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy1_s09_offer",
+   "sec": 550,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s01_open",
+   "sec": 550.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s01_open",
+   "sec": 551,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s03_snatch",
+   "sec": 548.5,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s03_snatch",
+   "sec": 549,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s05_beg",
+   "sec": 550.6,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s05_beg",
+   "sec": 550,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s07_cook",
+   "sec": 560.6,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s07_cook",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s09_price",
+   "sec": 560.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy2_s09_price",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s01_open",
+   "sec": 556.6,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s01_open",
+   "sec": 557,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s03_interview",
+   "sec": 562.5,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s03_interview",
+   "sec": 562,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s05_asktaste",
+   "sec": 540.6,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s05_asktaste",
+   "sec": 541,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s07_cook",
+   "sec": 560.7,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s07_cook",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s09_buy",
+   "sec": 560.6,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "dy3_s09_buy",
+   "sec": 561,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "p3_dy1_pour3",
+   "sec": 560.0,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "p3_dy1_pour3",
+   "sec": 560,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "p3_dy3_handhero3",
+   "sec": 566.8,
+   "status": "success",
+   "batch": "dy_skel"
+  },
+  {
+   "log": "dy_key/PB.log",
+   "shot": "p3_dy3_handhero3",
+   "sec": 567,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/S12.log",
+   "shot": "?",
+   "sec": 310.3,
+   "status": "success",
+   "batch": "dy_S12"
+  },
+  {
+   "log": "dy_key/S6.log",
+   "shot": "?",
+   "sec": 410.5,
+   "status": "success",
+   "batch": "dy_S6"
+  },
+  {
+   "log": "dy_key/S8.log",
+   "shot": "?",
+   "sec": 230.3,
+   "status": "success",
+   "batch": "dy_S8"
+  },
+  {
+   "log": "dy_key/SIX2A.log",
+   "shot": "dy1_s088",
+   "sec": 150.2,
+   "status": "success",
+   "batch": "dy_six2"
+  },
+  {
+   "log": "dy_key/SIX2A.log",
+   "shot": "dy1_s093",
+   "sec": 150.2,
+   "status": "success",
+   "batch": "dy_six2"
+  },
+  {
+   "log": "dy_key/SIX2A.log",
+   "shot": "dy2_s118",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six2"
+  },
+  {
+   "log": "dy_key/SIX2B.log",
+   "shot": "dy2_s075",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six2"
+  },
+  {
+   "log": "dy_key/SIX2B.log",
+   "shot": "dy3_s145",
+   "sec": 150.2,
+   "status": "success",
+   "batch": "dy_six2"
+  },
+  {
+   "log": "dy_key/SIX2B.log",
+   "shot": "dy3_s119",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six2"
+  },
+  {
+   "log": "dy_key/SIX3A.log",
+   "shot": "dy1_s093",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six3"
+  },
+  {
+   "log": "dy_key/SIX3A.log",
+   "shot": "dy1_s088",
+   "sec": 150.2,
+   "status": "success",
+   "batch": "dy_six3"
+  },
+  {
+   "log": "dy_key/SIX3A.log",
+   "shot": "dy2_s118",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six3"
+  },
+  {
+   "log": "dy_key/SIX3B.log",
+   "shot": "dy2_s075",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six3"
+  },
+  {
+   "log": "dy_key/SIX3B.log",
+   "shot": "dy3_s145",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six3"
+  },
+  {
+   "log": "dy_key/SIX3B.log",
+   "shot": "dy3_s119",
+   "sec": 150.2,
+   "status": "success",
+   "batch": "dy_six3"
+  },
+  {
+   "log": "dy_key/SIX4A.log",
+   "shot": "dy1_s093",
+   "sec": 260.3,
+   "status": "success",
+   "batch": "dy_six4"
+  },
+  {
+   "log": "dy_key/SIX4A.log",
+   "shot": "dy1_s088",
+   "sec": 150.2,
+   "status": "success",
+   "batch": "dy_six4"
+  },
+  {
+   "log": "dy_key/SIX4A.log",
+   "shot": "dy2_s118",
+   "sec": 380.4,
+   "status": "success",
+   "batch": "dy_six4"
+  },
+  {
+   "log": "dy_key/SIX4B.log",
+   "shot": "dy2_s075",
+   "sec": 250.3,
+   "status": "success",
+   "batch": "dy_six4"
+  },
+  {
+   "log": "dy_key/SIX4B.log",
+   "shot": "dy3_s145",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six4"
+  },
+  {
+   "log": "dy_key/SIX4B.log",
+   "shot": "dy3_s119",
+   "sec": 380.5,
+   "status": "success",
+   "batch": "dy_six4"
+  },
+  {
+   "log": "dy_key/SIXA.log",
+   "shot": "dy1_s088",
+   "sec": 180.2,
+   "status": "success",
+   "batch": "dy_six"
+  },
+  {
+   "log": "dy_key/SIXA.log",
+   "shot": "dy1_s093",
+   "sec": 150.2,
+   "status": "success",
+   "batch": "dy_six"
+  },
+  {
+   "log": "dy_key/SIXB.log",
+   "shot": "dy2_s075",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six"
+  },
+  {
+   "log": "dy_key/SIXB.log",
+   "shot": "dy3_s145",
+   "sec": 140.2,
+   "status": "success",
+   "batch": "dy_six"
+  },
+  {
+   "log": "dy_key/SIXB.log",
+   "shot": "dy2_s118",
+   "sec": 50.1,
+   "status": "error",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/TA.log",
+   "shot": "dy1_s001",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/TA.log",
+   "shot": "dy1_s002",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/TA.log",
+   "shot": "dy1_s070",
+   "sec": 120.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/TB.log",
+   "shot": "dy2_s001",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/TB.log",
+   "shot": "dy3_s001",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/TB.log",
+   "shot": "dy3_s100",
+   "sec": 110.1,
+   "status": "success",
+   "batch": "dy_full"
+  },
+  {
+   "log": "dy_key/TB2.log",
+   "shot": "dy1_s003",
+   "sec": 120.1,
+   "status": "success",
+   "batch": "dy_v2B"
+  },
+  {
+   "log": "dy_key/TB2.log",
+   "shot": "dy3_s001",
+   "sec": 120.1,
+   "status": "success",
+   "batch": "dy_v2B"
+  },
+  {
+   "log": "dy_key/TC2.log",
+   "shot": "dy1_s003",
+   "sec": 130.1,
+   "status": "success",
+   "batch": "dy_v2C"
+  },
+  {
+   "log": "dy_key/TC2.log",
+   "shot": "dy3_s001",
+   "sec": 130.2,
+   "status": "success",
+   "batch": "dy_v2C"
+  },
+  {
+   "log": "dy_key/VA.log",
+   "shot": "dy1_s001",
+   "sec": 130.2,
+   "status": "success",
+   "batch": "dy_v3full"
+  },
+  {
+   "log": "dy_key/VA.log",
+   "shot": "dy1_s001",
+   "sec": 130,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/VA.log",
+   "shot": "dy1_s003",
+   "sec": 90.1,
+   "status": "error",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/VB.log",
+   "shot": "dy1_s002",
+   "sec": 130.1,
+   "status": "success",
+   "batch": "dy_v3full"
+  },
+  {
+   "log": "dy_key/VB.log",
+   "shot": "dy1_s002",
+   "sec": 130,
+   "status": "success",
+   "batch": "?"
+  },
+  {
+   "log": "dy_key/VB.log",
+   "shot": "dy1_s004",
+   "sec": 90.1,
+   "status": "error",
+   "batch": "?"
+  },
+  {
+   "log": "trilogy/A_f1s01.log",
+   "shot": "?",
+   "sec": 20.0,
+   "status": "success",
+   "batch": "MiniMaxH3/trilogy_one"
+  },
+  {
+   "log": "trilogy/test_f1s01.log",
+   "shot": "?",
+   "sec": 590.7,
+   "status": "error",
+   "batch": "?"
+  },
+  {
+   "log": "dy4/A.log",
+   "shot": "dy4_u007_stomp",
+   "sec": 240.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  },
+  {
+   "log": "dy4/A.log",
+   "shot": "dy4_u060_tearopen",
+   "sec": 250.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  },
+  {
+   "log": "dy4/A55.log",
+   "shot": "dy5_u055_expose",
+   "sec": 240.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  },
+  {
+   "log": "dy4/A56.log",
+   "shot": "dy5_u055_expose_f",
+   "sec": 270.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  },
+  {
+   "log": "dy4/B.log",
+   "shot": "dy5_u055_expose",
+   "sec": 240.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  },
+  {
+   "log": "dy4/B.log",
+   "shot": "dy5_u042_tender",
+   "sec": 240.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  },
+  {
+   "log": "dy4/B55.log",
+   "shot": "dy5_u055_expose_s2",
+   "sec": 240.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  },
+  {
+   "log": "dy4/B56.log",
+   "shot": "dy5_u055_expose_g",
+   "sec": 260.3,
+   "status": "success",
+   "batch": "dy4_pilot"
+  }
+ ]
+}
