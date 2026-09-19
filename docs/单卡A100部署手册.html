@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>单卡 A100 部署手册 · videoHub / MiniMax-H3 短剧生产线</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d21; --ink2:#4a5056; --ink3:#7b8288;
+    --line:#e3e6ea; --accent:#1f6feb; --accent-soft:#eaf1fe;
+    --warn:#b45309; --warn-soft:#fff7e6; --danger:#b91c1c; --danger-soft:#fef2f2;
+    --ok:#15803d; --ok-soft:#f0fdf4; --code:#f2f4f7;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 120px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:38px}
+  h1{font-size:29px;line-height:1.3;margin:0 0 10px;letter-spacing:-.3px}
+  .sub{color:var(--ink2);font-size:14.5px}
+  .meta{margin-top:14px;font-size:13px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 20px}
+  h2{font-size:21px;margin:52px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16.5px;margin:30px 0 10px;color:var(--ink)}
+  h4{font-size:14.5px;margin:22px 0 8px;color:var(--ink2)}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  code{font-family:var(--mono);font-size:12.8px;background:var(--code);
+    padding:2px 6px;border-radius:4px;color:#0b3a80;white-space:nowrap}
+  pre{background:#1c2128;color:#d8dee9;padding:16px 18px;border-radius:9px;overflow-x:auto;
+    font-family:var(--mono);font-size:12.6px;line-height:1.72;margin:14px 0}
+  pre code{background:none;color:inherit;padding:0;font-size:inherit;white-space:pre}
+  pre .c{color:#7d8590}
+  pre .k{color:#f0a35e}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.6px;
+    background:var(--card);border-radius:9px;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+  th{background:#eef1f5;text-align:left;padding:10px 12px;font-weight:600;font-size:13px;
+    border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+  tr:last-child td{border-bottom:none}
+  td code{white-space:normal;word-break:break-all}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:18px 20px;margin:16px 0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card.warn{background:var(--warn-soft);border-color:#f5d79a}
+  .card.danger{background:var(--danger-soft);border-color:#f3bcbc}
+  .card.ok{background:var(--ok-soft);border-color:#b6e3c4}
+  .card.info{background:var(--accent-soft);border-color:#c3d8fb}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:20px;
+    vertical-align:middle;margin-right:6px;letter-spacing:.2px}
+  .t-now{background:#dcfce7;color:#166534}
+  .t-dead{background:#fee2e2;color:#991b1b}
+  .t-opt{background:#e0e7ff;color:#3730a3}
+  .t-must{background:#fef3c7;color:#92400e}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0}
+  .kv{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .kv b{display:block;font-size:12.5px;color:var(--ink3);font-weight:600;margin-bottom:4px}
+  .kv span{font-size:17px;font-weight:600;letter-spacing:-.2px}
+  .kv small{display:block;color:var(--ink3);font-size:12px;margin-top:3px}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px 22px;margin:26px 0 10px}
+  .toc b{font-size:13px;color:var(--ink3);letter-spacing:.4px}
+  .toc ol{margin:10px 0 0;columns:2;column-gap:32px;font-size:13.8px}
+  .toc a{color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  hr{border:none;border-top:1px solid var(--line);margin:36px 0}
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink3);line-height:1.9}
+  .step{counter-reset:none;border-left:3px solid var(--accent);padding-left:18px;margin:22px 0}
+  .step h3{margin-top:0}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+    border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;
+    margin-right:9px;vertical-align:-4px}
+  .yes{color:var(--ok);font-weight:700}
+  .no{color:var(--danger);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>单卡 A100 部署手册</h1>
+  <div class="sub">videoHub · MiniMax-H3 短剧生产线 · 1×A100-PCIE-40GB 形态</div>
+  <div class="meta">
+    <span>生成日期：2026-09-19</span>
+    <span>目标形态：<b>单卡</b> · ComfyUI v0.36.0</span>
+    <span>源数据：旧机 <code>kehu</code> 实机侦察 + 33 镜实测</span>
+    <span>配套：<code>deploy/single-gpu/</code></span>
+  </div>
+</header>
+
+<div class="card info">
+  <b>这份文档解决什么问题</b>
+  <p style="margin-bottom:0">生产线从双卡（旧机 2×A100）改为<b>只租一张 A100</b>。部署步骤本身不变——
+  <code>deploy/bootstrap/</code> 那 7 个脚本与卡数无关，照跑即可。真正变的是四件事：
+  <b>启动方式、跑批脚本、内存门槛、时间账</b>。这份手册只讲这四件事和单卡独有的坑，
+  不重复通用清单（软件/权重/资产在 <code>docs/新服务器部署手册.html</code>）。</p>
+</div>
+
+<div class="grid">
+  <div class="kv"><b>单卡挂钟 · 373 镜全量</b><span>≈6h34m</span><small>双卡是 3.37 h</small></div>
+  <div class="kv"><b>单镜热态耗时</b><span>558 s</span><small>与卡数无关 · n=31 实测</small></div>
+  <div class="kv"><b>内存门槛（别选错）</b><span>≥ 96 GB</span><small>单实例常驻 ~57 GB</small></div>
+  <div class="kv"><b>单卡省不掉的东西</b><span>ck-attention</span><small>A100 上唯一有效加速</small></div>
+</div>
+
+<div class="toc">
+  <b>目录</b>
+  <ol>
+    <li><a href="#s1">单卡形态是什么（一句话）</a></li>
+    <li><a href="#s2">单卡 vs 双卡 全对照</a></li>
+    <li><a href="#s3">目标机硬要求 + 内存这个坑</a></li>
+    <li><a href="#s4">部署：照旧走 bootstrap，只有 4 处不同</a></li>
+    <li><a href="#s5">启动（single）</a></li>
+    <li><a href="#s6">跑批：单 worker，不切分 keys</a></li>
+    <li><a href="#s7">时间账怎么算（含推导）</a></li>
+    <li><a href="#s8">接手检查清单（必做）</a></li>
+    <li><a href="#s9">单卡坑位清单（8+2 条）</a></li>
+    <li><a href="#s10">验收</a></li>
+  </ol>
+</div>
+
+<h2 id="s1">1 · 单卡形态是什么</h2>
+
+<div class="card ok">
+  <b>一句话</b>
+  <p style="margin-bottom:0"><b>单卡只影响「排队长度」，不影响「单镜速度」。</b><br>
+  每一镜本身的 9 分 18 秒（558 s）由模型和分辨率决定，跟你有几张卡毫无关系——
+  你要丢 373 镜进去，双卡 3.4 小时出完，单卡 6.6 小时出完，仅此而已。</p>
+</div>
+
+<p>具体的形态差异是：<b>单卡只有一个 ComfyUI 实例（8188），只跑一个 worker</b>。
+双卡那套「两个实例 + 两个 worker 抢镜」的设计，在单卡上不但没有收益，
+还会因为两个实例同时抢内存而 OOM。</p>
+
+<div class="card warn">
+  <b>⚠ 反过来也成立：单卡脚本别在双卡机器上跑</b>
+  <p style="margin-bottom:0"><code>04_launch_comfy.sh single</code> 只会启动 GPU0 上的 8188。
+  在双卡机器上这么干，<b>GPU1 全程闲置</b>——你照样付两张卡的钱。
+  双卡机器用 <code>both</code> + 两个 worker。</p>
+</div>
+
+<h2 id="s2">2 · 单卡 vs 双卡 全对照</h2>
+
+<table>
+  <tr><th>维度</th><th>双卡（旧机形态）</th><th>单卡（现行形态）</th></tr>
+  <tr>
+    <td>ComfyUI 实例</td>
+    <td>8188 + 8189，各占一张卡</td>
+    <td><b>只起 8188</b></td>
+  </tr>
+  <tr>
+    <td><code>instance_b.db</code></td>
+    <td>必须建</td>
+    <td class="yes">不需要，别建</td>
+  </tr>
+  <tr>
+    <td><code>--database-url</code></td>
+    <td>8189 必须带（否则 <code>Database is locked</code>）</td>
+    <td class="yes">不需要 —— 单进程独占 sqlite，天然不锁</td>
+  </tr>
+  <tr>
+    <td>内存占用</td>
+    <td>2×57 GB ≈ 115 GB，125 GB 机器只剩 1.1 GB free</td>
+    <td class="yes">1×57 GB，<b>压力大降</b></td>
+  </tr>
+  <tr>
+    <td>吞吐</td>
+    <td>加速比 <b>1.950×</b>（实测）</td>
+    <td>1×</td>
+  </tr>
+  <tr>
+    <td>单镜耗时</td>
+    <td>热态 558 s</td>
+    <td><b>完全一样</b>（一镜本来也拆不到两卡）</td>
+  </tr>
+  <tr>
+    <td>冷启</td>
+    <td>两张卡各付一次 ~253 s 溢价</td>
+    <td class="yes">只付一次</td>
+  </tr>
+  <tr>
+    <td>启动命令</td>
+    <td><code>04_launch_comfy.sh both</code></td>
+    <td><code>04_launch_comfy.sh single</code></td>
+  </tr>
+  <tr>
+    <td>跑批</td>
+    <td>按 keys 对半分给两个 worker</td>
+    <td><code>run_dy_single.sh</code> / <code>run_trilogy_single.sh</code>（单 worker）</td>
+  </tr>
+  <tr>
+    <td>373 镜挂钟</td>
+    <td>3.37 h</td>
+    <td><b>6h34m</b></td>
+  </tr>
+</table>
+
+<h2 id="s3">3 · 目标机硬要求 + 内存这个坑</h2>
+
+<table>
+  <tr><th>项</th><th>要求</th><th>说明</th></tr>
+  <tr><td>GPU</td><td>1× A100-PCIE-40GB<br><span style="color:var(--ink3)">（SXM4-40GB 也可以）</span></td><td>都是 SM80，兼容性完全一致；SXM4 略快一点</td></tr>
+  <tr><td>显存</td><td>40 GB</td><td>基准就是 40 GB，别选更小的</td></tr>
+  <tr><td><b>内存</b></td><td><b>≥ 96 GB（推荐 128 GB）</b></td><td><b>★ 最容易踩的坑，见下</b></td></tr>
+  <tr><td>磁盘</td><td>≥ 150 GB</td><td>权重 75 GB + ComfyUI/venv 8 GB + 长跑输出</td></tr>
+  <tr><td>驱动</td><td>≥ 580（基准 580.95.05）</td><td>torch cu130 自带 CUDA 13 运行时，系统不用装 CUDA Toolkit</td></tr>
+  <tr><td>OS</td><td>Ubuntu 22.04</td><td>脚本按 apt 写</td></tr>
+  <tr><td>网络</td><td>能直连 HuggingFace</td><td>ModelScope 在境外机房等于不通</td></tr>
+</table>
+
+<div class="card danger">
+  <b>★ 为什么单卡也必须给到 96 GB 内存 —— 别顺手选小内存机型</b>
+  <p>一根 40 GB 的卡<b>装不下 50.2 GB 权重</b>，必然要把一部分放在内存里换进换出。
+  旧机实测：<b>单个空闲的 ComfyUI 进程就常驻 57 GB 内存</b>（双卡就是 2×57 GB，
+  125 GB 的机器只剩 1.1 GB free）。</p>
+  <p style="margin-bottom:0">所以租卡时选个 64 GB 内存的机型，跑到一半就会 OOM。
+  这是本项目<b>最贵的一类失误</b>——跑到第 200 镜崩掉，前面烧掉的机时无法找回
+  （gates 只能保住进度，保不住钱）。<br>
+  <code>00_check_target.sh</code> 已内置这条判定：内存 &lt; 96 GB 直接报 <code>[FAIL]</code>。</p>
+</div>
+
+<div class="card warn">
+  <b>swap 不能解决这个问题</b>
+  <p style="margin-bottom:0"><code>01_provision_os.sh</code> 会建 8 GB swap，但它的定位是
+  <b>安全气囊，不是内存扩展</b>。真开始用 swap 时，云盘 IO 抖动会表现为「整机卡死」，
+  比 OOM 还难排查。别指望 8 GB swap 兜住 32 GB 的缺口。</p>
+</div>
+
+<h2 id="s4">4 · 部署：照旧走 bootstrap，只有 4 处不同</h2>
+
+<p>下面 5 行命令与双卡<b>一字不差</b>，照跑即可（<code>00</code> 会自动判定为【单卡模式】）：</p>
+
+<pre><code><span class="c"># 新机上 —— 与双卡完全相同的流程</span>
+bash deploy/bootstrap/00_check_target.sh     <span class="c"># 体检：会判定【单卡模式】+ 校验 96 GB 内存线</span>
+bash deploy/bootstrap/01_provision_os.sh     <span class="c"># apt / 8 GB swap / BBR</span>
+bash deploy/bootstrap/02_build_stack.sh      <span class="c"># venv + torch + ComfyUI v0.36.0 + 3 个节点</span>
+bash deploy/bootstrap/03_dl_weights.sh       <span class="c"># 75 GB 权重（最慢一步，挂着睡一觉）</span>
+bash deploy/bootstrap/04_launch_comfy.sh single   <span class="c"># ★ 差异 1</span>
+
+<span class="c"># 本机（macOS）—— 推资产，05 会连单卡脚本一起推过去</span>
+bash deploy/bootstrap/05_push_assets.sh &lt;新机别名&gt;
+
+<span class="c"># 目标机 —— 真出一镜验证链路</span>
+bash deploy/bootstrap/verify.sh --run</code></pre>
+
+<h3>差异 2 · 不要建 <code>instance_b.db</code></h3>
+<p>单卡只有一个 ComfyUI 进程，不需要第二个数据库。建了纯属占盘，还会误导后来的人以为这是双卡环境。</p>
+
+<h3>差异 3 · 整盘 rsync 搬过来的话，清掉双卡残留</h3>
+<pre><code><span class="c"># 旧机双卡时代留下的锁 —— 会让单实例起不来或行为异常</span>
+rm -f /workspace/instance_b.db /workspace/instance_b.db.lock
+rm -f /workspace/ComfyUI/user/comfyui.db.lock
+
+<span class="c"># ★ venv 里写死了旧机的绝对路径，跨机搬过来基本是坏的 —— 别偷懒</span>
+mv /workspace/venv /workspace/venv.broken &amp;&amp; bash deploy/bootstrap/02_build_stack.sh</code></pre>
+
+<h3>差异 4 · 跑批前做一次「接手检查」</h3>
+<p>旧机的门禁目录里会留有三类脏状态，它们<b>全都不报错</b>，只会静默跳过或死循环。
+见 <a href="#s8">§8</a>。</p>
+
+<h2 id="s5">5 · 启动（single）</h2>
+
+<pre><code>bash deploy/bootstrap/04_launch_comfy.sh single    <span class="c"># GPU0 → 8188</span>
+bash deploy/bootstrap/04_launch_comfy.sh status    <span class="c"># 存活实例数 + 队列 + 显存</span>
+bash deploy/bootstrap/04_launch_comfy.sh stop      <span class="c"># 停（按 /proc 精确匹配，不会自杀式断连）</span></code></pre>
+
+<p>它等价于这条手写命令：</p>
+
+<pre><code>CUDA_VISIBLE_DEVICES=0 setsid nohup /workspace/venv/bin/python /workspace/ComfyUI/main.py \
+  --listen 127.0.0.1 --port 8188 --vram-headroom 1 --use-ck-attention \
+  &gt; /workspace/logs/comfy_single.log 2&gt;&amp;1 &lt; /dev/null &amp;</code></pre>
+
+<table>
+  <tr><th>参数</th><th>作用</th><th>单卡要注意什么</th></tr>
+  <tr><td><code>--use-ck-attention</code></td><td>走 comfy-kitchen 的 INT8 注意力通路</td><td><b>与卡数无关，必须带。</b>A100（SM80）上唯一有效的注意力加速</td></tr>
+  <tr><td><code>--vram-headroom 1</code></td><td>DynamicVRAM 额外留 1 GB</td><td>保持默认，别调</td></tr>
+  <tr><td><code>--database-url sqlite:///…</code></td><td>给实例 B 用独立数据库</td><td class="yes"><b>单卡不需要</b>，整条参数删掉</td></tr>
+  <tr><td><code>setsid … &lt; /dev/null &amp;</code></td><td>脱离 ssh 会话</td><td><b>三个都不能少</b>，否则 ssh 一断任务就被带走</td></tr>
+</table>
+
+<div class="card warn">
+  <b>不用 <code>--listen 0.0.0.0</code></b>
+  <p style="margin-bottom:0">监听 <code>127.0.0.1</code> 就够了（提交器跑在同一台机器上）。
+  暴露到公网既无必要也不安全。</p>
+</div>
+
+<h2 id="s6">6 · 跑批：单 worker，不切分 keys</h2>
+
+<p>双卡要按 keys 对半分给两个 worker。单卡<b>一个 worker 就够</b>——
+<code>pipeline_worker.sh</code> 的目录扫描 + 原子锁 + gates 断点续跑，
+本来就是为「不确定跑多久」设计的，单卡下就是最优解，不需要手工分片。</p>
+
+<h3>三条产线</h3>
+<table>
+  <tr><th>产线</th><th>命令（目标机）</th><th>单卡挂钟</th></tr>
+  <tr>
+    <td><b>抖音全量复刻 373 镜</b></td>
+    <td><code>cd /workspace/dy_key</code><br><code>setsid nohup bash run_dy_single.sh full &gt; run_full.log 2&gt;&amp;1 &lt; /dev/null &amp;</code><br><code>tail -f run_full.log</code></td>
+    <td><b>≈6h34m</b></td>
+  </tr>
+  <tr>
+    <td>抖音关键镜 / 骨架 39 镜</td>
+    <td><code>cd /workspace/dy_key</code><br><code>setsid nohup bash run_dy_single.sh key &gt; run_key.log 2&gt;&amp;1 &lt; /dev/null &amp;</code></td>
+    <td>≈5h15m</td>
+  </tr>
+  <tr>
+    <td>现代婚姻三部曲 24 镜</td>
+    <td><code>cd /workspace/trilogy</code><br><code>setsid nohup bash run_trilogy_single.sh &gt; run_single.log 2&gt;&amp;1 &lt; /dev/null &amp;</code></td>
+    <td>≈3h45m</td>
+  </tr>
+  <tr>
+    <td>单镜试拍</td>
+    <td><code>/workspace/venv/bin/python /root/s2/submit_api.py \<br>&nbsp;&nbsp;/workspace/trilogy/wf_one/wf_f1s01.json \<br>&nbsp;&nbsp;--host http://127.0.0.1:8188 --timeout 2400</code></td>
+    <td>冷启 ≈820 s</td>
+  </tr>
+</table>
+
+<p>两个 <code>run_*_single.sh</code> 由 <code>05_push_assets.sh</code> 自动推到目标机，
+不依赖任何双卡脚本，可以独立使用。</p>
+
+<div class="card info">
+  <b>长批次建议：按片分批，顺便中途审片</b>
+  <p style="margin-bottom:0">373 镜要跑 6.6 小时，中断风险不小。
+  <code>pipeline_worker.sh</code> 按 <code>wf_*.json</code> 的字典序扫描，
+  所以是<b>按片顺序</b>跑的（报恩 99 → 继母 119 → 挑食 155）。你可以在任意时刻
+  <code>kill</code> 掉 worker，gates 会记住进度，下次 <code>run_dy_single.sh full</code>
+  自动从断点续。这就允许「跑到第 99 镜停下来审片，确认方向后再继续」。</p>
+</div>
+
+<h2 id="s7">7 · 时间账怎么算</h2>
+
+<div class="card ok">
+  <b>核心换算式（好记）</b>
+  <p style="margin-bottom:0"><b>双卡报告里的「GPU 总机时」= 单卡下的「挂钟」。</b><br>
+  原因很直观：双卡就是把「所有镜的总耗时」摊到两条并行的线上。
+  旧机实测加速比 1.950×（理论 2.0，损耗来自两卡镜数不均衡 + 各付一次冷启）。</p>
+</div>
+
+<h3>实测数据（旧机，v0.36.0 + Turbo 4 步 + ck-attention）</h3>
+<table>
+  <tr><th>产线</th><th>镜数</th><th>GPU 总机时</th><th>双卡挂钟</th><th><b>单卡挂钟</b></th></tr>
+  <tr>
+    <td>抖音关键镜（实跑完）</td><td>33</td>
+    <td>18908 s = <b>5h15m</b></td><td>2h35m</td>
+    <td><b>5h15m</b></td>
+  </tr>
+  <tr>
+    <td>抖音全量复刻</td><td>373</td>
+    <td><b>6.57 h</b></td><td>3.37 h</td>
+    <td><b>6h34m</b></td>
+  </tr>
+  <tr>
+    <td>三部曲</td><td>24</td>
+    <td>未整批实测</td><td>≈1.9 h</td>
+    <td><b>≈3h45m</b>（外推）</td>
+  </tr>
+</table>
+
+<h3>单镜耗时口径</h3>
+<table>
+  <tr><th>口径</th><th>数值</th><th>说明</th></tr>
+  <tr><td><b>热态（排期用这个）</b></td><td><b>558 s</b></td><td>n=31 实测，区间 541–578 s，非常稳</td></tr>
+  <tr><td>首镜冷启</td><td>820 s</td><td>比热态多付 ~262 s，<b>一个批次只付一次</b></td></tr>
+  <tr><td>每镜都冷启（反事实上界）</td><td>~2400 s</td><td>不要用于排期</td></tr>
+</table>
+
+<p>于是：<b>单卡挂钟 ≈ 镜数 × 558 s + 262 s</b></p>
+
+<div class="card warn">
+  <b>两个容易算错的地方</b>
+  <ul style="margin-bottom:0">
+    <li><b>373 镜不能按 558 s 乘。</b>那 6.57 h 对应的是平均 63 s/镜——
+      因为全量复刻的镜长是原片长度（22–175 帧，均值 90），而 558 s 是 354 帧满长镜的口径。
+      帧数差 4 倍，注意力是 O(N²)，耗时自然差得多。</li>
+    <li><b>冷启在长批次里可以忽略，在试拍里就是全部。</b>
+      373 镜 6h34m 里冷启只占 0.7%；但试拍 1 镜时，冷启就是 100% 的成本。
+      别用单镜试拍的时间去估批量。</li>
+  </ul>
+</div>
+
+<h3>三部曲那个 ≈3h45m 的来历，说清楚</h3>
+<p>它是外推值，不是实测。口径取 <b>ref2va 主干的热态 558 s/镜</b>：
+<code>24 × 558 + 262 ≈ 13654 s ≈ 3h47m</code>。<br>
+如果你那批用的是更快的 <code>fl2va</code> 主干（v0.36 实测端到端 469.3 s），
+则是 <code>24 × 469 + 262 ≈ 11518 s ≈ 3h12m</code>。<b>所以区间是 3h10m–3h50m</b>，
+取决于该批走哪套权重。双卡手册里写的「24 镜 ≈1.5 h」是双卡口径，别拿来比。</p>
+
+<h2 id="s8">8 · 接手检查清单（必做）</h2>
+
+<div class="card danger">
+  <b>门禁目录里的三类脏状态 —— 全都不报错，只会静默跳过或死循环</b>
+  <p style="margin-bottom:0">这是本项目最阴的一类故障：进度条在走，但某些镜就是不出片，
+  而且没有任何错误信息指向它。</p>
+</div>
+
+<pre><code>cd /workspace/dy_key
+
+<span class="c"># ① 残留 .lock —— 双卡 worker 被 kill / 机器关机留下的空目录</span>
+<span class="c">#    后果：该镜被【永久跳过】，既不跑也不报错</span>
+find gates gates_full -maxdepth 1 -type d -name '*.lock'
+find gates gates_full -maxdepth 1 -type d -name '*.lock' -exec rmdir {} \;
+
+<span class="c"># ② 残留 .fail —— 此前失败的镜</span>
+<span class="c">#    后果：被跳过。确认修好了再删，删掉即重跑</span>
+ls gates*/*.fail
+<span class="c"># rm gates/*.fail gates_full/*.fail</span>
+
+<span class="c"># ③ 旧实例的数据库锁 —— 整盘 rsync 搬过来的机器</span>
+rm -f /workspace/ComfyUI/user/comfyui.db.lock /workspace/instance_b.db.lock</code></pre>
+
+<p><code>run_dy_single.sh</code> 已内置 ① 和 ③ 的自动清理，
+而且会在<b>检测到已有 worker 在跑时拒绝启动</b>（否则清 lock 会破坏互斥）。</p>
+
+<h3>另一个真 bug 已修（2026-09-19）：失败镜无限重试</h3>
+<div class="card warn">
+  <p style="margin-bottom:0">原版 <code>pipeline_worker.sh</code> 在 FAIL 之后只写
+  <code>failed_*.txt</code> 并释放 lock，下一轮扫描<b>又领到同一个镜</b> → 死循环烧机时。
+  双卡时另一张卡还在出别的片，不容易察觉；<b>单卡跑 373 镜时会直接卡死在那里</b>。<br>
+  归档版已加 <code>.fail</code> 标记：失败即跳过、不再自动重试，删掉标记才重跑。<br>
+  ★ 旧服务器上跑的还是老版本 —— 用 <code>deploy/server-assets/dy_key/pipeline_worker.sh</code>
+  覆盖过去（<code>05_push_assets.sh</code> 推的就是修好的版本）。</p>
+</div>
+
+<h2 id="s9">9 · 单卡坑位清单（8 条专属 + 2 条通用必读）</h2>
+
+<table>
+  <tr><th>#</th><th>坑</th><th>后果 / 正确做法</th></tr>
+  <tr>
+    <td>1</td><td><b>选 64 GB 内存的机型</b></td>
+    <td>单张 40 GB 卡装不下 50.2 GB 权重，必然 offload 到内存；单个空闲实例就吃 57 GB。
+    跑一半 OOM。<b>门槛 ≥ 96 GB</b></td>
+  </tr>
+  <tr>
+    <td>2</td><td>在双卡机上跑单卡脚本</td>
+    <td>只启 GPU0，<b>GPU1 白付租金</b>。双卡机器用 <code>both</code> + 双 worker</td>
+  </tr>
+  <tr>
+    <td>3</td><td>在单卡机上起两个实例</td>
+    <td>两个进程抢内存 → OOM。<b>单卡只起 8188</b></td>
+  </tr>
+  <tr>
+    <td>4</td><td>照抄双卡的 <code>--database-url</code></td>
+    <td>单实例不需要，还会让人以为要建 <code>instance_b.db</code>。整条删掉</td>
+  </tr>
+  <tr>
+    <td>5</td><td>残留 <code>.lock</code> 目录</td>
+    <td>该镜被<b>永久跳过</b>且不报错。接手前清一遍，见 <a href="#s8">§8</a></td>
+  </tr>
+  <tr>
+    <td>6</td><td>失败镜无限重试（原版 worker）</td>
+    <td>死循环烧机时，单卡长跑必现。<b>用归档版</b>（带 <code>.fail</code> 标记）</td>
+  </tr>
+  <tr>
+    <td>7</td><td>按 558 s/镜去估 373 镜</td>
+    <td>会算出 57 小时。373 镜平均只有 63 s/镜（帧数少 4 倍）。<b>直接用总机时 6.57 h</b></td>
+  </tr>
+  <tr>
+    <td>8</td><td>把冷启时间乘镜数</td>
+    <td>冷启只在批次第一镜付一次。373 镜里占 0.7%，试拍 1 镜里占 100%</td>
+  </tr>
+  <tr>
+    <td><b>9</b></td><td><b>环境里有 <code>http_proxy</code>（通用坑，但单卡最常撞）</b></td>
+    <td>WorkBuddy / Clash / 公司代理都会设。此时 <code>curl 127.0.0.1:8188</code>
+    <b>会走代理</b>拿到 502，所有检查脚本都报「ComfyUI 没响应」——<b>而它其实跑得好好的</b>。
+    你会白翻半天日志、反复重启实例。解法：脚本开头 <code>export no_proxy="127.0.0.1,localhost,::1"</code>
+    （<code>NO_PROXY</code> 一起设）。本手册配套的脚本已全部内置。</td>
+  </tr>
+  <tr>
+    <td><b>10</b></td><td><b>变量后紧跟中文标点</b>（改脚本时容易引入）</td>
+    <td><code>set -u</code> 下 <code>echo "端口 $PORT）"</code> 会报
+    <code>unbound variable</code>（bash 把全角括号的字节当成变量名一部分）；
+    没开 <code>set -u</code> 则静默展开成空串。<b>变量一律写 <code>${VAR}</code> 形式。</b></td>
+  </tr>
+</table>
+
+<p>通用坑位（17 条：commit 版本、TeaCache、<code>pkill</code> 自杀式断连、
+<code>/free</code> 空响应体、BBR、权重子目录…）见
+<code>docs/新服务器部署手册.html</code> §10 与 <code>deploy/README.md</code> §4 ——
+<b>那些与卡数无关，单卡同样适用，务必一并读。</b></p>
+
+<h3>这几件事别再试了（省点力气）</h3>
+<table>
+  <tr><th>想法</th><th>为什么不行</th></tr>
+  <tr><td>单卡调大 batch 提速</td><td>H3 一镜是整体去噪，没有 batch 维度可堆</td></tr>
+  <tr><td>SageAttention / FP8 / <code>--fast</code></td><td>A100 是 SM80，无原生 FP8，全部实测否决（Sage 还直接 NaN）</td></tr>
+  <tr><td>降分辨率换速度</td><td>768×1344 是已定稿的交付口径</td></tr>
+  <tr><td>单任务双卡（SP=2）</td><td>实测更慢（2.4 h &gt; 双实例 1.56 h），单卡更无从谈起</td></tr>
+</table>
+
+<h2 id="s10">10 · 验收</h2>
+
+<pre><code>bash deploy/bootstrap/verify.sh        <span class="c"># 静态检查</span>
+bash deploy/bootstrap/verify.sh --run  <span class="c"># 真出一镜（约 10 分钟，含冷启）</span></code></pre>
+
+<div class="card ok">
+  <b>单卡验收时，除了通用检查项，额外确认这三条：</b>
+  <ul style="margin-bottom:0">
+    <li>存活实例数 = <b>1</b>（<code>04_launch_comfy.sh status</code> 会打印）；8189「未启动」是<b>正常的</b>，不是故障</li>
+    <li><code>nvidia-smi</code> 只有一张卡，<code>memory.used</code> 在跑任务后应接近 40 GB（说明权重已驻留）</li>
+    <li><code>free -g</code> 的 available 应还剩 <b>≥ 25 GB</b>；如果只剩个位数，说明这台机器内存给少了</li>
+  </ul>
+</div>
+
+<p>出片后的产品侧验收（不烧字幕、字幕绝对时间 = Σ前序镜时长、
+<code>length</code> 只接受 <b>17n+5</b>、一步直出成片时长 = H3 帧数 ÷ 24）
+见主手册 §12，与卡数无关。</p>
+
+<h2 id="s11">附录 · 相关文件</h2>
+
+<table>
+  <tr><th>文件</th><th>作用</th></tr>
+  <tr><td><code>deploy/single-gpu/README.md</code></td><td>本文的精简可执行版（给 Agent 读）</td></tr>
+  <tr><td><code>deploy/single-gpu/run_dy_single.sh</code></td><td>抖音单卡跑批（<code>full</code> / <code>key</code> 两条线）</td></tr>
+  <tr><td><code>deploy/single-gpu/run_trilogy_single.sh</code></td><td>三部曲单卡跑批</td></tr>
+  <tr><td><code>deploy/bootstrap/</code></td><td>6 个部署脚本（单卡双卡通用）+ <code>verify.sh</code></td></tr>
+  <tr><td><code>deploy/server-assets/</code></td><td>服务器侧脚本与输入资产快照（96 MB，含独一份的干声与参考帧）</td></tr>
+  <tr><td><code>docs/新服务器部署手册.html</code></td><td>通用清单与 17 条通用坑位（双卡口径）</td></tr>
+  <tr><td><code>deploy/README.md</code></td><td>迁移总纲（Agent 入口）</td></tr>
+</table>
+
+<div class="foot">
+  本文档由旧服务器 <code>kehu</code> 的实机侦察数据推导（2026-09-19）。
+  所有实测数字（558 s/镜、18908 s 总机时、1.950× 加速比、6.57 h 全量机时、
+  57 GB 单实例内存占用）均来自旧机运行记录，非估算；外推值已明确标注「外推」。<br><br>
+  · 目标形态：1×A100-PCIE-40GB · ComfyUI v0.36.0 · torch 2.14.0+cu130<br>
+  · 生成路线：一步直出 768×1344（不经 LTX 精修）<br>
+  · 配套脚本：<code>deploy/single-gpu/</code> · <code>deploy/bootstrap/</code>
+</div>
+
+</div>
+</body>
+</html>

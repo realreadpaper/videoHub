@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>新服务器重新部署手册 · videoHub / MiniMax-H3 短剧生产线</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#1a1d21; --ink2:#4a5056; --ink3:#7b8288;
+    --line:#e3e6ea; --accent:#1f6feb; --accent-soft:#eaf1fe;
+    --warn:#b45309; --warn-soft:#fff7e6; --danger:#b91c1c; --danger-soft:#fef2f2;
+    --ok:#15803d; --ok-soft:#f0fdf4; --code:#f2f4f7;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 28px 120px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:38px}
+  h1{font-size:29px;line-height:1.3;margin:0 0 10px;letter-spacing:-.3px}
+  .sub{color:var(--ink2);font-size:14.5px}
+  .meta{margin-top:14px;font-size:13px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 20px}
+  h2{font-size:21px;margin:52px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:16.5px;margin:30px 0 10px;color:var(--ink)}
+  h4{font-size:14.5px;margin:22px 0 8px;color:var(--ink2)}
+  p{margin:10px 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  code{font-family:var(--mono);font-size:12.8px;background:var(--code);
+    padding:2px 6px;border-radius:4px;color:#0b3a80;white-space:nowrap}
+  pre{background:#1c2128;color:#d8dee9;padding:16px 18px;border-radius:9px;overflow-x:auto;
+    font-family:var(--mono);font-size:12.6px;line-height:1.72;margin:14px 0}
+  pre code{background:none;color:inherit;padding:0;font-size:inherit;white-space:pre}
+  pre .c{color:#7d8590}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.6px;
+    background:var(--card);border-radius:9px;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+  th{background:#eef1f5;text-align:left;padding:10px 12px;font-weight:600;font-size:13px;
+    border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+  tr:last-child td{border-bottom:none}
+  td code{white-space:normal;word-break:break-all}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:11px;
+    padding:18px 20px;margin:16px 0;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .card.warn{background:var(--warn-soft);border-color:#f5d79a}
+  .card.danger{background:var(--danger-soft);border-color:#f3bcbc}
+  .card.ok{background:var(--ok-soft);border-color:#b6e3c4}
+  .card.info{background:var(--accent-soft);border-color:#c3d8fb}
+  .tag{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:20px;
+    vertical-align:middle;margin-right:6px;letter-spacing:.2px}
+  .t-now{background:#dcfce7;color:#166534}
+  .t-dead{background:#fee2e2;color:#991b1b}
+  .t-opt{background:#e0e7ff;color:#3730a3}
+  .t-must{background:#fef3c7;color:#92400e}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0}
+  .kv{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .kv b{display:block;font-size:12.5px;color:var(--ink3);font-weight:600;margin-bottom:4px}
+  .kv span{font-size:17px;font-weight:600;letter-spacing:-.2px}
+  .kv small{display:block;color:var(--ink3);font-size:12px;margin-top:3px}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:18px 22px;margin:26px 0 10px}
+  .toc b{font-size:13px;color:var(--ink3);letter-spacing:.4px}
+  .toc ol{margin:10px 0 0;columns:2;column-gap:32px;font-size:13.8px}
+  .toc a{color:var(--accent);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .pill{display:inline-block;background:var(--code);border:1px solid var(--line);
+    border-radius:6px;padding:1px 7px;font-family:var(--mono);font-size:12px;margin:2px 3px 2px 0}
+  hr{border:none;border-top:1px solid var(--line);margin:36px 0}
+  .foot{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink3);line-height:1.9}
+  .step{counter-reset:none;border-left:3px solid var(--accent);padding-left:18px;margin:22px 0}
+  .step h3{margin-top:0}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+    border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:700;
+    margin-right:9px;vertical-align:-4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>新服务器重新部署手册</h1>
+  <div class="sub">videoHub · MiniMax-H3 短剧生产线 · 从一台空白 GPU 机器到能出片</div>
+  <div class="meta">
+    <span>生成日期：2026-09-19</span>
+    <span>源机器：kehu（124.81.178.140）· 华为云泰国</span>
+    <span>目标形态：2×A100-PCIE-40GB + ComfyUI v0.36.0</span>
+    <span>配套可执行脚本：<code>deploy/bootstrap/</code></span>
+  </div>
+</header>
+
+<div class="card info">
+  <b>这份文档解决什么问题</b>
+  <p style="margin-bottom:0">本机 macOS 只做编排与后处理，视频生成跑在远端 GPU 上。旧服务器一旦关停，
+  那半边（ComfyUI + 75 GB 权重 + 生产脚本 + 音图资产）就没了。这份手册把「GPU 侧那一半」
+  完整列了出来——哪些项目、哪些文件、什么版本、从哪拿、怎么装、装完怎么验。
+  <b>照着做，一台新机器 3~6 小时可恢复出片能力</b>（大头是下权重）。</p>
+</div>
+
+<div class="card warn">
+  <b>★ 卡数变了：本手册是「双卡」口径，现行形态是「只租 1 张 A100」</b>
+  <p>部署步骤<b>完全一样</b>（<code>bootstrap/</code> 那 7 个脚本与卡数无关），
+  但下面这四处必须换成单卡的做法，否则会踩坑或白付租金：</p>
+  <table style="margin:10px 0">
+    <tr><th>项</th><th>本手册（双卡）</th><th>单卡</th></tr>
+    <tr><td>启动</td><td><code>04_launch_comfy.sh both</code></td><td><code>04_launch_comfy.sh single</code>，且不需要 <code>--database-url</code></td></tr>
+    <tr><td>跑批</td><td>两 worker 分 keys（§9.2）</td><td>单 worker：<code>run_dy_single.sh</code> / <code>run_trilogy_single.sh</code></td></tr>
+    <tr><td>内存门槛</td><td>≥ 100 GB</td><td><b>≥ 96 GB</b>（单实例仍常驻 ~57 GB）</td></tr>
+    <tr><td>373 镜挂钟</td><td>3.37 h</td><td><b>6h34m</b>（单镜 558 s 不变）</td></tr>
+  </table>
+  <p style="margin-bottom:0">→ 单卡请读 <b><code>docs/单卡A100部署手册.html</code></b> 与 <b><code>deploy/single-gpu/README.md</code></b>。
+  一句话记住：<b>单卡只影响排队长度，不影响单镜速度。</b></p>
+</div>
+
+<div class="toc">
+  <b>目录</b>
+  <ol>
+    <li><a href="#s1">现状与生产形态（先读这条）</a></li>
+    <li><a href="#s2">目标机硬要求</a></li>
+    <li><a href="#s3">两条恢复路径：整盘搬 / 从零重建</a></li>
+    <li><a href="#s4">清单 · 软件（锁 commit）</a></li>
+    <li><a href="#s5">清单 · 权重（6 个 / 75 GB）</a></li>
+    <li><a href="#s6">清单 · 服务器侧脚本</a></li>
+    <li><a href="#s7">清单 · 输入资产（不入库）</a></li>
+    <li><a href="#s8">部署步骤（逐条命令）</a></li>
+    <li><a href="#s9">启动与跑批</a></li>
+    <li><a href="#s10">血泪坑位 17 条</a></li>
+    <li><a href="#s11">实测基准与计时口径</a></li>
+    <li><a href="#s12">验收清单</a></li>
+    <li><a href="#s13">本机侧要什么</a></li>
+  </ol>
+</div>
+
+<h2 id="s1">1 · 现状与生产形态</h2>
+
+<div class="grid">
+  <div class="kv"><b>现行生成路线</b><span>一步直出</span><small>768×1344 原生全噪声去噪，不经 LTX 精修</small></div>
+  <div class="kv"><b>单镜热态耗时</b><span>≈ 550 s / 镜 / 卡</span><small>4 步 Turbo + ck-attention；冷启首镜 600 s+</small></div>
+  <div class="kv"><b>权重总量</b><span>≈ 75 GB</span><small>6 个文件，文件名被工作流写死</small></div>
+  <div class="kv"><b>24 镜批处理</b><span>≈ 1.5 h</span><small>双卡各 12 镜，不含首镜冷启</small></div>
+</div>
+
+<h3>三条产线</h3>
+<table>
+  <tr><th>产线</th><th>工作区（服务器）</th><th>工作流来源（本机仓库）</th><th>状态</th></tr>
+  <tr>
+    <td><b>现代婚姻三部曲</b><br>24 镜</td>
+    <td><code>/workspace/trilogy/</code></td>
+    <td><code>待生成_现代婚姻三部曲/_pipeline/wf_one/</code>（24 个，已与旧机 md5 一致）</td>
+    <td><span class="tag t-now">现行</span>只试拍过 f1s01/f1s02</td>
+  </tr>
+  <tr>
+    <td><b>抖音复刻 · 关键镜</b></td>
+    <td><code>/workspace/dy_key/</code></td>
+    <td><code>videos/douyin_refs/2026-09-18/_remake/wf_out/</code>（本机生成后上传）</td>
+    <td><span class="tag t-now">现行</span>已产出多批成片</td>
+  </tr>
+  <tr>
+    <td><b>抖音复刻 · 关键镜 / 骨架</b></td>
+    <td><code>/workspace/dy_key/wf/</code></td>
+    <td><code>_remake/wf_out/</code> + <code>wf_skel/</code>（39 个）</td>
+    <td><span class="tag t-now">现行</span>输出 <code>output/dy_key/</code> · <code>dy_skel/</code></td>
+  </tr>
+  <tr>
+    <td><b>抖音全量复刻 · 373 镜</b></td>
+    <td><code>/workspace/dy_key/wf_full/</code></td>
+    <td><code>_remake/</code> 下 <code>build_full_wf.py</code> 生成（373 个）</td>
+    <td><span class="tag t-now">现行</span>GPU 6.57 h → 双卡挂钟 ≈3.37 h</td>
+  </tr>
+  <tr>
+    <td>两阶段（草稿→LTX 精修）</td>
+    <td><code>trilogy/wf_pipeline/</code></td>
+    <td><code>_pipeline/wf/</code></td>
+    <td><span class="tag t-dead">已废弃</span>依赖的 <code>ui_to_api.py</code> / <code>s2_adapt.py</code> 已不存在</td>
+  </tr>
+</table>
+
+<div class="card danger">
+  <b><span class="tag t-dead">已废弃</span>别去修 <code>run_server.sh</code></b>
+  <p style="margin-bottom:0">它引用的 <code>/root/ui_to_api.py</code> 和 <code>/workspace/films/s2_adapt.py</code>
+  在旧机上<b>已经不存在</b>。有人看到它报"文件找不到"，第一反应是去补这两个文件——不要。
+  一步直出画质更硬（原生分辨率全噪声去噪，而精修是在 384×672 草稿上补细节），
+  两阶段是为了 62 GB 内存时代的妥协，现在已经没有存在理由。</p>
+</div>
+
+<h2 id="s2">2 · 目标机硬要求</h2>
+
+<table>
+  <tr><th>项目</th><th>门槛</th><th>本项目基准</th><th>为什么是这个数</th></tr>
+  <tr><td>GPU 架构</td><td><b>compute capability ≥ 7.5</b></td><td>SM80（A100）</td><td>CUDA 13 / INT8 量化权重需要；bf16 需 ≥ 8.0</td></tr>
+  <tr><td>单卡显存</td><td><b>≥ 21 GB</b></td><td>40 GB</td><td>瓶颈是 50.2 GB 权重的前向计算分片，不是激活值 → 换 80G 卡不会更快</td></tr>
+  <tr><td>卡数</td><td>≥ 1，推荐 2</td><td>2 张</td><td><b>双卡 = 吞吐翻倍，不是单镜提速</b>——一镜拆不到两卡上</td></tr>
+  <tr><td>系统内存</td><td><b>≥ 100 GB</b></td><td>125 GB</td><td>空闲 ComfyUI 也常驻 ~57 GB，这是真瓶颈</td></tr>
+  <tr><td>磁盘</td><td><b>≥ 150 GB</b></td><td>148 GB（用掉 104）</td><td>权重 75 GB + 栈 8 GB + 输出若干</td></tr>
+  <tr><td>驱动</td><td><b>≥ 580</b></td><td>580.95.05 / CUDA 13.0</td><td>torch <code>cu130</code> 自带 CUDA 13 运行时，<b>系统不需要装 CUDA Toolkit</b></td></tr>
+  <tr><td>操作系统</td><td>Ubuntu 22.04</td><td>22.04.2 LTS / 内核 5.15</td><td>脚本按 apt 写</td></tr>
+  <tr><td>外网</td><td>能直连 HuggingFace</td><td>泰国机房直连 HF 35 MB/s</td><td>ModelScope 在该机房实测 9 B/s 等于不通；换机房需先 <code>curl -L</code> 测速</td></tr>
+</table>
+
+<div class="card warn">
+  <b>★ A100 是 SM80，没有原生 FP8</b>
+  <p style="margin-bottom:0">所以 SageAttention / FP8 权重 / <code>--fast</code> 这一整类加速在本项目
+  <b>全部实测无效或直接 NaN</b>。别再尝试，理由与实测数据见
+  <code>docs/h3-acceleration-2xa100.md</code>。当前唯一有效的注意力加速是
+  <code>--use-ck-attention</code>（comfy-kitchen 的 INT8 通路）。</p>
+</div>
+
+<h2 id="s3">3 · 两条恢复路径</h2>
+
+<h3>路径 A · 旧机还在 → 整盘 rsync <span class="tag t-opt">首选，约 20 分钟</span></h3>
+<p>权重 75 GB，重下一遍要好几个小时。只要旧机器还活着，优先整盘搬。</p>
+<pre><code><span class="c"># 在新机上执行</span>
+rsync -avzP --info=progress2 root@旧机:/workspace/  /workspace/
+rsync -avzP root@旧机:/root/s2/ /root/s2/
+rsync -avzP root@旧机:/etc/sysctl.d/99-net-speed.conf \
+               root@旧机:/etc/sysctl.d/99-swap.conf  /etc/sysctl.d/
+
+<span class="c"># ★ 整盘搬完必须做两件事，否则起不来</span>
+<span class="c"># 1) 清掉旧机残留的数据库锁</span>
+rm -f /workspace/instance_b.db.lock /workspace/ComfyUI/user/comfyui.db.lock
+<span class="c"># 2) venv 里写死了绝对路径，跨机搬过来基本是坏的——重建，别偷懒</span>
+mv /workspace/venv /workspace/venv.broken
+bash deploy/bootstrap/02_build_stack.sh</code></pre>
+
+<h3>路径 B · 旧机已关 → 从零重建 <span class="tag t-must">3~6 小时</span></h3>
+<pre><code><span class="c"># 新机上（仓库已 clone）</span>
+bash deploy/bootstrap/00_check_target.sh    <span class="c"># 体检，只读，不改任何东西</span>
+bash deploy/bootstrap/01_provision_os.sh    <span class="c"># apt 工具 / swap / BBR / 驱动核对</span>
+bash deploy/bootstrap/02_build_stack.sh     <span class="c"># venv + torch + ComfyUI + 3 节点</span>
+bash deploy/bootstrap/03_dl_weights.sh      <span class="c"># 75 GB 权重 ← 最慢，挂 tmux 睡觉</span>
+bash deploy/bootstrap/04_launch_comfy.sh both
+
+<span class="c"># 回到本机（macOS）</span>
+bash deploy/bootstrap/05_push_assets.sh &lt;新机ssh别名&gt;
+
+<span class="c"># 目标机上</span>
+bash deploy/bootstrap/verify.sh --run       <span class="c"># 端到端验收，真出一镜</span></code></pre>
+
+<h2 id="s4">4 · 清单 · 软件（必须锁 commit）</h2>
+
+<h3>4.1 代码仓库</h3>
+<table>
+  <tr><th>组件</th><th>仓库</th><th>锁定 commit</th><th>为什么锁</th></tr>
+  <tr>
+    <td><b>ComfyUI</b></td>
+    <td>github.com/comfyanonymous/ComfyUI</td>
+    <td><code>ee71d5c4993f29086b27fde1629a945ae48425bf</code><br><span class="tag t-now">v0.36.0</span></td>
+    <td>升到 v0.36.0 是<b>已落地的最大单项收益</b>：单步采样 131 s → 94 s（−28%）</td>
+  </tr>
+  <tr>
+    <td><b>T8 节点</b><br>（H3 全部业务节点）</td>
+    <td>github.com/T8mars/comfyui-minimax-h3-audio-T8</td>
+    <td><code>e12d8af8ac85540da9895cb629836a4947e221ca</code><br><span class="tag t-now">v1.79.6</span></td>
+    <td>工作流里所有 <code>MiniMaxH3*T8</code> 节点都由它提供，换版本会节点丢失</td>
+  </tr>
+  <tr>
+    <td><b>KJNodes</b></td>
+    <td>github.com/kijai/ComfyUI-KJNodes</td>
+    <td><code>b3ec064dde7d122b333660918e1200e928e67ff1</code></td>
+    <td>提供 <code>PathchSageAttentionKJ</code> 等；依赖 color-matcher。旧脚本漏装过</td>
+  </tr>
+  <tr>
+    <td>TeaCache 节点</td>
+    <td>github.com/Icyoung/ComfyUI-MiniMaxH3-TeaCache</td>
+    <td><code>4cbb50d69c73a19a5d6ec42c5aec1989d5a04b6f</code></td>
+    <td><span class="tag t-opt">装了不用</span>见坑位 5</td>
+  </tr>
+</table>
+
+<h3>4.2 Python 依赖</h3>
+<table>
+  <tr><th>包</th><th>版本</th><th>备注</th></tr>
+  <tr><td>torch / torchvision / torchaudio</td><td><code>2.14.0+cu130</code> / <code>0.29.0+cu130</code> / <code>2.11.0+cu130</code></td><td><b>必须</b>加 <code>--index-url https://download.pytorch.org/whl/cu130</code></td></tr>
+  <tr><td>comfy-kitchen</td><td><b><code>0.2.34</code></b></td><td>★ 必须 ≥0.2.34：内建 <code>group_norm_silu_pad3d</code> / <code>rms_rope_split_half</code> 等 H3 专用融合算子。写 0.2.33 会掉回旧速度</td></tr>
+  <tr><td>comfyui-frontend-package</td><td><code>1.52.7</code></td><td>与 v0.36.0 匹配</td></tr>
+  <tr><td>comfyui-workflow-templates</td><td><code>0.11.62</code></td><td></td></tr>
+  <tr><td>av</td><td><code>17.1.0</code></td><td></td></tr>
+  <tr><td>KJNodes 依赖</td><td>pillow / color-matcher / matplotlib / mss / opencv-python-headless</td><td></td></tr>
+  <tr><td>系统包</td><td>ffmpeg · aria2c · sqlite3</td><td><b>ffmpeg 必须有</b>：T8 的 <code>MiniMaxH3SafeAVSaveT8Advanced</code> 存 H.264 长视频靠它</td></tr>
+</table>
+<p style="font-size:13.5px;color:var(--ink2)">装完 <code>02_build_stack.sh</code> 会生成
+<code>/workspace/pip-freeze-lock.txt</code>（120 个包的确切版本），可用于逐包复现。</p>
+
+<h3>4.3 不可退让的两条安装顺序</h3>
+<div class="card warn">
+  <ul style="margin:0">
+    <li><b>装节点依赖时必须排除 <code>torch/torchvision/torchaudio/numpy</code></b>。T8 节点的
+    requirements 里若带上它们，会把已经装好的 cu130 torch 覆盖成 PyPI 普通版 → CUDA 不可用。</li>
+    <li><b>clone 时若目标机有全局 git url 改写（<code>url.*.insteadOf</code> 把 HTTPS 改成 SSH）</b>，
+    要加 <code>GIT_CONFIG_GLOBAL=/dev/null</code>，否则克隆全部失败。旧机就踩过这个。</li>
+  </ul>
+</div>
+
+<h2 id="s5">5 · 清单 · 权重（6 个 / 约 75 GB）</h2>
+
+<table>
+  <tr><th>#</th><th>落盘路径（相对 <code>ComfyUI/models/</code>）</th><th>大小</th><th>来源</th><th>用途</th></tr>
+  <tr>
+    <td>1</td>
+    <td><code>diffusion_models/minimax_h3_fl2va_pruned_int8_convrot.safetensors</code></td>
+    <td>19.5 GiB</td>
+    <td><a href="https://huggingface.co/Comfy-Org/MiniMax-H3">Comfy-Org/MiniMax-H3</a></td>
+    <td>主干 · 静音轮 / 无参考图</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><code>diffusion_models/Minimax-h3_Singularity_ref2va_Pruned_v1.3_int8.safetensors</code></td>
+    <td>19.5 GiB</td>
+    <td><a href="https://huggingface.co/WarmBloodAban/Minimax-h3_Singularity">WarmBloodAban/Minimax-h3_Singularity</a></td>
+    <td>主干 · 原声锁 / 参考图轮</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td><code>text_encoders/<b>minimax_h3/</b>qwen3vl_32b_minimax_h3_int8_convrot.safetensors</code></td>
+    <td>25.3 GiB</td>
+    <td>Comfy-Org/MiniMax-H3</td>
+    <td><b>★ 必须在子目录里</b>，工作流写的是 <code>minimax_h3/qwen3vl_32b_...</code></td>
+  </tr>
+  <tr><td>4</td><td><code>vae/minimax_h3_video_vae_fp16.safetensors</code></td><td>4.85 GiB</td><td>Comfy-Org/MiniMax-H3</td><td>视频 VAE</td></tr>
+  <tr><td>5</td><td><code>vae/minimax_h3_audio_vae_fp32.safetensors</code></td><td>577 MiB</td><td>Comfy-Org/MiniMax-H3</td><td>音频 VAE</td></tr>
+  <tr><td>6</td><td><code>loras/minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors</code></td><td>592 MiB</td><td><a href="https://huggingface.co/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI">drbaph/MiniMax-H3-Turbo-Lora-ComfyUI</a></td><td>4 步加速 LoRA</td></tr>
+</table>
+
+<div class="card danger">
+  <b>文件名是硬契约，改名就 400</b>
+  <p style="margin-bottom:0">工作流 json 里写死了这 6 个路径字符串。一个字符不同，
+  ComfyUI 直接返回 <code>400 value_not_in_list</code>，而且<b>是在跑完之后才报</b>，
+  前面几十秒的加载白费。<code>03_dl_weights.sh</code> 里带了字节数校验，下完自动比对。</p>
+</div>
+
+<h2 id="s6">6 · 清单 · 服务器侧自制脚本</h2>
+<p>全部已存档在本仓库 <code>deploy/server-assets/</code>，<code>05_push_assets.sh</code> 会自动推过去。</p>
+
+<table>
+  <tr><th>文件</th><th>作用</th><th>状态</th></tr>
+  <tr><td><code>root/s2/submit_api.py</code></td><td><b>提交器</b>。只吃 API 格式工作流；会主动剥离顶层非节点键（<code>_meta</code> 会让 <code>/prompt</code> 400 <code>missing_node_type</code>）；轮询到结束，带队列进度提示</td><td><span class="tag t-now">核心</span></td></tr>
+  <tr><td><code>trilogy/run_one_step_dual.sh</code></td><td><b>双卡一步直出跑批</b>（现行主力）：点火前校验两端口队列为空 → keys 轮转对半 → 双 worker 并行 → gates 断点续跑</td><td><span class="tag t-now">核心</span></td></tr>
+  <tr><td><code>trilogy/run_one_step.sh</code></td><td>单卡版一步直出</td><td><span class="tag t-now">可用</span></td></tr>
+  <tr><td><code>dy_key/pipeline_worker.sh</code></td><td><b>目录扫描式流水线</b>：双 worker 循环领取 <code>wf/</code> 下未完成镜，用 <code>mkdir</code> 原子锁防两卡抢同一镜；空闲超时自动退出</td><td><span class="tag t-now">核心</span></td></tr>
+  <tr><td><code>dy_key/run_worker.sh</code></td><td>按 key 列表顺序提交的单卡 worker</td><td><span class="tag t-now">可用</span></td></tr>
+  <tr><td><code>trilogy/convert_to_pipeline_wf.py</code></td><td>UI 工作流 → 管线格式（<b>会插入 TeaCache 节点，现在不用</b>）</td><td><span class="tag t-opt">停用</span></td></tr>
+  <tr><td><code>dl/build_env.sh</code> · <code>dl/build_env2.sh</code></td><td>旧机环境重建脚本。<b>已过时</b>（commit 是 0.35、kitchen 写 0.2.33、漏 KJNodes），仅供追溯</td><td><span class="tag t-dead">过时</span></td></tr>
+  <tr><td><code>install_sage.sh</code> · <code>install_sage2.sh</code></td><td>SageAttention 2.2 编译脚本（pip nvcc + SM80 编译）。<b>最终未采用</b>——SM80 无 FP8，收益有限</td><td><span class="tag t-dead">未采用</span></td></tr>
+  <tr><td><code>sysctl.d/99-net-speed.conf</code></td><td>BBR + 16 MB 收发缓冲</td><td><span class="tag t-must">必装</span></td></tr>
+  <tr><td><code>sysctl.d/99-swap.conf</code></td><td><code>vm.swappiness=10</code></td><td><span class="tag t-must">必装</span></td></tr>
+</table>
+
+<h2 id="s7">7 · 清单 · 输入资产（不在 git 里，必须手动传）</h2>
+
+<div class="card warn">
+  <b>这些是 <code>*.wav</code> / <code>*.jpg</code>，被仓库 <code>.gitignore</code> 拦掉了</b>
+  <p>但它们是生产必需的——工作流 <code>LoadAudio</code> / <code>LoadImage</code> 节点直接引用相对路径，
+  缺文件就是提交失败。已抢救到 <code>deploy/server-assets/inputs/</code>。</p>
+</div>
+
+<table>
+  <tr><th>本机路径</th><th>内容</th><th>工作流里的引用形式</th></tr>
+  <tr>
+    <td><code>inputs/tts_dry/trilogy/</code></td>
+    <td>三部曲 24 镜中文干声（15 MB）</td>
+    <td><code>"tts_dry/trilogy/f1_s01_dry.wav"</code></td>
+  </tr>
+  <tr>
+    <td><code>inputs/dy_voice/</code></td>
+    <td>抖音复刻 31 条干声（14 MB）</td>
+    <td><code>"dy_voice/dy1_s01_open_kick.wav"</code></td>
+  </tr>
+  <tr>
+    <td><code>inputs/dy_refs/</code></td>
+    <td>9 张角色/产品参考图（132 KB）</td>
+    <td><code>"dy_refs/product_pouch.jpg"</code></td>
+  </tr>
+  <tr>
+    <td><code>inputs/dy_full_a/</code></td>
+    <td><b>全量复刻 373 条原片逐镜音轨切片</b>（32 MB）</td>
+    <td><code>"dy_full_a/dy1_s001.wav"</code></td>
+  </tr>
+  <tr>
+    <td><code>inputs/dy_full_ref/</code></td>
+    <td><b>全量复刻 373 张原片关键帧</b>（31 MB，已 crop 底部 10% 防把原片字幕带进新片）</td>
+    <td><code>"dy_full_ref/dy1_s001.jpg"</code></td>
+  </tr>
+  <tr>
+    <td><code>inputs/silent_15s.wav</code></td>
+    <td>15 秒静音垫（472 KB），纯审画面的轮次挂它</td>
+    <td><code>"silent_15s.wav"</code></td>
+  </tr>
+</table>
+
+<div class="card danger">
+  <b>三部曲干声本机无副本</b>
+  <p style="margin-bottom:0">它只存在于旧服务器的 <code>/workspace/ComfyUI/input/tts_dry/trilogy/</code>，
+  <code>deploy/server-assets/inputs/tts_dry/</code> 是<b>目前唯一的备份</b>。
+  万一丢了，用 <code>待生成_现代婚姻三部曲/_pipeline/tts_dry.py</code> 重新合成。
+  传到目标机时<b>目录层级必须一模一样</b>。</p>
+</div>
+
+<p><b>关键点：中文台词走"原声锁"。</b> H3 自己说中文不稳，所以外部 TTS 生成的干声
+（16 kHz 单声道）写进工作流 <code>LoadAudio</code> 节点，让模型只负责对口型与画面。
+纯审画面、不需要说话的产品镜，则挂 <code>silent_15s.wav</code>，并在 prompt 里把音景写死
+<code>No speech, no voices, no dialogue</code>。</p>
+
+<h2 id="s8">8 · 部署步骤</h2>
+
+<div class="step">
+  <h3><span class="num">1</span>体检（只读，1 分钟）</h3>
+<pre><code>bash deploy/bootstrap/00_check_target.sh</code></pre>
+<p>它会报出 GPU 架构 / 显存 / 内存 / 磁盘 / 驱动 / ffmpeg / BBR 状态，并直接给 FAIL 或 OK。
+<b>别跳过</b>——最容易出事的不是软件，是「内存只有 62 GB」或「compute capability 7.0」这类硬伤。</p>
+</div>
+
+<div class="step">
+  <h3><span class="num">2</span>系统层（3 分钟）</h3>
+<pre><code>bash deploy/bootstrap/01_provision_os.sh</code></pre>
+<p>幂等，可重复跑。做四件事：apt 装 ffmpeg/aria2/sqlite3/build-essential；
+建 <code>/workspace/{ComfyUI,venv,trilogy,dy_key,dl,logs,opt}</code> 与 <code>/root/s2</code>；
+建 8 GB swap 并写 <code>/etc/fstab</code> + <code>/etc/sysctl.d/99-swap.conf</code>；
+写 BBR 调优并 <code>sysctl --system</code> 生效。</p>
+<div class="card warn" style="margin-top:12px">
+  <b>swap 是兜底，不是扩内存</b>
+  <p style="margin-bottom:0">它的作用是防 OOM kill。真开始用 swap 时会慢到像卡死。
+  内存告警时正确做法是<b>卸掉空闲的 ComfyUI 实例</b>，不是加 swap。</p>
+</div>
+</div>
+
+<div class="step">
+  <h3><span class="num">3</span>重建 Python 栈（10 分钟）</h3>
+<pre><code>bash deploy/bootstrap/02_build_stack.sh</code></pre>
+<p>建 venv（Python 3.10.12）→ 装 torch cu130 → clone ComfyUI 锁 <code>ee71d5c4</code>
+→ 装 headless 依赖（<b>kitchen 0.2.34</b>）→ clone 3 个节点锁 commit → 装节点依赖
+（排除 torch/numpy）→ 写 <code>pip-freeze-lock.txt</code>。</p>
+<p>这个脚本是旧机 <code>build_env.sh</code> 的<b>修正版</b>，修了三个坑（commit 过时 / kitchen 版本旧 /
+漏 KJNodes），见坑位 1–3。</p>
+</div>
+
+<div class="step">
+  <h3><span class="num">4</span>下权重（1~3 小时，最慢的一步）</h3>
+<pre><code><span class="c"># 建议挂 tmux，避免 ssh 断开</span>
+tmux new -s dl
+bash deploy/bootstrap/03_dl_weights.sh
+<span class="c"># Ctrl-b d 脱离，回来 tmux a -t dl</span></code></pre>
+<p>用 aria2c 8 线程从 HuggingFace 拉 6 个文件（约 75 GB）。
+每个文件下完会校验字节数 + 解析 safetensors 头部。
+幂等：已存在且大小正确的会跳过。</p>
+<div class="card info" style="margin-top:12px">
+  <b>大陆机房怎么办</b>
+  <p style="margin-bottom:0">把脚本里的 <code>HF=https://huggingface.co</code> 换成
+  <code>http://hf-mirror.com</code>。<b>但先 <code>curl -L</code> 测速</b>再决定——
+  旧机在泰国，ModelScope 实测 9 B/s（等于不通），HuggingFace 反而 35 MB/s。
+  机房决定答案，别照搬。</p>
+</div>
+</div>
+
+<div class="step">
+  <h3><span class="num">5</span>推资产（本机执行，5 分钟）</h3>
+<pre><code><span class="c"># 在 macOS 上，仓库根目录</span>
+bash deploy/bootstrap/05_push_assets.sh kehu2
+<span class="c"># 想先看会传什么：加 --dry</span>
+bash deploy/bootstrap/05_push_assets.sh kehu2 --dry</code></pre>
+<p>推 <code>/root/s2/submit_api.py</code>、<code>/workspace/trilogy/</code>（wf_one 24 镜 + keys + 运行脚本）、
+<code>/workspace/dy_key/</code>（wf + worker）、<code>ComfyUI/input/</code> 下全部音图资产、
+环境脚本留档。</p>
+</div>
+
+<div class="step">
+  <h3><span class="num">6</span>起服务 + 验收（15 分钟）</h3>
+<pre><code>bash deploy/bootstrap/04_launch_comfy.sh both
+bash deploy/bootstrap/verify.sh --run</code></pre>
+<p>验收会检查：双实例存活 / 队列空 / 6 个权重在位且路径正确 /
+工作流引用的音频与图片都能解析成真实文件 / 3 个节点 / ffmpeg / torch CUDA，
+最后<b>真出一镜</b>证明端到端通。</p>
+</div>
+
+<h2 id="s9">9 · 启动与跑批</h2>
+
+<h3>9.1 双实例启动（现行形态）</h3>
+<pre><code><span class="c"># 实例 A · GPU0 · 8188</span>
+CUDA_VISIBLE_DEVICES=0 setsid nohup /workspace/venv/bin/python /workspace/ComfyUI/main.py \
+  --listen 127.0.0.1 --port 8188 --vram-headroom 1 --use-ck-attention \
+  &gt; /workspace/logs/comfy_a.log 2&gt;&amp;1 &lt; /dev/null &amp;
+
+<span class="c"># 实例 B · GPU1 · 8189   ★ 必须带独立 sqlite（四个斜杠）</span>
+CUDA_VISIBLE_DEVICES=1 setsid nohup /workspace/venv/bin/python /workspace/ComfyUI/main.py \
+  --listen 127.0.0.1 --port 8189 --vram-headroom 1 --use-ck-attention \
+  --database-url sqlite:////workspace/instance_b.db \
+  &gt; /workspace/logs/comfy_b.log 2&gt;&amp;1 &lt; /dev/null &amp;</code></pre>
+
+<table>
+  <tr><th>参数</th><th>作用</th></tr>
+  <tr><td><code>--use-ck-attention</code></td><td>走 comfy-kitchen 的 INT8 注意力通路。A100（SM80）上<b>唯一有效</b>的注意力加速</td></tr>
+  <tr><td><code>--vram-headroom 1</code></td><td>DynamicVRAM 额外留 1 GB 空闲显存</td></tr>
+  <tr><td><code>--database-url sqlite:////workspace/instance_b.db</code></td><td>实例 B 的独立数据库。<b>不加会 <code>Database is locked</code></b></td></tr>
+  <tr><td><code>setsid … &lt; /dev/null &amp;</code></td><td><b>三个都不能少</b>。否则 ssh 会话一断，任务被带走</td></tr>
+</table>
+
+<h3>9.2 三种任务形态</h3>
+<table>
+  <tr><th>任务</th><th>服务器上执行</th><th>耗时参考</th></tr>
+  <tr>
+    <td>三部曲 24 镜一步直出</td>
+    <td><code>cd /workspace/trilogy &amp;&amp; bash run_one_step_dual.sh</code></td>
+    <td>热态 ≈550 s/镜/卡，24 镜 ≈1.5 h（首镜冷启另计）</td>
+  </tr>
+  <tr>
+    <td>抖音关键镜 / 骨架</td>
+    <td><code>cd /workspace/dy_key</code><br><code>WF_DIR=$PWD/wf GATE_DIR=$PWD/gates bash pipeline_worker.sh A 8188 &amp;</code><br><code>WF_DIR=$PWD/wf GATE_DIR=$PWD/gates bash pipeline_worker.sh B 8189 &amp;</code></td>
+    <td>目录扫描式，<code>mkdir</code> 原子锁防两卡抢镜，gates 断点续跑</td>
+  </tr>
+  <tr>
+    <td><b>抖音全量复刻 373 镜</b></td>
+    <td><code>cd /workspace/dy_key</code><br><code>WF_DIR=$PWD/wf_full GATE_DIR=$PWD/gates_full bash pipeline_worker.sh A 8188 &amp;</code><br><code>WF_DIR=$PWD/wf_full GATE_DIR=$PWD/gates_full bash pipeline_worker.sh B 8189 &amp;</code></td>
+    <td><b>★ 必须用独立的 <code>gates_full</code></b>，与关键镜的 gates 混用会互相跳过。373 镜双卡挂钟 ≈3.37 h</td>
+  </tr>
+  <tr>
+    <td>单镜试拍</td>
+    <td><code>/workspace/venv/bin/python /root/s2/submit_api.py \<br>&nbsp;&nbsp;/workspace/trilogy/wf_one/wf_f1s01.json --host http://127.0.0.1:8188 --timeout 2400</code></td>
+    <td>冷启约 600 s</td>
+  </tr>
+</table>
+
+<h3>9.3 回传成片（低带宽友好）</h3>
+<pre><code><span class="c"># 只拉终稿，且远端先压成 720p 预览（体积降一个量级）</span>
+ssh kehu 'cd /workspace/ComfyUI/output/dy_skel && \
+  for f in *.mp4; do ffmpeg -y -loglevel error -i "$f" -vf scale=-2:720 -crf 28 /tmp/pv_"$f"; done && \
+  tar cf /tmp/pv.tgz -C /tmp $(ls /tmp | grep "^pv_")'
+
+scp kehu:/tmp/pv.tgz ./videos/douyin_refs/2026-09-18/_remake/out/</code></pre>
+<div class="card warn" style="margin-top:12px">
+  <b>回传慢 ≠ 带宽小</b>
+  <p style="margin-bottom:0">旧机下外网 26 MB/s，但回本机只有 0.11 MB/s。根因是跨境丢包。
+  判据：<code>ss -tnpi state established "( sport = :22 )"</code> 看 <code>cwnd</code> 个位数 +
+  <code>retrans</code> 上千 → 丢包型限速。<b>开 BBR 即解</b>，实测 0.11 → 6 MB/s（约 50 倍）。</p>
+</div>
+
+<h2 id="s10">10 · 血泪坑位 17 条</h2>
+
+<table>
+  <tr><th>#</th><th>坑</th><th>后果 / 正确做法</th></tr>
+  <tr><td>1</td><td>旧 <code>build_env.sh</code> 写 <code>COMFY_COMMIT=f42b24e</code>（0.35 的旧值）</td><td>装出来少 28% 采样速度。现行是 <b>v0.36.0 <code>ee71d5c4</code></b></td></tr>
+  <tr><td>2</td><td><code>requirements_headless.txt</code> 写 <code>comfy-kitchen==0.2.33</code></td><td>H3 融合算子缺失，速度掉回旧水平。必须 <b>0.2.34</b></td></tr>
+  <tr><td>3</td><td>旧 <code>launch_comfy.sh</code> 的 8189 没带 <code>--database-url</code></td><td>双实例同开 → <code>Database is locked</code>，批量失败</td></tr>
+  <tr><td>4</td><td>照跑 <code>run_server.sh</code>（两阶段）</td><td>依赖的 <code>ui_to_api.py</code> / <code>s2_adapt.py</code> 已不存在。<b>是 dead code，别修</b></td></tr>
+  <tr><td>5</td><td>往 <code>wf_one/</code> 里加 TeaCache</td><td>4 步采样下尾段拖影/涂抹。已禁用，<b>别加回来</b></td></tr>
+  <tr><td>6</td><td>后台任务漏 <code>&lt; /dev/null</code></td><td>ssh 断开会把任务带走。必须 <code>setsid nohup … &gt; log 2&gt;&amp;1 &lt; /dev/null &amp;</code></td></tr>
+  <tr><td>7</td><td><code>pkill -f "ComfyUI/main.py"</code></td><td><b>自杀式断连</b>——那条命令行本身会被 <code>-f</code> 匹配到。清队列用 <code>POST /queue {"clear":true}</code> + <code>POST /interrupt</code></td></tr>
+  <tr><td>8</td><td>对 <code>POST /free</code> 的响应做 <code>json.loads</code></td><td>返回 200 但响应体是 <b>0 字节</b>，会抛异常</td></tr>
+  <tr><td>9</td><td>用显存占用判断忙闲</td><td><b>显存高 ≠ 在忙</b>。ComfyUI 跑完不自动释放，空闲实例也常驻。点火前必查 <code>/queue</code> 并主动 <code>/free</code></td></tr>
+  <tr><td>10</td><td>以为回传慢是带宽不够</td><td>是跨境丢包。开 BBR，见 §9.3</td></tr>
+  <tr><td>11</td><td>Text Encoder 放在 <code>text_encoders/</code> 根目录</td><td>工作流写的是 <code>minimax_h3/…</code> → 400 <code>value_not_in_list</code></td></tr>
+  <tr><td>12</td><td>用 <code>SaveVideo</code> 存片</td><td>它的 <code>format/codec</code> 是 <code>COMFY_DYNAMICCOMBO_V3</code>，API 提交时白名单不认，参数静默消失，<b>跑完才报</b> <code>missing 'format'</code>。一律用 <code>MiniMaxH3SafeAVSaveT8Advanced</code></td></tr>
+  <tr><td>13</td><td><code>cd X &amp;&amp; A &amp; B &amp;</code></td><td>shell 优先级导致 <b>B 跑在原 cwd</b>。后台提交一律绝对路径</td></tr>
+  <tr><td>14</td><td>把冷启时间乘镜数算工期</td><td><b>A100 冷启 = 热态 4~5 倍</b>（首镜 382 s vs 热态 74 s）。冷启只在一个批次的第一镜付一次</td></tr>
+  <tr><td>15</td><td>指望双卡加速单镜</td><td><b>一镜拆不到两卡上</b>。双卡 = 吞吐翻倍。N 镜分 ⌈N/2⌉+⌊N/2⌋，挂钟由跑得多的那张卡决定，另一张提前空闲属正常</td></tr>
+  <tr><td><b>16</b></td><td><b>环境里有 <code>http_proxy</code></b></td><td><b>会劫持 localhost 检查</b>：<code>curl 127.0.0.1:8188</code> 走代理拿到 502，脚本全报「ComfyUI 没响应」而它其实好好的。解法 <code>export no_proxy="127.0.0.1,localhost,::1"</code>（配套脚本已内置）</td></tr>
+  <tr><td><b>17</b></td><td><b>变量后紧跟中文标点</b></td><td><code>set -u</code> 下 <code>"$PORT）"</code> 报 <code>unbound variable</code>；不开 <code>set -u</code> 则静默展开成空串。<b>变量一律写 <code>${VAR}</code></b></td></tr>
+</table>
+
+<h2 id="s11">11 · 实测基准与计时口径</h2>
+
+<div class="card danger">
+  <b>同一件事有三种计时口径，混用会差 4 倍</b>
+  <table style="margin-top:10px">
+    <tr><th>口径</th><th>单镜</th><th>定义</th><th>用途</th></tr>
+    <tr><td><b>A · 热态批处理</b></td><td><b>约 550 s</b></td><td>同进程连跑、权重已驻留</td><td><b>凡排期一律用这个</b></td></tr>
+    <tr><td>C · 每镜冷启</td><td>约 2400 s</td><td>每镜都把 45 GB 权重从磁盘重读</td><td>反事实<b>上界</b>，不要用于排期</td></tr>
+  </table>
+</div>
+
+<h3>v0.36.0 升级带来的实测收益</h3>
+<table>
+  <tr><th>指标</th><th>升级前<br>commit f42b24e / kitchen 0.2.33</th><th>升级后<br>v0.36.0 / kitchen 0.2.34</th><th>收益</th></tr>
+  <tr><td>模型初始化与冷加载</td><td>128.2 s</td><td><b>96.8 s</b></td><td>−24.5%</td></tr>
+  <tr><td>单步扩散采样</td><td>131.1 s / step</td><td><b>94.3 s / step</b></td><td><b>−28.1%</b></td></tr>
+  <tr><td>4 步采样合计</td><td>527.0 s</td><td><b>377.0 s</b></td><td>省 150 s</td></tr>
+  <tr><td>单镜端到端</td><td>590.7 s</td><td><b>469.3 s</b></td><td><b>−20.5%</b></td></tr>
+  <tr><td>全量 24 镜</td><td>约 2.0 h</td><td><b>约 1.56 h</b></td><td>净省 26 分钟</td></tr>
+</table>
+<p style="font-size:13.5px;color:var(--ink2)">机理：CausalConv3d 的 Norm/SiLU/Pad 融合进
+<code>ck.group_norm_silu_pad3d</code>，RMSNorm+RoPE 融合进 <code>ck.rms_rope_split_half</code>，
+INT8 GEMM epilogue 融合 SwiGLU/residual，动态瓦片解码支持至多 4 tiles 并发。</p>
+
+<h3>哪些加速已经被实测否决</h3>
+<table>
+  <tr><th>手段</th><th>结论</th><th>证据</th></tr>
+  <tr><td>SageAttention / flash_attn / xformers</td><td><b>全 NaN</b></td><td><code>--use-sage-attention</code> 后 <code>ValueError: nonfinite IMAGE</code>；int8_convrot 管线对注意力数值精度敏感</td></tr>
+  <tr><td><code>--fast</code> 启动参数</td><td>更慢</td><td>SM80 无原生 FP8，冷启 472 s，热态无收益</td></tr>
+  <tr><td>降步数</td><td>已到下限</td><td>4 步已是 Turbo LoRA 的最低档</td></tr>
+  <tr><td>FP8 / NVFP4 权重</td><td>不可用</td><td>需 sm89+；低于此自动回退 bf16 反量化，无收益</td></tr>
+  <tr><td>VSA 稀疏注意力</td><td>不可用</td><td>官方仅 T2VA，原生核只到 sm_100a/sm_103a（Blackwell）</td></tr>
+  <tr><td>单任务双卡（SP=2）</td><td>更慢</td><td>24 镜预估 2.4 h &gt; 双实例 1.56 h</td></tr>
+</table>
+
+<h2 id="s12">12 · 验收清单</h2>
+
+<div class="card ok">
+  <p style="margin:0 0 8px"><b>跑 <code>bash deploy/bootstrap/verify.sh</code>，下面每一条都应显示 OK：</b></p>
+  <ul style="margin:0">
+    <li>8188 / 8189 都返回 HTTP 200，且 <code>/queue</code> 为空<br>
+      <span style="color:var(--ink3)">（单卡机器上只查 8188；<code>verify.sh</code> 已按卡数自适应，
+      不会再因为 8189 未启动而误报 FAIL）</span></li>
+    <li>6 个权重文件都在位、大小正确（<code>numfmt</code> 显示 GB 级而非 B 级）</li>
+    <li>工作流里 <code>LoadAudio</code> / <code>LoadImage</code> 引用的路径都能在 <code>input/</code> 下找到</li>
+    <li>3 个自定义节点目录存在且 commit 正确</li>
+    <li><code>ffmpeg</code> 可执行（T8 存 H.264 依赖）</li>
+    <li><code>torch.cuda.is_available()</code> 为真</li>
+    <li><code>/root/s2/submit_api.py</code> 存在</li>
+  </ul>
+</div>
+
+<p>再加 <code>--run</code> 参数会真出一镜（约 10 分钟，含冷启）。<b>这是唯一能证明"真的能出片"的方法</b>——
+静态检查全绿但真跑出错的情况，通常就是权重路径或节点版本问题。</p>
+
+<h3>出片后的产品侧验收</h3>
+<ul>
+  <li>成片不烧字幕，<code>.srt</code> / <code>.vtt</code> 同名同目录外挂交付</li>
+  <li>字幕绝对时间 = <b>Σ 前序镜实际时长</b>，不是 (镜号−1)×单镜时长</li>
+  <li>禁字三层防线：prompt 里的 <code>NO_TEXT_CLAUSE</code> → <code>build.py</code> 终检（缺锚点直接 SystemExit）→ <code>scan_text_band.py</code> 目视</li>
+  <li>一步直出<b>不经过 LTX trim</b>，成片时长 = H3 帧数 ÷ 24；<code>duration</code> 必须存 H3 值</li>
+  <li>H3 的 <code>length</code> 只接受 <b>17n+5</b>（向上吸附），禁止填任意秒数</li>
+</ul>
+
+<h2 id="s13">13 · 本机侧要什么</h2>
+
+<table>
+  <tr><th>项</th><th>说明</th></tr>
+  <tr><td>ssh 别名</td><td><code>~/.ssh/config</code> 里配 <code>Host</code> / <code>HostName</code> / <code>User root</code> / <code>IdentityFile ~/.ssh/xxx.pem</code></td></tr>
+  <tr><td>私钥</td><td><code>~/.ssh/*.pem</code>。<b>仓库里曾出现 <code>kehu-JiangLong.pem</code>，那是私钥，已在 .gitignore 拦截，也别留在仓库目录里</b></td></tr>
+  <tr><td>⚠ 透明代理</td><td>Clash Verge 等的 TUN 模式会把境外 IP 的 22 端口掐断，症状 <code>Connection closed by &lt;IP&gt; port 22</code>。一分钟判别：<code>ping 8.8.8.8</code> 只有 0.25 ms（比自家路由器还快）= 被本地 TUN 代答。诊断脚本：<code>~/.workbuddy/skills/ssh-tun-hijack-diagnosis/diag.sh &lt;IP&gt; &lt;别名&gt;</code></td></tr>
+  <tr><td>Python</td><td>本机脚本用系统 <code>python3</code> 即可。<b>不要</b>在本机装 torch</td></tr>
+  <tr><td>剪辑</td><td>剪映专业版 11.4.0/11.4.2 + <code>repos/jianying-headless</code>（要 Apple Silicon）</td></tr>
+  <tr><td>5 个 submodule</td><td>hypit / FastVideo / jianying-headless / reelbench-skills / TaoMate-H3 —— <b>都是本机侧工具，GPU 服务器上不需要</b></td></tr>
+</table>
+
+<div class="foot">
+  <b>相关文档</b><br>
+  · <code>deploy/README.md</code> — 本手册的精简可执行版（给 Agent 读）<br>
+  · <code>deploy/bootstrap/</code> — 7 个可执行脚本（体检 / 系统 / 栈 / 权重 / 启动 / 推送 / 验收）<br>
+  · <code>docs/h3-acceleration-2xa100.md</code> — 加速路线盘点（哪些有用、哪些实测否决）<br>
+  · <code>docs/h3-1080p-quality-research.md</code> — 分辨率与画质路径<br>
+  · <code>待生成_现代婚姻三部曲/AGENTS.md</code> — 生产规则与剧本硬标准<br>
+  · <code>h3-films/A100优化执行清单.md</code> — 计时口径与优化杠杆<br>
+  · <code>.workbuddy/memory/</code> — 跨会话项目记忆（硬件门控判据、踩坑记录）<br>
+  <br>
+  本文档由旧服务器 <code>kehu</code> 的实机侦察生成（2026-09-19），所有路径、版本号、commit
+  与文件大小均来自实际读取，非推测。
+</div>
+
+</div>
+</body>
+</html>

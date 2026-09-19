@@ -1,0 +1,212 @@
+{
+ "1": {
+  "class_type": "UNETLoader",
+  "inputs": {
+   "unet_name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+   "weight_dtype": "default"
+  }
+ },
+ "2": {
+  "class_type": "LoraLoaderBypassModelOnly",
+  "inputs": {
+   "lora_name": "minimax_h3_turbo_v4_step600_ema_pruned_comfyui.safetensors",
+   "strength_model": 1.0,
+   "model": [
+    "1",
+    0
+   ]
+  }
+ },
+ "3": {
+  "class_type": "CLIPLoader",
+  "inputs": {
+   "clip_name": "minimax_h3/qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+   "type": "minimax",
+   "device": "default"
+  }
+ },
+ "4": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+  }
+ },
+ "5": {
+  "class_type": "VAELoader",
+  "inputs": {
+   "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+  }
+ },
+ "6": {
+  "class_type": "MiniMaxH3AudioConditioningT8",
+  "inputs": {
+   "prompt": "<Audio 1> carries the original soundtrack of this scene: the actors' real voices, ambience and music. Keep the visual timing, phrasing, lip movement and performance locked to <Audio 1> exactly. Follow the shot description below exactly.\n\nintegrated_multimodal_description:\n[00:00.000 – 00:04.792] Medium long shot through the rain-slicked front windshield of an urban city taxi at a flooded intersection. Amber streetlights and neon signs dissolve into glistening reflections on wet asphalt.\n[00:04.792 – 00:09.583] Two black rubber wipers sweep smoothly across the glass. On the sidewalk, <Subject 1> (S1) on the rain-swept sidewalk in profile facing frame-left, the 32-year-old slender groom in tailored charcoal wool coat and spectacles, opens a large clean black umbrella, turns his calm face into the night breeze, and exhales a faint mist, murmuring with profound liberation in Chinese, the words dissolving into the rain\n[00:09.583 – 00:14.375] <Subject 1> (S1) strides forward along the rain-swept sidewalk with composed, unhurried steps, disappearing gracefully into the luminous night rain as the scene fades smoothly into pure black, His shoulders drop as he exhales a long breath, the tension draining from his jaw and neck, a faint smile flickering at his lips then settling into something close to peace, cinematic 16:9 widescreen, ARRI Alexa look, shallow depth of field, fine film grain, naturalistic lighting, photorealistic, no subtitles, no captions, no on-screen text, no watermark, no logo.\n\noverall_soundscape:\nRhythmic rubber squeak of windshield wipers on glass, soothing patter of raindrops against umbrella fabric, distant city traffic hiss. No background speech.\n\nnon_diegetic_music:\nA serene, bittersweet neo-classical piano and string resolution, evoking pure liberation and clean solitude.\n\nstrict_output_constraints: Absolutely no subtitles, no captions, no burned-in text, no on-screen text of any kind, no watermark, no logo, no timestamp, no UI overlay, no lower-third. Any paper, document, lettering, signage, label or screen appearing in frame must render as completely illegible abstract marks — no readable characters, digits or words in any language whatsoever. Text-bearing props are set dressing only and must never be legible.",
+   "width": 768,
+   "height": 1344,
+   "length": [
+    "14",
+    1
+   ],
+   "task_type": "auto",
+   "audio_mode": "lock_source",
+   "audio_denoise_strength": 0.0,
+   "add_source_as_reference": true,
+   "prompt_primary_audio_ordinal": 1,
+   "strict_prompt_tags": true,
+   "ref_image_size": "match",
+   "reference_video_policy": "official_2_to_15s",
+   "clip": [
+    "3",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ],
+   "drive_audio": [
+    "14",
+    0
+   ]
+  }
+ },
+ "7": {
+  "class_type": "MiniMaxH3DualClockSamplerT8",
+  "inputs": {
+   "steps": 4,
+   "shift_video": 12.0,
+   "shift_audio": 3.0,
+   "sampler_name": "dual_clock_euler",
+   "scheduler": "native_flow",
+   "model": [
+    "2",
+    0
+   ],
+   "av_latent": [
+    "6",
+    1
+   ]
+  }
+ },
+ "8": {
+  "class_type": "BasicGuider",
+  "inputs": {
+   "model": [
+    "7",
+    0
+   ],
+   "conditioning": [
+    "6",
+    0
+   ]
+  }
+ },
+ "9": {
+  "class_type": "RandomNoise",
+  "inputs": {
+   "noise_seed": 20260978
+  }
+ },
+ "10": {
+  "class_type": "SamplerCustomAdvanced",
+  "inputs": {
+   "noise": [
+    "9",
+    0
+   ],
+   "guider": [
+    "8",
+    0
+   ],
+   "sampler": [
+    "7",
+    1
+   ],
+   "sigmas": [
+    "7",
+    2
+   ],
+   "latent_image": [
+    "6",
+    1
+   ]
+  }
+ },
+ "11": {
+  "class_type": "MiniMaxH3AVDecodeT8",
+  "inputs": {
+   "av_latent": [
+    "10",
+    0
+   ],
+   "video_vae": [
+    "4",
+    0
+   ],
+   "audio_vae": [
+    "5",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "MiniMaxH3SafeAVSaveT8Advanced",
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ],
+   "audio": [
+    "15",
+    1
+   ],
+   "filename_prefix": "MiniMaxH3/trilogy_one/f3_s08",
+   "crf": 19
+  }
+ },
+ "13": {
+  "class_type": "LoadAudio",
+  "inputs": {
+   "audio": "tts_dry/trilogy/f3_s08_dry.wav"
+  }
+ },
+ "14": {
+  "class_type": "MiniMaxH3AudioWindowT8",
+  "inputs": {
+   "scene_start_seconds": 0.0,
+   "scene_duration_seconds": 14.375,
+   "warmup_seconds": 0.0,
+   "cooldown_seconds": 0.0,
+   "ensure_minimum_context": true,
+   "audio": [
+    "13",
+    0
+   ]
+  }
+ },
+ "15": {
+  "class_type": "MiniMaxH3OutputTrimT8",
+  "inputs": {
+   "start_seconds": [
+    "14",
+    2
+   ],
+   "duration_seconds": [
+    "14",
+    3
+   ],
+   "fps": 24,
+   "frames": [
+    "11",
+    0
+   ],
+   "audio": [
+    "6",
+    2
+   ]
+  }
+ }
+}
