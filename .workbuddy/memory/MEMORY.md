@@ -3,13 +3,12 @@
 > ★ **完整判据在 `DETAIL.md`**（本文件是索引，超限会被截断，别往这里堆细节）。
 > 生产规则 → `待生成_现代婚姻三部曲/AGENTS.md`（§零 硬标准 / §二 栅格 / §八 坑位 17 条）
 > 出片 → 技能 `h3-key-shot-batch`；拆解/下载/验收 → `video-breakdown` / `douyin-download` / `acceptance-doc`
-> 换机 → `deploy/README.md` + `docs/{新服务器,单卡A100}部署手册.html`
-> ⚠ 工程里残留 `/Users/hejianglong/...` 旧机路径（本机是 `jianglong`）→ 直接跑 file not found
+> 换机 → `deploy/README.md` + `docs/{新服务器,单卡A100}部署手册.html`；流程+加速 → `docs/H3生成流程与加速白皮书.html`
+> ⚠ 工程里残留 `/Users/hejianglong/...` 旧机路径（本机 `jianglong`）→ file not found
 
 ## 当前状态（2026-09-19）
 
-373 镜复刻 = `videos/douyin_refs/2026-09-18/_remake/`。★ **全量进度仅 12/373**，其余 361 镜未开始；
-`dy1_s009/s010` 有 `.lock` 残留 → 会被静默跳过，接手前先清。三部曲跑了 f1s01/f2。
+373 镜复刻 = `videos/douyin_refs/2026-09-18/_remake/`。★ **全量进度仅 12/373**，其余 361 镜未开始。三部曲跑了 f1s01/f2。
 kehu 将关停；迁移包 `deploy/`（单卡版 `single-gpu/`）**已逐文件 md5 核对：1413 文件 0 漏拉 0 损坏**。
 
 ## ★★★ 剧本硬标准（用户：「以后的剧本都要这么要求」）
@@ -24,6 +23,7 @@ kehu 将关停；迁移包 `deploy/`（单卡版 `single-gpu/`）**已逐文件 
 ## ★★ 四条实测铁律
 
 1. **步数不是杠杆**：4/6/8/12 步 SSIM 非单调 → **保持 4 步**，省下的时间换多 seed。
+   ★ **全量线 `wf_full/` = 单图(16 节点)+4 步；Hybrid 三图(18 节点)+8 步只用于试点/关键镜**，别搞混。
 2. **Hybrid 双端钉帧只保证首尾**，中段仍漂 → 推镜倾向压过 prompt 措辞。
 3. **关键镜提示词必须人工写**：`build_directing.py` 动作池与镜头**大量错配**、EN 译文会幻觉；
    **角色与关系要显式写进 `<Characters and their relationship>` 段**，只写 `speaker` 名无效。
